@@ -8,6 +8,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
   selector: 'app-login',
   imports:[NzFormModule, NzCardModule, FormsModule],
   templateUrl: './login.html',
+  styleUrl: './login.less',
 })
 
 export class LoginComponent {
