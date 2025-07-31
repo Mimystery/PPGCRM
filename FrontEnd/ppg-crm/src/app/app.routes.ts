@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import  { LoginComponent } from './core/auth/pages/login/login';
-import { MainLayoutComponent } from './core/layouts/MainLayout/main-layout';
+import { MainLayoutComponent } from './core/layouts/main-layout/main-layout';
 import { ProjectsComponent } from './features/projects/projects';
 
 export const routes: Routes = [

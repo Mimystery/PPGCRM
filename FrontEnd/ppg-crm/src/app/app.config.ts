@@ -9,6 +9,9 @@ import uk from '@angular/common/locales/uk';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
+import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { BellOutline, MessageOutline, UserOutline } from '@ant-design/icons-angular/icons';
+
 
 registerLocaleData(uk);
 
@@ -16,6 +19,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), provideClientHydration(withEventReplay()), provideNzI18n(uk_UA), importProvidersFrom(FormsModule), provideAnimationsAsync(), provideHttpClient()
+    provideRouter(routes),
+    provideClientHydration(withEventReplay()),
+    provideNzI18n(uk_UA),
+    importProvidersFrom(FormsModule),
+    provideAnimationsAsync(),
+    provideClientHydration(),
+    provideHttpClient(),
+    { provide: NZ_ICONS, useValue: [BellOutline,MessageOutline, UserOutline] }
   ]
 };
