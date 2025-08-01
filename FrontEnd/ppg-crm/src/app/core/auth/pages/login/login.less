@@ -1,3 +1,56 @@
-p {
-  font-size: 100px;
+.login{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg,  rgba(48, 158, 69, 1) 0%, rgba(122, 195, 39, 1) 100%);
+}
+.login-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  height: 100%;
+  padding: 0 5.5vw;
+}
+.login-form {
+  background: white;
+}
+.login-form input{
+  border-radius: 20px;
+}
+.login-form input:hover{
+  border: 1px solid #D9D9D9;
+}
+.login-form input:focus{
+  border: rgba(48, 158, 69, 1) 1px solid;
+  outline: rgba(122, 195, 39, 1) 1px solid;
+}
+
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+  color: rgba(48, 158, 69, 1);
+}
+
+.login-form-button {
+  width: 100%;
+  background: rgba(48, 158, 69, 1);
+  border: none;
+  border-radius: 20px ;
+}
+.login-form-checkbox input[type="checkbox"]:focus, .login-form-checkbox input[type="checkbox"]:hover {
+  border-color: rgba(48, 158, 69, 1);
+}
+.login-registration-code{
+  border-radius: 20px;
+}
+.login-registration-code:hover, .login-registration-code:focus{
+  color: rgba(122, 195, 39, 1);
+  border:  rgba(122, 195, 39, 1) 1px solid;
 }
