@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PPGCRM.Core.Enums;
 
 namespace PPGCRM.Core.Models
 {
     public class ProjectModel
     {
-        public ProjectModel(Guid projectId, Guid? clientId, string projectName, string? description, string status, DateTime? startDate, DateTime? endDate, DateTime? constructionWorksStart, decimal? budget, decimal? expenses, 
+        public ProjectModel(Guid projectId, Guid? clientId, string projectName, string? description, ProjectStatus status, DateTime? startDate, DateTime? endDate, DateTime? constructionWorksStart, decimal? budget, decimal? expenses, 
             int progress, bool? isArchived, List<StageModel> stages)
         {
             ProjectId = projectId;
@@ -32,7 +33,7 @@ namespace PPGCRM.Core.Models
         public Guid? ClientId { get; } 
         public string ProjectName { get; }
         public string? Description { get; }
-        public string Status { get; }
+        public ProjectStatus Status { get; }
         public DateTime? StartDate { get; }
         public DateTime? EndDate { get; }
         public DateTime? ConstructionWorksStart { get; }
