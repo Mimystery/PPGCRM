@@ -1,0 +1,39 @@
+<nz-card [nzBodyStyle]="{ padding: '24px' }" class="card">
+  <h2 class="card-title">Project Name</h2>
+  <p class="card-description">Description</p>
+
+  <div class="card-dates">
+    <div>
+      <p class="date-label">From:</p>
+      <p>23.07.2025</p>
+    </div>
+    <div>
+      <p class="date-label">To:</p>
+      <p>15.08.2025</p>
+    </div>
+  </div>
+
+  <div class="card-status">
+    <div class="status-item done">
+      <nz-avatar nzSize="small" nzClass="avatar-done" nzIcon="check"></nz-avatar>
+      <span>2 done</span>
+    </div>
+    <div class="status-item in-progress">
+      <i nz-icon nzType="clock" nzTheme="outline"></i>
+      <span>5 In progress</span>
+    </div>
+    <div class="status-item to-do">
+      <div class="circle-todo"></div>
+      <span>4 to do</span>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-done"></div>
+    <div class="progress-in-progress"></div>
+  </div>
+
+  <div class="card-footer">
+    <button nz-button nzType="default" class="archive-button">Archive</button>
+  </div>
+</nz-card>

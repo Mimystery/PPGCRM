@@ -3,9 +3,11 @@
   nzPlacement="right"
   nzClosable="true"
   nzTitle="IMia tut"
-  (nzOnClose)="visible = false"
+  (nzOnClose)="handleClose()"
   [nzWidth]="320"
 >
+  <ng-container *nzDrawerContent>
+
   <div class="project-card">
     <p><strong>Project Alpha</strong></p>
     <p>Client: Acme Corporation</p>
@@ -30,18 +32,7 @@
     <nz-divider></nz-divider>
   </div>
 
-  <button nz-button nzBlock nzType="default">View All Projects</button>
-
-  <h4>Performance Summary</h4>
-
-  <p>Tasks Completed</p>
-  <nz-progress [nzPercent]="80" [nzStrokeColor]="'#1677ff'"></nz-progress>
-
-  <p>Client Satisfaction</p>
-  <nz-progress [nzPercent]="95" [nzStrokeColor]="'#52c41a'"></nz-progress>
-
-  <p>Team Collaboration</p>
-  <nz-progress [nzPercent]="70" [nzStrokeColor]="'#722ed1'"></nz-progress>
+    <button nz-button nzType="default">View All Projects</button>
 
   <nz-divider></nz-divider>
 
@@ -52,5 +43,5 @@
     <li><a>Help & Support</a></li>
     <li><a style="color: red">Log Out</a></li>
   </ul>
-
+  </ng-container>
 </nz-drawer>
