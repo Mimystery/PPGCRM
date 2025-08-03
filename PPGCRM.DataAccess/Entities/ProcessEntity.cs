@@ -23,7 +23,7 @@ namespace PPGCRM.DataAccess.Entities
         public int SortOrder { get; set; }
         public string Status { get; set; } // e.g., "In Progress", "Completed", "On Hold"
         public int Progress { get; set; } // Percentage from 0 to 100
-        public decimal TotalProcessCost { get; set; }
+        public decimal TotalProcessCost { get; set; } = 0;
         public List<TaskEntity> Tasks { get; set; }
         public List<UserEntity> ResponsibleUsers { get; set; }
     }

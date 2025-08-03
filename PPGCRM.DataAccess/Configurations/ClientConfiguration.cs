@@ -15,7 +15,10 @@ namespace PPGCRM.DataAccess.Configurations
         {
             builder.HasKey(c => c.ClientId);
 
-            builder.HasMany(c => c.Projects).WithOne(p => p.Client).HasForeignKey(p => p.ClientId);
+            builder.HasMany(c => c.Projects).WithOne(p => p.Client)
+                .HasForeignKey(p => p.ClientId);
+
+            builder.Property(c => c.CompanyName).IsRequired();
         }
     }
 }

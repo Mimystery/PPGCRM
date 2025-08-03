@@ -26,4 +26,8 @@
     <Folder Include="Extensions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PPGCRM.DataAccess\PPGCRM.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -15,7 +15,11 @@ namespace PPGCRM.DataAccess.Configurations
         {
             builder.HasKey(p => p.ProjectId);
 
-            builder.HasMany(p => p.Stages).WithOne(s => s.Project).HasForeignKey(s => s.ProjectId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(p => p.Stages).WithOne(s => s.Project)
+                .HasForeignKey(s => s.ProjectId).OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(p => p.ProjectName).IsRequired();
+            builder.Property(p => p.Status).IsRequired();
         }
     }
 }
