@@ -22,8 +22,10 @@
 
   <ItemGroup>
     <Folder Include="Authentication\" />
-    <Folder Include="Mappings\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PPGCRM.DataAccess\PPGCRM.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using PPGCRM.Application.Mappings;
+using PPGCRM.Application.Services;
+using PPGCRM.Core.Abstractions;
 using PPGCRM.DataAccess;
+using PPGCRM.DataAccess.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +15,17 @@ builder.Services.AddDbContext<CRMDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(CRMDbContext)));
 });
 
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies());
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
+builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
+builder.Services.AddScoped<IProjectsService, ProjectsService>();
 
 var app = builder.Build();
 
