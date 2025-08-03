@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PPGCRM.DataAccess.Entities;
 
 namespace PPGCRM.DataAccess
 {
@@ -19,5 +20,12 @@ namespace PPGCRM.DataAccess
         }
         // Define DbSets for your entities
         // public DbSet<YourEntity> YourEntities { get; set; }
+        public DbSet<ClientEntity> Clients { get; set; }
+        public DbSet<ProjectEntity> Projects { get; set; }
+        public DbSet<StageEntity> Stages { get; set; }
+        public DbSet<ProcessEntity> Processes { get; set; }
+        public DbSet<TaskEntity> Tasks { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+
     }
 }

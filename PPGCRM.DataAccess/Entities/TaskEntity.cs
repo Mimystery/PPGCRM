@@ -8,5 +8,10 @@ namespace PPGCRM.DataAccess.Entities
 {
     public class TaskEntity
     {
+        public Guid TaskId { get; set; }
+        public Guid ProcessId { get; set; }
+        public ProcessEntity Process { get; set; } = null!; // Navigation property for the process
+        public string TaskName { get; set; }
+        public bool IsDone { get; set; } = false;
     }
 }

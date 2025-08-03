@@ -14,7 +14,7 @@ namespace PPGCRM.DataAccess.Entities
         public ClientEntity? Client { get; set; } // Navigation property for the client
         public string ProjectName { get; set; } = string.Empty;
         public string? Description { get; set; }
-        public ProjectStatus Status { get; set; }
+        public string Status { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public DateTime? ConstructionWorksStart { get; set; }

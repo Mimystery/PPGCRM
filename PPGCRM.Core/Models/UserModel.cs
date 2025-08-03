@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PPGCRM.Core.Enums;
 
 namespace PPGCRM.Core.Models
 {
     public class UserModel
     {
-        public UserModel(Guid userId, string userName, string password, string firstName, string lastName, string? email, string? phone, decimal salary)
+        public UserModel(Guid userId, string userName, string password, string firstName, string lastName, string? email, string? phone, Role role, decimal salary)
         {
             UserId = userId;
             UserName = userName;
@@ -17,6 +18,7 @@ namespace PPGCRM.Core.Models
             LastName = lastName;
             Email = email;
             Phone = phone;
+            Role = role;
             Salary = salary;
         }
         public Guid UserId { get; }
@@ -26,7 +28,7 @@ namespace PPGCRM.Core.Models
         public string LastName { get; }
         public string Email { get; }
         public string Phone { get; }
-        //public string Role { get; } // e.g., "Admin", "GIP", "Employee"
+        public Role Role { get; } // e.g., "Admin", "GIP", "Employee"
         public decimal Salary { get; }
     }
 }

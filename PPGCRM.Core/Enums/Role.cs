@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PPGCRM.DataAccess.Entities
+namespace PPGCRM.Core.Enums
 {
-    public class ProcessUserEntity
+    public enum Role
     {
+        Admin,
+        GIP,
+        Employee,
     }
 }
