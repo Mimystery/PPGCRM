@@ -36,3 +36,6 @@ nz-header {
 nz-footer {
   text-align: center;
 }
+.header-username-button:focus{
+  color: black;
+}

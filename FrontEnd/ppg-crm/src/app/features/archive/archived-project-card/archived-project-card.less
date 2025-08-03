@@ -1,49 +1,51 @@
-.project-card {
+.archived-project-card {
   width: 26.5vw;
-  //height: 24.8vh;
   border-radius: 10px;
   font-size: 1.8vh;
 }
 
-.project-card-title {
+.archived-project-card-title {
   font-size: 1.8vh;
   font-weight: 600;
   color: #1f2937;
 }
 
-.project-card-description {
+.archived-project-card-description {
   font-size: 1.8vh;
   height: 6vh;
   color: #4b5563;
 }
 
-.project-card-dates {
+.archived-project-card-dates {
   display: flex;
   justify-content: start;
   gap: 2vw;
   color: #374151;
-  .project-card-date {
+
+  .archived-project-card-date {
     display: flex;
     flex-direction: column;
   }
-  .project-date-label {
+
+  .archived-project-date-label {
     font-weight: 600;
   }
 }
 
-.project-card-status {
+.archived-project-card-status {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 2vw;
 
-  .project-status-item {
+  .archived-project-status-item {
     display: flex;
     align-items: center;
 
-    span{
+    span {
       padding: 0 0.25vw;
     }
+
     &.done .avatar-done {
       background-color: black;
       color: white;
@@ -55,39 +57,16 @@
 
     &.to-do {
       color: #6b7280;
-
     }
   }
 }
 
-.progress-bar {
-  width: 100%;
-  height: 0.5rem;
-  background-color: #d1d5db;
-  border-radius: 9999px;
-  margin-bottom: 1rem;
-
-  .progress-done {
-    height: 100%;
-    width: 20%;
-    background-color: #00E007;
-    border-top-left-radius: 9999px;
-    border-bottom-left-radius: 9999px;
-  }
-
-  .progress-in-progress {
-    height: 100%;
-    width: 50%;
-    background-color: #FFA220;
-  }
-}
-
-.project-card-footer {
+.archived-project-card-footer {
   text-align: right;
 
-  .project-archive-button {
+  .archived-project-archive-button {
     padding: 0 2.5vw;
-    background-color: #FF9500;
+    background-color: #00C040;
     border: none;
     border-radius: 20px;
     height: 5.2vh;

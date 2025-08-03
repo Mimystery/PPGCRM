@@ -1,16 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzProgressModule } from 'ng-zorro-antd/progress';
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { NzButtonModule } from 'ng-zorro-antd/button';
+import {Component, Input} from '@angular/core';
+import {NzCardModule} from 'ng-zorro-antd/card';
+import {NzBadgeModule} from 'ng-zorro-antd/badge';
+import {NzProgressModule} from 'ng-zorro-antd/progress';
+import {NzAvatarModule} from 'ng-zorro-antd/avatar';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+
 @Component({
-  selector: 'app-project-card',
+  selector: 'app-archived-project-card',
   imports: [NzCardModule, NzBadgeModule,NzProgressModule, NzAvatarModule, NzButtonModule],
-  templateUrl: './project-card.html',
-  styleUrl: './project-card.less'
+  templateUrl: './archived-project-card.html',
+  styleUrl: './archived-project-card.less'
 })
-export class ProjectCardComponent {
+export class ArchivedProjectCardComponent {
   @Input() title = 'Project Name';
   @Input() description = 'Description';
   @Input() startDate = '23.07.2025';
