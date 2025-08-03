@@ -1,13 +1,13 @@
-<div class="projects-header">
+<div class="page-header">
 
   <!-- HEADER LEFT SECTION WITH BUTTONS -->
 
-  <div class="projects-header-left">
-    <button nz-button nzType="default" class="projects-header-btn create">
+  <div class="page-header-left">
+    <button nz-button nzType="default" class="page-header-btn create">
       <nz-icon nzType="plus" nzTheme="outline" />
       Create new project
     </button>
-    <button nz-button nzType="default" class="projects-header-btn active">
+    <button nz-button nzType="default" class="page-header-btn active">
       <nz-icon>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11.3333 11.3333V4.66667" stroke="#00C040" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -18,7 +18,7 @@
       </nz-icon>
       Active projects
     </button>
-    <button nz-button nzType="default" class="projects-header-btn archive">
+    <button nz-button nzType="default" class="page-header-btn archive">
       <nz-icon>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M14.6667 2.99999V13C14.6667 13.9205 13.9205 14.6667 13 14.6667H3C2.07952 14.6667 1.33333 13.9205 1.33333 13V2.99999C1.33333 2.07952 2.07952 1.33333 3 1.33333H13C13.9204 1.33333 14.6666 2.07952 14.6667 2.99999Z" stroke="#FFA220" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -31,7 +31,7 @@
 
   <!-- SEARCH BAR -->
 
-  <nz-input-group [nzSuffix]="suffixIconSearch" class="projects-header-search">
+  <nz-input-group [nzSuffix]="suffixIconSearch" class="page-header-search projects">
   <input type="text" nz-input placeholder="Search Projects" />
   </nz-input-group>
   <ng-template #suffixIconSearch>
@@ -40,6 +40,6 @@
 </div>
 
 <!-- PROJECTS TABLE -->
-<div class="projects-table">
+<div class="flex-table">
   <app-project-card></app-project-card>
 </div>

@@ -2,3 +2,104 @@
 @import "../node_modules/ng-zorro-antd/ng-zorro-antd.less";
 
 @primary-color: rgba(122, 195, 39, 1);
+
+/**************************************************
+ GLOBAL STYLES, APPLIED TO THE ENTIRE APPLICATION
+PAGE HEADER BASIC STYLES, COMMON ON ALMOST EVERY PAGE
+****************************************************/
+.page-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #f0f2f5;
+}
+.page-header-left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5vw;
+}
+.page-header-search{
+  height: 5.2vh;
+  width: 26vw;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0px 4px 4px 0px rgba(66, 68, 90, 25%);
+}
+
+.page-header-btn{
+  height: 5.2vh;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0px 4px 4px 0px rgba(66, 68, 90, 25%);
+}
+.page-header-btn.create {
+  color: white;
+  background: #008CFF;
+}
+.page-header-btn.active {
+  color: #00C040;
+}
+
+.page-header-btn.archive {
+  color: #FFA220;
+}
+
+/**************************************************************
+ CONTENT STYLES, COMMON ON ALMOST EVERY PAGE, TABLES, CARDS, ETC.
+**************************************************************/
+.flex-table{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  gap:1vw;
+  padding: 0 1vw;
+  height: 70vh;
+}
+
+nz-card, .card{
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(66, 68, 90, 25%);
+
+}
+.card-title {
+  font-size: 1.8vh;
+  font-weight: 600;
+}
+.card-info-container{
+  display: flex;
+  justify-content: start;
+  gap: 2vw;
+  .card-info-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-info-label {
+    font-weight: 600;
+  }
+}
+.card-status{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2vw;
+
+  display: flex;
+  align-items: center;
+
+  span{
+    padding: 0 0.25vw;
+  }
+}
+.card-footer{
+  text-align: right;
+}
+.card-button{
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+}
