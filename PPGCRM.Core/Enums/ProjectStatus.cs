@@ -13,6 +13,6 @@ namespace PPGCRM.Core.Enums
         Paused,      
         Expired,     
         Done,
-        Cancelled,   // Project has been cancelled before completion
+        Cancelled,  
     }
 }

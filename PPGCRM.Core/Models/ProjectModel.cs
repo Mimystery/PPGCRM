@@ -11,7 +11,9 @@ namespace PPGCRM.Core.Models
 {
     public class ProjectModel
     {
-        public ProjectModel(Guid projectId, Guid? clientId, string projectName, string? description, ProjectStatus status, DateTime? startDate, DateTime? endDate, DateTime? constructionWorksStart, decimal? budget, decimal? expenses, 
+        public ProjectModel(Guid projectId, Guid? clientId, string projectName, string? description, 
+            ProjectStatus status, DateTime? startDate, DateTime? endDate,
+            DateTime? constructionWorksStart, decimal? budget, decimal? expenses, 
             int progress, bool? isArchived, List<StageModel> stages)
         {
             ProjectId = projectId;

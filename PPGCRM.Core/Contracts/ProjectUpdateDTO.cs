@@ -5,23 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using PPGCRM.Core.Enums;
 
-namespace PPGCRM.DataAccess.Entities
+namespace PPGCRM.Core.Contracts
 {
-    public class ProjectEntity
+    public class ProjectUpdateDTO
     {
         public Guid ProjectId { get; set; }
         public Guid? ClientId { get; set; }
-        public ClientEntity? Client { get; set; } // Navigation property for the client
-        public string ProjectName { get; set; } = string.Empty;
+        public string? ProjectName { get; set; }
         public string? Description { get; set; }
-        public string? Status { get; set; }
+        public ProjectStatus? Status { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public DateTime? ConstructionWorksStart { get; set; }
-        public decimal? Budget { get; set; } 
+        public decimal? Budget { get; set; }
         public decimal? Expenses { get; set; }
-        public int Progress { get; set; } = 0; // Percentage from 0 to 100
+        public int? Progress { get; set; }
         public bool? IsArchived { get; set; } = false;
-        public List<StageEntity> Stages { get; set; } = new();
     }
 }

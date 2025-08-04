@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using PPGCRM.Core.Contracts;
 using PPGCRM.Core.Models;
 using PPGCRM.DataAccess.Entities;
 
@@ -14,6 +15,7 @@ namespace PPGCRM.Application.Mappings
         public ProjectMappingProfile()
         {
             CreateMap<ProjectEntity, ProjectModel>();
+            CreateMap<ProjectModel, ProjectEntity>();
         }
     }
 }
