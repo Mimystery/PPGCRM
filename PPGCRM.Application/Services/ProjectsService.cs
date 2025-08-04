@@ -54,5 +54,15 @@ namespace PPGCRM.Application.Services
 
             await _projectsRepository.AddProjectAsync(projectModel);
         }
+
+        public async Task UpdateProjectAsync(Guid projectId, ProjectUpdateDTO projectUpdateDto)
+        {
+            await _projectsRepository.UpdateProjectAsync(projectId, projectUpdateDto);
+        }
+
+        public async Task DeleteProjectAsync(Guid projectId)
+        {
+            await _projectsRepository.DeleteProjectAsync(projectId);
+        }
     }
 }

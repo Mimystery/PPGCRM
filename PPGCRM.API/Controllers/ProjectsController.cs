@@ -12,6 +12,7 @@ namespace PPGCRM.API.Controllers
     {
         private readonly IProjectsService _projectsService;
         private readonly IMapper _mapper;
+
         public ProjectsController(IProjectsService projectsService, IMapper mapper)
         {
             _mapper = mapper;
@@ -24,6 +25,7 @@ namespace PPGCRM.API.Controllers
             var projects = await _projectsService.GetAllProjectsOnlyAsync();
             return Ok(projects);
         }
+
         [HttpGet("ProjectOnly/{projectId}")]
         public async Task<ActionResult<ProjectModel>> GetProjectOnlyById(Guid projectId)
         {
@@ -32,6 +34,7 @@ namespace PPGCRM.API.Controllers
             {
                 return NotFound();
             }
+
             return Ok(project);
         }
 
@@ -43,6 +46,7 @@ namespace PPGCRM.API.Controllers
             {
                 return NotFound();
             }
+
             return Ok(project);
         }
 
@@ -50,6 +54,20 @@ namespace PPGCRM.API.Controllers
         public async Task<ActionResult> AddProjectAsync([FromBody] ProjectCreateDTO projectCreateDto)
         {
             await _projectsService.AddProjectAsync(projectCreateDto);
+            return Ok();
+        }
+
+        [HttpPut("UpdateProject/{projectId}")]
+        public async Task<ActionResult> UpdateProjectAsync(Guid projectId, [FromBody] ProjectUpdateDTO projectUpdateDto)
+        {
+            await _projectsService.UpdateProjectAsync(projectId, projectUpdateDto);
+            return Ok();
+        }
+
+        [HttpDelete("DeleteProject/{projectId}")]
+        public async Task<ActionResult> DeleteProjectAsync(Guid projectId)
+        {
+            await _projectsService.DeleteProjectAsync(projectId);
             return Ok();
         }
     }

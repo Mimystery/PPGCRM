@@ -9,17 +9,16 @@ namespace PPGCRM.Core.Contracts
 {
     public class ProjectUpdateDTO
     {
-        public Guid ProjectId { get; set; }
-        public Guid? ClientId { get; set; }
-        public string? ProjectName { get; set; }
-        public string? Description { get; set; }
-        public ProjectStatus? Status { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public DateTime? ConstructionWorksStart { get; set; }
-        public decimal? Budget { get; set; }
-        public decimal? Expenses { get; set; }
-        public int? Progress { get; set; }
-        public bool? IsArchived { get; set; } = false;
+        public Guid? ClientId { get; set; } = null;
+        public string? ProjectName { get; set; } = null;
+        public string? Description { get; set; } = null;
+        public ProjectStatus? Status { get; set; } = null;
+        public DateTime? StartDate { get; set; } = null;
+        public DateTime? EndDate { get; set; } = null;
+        public DateTime? ConstructionWorksStart { get; set; } = null;
+        public decimal? Budget { get; set; } = null;
+        public decimal? Expenses { get; set; } = null;
+        public int? Progress { get; set; } = null;
+        public bool? IsArchived { get; set; } = null;
     }
 }

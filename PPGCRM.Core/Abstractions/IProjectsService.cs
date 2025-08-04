@@ -14,5 +14,7 @@ namespace PPGCRM.Core.Abstractions
         Task<ProjectModel?> GetProjectOnlyByIdAsync(Guid projectId);
         Task<ProjectModel?> GetAllProjectDetailsById(Guid projectId);
         Task AddProjectAsync(ProjectCreateDTO projectCreateDto);
+        Task UpdateProjectAsync(Guid projectId, ProjectUpdateDTO projectUpdateDto);
+        Task DeleteProjectAsync(Guid projectId);
     }
 }
