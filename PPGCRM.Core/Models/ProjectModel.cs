@@ -11,13 +11,14 @@ namespace PPGCRM.Core.Models
 {
     public class ProjectModel
     {
-        public ProjectModel(Guid projectId, Guid? clientId, string projectName, string? description, 
+        public ProjectModel(Guid projectId, Guid? clientId, ClientModel client, string projectName, string? description, 
             ProjectStatus status, DateTime? startDate, DateTime? endDate,
             DateTime? constructionWorksStart, decimal? budget, decimal? expenses, 
             int progress, bool? isArchived, List<StageModel> stages)
         {
             ProjectId = projectId;
             ClientId = clientId;
+            Client = client;
             ProjectName = projectName;
             Description = description;
             Status = status;
@@ -32,7 +33,8 @@ namespace PPGCRM.Core.Models
         }
 
         public Guid ProjectId { get; }
-        public Guid? ClientId { get; } 
+        public Guid? ClientId { get; }
+        public ClientModel? Client { get; }
         public string ProjectName { get; }
         public string? Description { get; }
         public ProjectStatus Status { get; }

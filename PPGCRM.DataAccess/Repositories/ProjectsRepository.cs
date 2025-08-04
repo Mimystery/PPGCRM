@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using PPGCRM.Core.Abstractions;
-using PPGCRM.Core.Contracts;
+using PPGCRM.Core.Abstractions.Projects;
+using PPGCRM.Core.Contracts.Project;
+using PPGCRM.Core.Contracts.Projects;
 using PPGCRM.Core.Models;
 using PPGCRM.DataAccess.Entities;
 
@@ -37,7 +38,7 @@ namespace PPGCRM.DataAccess.Repositories
             return _mapper.Map<ProjectModel>(project);
         }
 
-        public async Task<ProjectModel?> GetAllProjectDetailsById(Guid projectId)
+        public async Task<ProjectDetailsDTO?> GetAllProjectDetailsById(Guid projectId)
         {
             var project = await _context.Projects
                 .Include(p => p.Client)
@@ -45,7 +46,7 @@ namespace PPGCRM.DataAccess.Repositories
                     .ThenInclude(s => s.Processes)
                 .FirstOrDefaultAsync(p => p.ProjectId == projectId);
 
-            return _mapper.Map<ProjectModel>(project);
+            return _mapper.Map<ProjectDetailsDTO>(project);
         }
 
         public async Task AddProjectAsync(ProjectModel projectModel)
@@ -57,7 +58,9 @@ namespace PPGCRM.DataAccess.Repositories
 
         public async Task UpdateProjectAsync(Guid projectId, ProjectUpdateDTO projectUpdateDto)
         {
-            var projectEntity = await _context.Projects.FirstOrDefaultAsync(p => p.ProjectId == projectId);
+            var projectEntity = await _context.Projects
+                .FirstOrDefaultAsync(p => p.ProjectId == projectId);
+
             if (projectEntity == null)
             {
                 throw new KeyNotFoundException($"Project with ID {projectId} not found.");

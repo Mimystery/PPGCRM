@@ -2,7 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PPGCRM.Application.Mappings;
 using PPGCRM.Application.Services;
-using PPGCRM.Core.Abstractions;
+using PPGCRM.Core.Abstractions.Clients;
+using PPGCRM.Core.Abstractions.Projects;
 using PPGCRM.DataAccess;
 using PPGCRM.DataAccess.Repositories;
 
@@ -27,6 +28,9 @@ builder.Services.AddControllers()
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IClientsRepository, ClientsRepository>();
+builder.Services.AddScoped<IClientsService, ClientsService>();
 
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
 builder.Services.AddScoped<IProjectsService, ProjectsService>();

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using PPGCRM.Core.Contracts;
+using PPGCRM.Core.Contracts.Projects;
 using PPGCRM.Core.Models;
 using PPGCRM.DataAccess.Entities;
 
@@ -16,6 +17,7 @@ namespace PPGCRM.Application.Mappings
         {
             CreateMap<ProjectEntity, ProjectModel>();
             CreateMap<ProjectModel, ProjectEntity>();
+            CreateMap<ProjectEntity, ProjectDetailsDTO>();
         }
     }
 }

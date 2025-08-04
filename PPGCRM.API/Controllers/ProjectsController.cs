@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PPGCRM.Core.Abstractions;
-using PPGCRM.Core.Contracts;
+using PPGCRM.Core.Abstractions.Projects;
+using PPGCRM.Core.Contracts.Project;
+using PPGCRM.Core.Contracts.Projects;
 using PPGCRM.Core.Models;
 
 namespace PPGCRM.API.Controllers
@@ -20,7 +21,7 @@ namespace PPGCRM.API.Controllers
         }
 
         [HttpGet("AllOnly")]
-        public async Task<ActionResult<List<ProjectModel>>> GetAllProjectsOnlyAsync()
+        public async Task<ActionResult<List<ProjectModel>>> GetAllProjectsOnly()
         {
             var projects = await _projectsService.GetAllProjectsOnlyAsync();
             return Ok(projects);
@@ -39,7 +40,7 @@ namespace PPGCRM.API.Controllers
         }
 
         [HttpGet("AllDetails/{projectId}")]
-        public async Task<ActionResult<ProjectModel>> GetAllProjectDetailsById(Guid projectId)
+        public async Task<ActionResult<ProjectDetailsDTO>> GetAllProjectDetailsById(Guid projectId)
         {
             var project = await _projectsService.GetAllProjectDetailsById(projectId);
             if (project == null)
@@ -51,21 +52,21 @@ namespace PPGCRM.API.Controllers
         }
 
         [HttpPost("AddProject")]
-        public async Task<ActionResult> AddProjectAsync([FromBody] ProjectCreateDTO projectCreateDto)
+        public async Task<ActionResult> AddProject([FromBody] ProjectCreateDTO projectCreateDto)
         {
             await _projectsService.AddProjectAsync(projectCreateDto);
             return Ok();
         }
 
         [HttpPut("UpdateProject/{projectId}")]
-        public async Task<ActionResult> UpdateProjectAsync(Guid projectId, [FromBody] ProjectUpdateDTO projectUpdateDto)
+        public async Task<ActionResult> UpdateProject(Guid projectId, [FromBody] ProjectUpdateDTO projectUpdateDto)
         {
             await _projectsService.UpdateProjectAsync(projectId, projectUpdateDto);
             return Ok();
         }
 
         [HttpDelete("DeleteProject/{projectId}")]
-        public async Task<ActionResult> DeleteProjectAsync(Guid projectId)
+        public async Task<ActionResult> DeleteProject(Guid projectId)
         {
             await _projectsService.DeleteProjectAsync(projectId);
             return Ok();

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using PPGCRM.Core.Abstractions.Projects;
+using PPGCRM.Core.Contracts.Project;
+using PPGCRM.Core.Contracts.Projects;
+using PPGCRM.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
-using PPGCRM.Core.Abstractions;
-using PPGCRM.Core.Contracts;
-using PPGCRM.Core.Models;
 
 namespace PPGCRM.Application.Services
 {
@@ -30,7 +31,7 @@ namespace PPGCRM.Application.Services
             return await _projectsRepository.GetProjectOnlyByIdAsync(projectId);
         }
 
-        public async Task<ProjectModel?> GetAllProjectDetailsById(Guid projectId)
+        public async Task<ProjectDetailsDTO?> GetAllProjectDetailsById(Guid projectId)
         {
             return await _projectsRepository.GetAllProjectDetailsById(projectId);
         }
@@ -39,6 +40,7 @@ namespace PPGCRM.Application.Services
         {
             var projectModel = new ProjectModel(
                 Guid.NewGuid(),
+                null,
                 null,
                 projectCreateDto.ProjectName,
                 null,

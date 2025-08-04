@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PPGCRM.Core.Enums;
 
-namespace PPGCRM.Core.Contracts
+namespace PPGCRM.Core.Contracts.Project
 {
     public class ProjectCreateDTO
     {
