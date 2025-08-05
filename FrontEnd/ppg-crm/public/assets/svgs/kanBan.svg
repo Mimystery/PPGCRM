@@ -1,0 +1,8 @@
+<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg" id="kanBan">
+<path d="M12.5 9.5C13.3284 9.5 14 8.82845 14 8C14 7.17155 13.3284 6.5 12.5 6.5C11.6716 6.5 11 7.17155 11 8C11 8.82845 11.6716 9.5 12.5 9.5Z" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.5 4.25C13.3284 4.25 14 3.57843 14 2.75C14 1.92157 13.3284 1.25 12.5 1.25C11.6716 1.25 11 1.92157 11 2.75C11 3.57843 11.6716 4.25 12.5 4.25Z" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1.25 2.75H8.75" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1.25 8H8.75" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1.25 13.25H8.75" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11 14.9319L12.591 13.341M12.591 13.341L14.1819 11.75M12.591 13.341L11 11.75M12.591 13.341L14.1819 14.9319" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
