@@ -7,12 +7,14 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { UserDrawerComponent } from './user-drawer/user-drawer';
+import { SvgIcon } from "../../svg-icon/svg-icon";
 
 
 
 @Component({
   selector: 'app-main-layout',
-  imports: [NzBreadCrumbModule, NzIconModule, NzMenuModule, NzLayoutModule, NzButtonModule, UserDrawerComponent, RouterOutlet,],
+  imports: [NzBreadCrumbModule, NzIconModule, NzMenuModule, NzLayoutModule, NzButtonModule, UserDrawerComponent, RouterOutlet, SvgIcon],
+  standalone: true,
   templateUrl: './main-layout.html',
   styleUrls: ['./main-layout.css']
 })
@@ -22,4 +24,5 @@ export class MainLayoutComponent {
   closeDrawer = () => {
     this.userDrawerVisible.set(false);
   };
+projectDetails = 'projectDetails';
 }
