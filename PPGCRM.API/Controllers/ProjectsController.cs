@@ -26,6 +26,12 @@ namespace PPGCRM.API.Controllers
             var projects = await _projectsService.GetAllProjectsOnlyAsync();
             return Ok(projects);
         }
+        [HttpGet("AllProjectMainData")]
+        public async Task<ActionResult<List<ProjectMainDTO>>> GetAllProjectMainData()
+        {
+            var projects = await _projectsService.GetAllProjectMainDataAsync();
+            return Ok(projects);
+        }
 
         [HttpGet("ProjectOnly/{projectId}")]
         public async Task<ActionResult<ProjectModel>> GetProjectOnlyById(Guid projectId)

@@ -12,6 +12,7 @@ namespace PPGCRM.Core.Abstractions.Projects
     public interface IProjectsService
     {
         Task<List<ProjectModel>> GetAllProjectsOnlyAsync();
+        Task<List<ProjectMainDTO>> GetAllProjectMainDataAsync();
         Task<ProjectModel?> GetProjectOnlyByIdAsync(Guid projectId);
         Task<ProjectDetailsDTO?> GetAllProjectDetailsById(Guid projectId);
         Task AddProjectAsync(ProjectCreateDTO projectCreateDto);

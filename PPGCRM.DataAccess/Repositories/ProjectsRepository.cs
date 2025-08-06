@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PPGCRM.Core.Abstractions.Projects;
 using PPGCRM.Core.Contracts.Project;
 using PPGCRM.Core.Contracts.Projects;
+using PPGCRM.Core.Enums;
 using PPGCRM.Core.Models;
 using PPGCRM.DataAccess.Entities;
 
@@ -29,6 +30,30 @@ namespace PPGCRM.DataAccess.Repositories
             var projects = await _context.Projects.ToListAsync();
 
             return _mapper.Map<List<ProjectModel>>(projects);
+        }
+
+        public async Task<List<ProjectMainDTO>> GetAllProjectMainDataAsync()
+        {
+            var projects = await _context.Projects
+                .Include(p => p.Stages)
+                .ThenInclude(s => s.Processes).ToListAsync();
+
+            var result = projects.Select(project => new ProjectMainDTO
+            {
+                ProjectId = project.ProjectId,
+                ProjectName = project.ProjectName,
+                Status = Enum.TryParse<ProjectStatus>(project.Status, out var status) ? status : ProjectStatus.NotStarted,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                Progress = project.Progress,
+                IsArchived = project.IsArchived,
+                ProcessCountByStatus = project.Stages
+                    .SelectMany(s => s.Processes)
+                    .GroupBy(p => Enum.TryParse<ProcessStatus>(p.Status, out var result) ? result : ProcessStatus.ToDo)
+                    .ToDictionary(g => g.Key, g => g.Count())
+            }).ToList();
+
+            return result;
         }
 
         public async Task<ProjectModel?> GetProjectOnlyByIdAsync(Guid projectId)

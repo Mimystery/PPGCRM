@@ -26,6 +26,11 @@ namespace PPGCRM.Application.Services
             return await _projectsRepository.GetAllProjectsOnlyAsync();
         }
 
+        public async Task<List<ProjectMainDTO>> GetAllProjectMainDataAsync()
+        {
+            return await _projectsRepository.GetAllProjectMainDataAsync();
+        }
+
         public async Task<ProjectModel?> GetProjectOnlyByIdAsync(Guid projectId)
         {
             return await _projectsRepository.GetProjectOnlyByIdAsync(projectId);
