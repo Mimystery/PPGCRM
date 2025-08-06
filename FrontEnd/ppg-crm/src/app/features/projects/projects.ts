@@ -12,7 +12,7 @@ import { ProjectCardComponent } from './project-card/project-card';
 @Component({
   selector: 'app-projects',
   imports: [NzButtonModule, NzDescriptionsModule, NzPageHeaderModule,
-    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, ProjectCardComponent,],
+    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, ProjectCardComponent],
   templateUrl: './projects.html',
   styleUrl: './projects.css'
 })

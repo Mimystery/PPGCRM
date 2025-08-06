@@ -22,6 +22,7 @@ nz-header {
   padding: 0;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 }
 .header-right{
@@ -33,9 +34,40 @@ nz-header {
   background: none;
   border: 0;
 }
+
+.header-left-block {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-left{
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+}
+
 nz-footer {
   text-align: center;
 }
 .header-username-button:focus{
   color: black;
+}
+
+
+.custom-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+.projects-label {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.active-project {
+  margin: 0 16px;
+  font-size: 14px;
+  white-space: nowrap;
 }

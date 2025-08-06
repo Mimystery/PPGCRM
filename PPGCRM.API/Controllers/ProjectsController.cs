@@ -20,7 +20,7 @@ namespace PPGCRM.API.Controllers
             _projectsService = projectsService;
         }
 
-        [HttpGet("AllOnly")]
+        [HttpGet("AllProjectsOnly")]
         public async Task<ActionResult<List<ProjectModel>>> GetAllProjectsOnly()
         {
             var projects = await _projectsService.GetAllProjectsOnlyAsync();
@@ -39,7 +39,7 @@ namespace PPGCRM.API.Controllers
             return Ok(project);
         }
 
-        [HttpGet("AllDetails/{projectId}")]
+        [HttpGet("AllProjectDetails/{projectId}")]
         public async Task<ActionResult<ProjectDetailsDTO>> GetAllProjectDetailsById(Guid projectId)
         {
             var project = await _projectsService.GetAllProjectDetailsById(projectId);
