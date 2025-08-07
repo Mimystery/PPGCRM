@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
-import { BellOutline, MessageOutline, UserOutline, MailOutline, PlusOutline } from '@ant-design/icons-angular/icons';
+import { BellOutline, MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline, 
+  GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline } from '@ant-design/icons-angular/icons';
 
 
 registerLocaleData(uk);
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideClientHydration(),
     provideHttpClient(),
-    { provide: NZ_ICONS, useValue: [BellOutline,MessageOutline, UserOutline, MailOutline, PlusOutline] }
+    { provide: NZ_ICONS, useValue: [BellOutline,MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline, 
+      GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline] }
   ]
 };

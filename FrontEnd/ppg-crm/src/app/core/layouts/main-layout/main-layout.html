@@ -8,93 +8,48 @@
         <ul nz-menu nzTheme="light" nzMode="inline">
             <li nz-submenu nzTitle="Projects" nzIcon="bars">
                 <ul>
-                    <li nz-menu-item>
-                        <nz-icon>
-                            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" id="projectDetails">
-                                <path d="M7.91667 7.125H4.75" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12.2708 8.70833C11.1777 8.70833 10.2916 7.82223 10.2916 6.72917C10.2916 5.6361 11.1777 4.75 12.2708 4.75C13.3638 4.75 14.25 5.6361 14.25 6.72917C14.25 7.82223 13.3638 8.70833 12.2708 8.70833Z" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M4.75 4.75H7.125" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M14.25 14.25L10.6875 11.875L8.70833 13.4584L4.75 10.2917" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M2.375 16.15V2.85C2.375 2.58767 2.58767 2.375 2.85 2.375H16.15C16.4124 2.375 16.625 2.58767 16.625 2.85V16.15C16.625 16.4124 16.4124 16.625 16.15 16.625H2.85C2.58767 16.625 2.375 16.4124 2.375 16.15Z" stroke="currentColor" stroke-width="0.866667"/>
-                            </svg>
-                        </nz-icon>
-                        <span>Project Details</span>
+                    <li nz-menu-item (click)="setPage('Projects', 'home')">
+                        <a [routerLink]="['']">
+                            <nz-icon nzType="home" nzTheme="outline" />
+                            <span>Projects</span>
+                        </a>
                     </li>
-                    <li nz-menu-item>
-                        <nz-icon style="margin: auto">
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13.5 10.5C14.3284 10.5 15 9.82845 15 9C15 8.17155 14.3284 7.5 13.5 7.5C12.6716 7.5 12 8.17155 12 9C12 9.82845 12.6716 10.5 13.5 10.5Z" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M13.5 5.25C14.3284 5.25 15 4.57843 15 3.75C15 2.92157 14.3284 2.25 13.5 2.25C12.6716 2.25 12 2.92157 12 3.75C12 4.57843 12.6716 5.25 13.5 5.25Z" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M2.25 3.75H9.75" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M2.25 9H9.75" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M2.25 14.25H9.75" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 15.9319L13.591 14.341M13.591 14.341L15.1819 12.75M13.591 14.341L12 12.75M13.591 14.341L15.1819 15.9319" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </nz-icon>
+                    <li nz-menu-item (click)="setPage('Project Details', 'project')">
+                        <a [routerLink]="['/archive']">
+                            <nz-icon nzType="project" nzTheme="outline" />
+                            <span>Project Details</span>
+                        </a>
+                    </li>
+                    <li nz-menu-item (click)="setPage('Kanban', 'group')">
+                        <nz-icon nzType="group" nzTheme="outline" />
                         <span>Kanban</span>
                     </li>
-                    <li nz-menu-item>
+                    <li nz-menu-item (click)="setPage('Calendar', 'calendar')">
                         <nz-icon nzType="calendar" />
                         <span>Calendar</span>
                     </li>
-                    <li nz-menu-item>
+                    <li nz-menu-item (click)="setPage('File', 'file')">
                         <nz-icon nzType="file" />
                         <span>File</span>
                     </li>
                 </ul>
             </li>
-            <li nz-menu-item>
-                <nz-icon>
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5.25 4.5H12.75" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M5.25 6.75H12.75" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M6.75 12.75H11.25" stroke="currentColor" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M2.25 9H1.95C1.70147 9 1.5 9.20145 1.5 9.45V16.05C1.5 16.2986 1.70147 16.5 1.95 16.5H16.05C16.2986 16.5 16.5 16.2986 16.5 16.05V9.45C16.5 9.20145 16.2986 9 16.05 9H15.75M2.25 9V1.95C2.25 1.70147 2.45147 1.5 2.7 1.5H15.3C15.5486 1.5 15.75 1.70147 15.75 1.95V9M2.25 9H15.75" stroke="currentColor" stroke-width="0.866667"/>
-                    </svg>
-                </nz-icon>
-                <span>Archive</span>
+            <li nz-menu-item (click)="setPage('Archive', 'container')">
+                <a [routerLink]="['/archive']">
+                    <nz-icon nzType="container" nzTheme="outline" />
+                    <span>Archive</span>
+                </a>
             </li>
-            <li nz-menu-item>
-                <nz-icon>
-                    <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.03682 13.6487C1.03682 12.7286 1.03682 1.95604 1.03682 1.03518C1.94781 1.03518 11.6663 1.03518 12.5773 1.03518C12.5773 1.36077 12.5773 2.91967 12.5773 4.83626C12.8002 4.79513 13.0287 4.76719 13.2631 4.76719C13.3831 4.76719 13.4966 4.79186 13.6149 4.80257V0H0V14.6839H8.56249V13.6487C5.44632 13.6487 1.59427 13.6487 1.03682 13.6487Z" fill="currentColor"/>
-                        <path d="M2.51106 7.88415H9.54342C9.61249 7.49688 9.74899 7.13676 9.92821 6.79965H2.51106V7.88415Z" fill="currentColor"/>
-                        <path d="M11.1015 3.40884H2.51106V4.49334H11.1015V3.40884Z" fill="currentColor"/>
-                        <path d="M2.51106 11.2758H9.80159C9.99644 11.1574 10.2045 11.0612 10.4273 11.002C10.216 10.7561 10.0425 10.4799 9.89448 10.1913H2.51106V11.2758Z" fill="currentColor"/>
-                        <path d="M13.2639 11.3843C14.8294 11.3843 16.0906 10.1189 16.0906 8.55834C16.0906 6.99616 14.8294 5.7316 13.2639 5.7316C11.705 5.7316 10.4429 6.99616 10.4429 8.55834C10.4429 10.1189 11.705 11.3843 13.2639 11.3843Z" fill="currentColor"/>
-                        <path d="M15.5324 11.8431H11.002C10.1929 11.8431 9.53024 12.5847 9.53024 13.4982V18.0467C9.53024 18.0969 9.55326 18.1413 9.55654 18.1931H16.9737C16.977 18.1421 17 18.0969 17 18.0467V13.4982C17.0033 12.5872 16.3422 11.8431 15.5324 11.8431Z" fill="currentColor"/>
-                    </svg>
-                </nz-icon>
+            <li nz-menu-item (click)="setPage('Clients', 'solution')">
+                <nz-icon nzType="solution" nzTheme="outline" />
                 <span>Clients</span>
             </li>
-            <li nz-menu-item>
-                <nz-icon>
-                    <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.55556 0V18.5714H13.4444V0H8.55556ZM12.1 1.57142H9.9V17H12.1V1.57142ZM1.22223 5.71428H6.11111V18.5714H1.22223V5.71428ZM2.56667 7.28572H4.76667V17H2.56667V7.28572Z" fill="currentColor"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22 21.4286H0V23H22V21.4286Z" fill="currentColor"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8889 8.57144H20.7777V18.5714H15.8889V8.57144ZM17.2333 10.1429H19.4333V17H17.2333V10.1429Z" fill="currentColor"/>
-                    </svg>
-                </nz-icon>
+            <li nz-menu-item (click)="setPage('Analytics', 'bar-chart')">
+                <nz-icon nzType="bar-chart" nzTheme="outline" />
                 <span>Analytics</span>
             </li>
-            <li nz-menu-item>
-                <nz-icon>
-                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_233_9)">
-                            <path d="M17.8807 11.793C19.2142 11.793 20.2953 10.7125 20.2953 9.37911C20.2953 8.04569 19.2141 6.96448 17.8807 6.96448C16.5476 6.96448 15.4664 8.04569 15.4664 9.37911C15.4665 10.7125 16.5476 11.793 17.8807 11.793Z" fill="currentColor"/>
-                            <path d="M20.9724 14.1197C20.8648 13.4732 20.3304 12.5684 19.9259 12.1642C19.8726 12.1106 19.6345 12.0982 19.5702 12.1381C19.0784 12.4405 18.5007 12.6185 17.8808 12.6185C17.2615 12.6185 16.6838 12.4405 16.1919 12.1381C16.1273 12.0982 15.8895 12.1106 15.8362 12.1642C15.7232 12.2773 15.5998 12.4278 15.4795 12.6023C15.805 13.2151 16.0631 13.866 16.1562 14.4266C16.2493 14.9885 16.2191 15.5204 16.0685 16.0054C16.6033 16.1989 17.2446 16.2838 17.8807 16.2838C19.54 16.2838 21.238 15.7085 20.9724 14.1197Z" fill="currentColor"/>
-                            <path d="M10.438 10.7744C12.599 10.7744 14.351 9.02242 14.351 6.86147C14.351 4.70118 12.599 2.94916 10.438 2.94916C8.27737 2.94916 6.526 4.70118 6.526 6.86147C6.526 9.02242 8.27733 10.7744 10.438 10.7744Z" fill="currentColor"/>
-                            <path d="M13.7513 11.3738C13.6664 11.2892 13.2808 11.2676 13.176 11.3325C12.3783 11.8233 11.4422 12.1106 10.438 12.1106C9.43446 12.1106 8.49791 11.8233 7.70065 11.3325C7.59586 11.2676 7.21027 11.2892 7.12537 11.3738C6.46826 12.0302 5.60221 13.4976 5.42798 14.5438C4.99838 17.1206 7.75085 18.0509 10.438 18.0509C13.1258 18.0509 15.8782 17.1206 15.4486 14.5438C15.2744 13.4976 14.4083 12.0302 13.7513 11.3738Z" fill="currentColor"/>
-                            <path d="M3.11922 11.793C4.45231 11.793 5.53348 10.7125 5.53348 9.37911C5.53348 8.04569 4.45231 6.96448 3.11922 6.96448C1.78576 6.96448 0.70459 8.04569 0.70459 9.37911C0.70459 10.7125 1.78576 11.793 3.11922 11.793Z" fill="currentColor"/>
-                            <path d="M4.72067 14.4266C4.81968 13.8379 5.09904 13.1447 5.44927 12.5037C5.35166 12.3704 5.25408 12.2542 5.16401 12.1642C5.11073 12.1106 4.87292 12.0982 4.80832 12.1381C4.3165 12.4405 3.7388 12.6185 3.11922 12.6185C2.49955 12.6185 1.92148 12.4405 1.43007 12.1381C1.36576 12.0982 1.12729 12.1106 1.07401 12.1642C0.668492 12.5683 0.135494 13.4732 0.027541 14.1197C-0.237748 15.7085 1.45997 16.2837 3.11922 16.2837C3.71136 16.2837 4.30933 16.2109 4.81968 16.0442C4.65886 15.5494 4.62482 15.005 4.72067 14.4266Z" fill="currentColor"/>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_233_9">
-                            <rect width="21" height="21" fill="white"/>
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </nz-icon>
+            <li nz-menu-item (click)="setPage('Team', 'team')">
+                <nz-icon nzType="team" nzTheme="outline" />
                 <span>Team</span>
             </li>
         </ul>
@@ -106,8 +61,8 @@
         <nz-header>
             <div class="header-left-block">
                 <div class="header-left">
-                    <svg icon="projectDetails" class="custom-icon"></svg> <!--Тут нада дінамічески вставляти іконку -->
-                    <span class="projects-label">Projects</span> <!--Тут нада дінамічески вставляти названіє страніци -->
+                    <nz-icon [nzType]="currentPageIcon()" nzTheme="outline" /><!--Тут нада дінамічески вставляти іконку -->
+                    <span class="projects-label">{{currentPageTitle()}}</span> <!--Тут нада дінамічески вставляти названіє страніци -->
                 </div>
                 <span class="active-project">Active project: //Insert signal of name here!//</span>
             </div>
