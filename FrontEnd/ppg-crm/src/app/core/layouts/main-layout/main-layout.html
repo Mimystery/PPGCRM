@@ -15,22 +15,28 @@
                         </a>
                     </li>
                     <li nz-menu-item (click)="setPage('Project Details', 'project')">
-                        <a [routerLink]="['/archive']">
+                        <a [routerLink]="['/project-details']">
                             <nz-icon nzType="project" nzTheme="outline" />
                             <span>Project Details</span>
                         </a>
                     </li>
                     <li nz-menu-item (click)="setPage('Kanban', 'group')">
-                        <nz-icon nzType="group" nzTheme="outline" />
-                        <span>Kanban</span>
+                        <a [routerLink]="['/kanban']">
+                            <nz-icon nzType="group" nzTheme="outline" />
+                            <span>Kanban</span>
+                        </a>
                     </li>
                     <li nz-menu-item (click)="setPage('Calendar', 'calendar')">
-                        <nz-icon nzType="calendar" />
-                        <span>Calendar</span>
+                        <a [routerLink]="['/calendar']">
+                            <nz-icon nzType="calendar" />
+                            <span>Calendar</span>
+                        </a>
                     </li>
                     <li nz-menu-item (click)="setPage('File', 'file')">
-                        <nz-icon nzType="file" />
-                        <span>File</span>
+                        <a [routerLink]="['/file']">
+                            <nz-icon nzType="file" />
+                            <span>File</span>
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -41,16 +47,22 @@
                 </a>
             </li>
             <li nz-menu-item (click)="setPage('Clients', 'solution')">
-                <nz-icon nzType="solution" nzTheme="outline" />
-                <span>Clients</span>
+                <a [routerLink]="['/clients']">
+                    <nz-icon nzType="solution" nzTheme="outline" />
+                    <span>Clients</span>
+                </a>
             </li>
             <li nz-menu-item (click)="setPage('Analytics', 'bar-chart')">
-                <nz-icon nzType="bar-chart" nzTheme="outline" />
-                <span>Analytics</span>
+                <a [routerLink]="['/analytics']">
+                    <nz-icon nzType="bar-chart" nzTheme="outline" />
+                    <span>Analytics</span>
+                </a>
             </li>
             <li nz-menu-item (click)="setPage('Team', 'team')">
-                <nz-icon nzType="team" nzTheme="outline" />
-                <span>Team</span>
+                <a [routerLink]="['/team']">
+                    <nz-icon nzType="team" nzTheme="outline" />
+                    <span>Team</span>
+                </a>
             </li>
         </ul>
     </nz-sider>
