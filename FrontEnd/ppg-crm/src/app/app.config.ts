@@ -11,7 +11,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient } from '@angular/common/http';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { BellOutline, MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline, 
-  GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline } from '@ant-design/icons-angular/icons';
+  GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline } from '@ant-design/icons-angular/icons';
 
 
 registerLocaleData(uk);
@@ -28,6 +28,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(),
     { provide: NZ_ICONS, useValue: [BellOutline,MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline, 
-      GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline] }
+      GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline] }
   ]
 };
