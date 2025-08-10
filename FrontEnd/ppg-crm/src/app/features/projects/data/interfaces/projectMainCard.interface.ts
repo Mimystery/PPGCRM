@@ -8,7 +8,7 @@ export interface ProjectMainCard {
     endDate: Date | null,
     progress: number,
     isArchived: boolean,
-    processCointByStatus: {
+    processCountByStatus: {
         [key: string]: number
     };
 
