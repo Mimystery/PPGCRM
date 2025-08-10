@@ -48,8 +48,12 @@
 </div>
 
 <!-- PROJECTS TABLE -->
-<div class="flex-table">
-  @for (project of projects; track project.projectId) {
-    <app-project-card [project]="project"></app-project-card>
-  }
-</div>
+ @if(projects){
+  <div class="flex-table">
+    @for (project of projects; track project.projectId) {
+      <app-project-card [project]="project"></app-project-card>
+    }
+  </div>  
+}@else {
+  <span>No added any projects yet</span>
+}
