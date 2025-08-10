@@ -35,6 +35,17 @@ builder.Services.AddScoped<IClientsService, ClientsService>();
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
 builder.Services.AddScoped<IProjectsService, ProjectsService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFront", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,6 +60,8 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<CRMDbContext>();
     db.Database.Migrate(); // Apply any pending migrations to the database
 }
+
+app.UseCors("AllowFront");
 
 app.UseHttpsRedirection();
 

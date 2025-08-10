@@ -1,0 +1,7 @@
+.result {
+
+  display: flex;
+  justify-content: center; /* горизонтальное центрирование */
+  align-items: center;     /* вертикальное центрирование */
+
+}

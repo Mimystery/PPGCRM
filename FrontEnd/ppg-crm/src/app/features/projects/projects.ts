@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
@@ -8,29 +9,65 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { FormsModule } from '@angular/forms';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { ProjectCardComponent } from './project-card/project-card';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { ProjectsService } from './data/services/projects-service';
+import { error } from '@ant-design/icons-angular';
+import { ProjectMainCard } from './data/interfaces/projectMainCard.interface';
 
 @Component({
   selector: 'app-projects',
   imports: [NzButtonModule, NzDescriptionsModule, NzPageHeaderModule,
-    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, ProjectCardComponent],
+    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, ProjectCardComponent, NzModalModule, CommonModule],
   templateUrl: './projects.html',
-  styleUrl: './projects.css'
+  styleUrl: './projects.css',
 })
 export class ProjectsComponent {
-  projects = [
-    {
-      title: 'Project Name',
-      description: 'Description',
-      startDate: '23.07.2025',
-      endDate: '15.08.2025',
-      progress: {
-        done: 2,
-        inProgress: 5,
-        todo: 4,
+
+  isVisible = false;
+  isOkDisabled = true;
+  newProjectName = '';
+
+  projects: ProjectMainCard[] = [];
+
+  projectsService = inject(ProjectsService)
+
+  constructor(){
+    this.projectsService.getProjects()
+    .subscribe(val => {
+      this.projects = val
+    })
+  }
+
+  checkInput(){
+    this.isOkDisabled = this.newProjectName.trim() === '';
+  }
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
+
+    this.projectsService.createProject(this.newProjectName).subscribe({
+      next: (res) => {
+        console.log(res)
+      },
+      error: (err) => {
+        console.log('Ошибка:', err);
       }
-    },
-    // Add more projects here
-  ];
+    });
+
+    this.newProjectName = '';
+    this.checkInput();
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+
+    this.newProjectName = '';
+    this.checkInput()
+  }
 
   getTotalTasks(p: any) {
     return p.progress.done + p.progress.inProgress + p.progress.todo;

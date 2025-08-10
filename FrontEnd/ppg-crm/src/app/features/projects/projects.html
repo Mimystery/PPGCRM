@@ -1,9 +1,17 @@
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new project" (nzOnCancel)="handleCancel()" 
+(nzOnOk)="handleOk()" [nzOkDisabled]="isOkDisabled">
+      <ng-container *nzModalContent>
+        <input nz-input placeholder="Enter new project name" [(ngModel)]="newProjectName" 
+        (ngModelChange)="checkInput()">
+      </ng-container>
+</nz-modal>
+
 <div class="page-header">
 
   <!-- HEADER LEFT SECTION WITH BUTTONS -->
 
   <div class="page-header-left">
-    <button nz-button nzType="default" class="page-header-btn create">
+    <button nz-button nzType="default" class="page-header-btn create" (click)="showModal()">
       <nz-icon nzType="plus" nzTheme="outline" />
       Create new project
     </button>
@@ -41,5 +49,7 @@
 
 <!-- PROJECTS TABLE -->
 <div class="flex-table">
-  <app-project-card></app-project-card>
+  @for (project of projects; track project.projectId) {
+    <app-project-card [project]="project"></app-project-card>
+  }
 </div>

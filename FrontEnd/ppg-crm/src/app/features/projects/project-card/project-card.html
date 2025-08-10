@@ -1,15 +1,15 @@
 <nz-card [nzBodyStyle]="{ padding: '5px 10px' }" class="card project">
-  <h2 class="card-title">Project Name</h2>
-  <p class="project-card-description">Description</p>
+  <h2 class="card-title">{{ project.projectName }}</h2>
+  <p class="project-card-description">{{ project.description }}</p>
 
   <div class="card-info-container">
     <div class="card-info-item">
       <span class="card-info-label">From:</span>
-      <span>23.07.2025</span>
+      <span>{{ project.startDate }}</span>
     </div>
     <div class="card-info-item">
       <span class="card-info-label">To:</span>
-      <span>15.08.2025</span>
+      <span>{{ project.endDate }}</span>
     </div>
   </div>
 
@@ -18,7 +18,7 @@
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M6 0C2.68629 0 0 2.68629 0 6C0 9.31373 2.68629 12 6 12C9.31373 12 12 9.31373 12 6C12 2.68629 9.31373 0 6 0ZM3.50536 5.98309C3.34189 5.81961 3.07684 5.81961 2.91337 5.98309C2.74989 6.14657 2.74989 6.41157 2.91337 6.57505L4.58778 8.24947C4.75126 8.41295 5.01634 8.41295 5.17976 8.24947L9.08673 4.34251C9.25021 4.17904 9.25021 3.91399 9.08673 3.75051C8.92326 3.58704 8.65825 3.58704 8.49477 3.75051L4.88378 7.36147L3.50536 5.98309Z" fill="black"/>
         </svg>
-      <span>2 done</span>
+      <span>{{ project.processCointByStatus }}</span>
     </div>
     <div class="card-status-item in-progress">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

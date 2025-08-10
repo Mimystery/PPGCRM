@@ -8,61 +8,52 @@
         <ul nz-menu nzTheme="light" nzMode="inline">
             <li nz-submenu nzTitle="Projects" nzIcon="bars">
                 <ul>
-                    <li nz-menu-item (click)="setPage('Projects', 'home')">
-                        <a [routerLink]="['']">
-                            <nz-icon nzType="home" nzTheme="outline" />
-                            <span>Projects</span>
-                        </a>
+                    <li nz-menu-item (click)="setPage('Projects', 'home')"
+                        [routerLink]="['']">
+                        <nz-icon nzType="home" nzTheme="outline" />
+                        <span>Projects</span>
                     </li>
-                    <li nz-menu-item (click)="setPage('Project Details', 'project')">
-                        <a [routerLink]="['/project-details']">
-                            <nz-icon nzType="project" nzTheme="outline" />
-                            <span>Project Details</span>
-                        </a>
+                    <li nz-menu-item (click)="setPage('Project Details', 'project')"
+                        [routerLink]="['/project-details']">
+                        <nz-icon nzType="project" nzTheme="outline" />
+                        <span>Project Details</span>
                     </li>
-                    <li nz-menu-item (click)="setPage('Kanban', 'group')">
-                        <a [routerLink]="['/kanban']">
-                            <nz-icon nzType="group" nzTheme="outline" />
-                            <span>Kanban</span>
-                        </a>
+                    <li nz-menu-item (click)="setPage('Kanban', 'group')"
+                        [routerLink]="['/kanban']">
+                        <nz-icon nzType="group" nzTheme="outline" />
+                        <span>Kanban</span>
                     </li>
-                    <li nz-menu-item (click)="setPage('Calendar', 'calendar')">
-                        <a [routerLink]="['/calendar']">
-                            <nz-icon nzType="calendar" />
-                            <span>Calendar</span>
-                        </a>
+                    <li nz-menu-item (click)="setPage('Calendar', 'calendar')"
+                        [routerLink]="['/calendar']">
+                        <nz-icon nzType="calendar" />
+                        <span>Calendar</span>
                     </li>
-                    <li nz-menu-item (click)="setPage('File', 'file')">
-                        <a [routerLink]="['/file']">
-                            <nz-icon nzType="file" />
-                            <span>File</span>
-                        </a>
+                    <li nz-menu-item (click)="setPage('File', 'file')"
+                        [routerLink]="['/file']">
+                        <nz-icon nzType="file" />
+                        <span>File</span>
                     </li>
                 </ul>
             </li>
-            <li nz-menu-item (click)="setPage('Archive', 'container')">
-                <a [routerLink]="['/archive']">
-                    <nz-icon nzType="container" nzTheme="outline" />
-                    <span>Archive</span>
-                </a>
+            <li nz-menu-item (click)="setPage('Archive', 'container')"
+                [routerLink]="['/archive']">
+                <nz-icon nzType="container" nzTheme="outline" />
+                <span>Archive</span>
             </li>
-            <li nz-menu-item (click)="setPage('Clients', 'solution')">
-                <a [routerLink]="['/clients']">
-                    <nz-icon nzType="solution" nzTheme="outline" />
-                    <span>Clients</span>
-                </a>
+            <li nz-menu-item (click)="setPage('Clients', 'solution')"
+                [routerLink]="['/clients']">
+                <nz-icon nzType="solution" nzTheme="outline" />
+                <span>Clients</span>
             </li>
-            <li nz-menu-item (click)="setPage('Analytics', 'bar-chart')">
-                <a [routerLink]="['/analytics']">
-                    <nz-icon nzType="bar-chart" nzTheme="outline" />
-                    <span>Analytics</span>
-                </a>
+            <li nz-menu-item (click)="setPage('Analytics', 'bar-chart')"
+                [routerLink]="['/analytics']">
+                <nz-icon nzType="bar-chart" nzTheme="outline" />
+                <span>Analytics</span>
             </li>
-            <li nz-menu-item (click)="setPage('Team', 'team')">
-                <a [routerLink]="['/team']">
-                    <nz-icon nzType="team" nzTheme="outline" />
-                    <span>Team</span>
-                </a>
+            <li nz-menu-item (click)="setPage('Team', 'team')"
+                [routerLink]="['/team']">
+                <nz-icon nzType="team" nzTheme="outline" />
+                <span>Team</span>
             </li>
         </ul>
     </nz-sider>
@@ -72,10 +63,6 @@
     <nz-layout>
         <nz-header>
             <div class="header-left-block">
-                <div class="header-left">
-                    <nz-icon [nzType]="currentPageIcon()" nzTheme="outline" /><!--Тут нада дінамічески вставляти іконку -->
-                    <span class="projects-label">{{currentPageTitle()}}</span> <!--Тут нада дінамічески вставляти названіє страніци -->
-                </div>
                 <span class="active-project">Active project: //Insert signal of name here!//</span>
             </div>
             <div class="header-right">
