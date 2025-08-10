@@ -11,8 +11,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { ProjectCardComponent } from './project-card/project-card';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ProjectsService } from './data/services/projects-service';
-import { error } from '@ant-design/icons-angular';
-import { ProjectMainCard } from './data/interfaces/projectMainCard.interface';
+import { ProjectMainCard } from './data/interfaces/project-main-card';
 
 @Component({
   selector: 'app-projects',
@@ -33,9 +32,9 @@ export class ProjectsComponent {
 
   constructor(){
     this.projectsService.getProjects()
-    .subscribe(val => {
-      this.projects = val
-    })
+      .subscribe(val => {
+        this.projects = val
+      })
   }
 
   checkInput(){

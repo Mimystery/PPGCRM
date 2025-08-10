@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import {Router, RouterModule, RouterOutlet} from "@angular/router";
+import {RouterModule, RouterOutlet} from "@angular/router";
 
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -7,8 +7,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { UserDrawerComponent } from './user-drawer/user-drawer';
-
-
+import { SelectedProjectService } from '../../services/selected-project/selected-project';
 
 @Component({
   selector: 'app-main-layout',
@@ -18,22 +17,14 @@ import { UserDrawerComponent } from './user-drawer/user-drawer';
   styleUrls: ['./main-layout.css']
 })
 export class MainLayoutComponent {
-currentPageTitle = signal('Projects')
-currentPageIcon = signal('home')
 
-  setPage(title: string, icon: string) {
-    this.currentPageTitle.set(title)
-    this.currentPageIcon.set(icon)
-  }
-  router = inject(Router);
-
-  onClick() {
-      this.router.navigate([''])
-  }
   public userDrawerVisible = signal(false);
   openDrawer = () => this.userDrawerVisible.set(true);
   closeDrawer = () => {
     this.userDrawerVisible.set(false);
   };
-projectDetails = 'projectDetails';
+  projectDetails = 'projectDetails';
+
+  selectedProjectService = inject(SelectedProjectService);
 }
+

@@ -6,54 +6,67 @@
         </div>
 
         <ul nz-menu nzTheme="light" nzMode="inline">
+          @if (selectedProjectService.selectedProjectName()!=null) {
             <li nz-submenu nzTitle="Projects" nzIcon="bars">
                 <ul>
-                    <li nz-menu-item (click)="setPage('Projects', 'home')"
-                        [routerLink]="['']">
-                        <nz-icon nzType="home" nzTheme="outline" />
-                        <span>Projects</span>
+
+                    <li nz-menu-item >
+                        <a [routerLink]="['/project-details']">
+                            <nz-icon nzType="project" nzTheme="outline" />
+                            <span>Project Details</span>
+                        </a>
                     </li>
-                    <li nz-menu-item (click)="setPage('Project Details', 'project')"
-                        [routerLink]="['/project-details']">
-                        <nz-icon nzType="project" nzTheme="outline" />
-                        <span>Project Details</span>
+                    <li nz-menu-item >
+                        <a [routerLink]="['/kanban']">
+                            <nz-icon nzType="group" nzTheme="outline" />
+                            <span>Kanban</span>
+                        </a>
                     </li>
-                    <li nz-menu-item (click)="setPage('Kanban', 'group')"
-                        [routerLink]="['/kanban']">
-                        <nz-icon nzType="group" nzTheme="outline" />
-                        <span>Kanban</span>
+                    <li nz-menu-item >
+                        <a [routerLink]="['/calendar']">
+                            <nz-icon nzType="calendar" />
+                            <span>Calendar</span>
+                        </a>
                     </li>
-                    <li nz-menu-item (click)="setPage('Calendar', 'calendar')"
-                        [routerLink]="['/calendar']">
-                        <nz-icon nzType="calendar" />
-                        <span>Calendar</span>
-                    </li>
-                    <li nz-menu-item (click)="setPage('File', 'file')"
-                        [routerLink]="['/file']">
-                        <nz-icon nzType="file" />
-                        <span>File</span>
+                    <li nz-menu-item >
+                        <a [routerLink]="['/file']">
+                            <nz-icon nzType="file" />
+                            <span>File</span>
+                        </a>
                     </li>
                 </ul>
             </li>
-            <li nz-menu-item (click)="setPage('Archive', 'container')"
-                [routerLink]="['/archive']">
-                <nz-icon nzType="container" nzTheme="outline" />
-                <span>Archive</span>
+            } @else if (selectedProjectService.selectedProjectName()==null) {
+            <li nz-menu-item >
+              <a [routerLink]="['projects']">
+                <nz-icon nzType="bars" nzTheme="outline" />
+                <span>Projects</span>
+              </a>
             </li>
-            <li nz-menu-item (click)="setPage('Clients', 'solution')"
-                [routerLink]="['/clients']">
-                <nz-icon nzType="solution" nzTheme="outline" />
-                <span>Clients</span>
+            }
+            <li nz-menu-item >
+                <a [routerLink]="['/archive']">
+                    <nz-icon nzType="container" nzTheme="outline" />
+                    <span>Archive</span>
+                </a>
             </li>
-            <li nz-menu-item (click)="setPage('Analytics', 'bar-chart')"
-                [routerLink]="['/analytics']">
-                <nz-icon nzType="bar-chart" nzTheme="outline" />
-                <span>Analytics</span>
+            <li nz-menu-item >
+                <a [routerLink]="['/clients']">
+                    <nz-icon nzType="solution" nzTheme="outline" />
+                    <span>Clients</span>
+                </a>
             </li>
-            <li nz-menu-item (click)="setPage('Team', 'team')"
-                [routerLink]="['/team']">
-                <nz-icon nzType="team" nzTheme="outline" />
-                <span>Team</span>
+            <li nz-menu-item >
+                <a [routerLink]="['/analytics']">
+                    <nz-icon nzType="bar-chart" nzTheme="outline" />
+                    <span>Analytics</span>
+                </a>
+            </li>
+            <li nz-menu-item >
+                <a [routerLink]="['/team']">
+                    <nz-icon nzType="team" nzTheme="outline" />
+                    <span>Team</span>
+                </a>
             </li>
         </ul>
     </nz-sider>
@@ -63,7 +76,15 @@
     <nz-layout>
         <nz-header>
             <div class="header-left-block">
-                <span class="active-project">Active project: //Insert signal of name here!//</span>
+
+                <span class="active-project">
+                  @if (selectedProjectService.selectedProjectName()!=null){
+                    {{selectedProjectService.selectedProjectName()}}
+                    }
+                  @else {
+                    No project selected
+                  }
+                </span>
             </div>
             <div class="header-right">
                 <button nz-button nzType="default">

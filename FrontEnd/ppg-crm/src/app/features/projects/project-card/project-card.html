@@ -1,4 +1,4 @@
-<nz-card [nzBodyStyle]="{ padding: '5px 10px' }" class="card project">
+<nz-card [nzBodyStyle]="{ padding: '5px 10px' }" class="card project" (click)="onCardClick()">
   <h2 class="card-title">{{ project.projectName }}</h2>
   <p class="project-card-description">{{ project.description }}</p>
 
