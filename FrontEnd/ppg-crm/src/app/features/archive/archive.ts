@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
@@ -7,6 +7,7 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {FormsModule} from '@angular/forms';
 import { ArchivedProjectCardComponent } from './archived-project-card/archived-project-card';
+import { SelectedProjectService } from '../../core/services/selected-project/selected-project';
 
 @Component({
   selector: 'app-archive',
@@ -28,4 +29,10 @@ export class ArchiveComponent {
         todo: 4,
       }
     },]
+
+    selectedProjectService = inject(SelectedProjectService);
+
+    constructor(){
+      console.log(this.selectedProjectService.selectedProjectId())
+    }
 }

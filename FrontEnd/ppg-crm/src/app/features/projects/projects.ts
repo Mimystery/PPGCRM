@@ -11,7 +11,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { ProjectCardComponent } from './project-card/project-card';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ProjectsService } from './data/services/projects-service';
-import { ProjectMainCard } from './data/interfaces/project-main-card';
+import { ProjectCardData } from './data/interfaces/project-card-data';
 
 @Component({
   selector: 'app-projects',
@@ -26,7 +26,7 @@ export class ProjectsComponent {
   isOkDisabled = true;
   newProjectName = '';
 
-  projects: ProjectMainCard[] = [];
+  projects: ProjectCardData[] = [];
 
   projectsService = inject(ProjectsService)
 
