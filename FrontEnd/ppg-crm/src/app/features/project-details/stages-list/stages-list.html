@@ -1,0 +1,133 @@
+<div class="container">
+  <div nz-flex nzJustify="space-between" nzAlign="center" nzGap="1vw" class="stages-list-header">
+    <nz-icon>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.66676 0.75H16.3335C16.8398 0.75 17.2502 1.16034 17.2502 1.66655L17.2504 3.12022C17.2505 3.36339 17.1538 3.5966 16.9819 3.76854L11.1019 9.64817C10.93 9.82005 10.8334 10.0532 10.8334 10.2963V16.0759C10.8334 16.6723 10.273 17.1099 9.69447 16.9653L7.86113 16.5069C7.45303 16.4049 7.16676 16.0383 7.16676 15.6176V10.2963C7.16676 10.0532 7.07018 9.82005 6.89827 9.64817L1.01857 3.76848C0.846662 3.59658 0.750092 3.36342 0.750092 3.12031V1.66667C0.750092 1.16041 1.16049 0.75 1.66676 0.75Z" fill="black" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </nz-icon>
+     <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStages">
+         Button
+         <nz-icon nzType="down" />
+       </button>
+
+    <!-- DROP DOWN MENU FOR STATUS -->
+       <nz-dropdown-menu #nzDropdownMenuStages="nzDropdownMenu">
+         <ul nz-menu>
+           <li nz-menu-item>
+             <nz-icon>
+               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+               </svg>
+             </nz-icon>
+             Started
+           </li>
+           <li nz-menu-item>Stopped</li>
+           <li nz-menu-item>Awaiting</li>
+         </ul>
+       </nz-dropdown-menu>
+  </div>
+
+  <!--- STAGES LIST -->
+  <nz-collapse>
+
+    <nz-collapse-panel  nzActive [nzShowArrow] = 'false' [nzHeader]="stagesCard" >
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <!-- Process Name -->
+            <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
+              Process name
+            </td>
+
+            <!-- Description -->
+            <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
+              Description
+            </td>
+
+            <!-- End Date -->
+            <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
+              <div class="card-info-item">
+                <span class="card-info-label">End Date</span>
+                <span style="font-weight: 600;">27 July, 2025</span>
+              </div>
+            </td>
+
+            <!-- Status -->
+            <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
+              <nz-tag nzColor="blue">In Progress</nz-tag>
+            </td>
+
+            <!-- Progress -->
+            <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
+              <nz-progress
+                [nzPercent]="34"
+                nzStrokeColor="#7AC327"
+                [nzShowInfo]="true"
+                nzStrokeLinecap="round"
+                style="width: 120px; margin: 0;">
+              </nz-progress>
+            </td>
+
+            <!-- User Icon -->
+            <td style="padding: 12px; text-align: center;">
+              <i nz-icon nzType="user" nzTheme="outline"></i>
+            </td>
+          </tr>
+        </table>
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <!--- STAGES CARD  HEADER-->
+  <ng-template #stagesCard>
+    <h2>Stages Name</h2>
+    <span>End date: 22.08.2026</span>
+    <div nz-flex nzJustify="space-between" nzAlign="center" style="width: fit-content;" nzGap="1vw">
+      <div class="card-status-item done">
+        <nz-icon>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 0C2.68629 0 0 2.68629 0 6C0 9.31373 2.68629 12 6 12C9.31373 12 12 9.31373 12 6C12 2.68629 9.31373 0 6 0ZM3.50536 5.98309C3.34189 5.81961 3.07684 5.81961 2.91337 5.98309C2.74989 6.14657 2.74989 6.41157 2.91337 6.57505L4.58778 8.24947C4.75126 8.41295 5.01634 8.41295 5.17976 8.24947L9.08673 4.34251C9.25021 4.17904 9.25021 3.91399 9.08673 3.75051C8.92326 3.58704 8.65825 3.58704 8.49477 3.75051L4.88378 7.36147L3.50536 5.98309Z" fill="black"/>
+          </svg>
+        </nz-icon>
+
+        <span>2 done</span>
+      </div>
+      <div class="card-status-item in-progress">
+        <nz-icon>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 3V6H9" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 11C8.7614 11 11 8.7614 11 6C11 3.23857 8.7614 1 6 1C3.23857 1 1 3.23857 1 6C1 8.7614 3.23857 11 6 11Z" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </nz-icon>
+
+        <span>5 In progress</span>
+      </div>
+      <div class="card-status-item to-do">
+        <nz-icon>
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.5 12C9.53754 12 12 9.53754 12 6.5C12 3.46243 9.53754 1 6.5 1C3.46243 1 1 3.46243 1 6.5C1 9.53754 3.46243 12 6.5 12Z" stroke="black" stroke-width="0.533333" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </nz-icon>
+
+        <span>4 To do</span>
+      </div>
+    </div>
+    <nz-progress
+      nz-tooltip
+      nzTooltipTitle="3 done / 3 in progress / 4 to do"
+      [nzPercent]="60"
+      [nzSuccessPercent]="30"
+      nzStrokeColor="#FFA220"
+      [nzStrokeWidth]="3"
+      [nzShowInfo]="false"
+    ></nz-progress>
+    <!-- ***TODO: НЕ РОБИТЬ ХУЙНЯ
+    <nz-progress
+      nz-tooltip
+      nzTooltipTitle="3 done / 3 in progress / 4 to do"
+      [nzPercent]="60"
+      [nzSuccessPercent]="30"
+      nzStrokeColor="#FFA220"
+      [nzStrokeWidth]="3"
+      [nzShowInfo]="false"
+    ></nz-progress> -->
+  </ng-template>
+</div>
