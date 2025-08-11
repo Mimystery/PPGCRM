@@ -24,6 +24,7 @@ namespace PPGCRM.DataAccess
             modelBuilder.ApplyConfiguration(new ProcessConfiguration());
             modelBuilder.ApplyConfiguration(new TaskConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new PendingUserConfiguration());
         }
         // Define DbSets for your entities
         // public DbSet<YourEntity> YourEntities { get; set; }
@@ -33,6 +34,7 @@ namespace PPGCRM.DataAccess
         public DbSet<ProcessEntity> Processes { get; set; }
         public DbSet<TaskEntity> Tasks { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<PendingUserEntity> PendingUsers { get; set; }
 
     }
 }
