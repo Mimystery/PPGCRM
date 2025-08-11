@@ -22,13 +22,13 @@ namespace PPGCRM.Core.Models
             Salary = salary;
         }
         public Guid UserId { get; }
-        public string UserName { get; }
-        public string PasswordHash { get; }
+        public string? UserName { get; }
+        public string? PasswordHash { get; }
         public string FirstName { get; }
         public string LastName { get; }
-        public string Email { get; }
-        public string Phone { get; }
+        public string? Email { get; }
+        public string? Phone { get; }
         public Role Role { get; } // e.g., "Admin", "GIP", "Employee"
-        public decimal Salary { get; }
+        public decimal? Salary { get; }
     }
 }

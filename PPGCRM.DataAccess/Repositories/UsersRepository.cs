@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using PPGCRM.Core.Contracts.Processes;
+using PPGCRM.Core.Contracts.Users;
+using PPGCRM.Core.Models;
+using PPGCRM.DataAccess.Entities;
+
+namespace PPGCRM.DataAccess.Repositories
+{
+    public class UsersRepository : IUsersRepository
+    {
+        private readonly CRMDbContext _context;
+        private readonly IMapper _mapper;
+
+        public UsersRepository(CRMDbContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<List<UserMainCardDTO>> GetAllUsersAsync()
+        {
+            var users = await _context.Users.ToListAsync();
+            return _mapper.Map<List<UserMainCardDTO>>(users);
+        }
+
+        public async Task<UserDetailsDTO> GetUserDetailsByIdAsync(Guid userId)
+        {
+            var users = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+
+            return _mapper.Map<UserDetailsDTO>(users);
+        }
+
+        public async Task<List<ProcessMainCardDTO>> GetUserProcessesAsync(Guid userId, Guid? projectId, Guid? stageId)
+        {
+            var query = _context.Processes
+                .Where(p => p.ResponsibleUsers.Any(u => u.UserId == userId));
+
+            if (projectId.HasValue)
+            {
+                query = query.Where(p => p.Stage.ProjectId == projectId.Value);
+            }
+
+            if (stageId.HasValue)
+            {
+                query = query.Where(p => p.StageId == stageId.Value);
+            }
+
+            var processes = await query.Include(p => p.ResponsibleUsers).ToListAsync();
+            return _mapper.Map<List<ProcessMainCardDTO>>(processes);
+        }
+
+        public async Task AddUserAsync(UserModel user)
+        {
+            var userEntity = _mapper.Map<UserEntity>(user);
+            _context.Users.Add(userEntity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateUserAsync(Guid userId, UserUpdateDTO userUpdateDto)
+        {
+
+        }
+
+        public async Task DeleteUserAsync(Guid userId)
+        {
+            await _context.Users.Where(u => u.UserId == userId).ExecuteDeleteAsync();
+        }
+    }
+}

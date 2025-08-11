@@ -37,15 +37,15 @@ export class ProjectsComponent {
       })
   }
 
-  checkInput(){
+  checkIsInputEmpty(){
     this.isOkDisabled = this.newProjectName.trim() === '';
   }
 
-  showModal(): void {
+  showCreateProjectModal(): void {
     this.isVisible = true;
   }
 
-  handleOk(): void {
+  handleCreateProjectModalOk(): void {
     this.isVisible = false;
 
     this.projectsService.createProject(this.newProjectName).subscribe({
@@ -58,14 +58,14 @@ export class ProjectsComponent {
     });
 
     this.newProjectName = '';
-    this.checkInput();
+    this.checkIsInputEmpty();
   }
 
-  handleCancel(): void {
+  handleCreateProjectModalCancel(): void {
     this.isVisible = false;
 
     this.newProjectName = '';
-    this.checkInput()
+    this.checkIsInputEmpty()
   }
 
   getTotalTasks(p: any) {

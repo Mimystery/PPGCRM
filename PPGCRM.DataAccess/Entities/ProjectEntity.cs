@@ -20,7 +20,6 @@ namespace PPGCRM.DataAccess.Entities
         public DateTime? ConstructionWorksStart { get; set; }
         public decimal? Budget { get; set; } 
         public decimal? Expenses { get; set; }
-        public int Progress { get; set; } = 0; // Percentage from 0 to 100
         public bool? IsArchived { get; set; } = false;
         public List<StageEntity> Stages { get; set; } = new();
     }

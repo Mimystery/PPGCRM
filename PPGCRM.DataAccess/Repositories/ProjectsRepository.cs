@@ -45,7 +45,6 @@ namespace PPGCRM.DataAccess.Repositories
                 Status = Enum.TryParse<ProjectStatus>(project.Status, out var status) ? status : ProjectStatus.NotStarted,
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
-                Progress = project.Progress,
                 IsArchived = project.IsArchived,
                 ProcessCountByStatus = project.Stages
                     .SelectMany(s => s.Processes)
@@ -136,10 +135,6 @@ namespace PPGCRM.DataAccess.Repositories
                 projectEntity.Expenses = projectUpdateDto.Expenses.Value;
             }
 
-            if (projectUpdateDto.Progress != null)
-            {
-                projectEntity.Progress = projectUpdateDto.Progress.Value;
-            }
             if (projectUpdateDto.IsArchived != null)
             {
                 projectEntity.IsArchived = projectUpdateDto.IsArchived.Value;

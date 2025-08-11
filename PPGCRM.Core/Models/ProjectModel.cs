@@ -13,8 +13,8 @@ namespace PPGCRM.Core.Models
     {
         public ProjectModel(Guid projectId, Guid? clientId, ClientModel client, string projectName, string? description, 
             ProjectStatus status, DateTime? startDate, DateTime? endDate,
-            DateTime? constructionWorksStart, decimal? budget, decimal? expenses, 
-            int progress, bool? isArchived, List<StageModel> stages)
+            DateTime? constructionWorksStart, decimal? budget, decimal? expenses,
+            bool? isArchived, List<StageModel> stages)
         {
             ProjectId = projectId;
             ClientId = clientId;
@@ -27,7 +27,6 @@ namespace PPGCRM.Core.Models
             ConstructionWorksStart = constructionWorksStart;
             Budget = budget;
             Expenses = expenses;
-            Progress = progress;
             IsArchived = isArchived;
             Stages = stages?.AsReadOnly() ?? new List<StageModel>().AsReadOnly();
         }
@@ -43,7 +42,6 @@ namespace PPGCRM.Core.Models
         public DateTime? ConstructionWorksStart { get; }
         public decimal? Budget { get; }
         public decimal? Expenses { get; }
-        public int Progress { get; } = 0; // Percentage from 0 to 100
         public bool? IsArchived { get; } = false;
         public IReadOnlyList<StageModel> Stages { get; }
     }

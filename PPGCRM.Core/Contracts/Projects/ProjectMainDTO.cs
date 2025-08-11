@@ -17,7 +17,6 @@ namespace PPGCRM.Core.Contracts.Projects
         public ProjectStatus Status { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public int Progress { get; set; }
         public bool? IsArchived { get; set; }
         public Dictionary<ProcessStatus, int> ProcessCountByStatus { get; set; } = new();
     }

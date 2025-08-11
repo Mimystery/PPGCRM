@@ -1,7 +1,7 @@
 export interface ProjectCardData  {
     projectId: string,
     projectName: string,
-    description: string | null, //не обовязково нулл же? ми можемо задати просто пустий стрінг і все
+    description: string | null, //Це одно і то саме//не обовязково нулл же? ми можемо задати просто пустий стрінг і все
     status: string,
     startDate: Date | null,
     endDate: Date | null,

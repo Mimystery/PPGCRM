@@ -55,7 +55,6 @@ namespace PPGCRM.Application.Services
                 null,
                 0,
                 0,
-                0,
                 false,
                 new List<StageModel>());
 

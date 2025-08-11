@@ -4,24 +4,24 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-login',
-  imports: [ReactiveFormsModule, NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule],
-  templateUrl: './login.html',
-  styleUrl: './login.less',
+  selector: 'app-registration',
+  imports: [ReactiveFormsModule, NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule,
+    CommonModule
+  ],
+  templateUrl: './registration.html',
+  styleUrl: './registration.less'
 })
-
-export class LoginComponent {
+export class RegistrationComponent {
   private fb = inject(NonNullableFormBuilder);
   router = inject(Router)
 
   validateForm = this.fb.group({
-    email: this.fb.control('', [Validators.required]),
-    password: this.fb.control('', [Validators.required]),
-    remember: this.fb.control(true)
+    code: this.fb.control('', [Validators.required]),
   });
 
   submitForm(): void {
@@ -36,7 +36,7 @@ export class LoginComponent {
       });
     }
   }
-  onClickRegistrationCodeHandle(){
-    this.router.navigate(['/registration'])
+  onBackToLoginClickHandle(){
+    this.router.navigate(['login'])
   }
 }

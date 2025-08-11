@@ -10,6 +10,7 @@ import { FileComponent } from './features/file/file';
 import { ClientsComponent } from './features/clients/clients';
 import { AnalyticsComponent } from './features/analytics/analytics';
 import { TeamComponent } from './features/team/team';
+import { RegistrationComponent } from './core/auth/pages/registration/registration';
 
 export const routes: Routes = [
   {
@@ -30,4 +31,9 @@ export const routes: Routes = [
   {
   path:'login',
   component: LoginComponent,
-},];
+},
+  {
+    path: 'registration',
+    component: RegistrationComponent,
+  },
+];

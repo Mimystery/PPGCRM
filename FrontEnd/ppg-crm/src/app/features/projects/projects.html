@@ -1,8 +1,8 @@
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new project" (nzOnCancel)="handleCancel()"
-(nzOnOk)="handleOk()" [nzOkDisabled]="isOkDisabled">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new project" (nzOnCancel)="handleCreateProjectModalCancel()"
+(nzOnOk)="handleCreateProjectModalOk()" [nzOkDisabled]="isOkDisabled">
       <ng-container *nzModalContent>
         <input nz-input placeholder="Enter new project name" [(ngModel)]="newProjectName"
-        (ngModelChange)="checkInput()">
+        (ngModelChange)="checkIsInputEmpty()">
       </ng-container>
 </nz-modal>
 
@@ -11,7 +11,7 @@
   <!-- HEADER LEFT SECTION WITH BUTTONS -->
 
   <div class="page-header-left">
-    <button nz-button nzType="default" class="page-header-btn create" (click)="showModal()">
+    <button nz-button nzType="default" class="page-header-btn create" (click)="showCreateProjectModal()">
       <nz-icon nzType="plus" nzTheme="outline" />
       Create new project
     </button>

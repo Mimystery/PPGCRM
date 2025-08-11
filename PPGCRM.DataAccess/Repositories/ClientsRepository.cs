@@ -49,7 +49,6 @@ namespace PPGCRM.DataAccess.Repositories
                         : ProjectStatus.NotStarted,
                     StartDate = project.StartDate,
                     EndDate = project.EndDate,
-                    Progress = project.Progress,
                     IsArchived = project.IsArchived,
                     ProcessCountByStatus = project.Stages
                         .SelectMany(s => s.Processes)

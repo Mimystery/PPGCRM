@@ -6,7 +6,7 @@
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your email!">
           <nz-input-group>
-            <input type="text" nz-input formControlName="Email" placeholder="Email" />
+            <input type="text" nz-input formControlName="email" placeholder="Email" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
@@ -29,7 +29,8 @@
       </div>
       <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
     </form>
-    <button nz-button class="login-registration-code" [nzType]="'default'">Use first time registration code here!</button>
+    <button nz-button class="login-registration-code" [nzType]="'default'" 
+    (click)="onClickRegistrationCodeHandle()">Use first time registration code here!</button>
   </div>
 </div>
 

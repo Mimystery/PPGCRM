@@ -1,0 +1,26 @@
+<div class="login">
+  <div class="login-container">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <img src="../public/logo.png" alt="src image fix is needed" class="login-logo" /> <!-- PATH NEEDS TO BE FIXED-->
+      <h1 style="text-align: center">Registration</h1>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your registration code!">
+          <nz-input-group>
+            <input type="text" nz-input formControlName="code" placeholder="Registration code here..." />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class="login-form-margin">
+        <div nz-col style="text-align: center">
+          <span class="inform-text">If you don't have a registration code, 
+            please contact the admin to obtain one</span>
+        </div>
+      </div>
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Register</button>
+    </form>
+    <button nz-button class="login-registration-code" 
+    [nzType]="'default'" (click)="onBackToLoginClickHandle()">Already have an account? Back to Login</button>
+  </div>
+</div>
+
+

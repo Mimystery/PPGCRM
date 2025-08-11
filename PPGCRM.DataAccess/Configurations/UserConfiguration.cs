@@ -17,14 +17,9 @@ namespace PPGCRM.DataAccess.Configurations
 
             builder.HasMany(u => u.Processes).WithMany(p => p.ResponsibleUsers);
 
-            builder.Property(u => u.UserName).IsRequired();
-            builder.Property(u => u.PasswordHash).IsRequired();
-            builder.Property(u => u.Email).IsRequired();
             builder.Property(u => u.FirstName).IsRequired();
             builder.Property(u => u.LastName).IsRequired();
-            builder.Property(u => u.Phone).IsRequired();
             builder.Property(u => u.Role).IsRequired();
-            builder.Property(u => u.Salary).IsRequired();
         }
     }
 }
