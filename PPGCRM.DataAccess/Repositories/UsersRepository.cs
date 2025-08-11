@@ -64,7 +64,50 @@ namespace PPGCRM.DataAccess.Repositories
 
         public async Task UpdateUserAsync(Guid userId, UserUpdateDTO userUpdateDto)
         {
+            var userEntity = await _context.Users
+                .FirstOrDefaultAsync(u => u.UserId == userId);
 
+            if (userEntity == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+
+            if (userUpdateDto.UserName != null)
+            {
+                userEntity.UserName = userUpdateDto.UserName;
+            }
+
+            if (userUpdateDto.PasswordHash != null)
+            {
+                userEntity.PasswordHash = userUpdateDto.PasswordHash;
+            }
+
+            if (userUpdateDto.FirstName != null)
+            {
+                userEntity.FirstName = userUpdateDto.FirstName;
+            }
+
+            if (userUpdateDto.LastName != null)
+            {
+                userEntity.LastName = userUpdateDto.LastName;
+            }
+
+            if (userUpdateDto.Email != null)
+            {
+                userEntity.Email = userUpdateDto.Email;
+            }
+
+            if (userUpdateDto.Phone != null)
+            {
+                userEntity.Phone = userUpdateDto.Phone;
+            }
+
+            if (userUpdateDto.Salary != null)
+            {
+                userEntity.Salary = userUpdateDto.Salary.Value;
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteUserAsync(Guid userId)
