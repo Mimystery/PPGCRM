@@ -7,9 +7,13 @@
 
         <ul nz-menu nzTheme="light" nzMode="inline">
           @if (selectedProjectService.selectedProjectName()!=null) {
-            <li nz-submenu nzTitle="Projects" nzIcon="bars">
+            <li nz-submenu
+                nzTitle="Projects"
+                nzIcon="bars"
+                [nzOpen]="true"
+                nzMenuClassName = "project-submenu"
+            >
                 <ul>
-
                     <li nz-menu-item >
                         <a [routerLink]="['/project-details']">
                             <nz-icon nzType="project" nzTheme="outline" />

@@ -1,0 +1,17 @@
+<nz-card class="card team" [nzBordered]="false">
+  <div class="card-info-container">
+    <nz-avatar nzSize="large" nzShape="circle" nzIcon="user"  s></nz-avatar>
+
+    <div class="card-info-item" style="flex: 1;">
+      <div class="card-status">
+        <span class="card-title">{{ name() }}</span>
+      </div>
+
+      <span>{{ email() }}</span>
+      <span>{{ phone() }}</span>
+      <span>{{ balance() }}</span>
+    </div>
+
+    <nz-tag [nzColor]="'#FFA94D'" class="card-tag">{{ tag() }}</nz-tag>
+  </div>
+</nz-card>

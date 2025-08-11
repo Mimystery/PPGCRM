@@ -1,4 +1,51 @@
-.card-button.restore {
-  padding: 0 2.5vw;
-  background-color: #00C040;
+.card.archive {
+  width: 26.5vw;
+  font-size: 1.8vh;
+
+  .card-title {
+    font-size: 1.8vh;
+  }
+
+  .card-description {
+    font-size: 1.8vh;
+    height: 6vh;
+  }
+
+  .card-info-container {
+    gap: 2vw;
+
+    .card-info-item {
+      .card-info-label {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .card-status {
+    gap: 2vw;
+
+    .card-status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5vw;
+
+      &.done {
+        color: green;
+      }
+
+      &.in-progress {
+        color: orange;
+      }
+
+      &.to-do {
+        color: gray;
+      }
+    }
+  }
+
+  .card-button.restore {
+    padding: 0 2.5vw;
+    background-color: #00C040;
+    color: white;
+  }
 }

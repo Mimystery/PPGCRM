@@ -18,6 +18,9 @@ import { SelectedProjectService } from '../../services/selected-project/selected
 })
 export class MainLayoutComponent {
 
+  constructor() {
+  }
+
   public userDrawerVisible = signal(false);
   openDrawer = () => this.userDrawerVisible.set(true);
   closeDrawer = () => {
@@ -26,5 +29,6 @@ export class MainLayoutComponent {
   projectDetails = 'projectDetails';
 
   selectedProjectService = inject(SelectedProjectService);
+
 }
 

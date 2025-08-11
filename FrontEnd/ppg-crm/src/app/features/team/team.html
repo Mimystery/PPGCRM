@@ -1,1 +1,22 @@
-<p>team works!</p>
+<!-- HEADER LIKE IN PROJECTS PAGE-->
+<div class="page-header">
+  <div class="page-header-left">
+    <button nz-button nzType="default" class="page-header-btn create">
+      <nz-icon nzType="plus" nzTheme="outline" />
+      Create new Teammate
+    </button>
+  </div>
+
+  <nz-input-group [nzSuffix]="suffixIconSearch" class="page-header-search">
+    <input type="text" nz-input placeholder="Search Teammates" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <nz-icon nzType="search" />
+  </ng-template>
+</div>
+
+
+<!-- TABLE FLEX -->
+<div class="flex-table">
+  <app-team-card></app-team-card>
+</div>

@@ -1,15 +1,51 @@
 .card.project {
   width: 26.5vw;
-  //height: 24.8vh;
   font-size: 1.8vh;
-}
-.card-button.archive{
-  padding: 0 2.5vw;
-  color: white;
-  background-color: #FFA220;
-}
 
-.project-card-description {
-  font-size: 1.8vh;
-  height: 6vh;
+  .card-title {
+    font-size: 1.8vh;
+  }
+
+  .card-description {
+    font-size: 1.8vh;
+    height: 6vh;
+  }
+
+  .card-info-container {
+    gap: 2vw;
+
+    .card-info-item {
+      .card-info-label {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .card-status {
+    gap: 2vw;
+
+    .card-status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5vw;
+
+      &.done {
+        color: green;
+      }
+
+      &.in-progress {
+        color: orange;
+      }
+
+      &.to-do {
+        color: gray;
+      }
+    }
+  }
+
+  .card-button {
+    padding: 0 2.5vw;
+    color: white;
+    background-color: #FFA220;
+  }
 }
