@@ -36,6 +36,12 @@ namespace PPGCRM.DataAccess.Repositories
             return _mapper.Map<UserDetailsDTO>(users);
         }
 
+        public async Task<UserModel?> GetUserByEmailAsync(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return _mapper.Map<UserModel>(user);
+        }
+
         public async Task<List<ProcessMainCardDTO>> GetUserProcessesAsync(Guid userId, Guid? projectId, Guid? stageId)
         {
             var query = _context.Processes
