@@ -13,12 +13,15 @@ import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzProgressModule} from 'ng-zorro-antd/progress';
 import {NzTagModule} from 'ng-zorro-antd/tag';
 import {NzFlexModule} from 'ng-zorro-antd/flex';
+import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'app-process-drawer',
   imports: [NzDrawerModule, NzLayoutModule, NzButtonModule, NzDescriptionsModule, NzDropDownModule,
     NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule,
-    NzCardModule, NzProgressModule, NzLayoutModule, NzTagModule, NzFlexModule],
+    NzCardModule, NzProgressModule, NzLayoutModule, NzTagModule, NzFlexModule, NzTableModule,
+  NzSpaceModule, NzCheckboxModule],
   templateUrl: './process-drawer.html',
   styleUrl: './process-drawer.less'
 })
