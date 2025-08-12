@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PPGCRM.Application.ExternalServices
+namespace PPGCRM.Application.Identity.Services
 {
     public class PasswordHasher : IPasswordHasher
     {

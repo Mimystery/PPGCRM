@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PPGCRM.Application.Identity.Authentication.Interfaces;
+using PPGCRM.Core.Contracts.Processes;
 using PPGCRM.Core.Contracts.Users;
 using PPGCRM.Core.Enums;
 using PPGCRM.Core.Models;
@@ -11,7 +12,7 @@ using PPGCRM.DataAccess.Repositories;
 
 namespace PPGCRM.Application.Services
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
         private readonly IPasswordHasher _passwordHasher;
         private readonly IPendingUsersRepository _pendingUsersRepository;
@@ -25,37 +26,39 @@ namespace PPGCRM.Application.Services
             _usersRepository = usersRepository;
         }
 
-        public async Task RegisterByAdmin(UserCreateByAdminDTO userCreateByAdminDto)
+        public async Task<List<UserMainCardDTO>> GetAllUsersAsync()
         {
-            string registrationCode = Guid.NewGuid().ToString("N");
-
-            var pendingUser = new PendingUserModel(Guid.NewGuid(), userCreateByAdminDto.FirstName,
-                userCreateByAdminDto.LastName, userCreateByAdminDto.Role, userCreateByAdminDto.Salary,
-                registrationCode, false);
-
-            await _pendingUsersRepository.AddPendingUserAsync(pendingUser);
+            return await _usersRepository.GetAllUsersAsync();
         }
 
-        public async Task RegisterByUser(UserCreateByEmployeeDTO userCreateByEmployeeDto, string registrationCode)
+        public async Task<UserDetailsDTO> GetUserDetailsByIdAsync(Guid userId)
         {
-            var pendingUser = await _pendingUsersRepository.GetPendingUserByRegistrationCodeAsync(registrationCode);
-            var hashedPassword = _passwordHasher.Generate(userCreateByEmployeeDto.Password);
-
-            var userModel = new UserModel(pendingUser.UserId, null, hashedPassword, pendingUser.FirstName,
-                pendingUser.LastName, userCreateByEmployeeDto.Email, null, pendingUser.Role, pendingUser.Salary);
-
-            await _usersRepository.AddUserAsync(userModel);
-            await _pendingUsersRepository.DeletePendingUserAsync(pendingUser.UserId);
+            return await _usersRepository.GetUserDetailsByIdAsync(userId);
         }
 
-        public async Task<string> Login(UserLoginDTO userLoginDto)
+        public async Task<UserModel?> GetUserByEmailAsync(string email)
         {
-            var user = await _usersRepository.GetUserByEmailAsync(userLoginDto.Email);
-            if (user == null || !_passwordHasher.Verify(userLoginDto.Password, user.PasswordHash))
-            {
-                throw new UnauthorizedAccessException("Invalid email or password.");
-            }
-            //return user.UserId.ToString(); // Return user ID or token as needed
+            return await _usersRepository.GetUserByEmailAsync(email);
+        }
+
+        public async Task<List<ProcessMainCardDTO>> GetUserProcessesAsync(Guid userId, Guid? projectId, Guid? stageId)
+        {
+            return await _usersRepository.GetUserProcessesAsync(userId, projectId, stageId);
+        }
+
+        public async Task AddUserAsync(UserModel user)
+        {
+            await _usersRepository.AddUserAsync(user);
+        }
+
+        public async Task UpdateUserAsync(Guid userId, UserUpdateDTO userUpdateDto)
+        {
+            await _usersRepository.UpdateUserAsync(userId, userUpdateDto);
+        }
+
+        public async Task DeleteUserAsync(Guid userId)
+        {
+            await _usersRepository.DeleteUserAsync(userId);
         }
     }
 }

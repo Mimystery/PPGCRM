@@ -39,6 +39,10 @@ namespace PPGCRM.DataAccess.Repositories
         public async Task<UserModel?> GetUserByEmailAsync(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found with the provided email.");
+            }
             return _mapper.Map<UserModel>(user);
         }
 
