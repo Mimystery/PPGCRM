@@ -1,7 +1,16 @@
-<nz-card [nzBodyStyle]="{ padding: '5px 10px' }" class="card project" (click)="onCardClick()">
-  <h2 class="card-title">{{ project().projectName }}</h2>
-  <p class="card-description">{{ project().description }}</p>
+<nz-card
+  [nzBodyStyle]="{ padding: '5px 10px' }"
+  class="card project"
+  (click)="onCardClick()"
+  [nzActions]="[archiveAction]"
+>
+  <!-- Title & Description -->
+  <nz-card-meta
+    [nzTitle]="project().projectName"
+    [nzDescription]="project().description"
+  ></nz-card-meta>
 
+  <!-- Dates -->
   <div class="card-info-container">
     <div class="card-info-item">
       <span class="card-info-label">From:</span>
@@ -13,6 +22,7 @@
     </div>
   </div>
 
+  <!-- Status Section -->
   <div class="card-status">
     <div class="card-status-item done">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,13 +41,14 @@
       <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M6.5 12C9.53754 12 12 9.53754 12 6.5C12 3.46243 9.53754 1 6.5 1C3.46243 1 1 3.46243 1 6.5C1 9.53754 3.46243 12 6.5 12Z" stroke="black" stroke-width="0.533333" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <span>{{ project().processCountByStatus['ToDo'] }} To do</span>
+      <span>{{ project().processCountByStatus['ToDo'] }} To Do</span>
     </div>
   </div>
 
+  <!-- Progress Bar -->
   <nz-progress
     nz-tooltip
-    nzTooltipTitle="3 done / 3 in progress / 4 to do"
+
     [nzPercent]="60"
     [nzSuccessPercent]="30"
     nzStrokeColor="#FFA220"
@@ -45,7 +56,16 @@
     [nzShowInfo]="false"
   ></nz-progress>
 
-  <div class="card-footer">
-    <button nz-button nzType="default" class="card-button archive">Archive</button>
-  </div>
+  <!-- Actions -->
+  <ng-template #archiveAction>
+    <div class="card-footer-wrapper" style="display: flex; justify-content: flex-end;">
+      <button
+        nz-button
+        nzType="default"
+        class="card-button archive"
+      >
+        Archive
+      </button>
+    </div>
+  </ng-template>
 </nz-card>

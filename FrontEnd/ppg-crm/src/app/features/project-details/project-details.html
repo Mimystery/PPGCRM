@@ -145,55 +145,62 @@
   <!-- SIDER STARTS HERE -->
   <nz-sider nzTheme="light" [nzWidth]="200" class="project-details-sider">
     <div class="project-details-sider-content">
-     <div class="container">
-       <h3>STATUS</h3>
-       <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStatus" class="project-details-sider-btn">
-         Button
-         <nz-icon nzType="down" />
-       </button>
 
-       <!-- DROP DOWN MENU FOR STATUS -->
-       <nz-dropdown-menu #nzDropdownMenuStatus="nzDropdownMenu">
-         <ul nz-menu>
-           <li nz-menu-item>
-             <nz-icon>
-               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
-               </svg>
-             </nz-icon>
-             Started
-           </li>
-           <li nz-menu-item>Stopped</li>
-           <li nz-menu-item>Awaiting</li>
-         </ul>
-       </nz-dropdown-menu>
-     </div>
+      <!-- STATUS -->
+      <div class="container">
+        <h3>STATUS</h3>
+        <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStatus" class="project-details-sider-btn">
+          Button
+          <nz-icon nzType="down"></nz-icon>
+        </button>
 
+        <nz-dropdown-menu #nzDropdownMenuStatus="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
+              <nz-icon>
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+                </svg>
+              </nz-icon>
+              Started
+            </li>
+            <li nz-menu-item>Stopped</li>
+            <li nz-menu-item>Awaiting</li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
 
-
-
+      <!-- CLIENT -->
       <div class="container">
         <h3>CLIENT</h3>
-        <nz-card [nzBodyStyle]="{ padding: '10px' }" class="card client" >
-          <h2 class="card-title">
-            <nz-icon>
-              <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3.6875 1.93026V21.1691H13.0625V1.93026H3.6875ZM2.90625 0.181274H13.8438C14.051 0.181274 14.2497 0.273408 14.3962 0.437407C14.5427 0.601407 14.625 0.823837 14.625 1.05577V22.0436C14.625 22.2755 14.5427 22.498 14.3962 22.662C14.2497 22.826 14.051 22.9181 13.8438 22.9181H2.90625C2.69905 22.9181 2.50034 22.826 2.35382 22.662C2.20731 22.498 2.125 22.2755 2.125 22.0436V1.05577C2.125 0.823837 2.20731 0.601407 2.35382 0.437407C2.50034 0.273408 2.69905 0.181274 2.90625 0.181274Z" fill="black"/>
-                <path d="M5.25 5.42822H11.5V7.17721H5.25V5.42822ZM5.25 10.6752H11.5V12.4242H5.25V10.6752ZM5.25 15.9221H11.5V17.6711H5.25V15.9221ZM14.625 12.4242H17.75V14.1732H14.625V12.4242ZM14.625 15.9221H17.75V17.6711H14.625V15.9221ZM0.5625 21.1691H22.4375V22.9181H0.5625V21.1691Z" fill="black"/>
-                <path d="M14.625 8.92611V21.169H19.3125V8.92611H14.625ZM13.8438 7.17712H20.0938C20.301 7.17712 20.4997 7.26926 20.6462 7.43326C20.7927 7.59726 20.875 7.81969 20.875 8.05162V22.0435C20.875 22.2754 20.7927 22.4979 20.6462 22.6619C20.4997 22.8259 20.301 22.918 20.0938 22.918H13.8438C13.6365 22.918 13.4378 22.8259 13.2913 22.6619C13.1448 22.4979 13.0625 22.2754 13.0625 22.0435V8.05162C13.0625 7.81969 13.1448 7.59726 13.2913 7.43326C13.4378 7.26926 13.6365 7.17712 13.8438 7.17712Z" fill="black"/>
-              </svg>
-            </nz-icon>
-            ALPHA COMPANY
-          </h2>
+        <nz-card [nzBodyStyle]="{ padding: '10px' }" class="card client">
+          <nz-card-meta
+            [nzTitle]="clientTitle"
+            [nzDescription]="clientInfo"
+          ></nz-card-meta>
+        </nz-card>
+
+        <ng-template #clientTitle>
+          <nz-icon>
+            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.6875 1.93026V21.1691H13.0625V1.93026H3.6875ZM2.90625 0.181274H13.8438C14.051 0.181274 14.2497 0.273408 14.3962 0.437407C14.5427 0.601407 14.625 0.823837 14.625 1.05577V22.0436C14.625 22.2755 14.5427 22.498 14.3962 22.662C14.2497 22.826 14.051 22.9181 13.8438 22.9181H2.90625C2.69905 22.9181 2.50034 22.826 2.35382 22.662C2.20731 22.498 2.125 22.2755 2.125 22.0436V1.05577C2.125 0.823837 2.20731 0.601407 2.35382 0.437407C2.50034 0.273408 2.69905 0.181274 2.90625 0.181274Z" fill="black"/>
+              <path d="M5.25 5.42822H11.5V7.17721H5.25V5.42822ZM5.25 10.6752H11.5V12.4242H5.25V10.6752ZM5.25 15.9221H11.5V17.6711H5.25V15.9221ZM14.625 12.4242H17.75V14.1732H14.625V12.4242ZM14.625 15.9221H17.75V17.6711H14.625V15.9221ZM0.5625 21.1691H22.4375V22.9181H0.5625V21.1691Z" fill="black"/>
+              <path d="M14.625 8.92611V21.169H19.3125V8.92611H14.625ZM13.8438 7.17712H20.0938C20.301 7.17712 20.4997 7.26926 20.6462 7.43326C20.7927 7.59726 20.875 7.81969 20.875 8.05162V22.0435C20.875 22.2754 20.7927 22.4979 20.6462 22.6619C20.4997 22.8259 20.301 22.918 20.0938 22.918H13.8438C13.6365 22.918 13.4378 22.8259 13.2913 22.6619C13.1448 22.4979 13.0625 22.2754 13.0625 22.0435V8.05162C13.0625 7.81969 13.1448 7.59726 13.2913 7.43326C13.4378 7.26926 13.6365 7.17712 13.8438 7.17712Z" fill="black"/>
+            </svg>
+          </nz-icon>
+          Alpha LLC.
+        </ng-template>
+
+        <ng-template #clientInfo>
           <div class="card-info-container">
             <div class="card-info-item">
             <span class="card-info-label">
-          <nz-icon>
-          <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 5.72039C6.24789 5.72039 5.52658 5.42162 4.99476 4.88979C4.46293 4.35797 4.16416 3.63666 4.16416 2.88455C4.16416 2.13244 4.46293 1.41113 4.99476 0.879305C5.52658 0.347482 6.24789 0.0487061 7 0.0487061C7.75211 0.0487061 8.47342 0.347482 9.00524 0.879305C9.53707 1.41113 9.83584 2.13244 9.83584 2.88455C9.83584 3.63666 9.53707 4.35797 9.00524 4.88979C8.47342 5.42162 7.75211 5.72039 7 5.72039ZM7 6.96633C10.7704 6.96633 13.1875 9.04702 13.1875 10.0601V11.9518H0.8125V10.0601C0.8125 8.83496 3.10075 6.96633 7 6.96633Z" fill="black"/>
-          </svg>
-           </nz-icon>
-            Contact Person
+              <nz-icon>
+               <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 5.72039C6.24789 5.72039 5.52658 5.42162 4.99476 4.88979C4.46293 4.35797 4.16416 3.63666 4.16416 2.88455C4.16416 2.13244 4.46293 1.41113 4.99476 0.879305C5.52658 0.347482 6.24789 0.0487061 7 0.0487061C7.75211 0.0487061 8.47342 0.347482 9.00524 0.879305C9.53707 1.41113 9.83584 2.13244 9.83584 2.88455C9.83584 3.63666 9.53707 4.35797 9.00524 4.88979C8.47342 5.42162 7.75211 5.72039 7 5.72039ZM7 6.96633C10.7704 6.96633 13.1875 9.04702 13.1875 10.0601V11.9518H0.8125V10.0601C0.8125 8.83496 3.10075 6.96633 7 6.96633Z" fill="black"/>
+               </svg>
+              </nz-icon>
+              Contact Person
             </span>
               <span>VLADYK KUDYRKO</span>
             </div>
@@ -206,13 +213,13 @@
               <span>+1111111</span>
             </div>
           </div>
-        </nz-card>
+        </ng-template>
       </div>
 
+      <!-- MEMBERS -->
       <div class="container">
         <h3>MEMBERS</h3>
-        <!-- ***MEMBERS LIST ТУТ МАЄ БУТИ ФОР ЯКИЙ БУДЕ СПАВНИТИ ВСІХ МЕМБЕРІВ*** -->
-        <nz-card [nzBodyStyle]="{padding: '1vh 0.35vw', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}" class="card">
+        <nz-card [nzBodyStyle]="{padding: '1vh 0.15vw', display: 'flex',flexDirection:'row', alignItems: 'center', justifyContent: 'space-between'}" class="card">
           <span>
           <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M6.1875 5.67169C5.43539 5.67169 4.71408 5.37291 4.18226 4.84109C3.65043 4.30926 3.35166 3.58796 3.35166 2.83584C3.35166 2.08373 3.65043 1.36242 4.18226 0.830599C4.71408 0.298776 5.43539 0 6.1875 0C6.93961 0 7.66092 0.298776 8.19274 0.830599C8.72457 1.36242 9.02334 2.08373 9.02334 2.83584C9.02334 3.58796 8.72457 4.30926 8.19274 4.84109C7.66092 5.37291 6.93961 5.67169 6.1875 5.67169ZM6.1875 6.91763C9.95794 6.91763 12.375 8.99831 12.375 10.0114V11.9031H0V10.0114C0 8.78625 2.28825 6.91763 6.1875 6.91763Z" fill="black"/>
@@ -220,7 +227,7 @@
           Imia Tipa TUt
           </span>
 
-          <nz-tag nzColor="#ACACAC" [nzBordered]="false" style="border-radius:30px;">Postion</nz-tag>
+          <nz-tag nzColor="#ACACAC" [nzBordered]="false" style="border-radius:30px; margin: 0;" >Postion</nz-tag>
         </nz-card>
       </div>
 
