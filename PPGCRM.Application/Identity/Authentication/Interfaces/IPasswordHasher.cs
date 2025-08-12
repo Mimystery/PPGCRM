@@ -1,4 +1,4 @@
-﻿namespace PPGCRM.Application.Authentication.Interfaces;
+﻿namespace PPGCRM.Application.Identity.Authentication.Interfaces;
 
 public interface IPasswordHasher
 {

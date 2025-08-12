@@ -34,25 +34,39 @@ namespace PPGCRM.DataAccess.Repositories
             return _mapper.Map<PendingUserModel>(pendingUser);
         }
 
-        public async Task<PendingUserModel> GetPendingUserByRegistrationCode(string registrationCode)
+        public async Task<PendingUserModel> GetPendingUserByRegistrationCodeAsync(string registrationCode)
         {
             var pendingUser = await _context.PendingUsers
                 .FirstOrDefaultAsync(u => u.RegistrationCode == registrationCode);
+
+            if (pendingUser == null)
+            {
+                throw new KeyNotFoundException("Pending user not found with the provided registration code.");
+            }
+
+            if (pendingUser.isRegistered)
+            {
+                throw new InvalidOperationException("This registration code has already been used.");
+            }
+
+            pendingUser.isRegistered = true; 
+            await _context.SaveChangesAsync();
+
             return _mapper.Map<PendingUserModel>(pendingUser);
         }
 
-        public async Task<string> AddPendingUser(PendingUserModel pendingUser)
+        public async Task<string> AddPendingUserAsync(PendingUserModel pendingUser)
         {
             var userEntity = _mapper.Map<PendingUserEntity>(pendingUser);
             _context.PendingUsers.Add(userEntity);
             await _context.SaveChangesAsync();
             return userEntity.RegistrationCode;
         }
-        public async Task UpdatePendingUser(PendingUserModel pendingUser)
+        public async Task UpdatePendingUserPropertyAsync(string registrationCode)
         {
-            throw new NotImplementedException("UpdatePendingUser method is not implemented yet.");
+            throw new NotImplementedException();
         }
-        public async Task DeletePendingUser(Guid pendingUserId)
+        public async Task DeletePendingUserAsync(Guid pendingUserId)
         {
             var pendingUser = await _context.PendingUsers
                 .FirstOrDefaultAsync(u => u.UserId == pendingUserId);

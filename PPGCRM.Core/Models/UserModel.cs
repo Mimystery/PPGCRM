@@ -9,7 +9,8 @@ namespace PPGCRM.Core.Models
 {
     public class UserModel
     {
-        public UserModel(Guid userId, string userName, string password, string firstName, string lastName, string? email, string? phone, Role role, decimal salary)
+        public UserModel(Guid userId, string? userName, string password, string firstName, string lastName, 
+            string? email, string? phone, Role role, decimal? salary)
         {
             UserId = userId;
             UserName = userName;
