@@ -1,0 +1,121 @@
+<nz-drawer [nzVisible]="isVisible()"
+           nzPlacement="right"
+           nzClosable="true"
+           nzTitle="Proccess Name"
+           (nzOnClose)="handleClose()"
+            [nzWidth]="window.innerWidth*0.85"
+           [nzBodyStyle]="{padding: '0 0.5vw'}"
+           >
+  <ng-container *nzDrawerContent>
+    <nz-layout>
+      <nz-content>
+        <div class="container">
+          <div nz-flex nzJustify="space-between" nzAlign="center" class="project-details-header">
+            <div class="container">
+              <h3>Start Date</h3>
+              <nz-card>
+                <div class="card-info-container">
+                  <nz-icon>
+                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.29167 15.625H2.95833C2.08388 15.625 1.375 14.9161 1.375 14.0417V6.91667H15.625V9.29167M10.875 2.16667V0.583336M10.875 2.16667V3.75M10.875 2.16667H7.3125" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M1.375 6.91666V3.75C1.375 2.87555 2.08388 2.16666 2.95833 2.16666H4.54167" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M4.54163 0.583336V3.75" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M15.625 6.91666V3.75C15.625 2.87555 14.9162 2.16666 14.0417 2.16666H13.6459" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11.6605 14.0417H14.0355M14.0355 14.0417H16.4167M14.0355 14.0417V11.6667M14.0355 14.0417V16.4167" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </nz-icon>
+                  <div class="card-info-item">
+                    <span>25 Jun, 2025</span>
+                  </div>
+                </div>
+              </nz-card>
+            </div>
+            <div class="container">
+              <h3>End Date</h3>
+              <nz-card>
+                <div class="card-info-container">
+                  <nz-icon>
+                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.29167 15.625H2.95833C2.08388 15.625 1.375 14.9161 1.375 14.0417V6.91667H15.625V9.29167M10.875 2.16667V0.583336M10.875 2.16667V3.75M10.875 2.16667H7.3125" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M1.375 6.91666V3.75C1.375 2.87555 2.08388 2.16666 2.95833 2.16666H4.54167" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M4.54163 0.583336V3.75" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M15.625 6.91666V3.75C15.625 2.87555 14.9162 2.16666 14.0417 2.16666H13.6459" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11.6605 14.0417H14.0355M14.0355 14.0417H16.4167M14.0355 14.0417V11.6667M14.0355 14.0417V16.4167" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </nz-icon>
+                  <div class="card-info-item">
+                    <span>25 Jun, 2025</span>
+                  </div>
+                </div>
+              </nz-card>
+            </div>
+            <div class="container">
+              <h3>Factual End Date</h3>
+              <nz-card>
+                <div class="card-info-container">
+                  <nz-icon>
+                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.29167 15.625H2.95833C2.08388 15.625 1.375 14.9161 1.375 14.0417V6.91667H15.625V9.29167M10.875 2.16667V0.583336M10.875 2.16667V3.75M10.875 2.16667H7.3125" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M1.375 6.91666V3.75C1.375 2.87555 2.08388 2.16666 2.95833 2.16666H4.54167" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M4.54163 0.583336V3.75" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M15.625 6.91666V3.75C15.625 2.87555 14.9162 2.16666 14.0417 2.16666H13.6459" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11.6605 14.0417H14.0355M14.0355 14.0417H16.4167M14.0355 14.0417V11.6667M14.0355 14.0417V16.4167" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </nz-icon>
+                  <div class="card-info-item">
+                    <span>25 Jun, 2025</span>
+                  </div>
+                </div>
+              </nz-card>
+            </div>
+          </div>
+        </div>
+      </nz-content>
+      <nz-sider nzTheme="light">
+        <div class="container">
+          <h3>Status</h3>
+          <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStatus" class="project-details-drawer-btn">
+            Button
+            <nz-icon nzType="down"></nz-icon>
+          </button>
+
+          <nz-dropdown-menu #nzDropdownMenuStatus="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <nz-icon>
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+                  </svg>
+                </nz-icon>
+                Started
+              </li>
+              <li nz-menu-item>Stopped</li>
+              <li nz-menu-item>Awaiting</li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+        <nz-progress
+          [nzPercent]="34"
+          nzStrokeColor="#7AC327"
+          [nzShowInfo]="true"
+          nzStrokeLinecap="round"
+          style="width: 120px; margin: 0;">
+        </nz-progress>
+
+        <div class="container">
+          <h3 class="card-label">Responsible</h3>
+          <nz-card [nzBodyStyle]="{padding: '1vh 0.15vw', display: 'flex',flexDirection:'row', alignItems: 'center', justifyContent: 'space-between'}" class="card">
+          <span>
+          <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.1875 5.67169C5.43539 5.67169 4.71408 5.37291 4.18226 4.84109C3.65043 4.30926 3.35166 3.58796 3.35166 2.83584C3.35166 2.08373 3.65043 1.36242 4.18226 0.830599C4.71408 0.298776 5.43539 0 6.1875 0C6.93961 0 7.66092 0.298776 8.19274 0.830599C8.72457 1.36242 9.02334 2.08373 9.02334 2.83584C9.02334 3.58796 8.72457 4.30926 8.19274 4.84109C7.66092 5.37291 6.93961 5.67169 6.1875 5.67169ZM6.1875 6.91763C9.95794 6.91763 12.375 8.99831 12.375 10.0114V11.9031H0V10.0114C0 8.78625 2.28825 6.91763 6.1875 6.91763Z" fill="black"/>
+          </svg>
+          Imia Tipa TUt
+          </span>
+
+            <nz-tag nzColor="#ACACAC" [nzBordered]="false" style="border-radius:30px; margin: 0;" >Postion</nz-tag>
+          </nz-card>
+        </div>
+      </nz-sider>
+    </nz-layout>
+  </ng-container>
+</nz-drawer>

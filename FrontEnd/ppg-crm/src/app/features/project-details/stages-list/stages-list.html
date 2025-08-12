@@ -30,9 +30,9 @@
   <!--- STAGES LIST -->
   <nz-collapse>
 
-    <nz-collapse-panel  nzActive [nzShowArrow] = 'false' [nzHeader]="stagesCard" >
-        <table style="width: 100%; border-collapse: collapse;">
-          <tr>
+    <nz-collapse-panel  nzActive [nzShowArrow] = 'true' [nzHeader]="stagesCard" >
+        <table style="width: 100%; border-collapse: collapse;" >
+          <tr (click)="openProcessDrawer()" >
             <!-- Process Name -->
             <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
               Process name
@@ -75,6 +75,8 @@
         </table>
     </nz-collapse-panel>
   </nz-collapse>
+
+  <app-process-drawer [isVisible]="processDrawerVisible()" (close)="closeProcessDrawer()"></app-process-drawer>
 
   <!--- STAGES CARD  HEADER-->
   <ng-template #stagesCard>

@@ -13,7 +13,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   styleUrls: ['./user-drawer.css']
 })
 export class UserDrawerComponent {
-  @Input() visible: boolean = false;
+  @Input() visible = false;
   @Output() close = new EventEmitter<void>();
 
   handleClose() {

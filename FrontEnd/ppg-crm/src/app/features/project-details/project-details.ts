@@ -17,7 +17,7 @@ import { StagesListComponent } from './stages-list/stages-list';
   selector: 'app-project-details',
   imports: [NzButtonModule, NzDescriptionsModule, NzDropDownModule,
     NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule,
-    NzCardModule, NzProgressModule, NzLayoutModule, NzTagModule, StagesListComponent],
+    NzCardModule, NzProgressModule, NzLayoutModule, NzTagModule, StagesListComponent,],
   templateUrl: './project-details.html',
   styleUrl: './project-details.less'
 })
