@@ -74,8 +74,8 @@ namespace PPGCRM.Application.Identity.Services
             }
 
             var token = _jwtProvider.GenerateToken(user);
-
             var refreshToken = _jwtProvider.GenerateRefreshToken();
+
             _refreshTokenService.SaveRefreshTokenAsync(user.UserId, refreshToken);
 
             return new TokenDTO
@@ -95,15 +95,18 @@ namespace PPGCRM.Application.Identity.Services
                 throw new UnauthorizedAccessException("Invalid refresh token");
             }
 
-            var user = await _usersService.GetUserDetailsByIdAsync(storedToken.UserId);
+            var user = await _usersService.GetUserByIdAsync(storedToken.UserId);
 
             var newToken = _jwtProvider.GenerateToken(user); //To do add method with return type USerModel
+            var newRefreshToken = _jwtProvider.GenerateRefreshToken();
 
+            await _refreshTokenService.DeleteRefreshTokenAsync(refreshToken);
+            await _refreshTokenService.SaveRefreshTokenAsync(user.UserId, newRefreshToken);
 
             return new TokenDTO
             {
-                AccessToken = "new_access_token",
-                RefreshToken = "new_refresh_token",
+                AccessToken = newToken,
+                RefreshToken = newRefreshToken,
             };
         }
 

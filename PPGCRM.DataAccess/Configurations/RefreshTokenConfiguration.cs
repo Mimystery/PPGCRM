@@ -25,12 +25,6 @@ namespace PPGCRM.DataAccess.Configurations
             builder.Property(t => t.IsRevoked)
                 .IsRequired();
 
-            // Связь с пользователем (1 пользователь - много токенов)
-            builder.HasOne(t => t.User)
-                .WithMany(u => u.RefreshTokens)
-                .HasForeignKey(t => t.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             // Индекс для быстрого поиска токена
             builder.HasIndex(t => t.Token)
                 .IsUnique();

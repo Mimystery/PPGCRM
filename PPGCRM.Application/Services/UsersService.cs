@@ -36,6 +36,11 @@ namespace PPGCRM.Application.Services
             return await _usersRepository.GetUserDetailsByIdAsync(userId);
         }
 
+        public async Task<UserModel?> GetUserByIdAsync(Guid userId)
+        {
+            return await _usersRepository.GetUserByIdAsync(userId);
+        }
+
         public async Task<UserModel?> GetUserByEmailAsync(string email)
         {
             return await _usersRepository.GetUserByEmailAsync(email);

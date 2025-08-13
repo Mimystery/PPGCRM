@@ -78,12 +78,17 @@ builder.Services.AddScoped<IProjectsService, ProjectsService>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 
+builder.Services.AddScoped<IRefreshTokensRepository, RefreshTokensRepository>();
+builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 
 builder.Services.AddScoped<IPendingUsersRepository, PendingUsersRepository>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+
+
 
 var jwtOptions = builder.Configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
 builder.Services.AddApiAuthentication(Options.Create(jwtOptions));

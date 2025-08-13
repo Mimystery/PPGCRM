@@ -13,13 +13,10 @@ namespace PPGCRM.Application.Identity.Services
     public class RefreshTokenService : IRefreshTokenService
     {
         private readonly IRefreshTokensRepository _refreshTokensRepository;
-        private readonly JwtOptions _jwtOptions;
 
-        public RefreshTokenService(IRefreshTokensRepository refreshTokensRepository, 
-            JwtOptions jwtOptions)
+        public RefreshTokenService(IRefreshTokensRepository refreshTokensRepository)
         {
             _refreshTokensRepository = refreshTokensRepository;
-            _jwtOptions = jwtOptions;
         }
 
         public async Task<RefreshTokenModel?> GetRefreshTokenAsync(string refreshToken)

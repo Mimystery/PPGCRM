@@ -25,6 +25,7 @@ namespace PPGCRM.DataAccess
             modelBuilder.ApplyConfiguration(new TaskConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PendingUserConfiguration());
+            modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
         }
         // Define DbSets for your entities
         // public DbSet<YourEntity> YourEntities { get; set; }

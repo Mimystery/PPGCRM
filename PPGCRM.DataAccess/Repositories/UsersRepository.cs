@@ -36,6 +36,16 @@ namespace PPGCRM.DataAccess.Repositories
             return _mapper.Map<UserDetailsDTO>(users);
         }
 
+        public async Task<UserModel?> GetUserByIdAsync(Guid userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found with the provided ID.");
+            }
+            return _mapper.Map<UserModel>(user);
+        }
+
         public async Task<UserModel?> GetUserByEmailAsync(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);

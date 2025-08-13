@@ -8,6 +8,7 @@ public interface IUsersRepository
 {
     Task<List<UserMainCardDTO>> GetAllUsersAsync();
     Task<UserDetailsDTO> GetUserDetailsByIdAsync(Guid userId);
+    Task<UserModel?> GetUserByIdAsync(Guid userId);
     Task<UserModel?> GetUserByEmailAsync(string email);
     Task<List<ProcessMainCardDTO>> GetUserProcessesAsync(Guid userId, Guid? projectId, Guid? stageId);
     Task AddUserAsync(UserModel user);
