@@ -99,7 +99,7 @@
                 </button>
                 <button class="header-username-button" nz-button nzType="default" (click)="openDrawer()">
                     <nz-icon nzType="user" nzTheme="outline" />
-                    <span>Super mEga Imia</span>
+                    <span>{{ userProfile?.firstName }} {{ userProfile?.lastName }}</span>
                 </button>
             </div>
         </nz-header>

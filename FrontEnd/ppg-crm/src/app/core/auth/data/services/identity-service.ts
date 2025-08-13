@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { TokenResponse } from '../interfaces/token.interface';
+import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from 'jwt-decode';
+import { User } from '../interfaces/user.interface';
+import { JwtPayload } from '../interfaces/jwt-payload.interface';
 
 
 @Injectable({
@@ -8,7 +13,35 @@ import { Observable } from 'rxjs';
 })
 export class IdentityService {
   http = inject(HttpClient)
-  //cookieService = inject(CookieService)
+  cookieService = inject(CookieService)
+
+  token: string | null = null;
+  refreshToken: string | null = null;
+
+  get isAuth() {
+    if(!this.token){
+      this.cookieService.get('token')
+    }
+    return !!this.token
+  }
+
+  getUserId(): string | null {
+    if(!this.token){
+      this.token = this.cookieService.get('token')
+    }
+    if (!this.token){
+      return null;
+    }
+
+    try{
+      const decoded = jwtDecode<JwtPayload>(this.token);
+      return decoded.Id;
+    }
+    catch (e) {
+      console.error("Error", e);
+      return null
+    }
+  }
 
   checkPendingUser(code: string): Observable<any> {
     return this.http.get(`https://localhost:7189/api/Identity/CheckPendingUser/${code}`);
@@ -19,6 +52,15 @@ export class IdentityService {
   }
 
   login(payload: {email: string, password: string}){
-    return this.http.post(`https://localhost:7189/api/Identity/Login`, payload)
+    return this.http.post<TokenResponse>(`https://localhost:7189/api/Identity/Login`, payload)
+    .pipe(
+      tap(val => {
+        this.token = val.accessToken,
+        this.refreshToken = val.refreshToken
+        console.log(this.token)
+        this.cookieService.set('token', this.token)
+        this.cookieService.set('refreshToken', this.refreshToken)
+      })
+    )
   }
 }

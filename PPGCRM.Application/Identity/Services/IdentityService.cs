@@ -20,14 +20,16 @@ namespace PPGCRM.Application.Identity.Services
         private readonly IPendingUsersRepository _pendingUsersRepository;
         private readonly IUsersService _usersService;
         private readonly IJwtProvider _jwtProvider;
+        private readonly IRefreshTokenService _refreshTokenService;
 
         public IdentityService(IPendingUsersRepository pendingUsersRepository, IUsersService usersService,
-            IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
+            IPasswordHasher passwordHasher, IJwtProvider jwtProvider, IRefreshTokenService refreshTokenService)
         {
             _pendingUsersRepository = pendingUsersRepository;
             _passwordHasher = passwordHasher;
             _usersService = usersService;
             _jwtProvider = jwtProvider;
+            _refreshTokenService = refreshTokenService;
 
         }
         public async Task<string> RegisterByAdmin(UserCreateByAdminDTO userCreateByAdminDto)
@@ -72,18 +74,32 @@ namespace PPGCRM.Application.Identity.Services
             }
 
             var token = _jwtProvider.GenerateToken(user);
+
+            var refreshToken = _jwtProvider.GenerateRefreshToken();
+            _refreshTokenService.SaveRefreshTokenAsync(user.UserId, refreshToken);
+
             return new TokenDTO
             {
                 AccessToken = token,
-                RefreshToken = "dummy_refresh_token", // Replace with actual refresh token logic
+                RefreshToken = refreshToken, // Replace with actual refresh token logic
 
             };
         }
 
         public async Task<TokenDTO> RefreshToken(string refreshToken)
         {
-            // Here you would typically validate the refresh token and issue a new access token
-            // For simplicity, we are returning a dummy token
+            var storedToken = await _refreshTokenService.GetRefreshTokenAsync(refreshToken);
+
+            if (storedToken == null || storedToken.IsRevoked || storedToken.Expires < DateTime.UtcNow)
+            {
+                throw new UnauthorizedAccessException("Invalid refresh token");
+            }
+
+            var user = await _usersService.GetUserDetailsByIdAsync(storedToken.UserId);
+
+            var newToken = _jwtProvider.GenerateToken(user); //To do add method with return type USerModel
+
+
             return new TokenDTO
             {
                 AccessToken = "new_access_token",

@@ -8,10 +8,11 @@ import { registerLocaleData } from '@angular/common';
 import uk from '@angular/common/locales/uk';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { BellOutline, MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline, 
   GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline } from '@ant-design/icons-angular/icons';
+import { TokenInterceptor } from './core/auth/data/services/interceptor';
 
 
 registerLocaleData(uk);
@@ -26,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
     provideClientHydration(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([TokenInterceptor])),
     { provide: NZ_ICONS, useValue: [BellOutline,MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline, 
       GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline] }
   ]
