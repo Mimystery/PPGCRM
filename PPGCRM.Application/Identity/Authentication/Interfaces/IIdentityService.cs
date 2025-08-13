@@ -7,6 +7,7 @@ public interface IIdentityService
 {
     Task<string> RegisterByAdmin(UserCreateByAdminDTO userCreateByAdminDto);
     Task RegisterByUser(UserCreateByEmployeeDTO userCreateByEmployeeDto, string registrationCode);
+    Task CheckPendingUserExistingByRegistrationCode(string regCode);
     Task<TokenDTO> Login(UserLoginDTO userLoginDto);
     Task<TokenDTO> RefreshToken(string refreshToken);
 }

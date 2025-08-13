@@ -5,17 +5,22 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { Router } from '@angular/router';
-
+import { IdentityService } from '../../data/services/identity-service';
+import { error } from '@ant-design/icons-angular';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule],
+  imports: [ReactiveFormsModule, NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule, 
+    CommonModule
+  ],
   templateUrl: './login.html',
   styleUrl: './login.less',
 })
 
 export class LoginComponent {
   private fb = inject(NonNullableFormBuilder);
+  identityService = inject(IdentityService)
   router = inject(Router)
 
   validateForm = this.fb.group({
@@ -26,7 +31,19 @@ export class LoginComponent {
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
+      const payload = {
+        email: this.validateForm.controls.email.value,
+        password: this.validateForm.controls.password.value
+      }
+      console.log('submit', payload);
+      this.identityService.login(payload).subscribe({
+        next: (resp) => {
+          console.log('Back:', resp)
+        },
+        error: (error) => {
+          console.log('Error:', error)
+        }
+      });
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {

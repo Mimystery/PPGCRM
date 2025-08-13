@@ -4,19 +4,32 @@
       <img src="../public/logo.png" alt="src image fix is needed" class="login-logo" /> <!-- PATH NEEDS TO BE FIXED-->
       <h1 style="text-align: center">Registration</h1>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your registration code!">
+        <nz-form-control [nzErrorTip]="codeErrorTpl">
           <nz-input-group>
             <input type="text" nz-input formControlName="code" placeholder="Registration code here..." />
           </nz-input-group>
+          <ng-template #codeErrorTpl let-control>
+            @if (control.errors?.['required']) {
+              Please input registration code!
+            }
+            @if (control.errors?.['minlength'] || control.errors?.['maxlength']) {
+              Please input valid registration code!
+            }
+            @if (control.errors?.['invalidCode']) {
+              Provided code is not valid!
+            }
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
+      
       <div nz-row class="login-form-margin">
         <div nz-col style="text-align: center">
           <span class="inform-text">If you don't have a registration code, 
             please contact the admin to obtain one</span>
         </div>
       </div>
-      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Register</button>
+      <button nz-button class="login-form-button login-form-margin" 
+      [nzType]="'primary'">Next</button>
     </form>
     <button nz-button class="login-registration-code" 
     [nzType]="'default'" (click)="onBackToLoginClickHandle()">Already have an account? Back to Login</button>

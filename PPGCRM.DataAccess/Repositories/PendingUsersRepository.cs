@@ -49,7 +49,6 @@ namespace PPGCRM.DataAccess.Repositories
                 throw new InvalidOperationException("This registration code has already been used.");
             }
 
-            pendingUser.isRegistered = true; 
             await _context.SaveChangesAsync();
 
             return _mapper.Map<PendingUserModel>(pendingUser);

@@ -54,9 +54,18 @@ namespace PPGCRM.Application.Identity.Services
             await _pendingUsersRepository.DeletePendingUserAsync(pendingUser.UserId);
         }
 
+        public async Task CheckPendingUserExistingByRegistrationCode(string regCode)
+        {
+            var pendingUser = await _pendingUsersRepository.GetPendingUserByRegistrationCodeAsync(regCode);
+        }
+
         public async Task<TokenDTO> Login(UserLoginDTO userLoginDto)
         {
             var user = await _usersService.GetUserByEmailAsync(userLoginDto.Email);
+            if (user.PasswordHash == null)
+            {
+                throw new Exception("Password null");
+            }
             if (!_passwordHasher.Verify(userLoginDto.Password, user.PasswordHash))
             {
                 throw new UnauthorizedAccessException("Invalid email or password.");
