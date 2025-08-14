@@ -4,9 +4,13 @@
   [nzActions]="[restoreAction]"
 >
   <nz-card-meta
-    nzTitle="Project Name"
+    [nzTitle]="titleTpl"
     nzDescription="Description"
   ></nz-card-meta>
+
+  <ng-template #titleTpl>
+    <span class="card-title">Project Name</span>
+  </ng-template>
 
   <!-- Dates -->
   <div class="card-info-container">

@@ -50,7 +50,10 @@ export class ProjectsComponent {
 
     this.projectsService.createProject(this.newProjectName).subscribe({
       next: (res) => {
-        console.log(res)
+        this.projectsService.getProjects()
+      .subscribe(val => {
+        this.projects = val
+      })
       },
       error: (err) => {
         console.log('Ошибка:', err);
