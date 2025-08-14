@@ -22,6 +22,7 @@ import { IdentityService } from '../../core/auth/data/services/identity-service'
   templateUrl: './team.html',
   styleUrl: './team.less'
 })
+
 export class TeamComponent {
 userService = inject(UserService)
 identityService = inject(IdentityService)
