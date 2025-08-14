@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-client-card',
-  imports: [NzCardModule, NzBadgeModule,NzProgressModule, NzAvatarModule, NzButtonModule,
-     NzIconModule, CommonModule],
+  imports: [NzCardModule, NzBadgeModule, NzProgressModule, NzAvatarModule, NzButtonModule,
+    NzIconModule, CommonModule],
   templateUrl: './client-card.html',
   styleUrl: './client-card.less'
 })

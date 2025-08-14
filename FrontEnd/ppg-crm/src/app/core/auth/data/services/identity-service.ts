@@ -55,6 +55,11 @@ export class IdentityService {
     return this.http.post(`https://localhost:7189/api/Identity/RegisterByUser/${code}`, user);
   }
 
+  registerByAdmin(payload: {firstName: string, lastName: string, role: string, salary: number}){
+    const user = {payload}
+    return this.http.post<string>(`https://localhost:7189/api/Identity/RegisterByAdmin`, user)
+  }
+
   login(payload: {email: string, password: string}){
     return this.http.post<TokenResponse>(`https://localhost:7189/api/Identity/Login`, payload)
     .pipe(

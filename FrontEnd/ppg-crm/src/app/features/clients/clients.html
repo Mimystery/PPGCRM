@@ -2,7 +2,7 @@
 (nzOnCancel)="handleCreateClientModalCancel()"
 (nzOnOk)="handleCreateClientModalOk()" [nzOkDisabled]="isOkDisabled">
       <ng-container *nzModalContent>
-        <input nz-input placeholder="Enter new client name" [(ngModel)]="newClientName"
+        <input nz-input placeholder="Enter new client's company name" [(ngModel)]="newClientName"
         (ngModelChange)="checkIsInputEmpty()">
       </ng-container>
 </nz-modal>
