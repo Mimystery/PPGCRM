@@ -47,7 +47,7 @@ namespace PPGCRM.Application.Identity.Services
                 signingCredentials: signingCredentials,
                 issuer: _jwtOptions.Issuer,
                 audience: _jwtOptions.Audience,
-                expires: DateTime.UtcNow.AddMinutes(_jwtOptions.AccessTokenExpirationMinutes)
+                expires: DateTime.UtcNow.AddMinutes(_jwtOptions.ExpiresInMinutes)
                 );
             //Для отладки чтобы работало нужно в PowerShell выполнить команду: setx JWT_SECRET_KEY "5i936cf0vfb6vcjzyucdpxyrh5es6oj8"
             var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PPGCRM.Application.Identity.Authentication.AuthContracts;
 using PPGCRM.Application.Identity.Authentication.Interfaces;
 using PPGCRM.Application.Services;
 using PPGCRM.Core.Contracts.Users;
@@ -68,9 +69,9 @@ namespace PPGCRM.API.Controllers
         }
 
         [HttpPost("RefreshToken")]
-        public async Task<ActionResult> RefreshToken([FromBody] string refreshToken)
+        public async Task<ActionResult> RefreshToken([FromBody] RefreshTokenRequest refreshToken)
         {
-            var token = await _identityService.RefreshToken(refreshToken);
+            var token = await _identityService.RefreshToken(refreshToken.RefreshToken);
             return Ok(token);
         }
     }

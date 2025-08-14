@@ -76,7 +76,7 @@ namespace PPGCRM.Application.Identity.Services
             var token = _jwtProvider.GenerateToken(user);
             var refreshToken = _jwtProvider.GenerateRefreshToken();
 
-            _refreshTokenService.SaveRefreshTokenAsync(user.UserId, refreshToken);
+            await _refreshTokenService.SaveRefreshTokenAsync(user.UserId, refreshToken);
 
             return new TokenDTO
             {
