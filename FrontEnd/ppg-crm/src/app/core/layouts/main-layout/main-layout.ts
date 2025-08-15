@@ -8,6 +8,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { UserDrawerComponent } from './user-drawer/user-drawer';
 import { SelectedProjectService } from '../../services/selected-project/selected-project';
+import { UserService } from '../../auth/data/services/user-service';
+import { User } from '../../auth/data/interfaces/user.interface';
 
 @Component({
   selector: 'app-main-layout',
@@ -17,6 +19,15 @@ import { SelectedProjectService } from '../../services/selected-project/selected
   styleUrls: ['./main-layout.css']
 })
 export class MainLayoutComponent {
+userService = inject(UserService)
+
+userProfile: User | undefined;
+
+  ngOnInit(){
+    this.userService.getUserDetails().subscribe( val => {
+      this.userProfile = val
+    })
+  }
 
   constructor() {
   }

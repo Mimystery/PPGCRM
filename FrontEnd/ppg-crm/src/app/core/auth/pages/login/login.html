@@ -4,17 +4,25 @@
       <img src="../public/logo.png" alt="src image fix is needed" class="login-logo" /> <!-- PATH NEEDS TO BE FIXED-->
       <h1 style="text-align: center">Login</h1>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your email!">
+        <nz-form-control [nzErrorTip]="emailErrorTpl">
           <nz-input-group>
             <input type="text" nz-input formControlName="email" placeholder="Email" />
           </nz-input-group>
+          <ng-template #emailErrorTpl let-control>
+      <ng-container *ngIf="control.errors?.['required']">Please input your email!</ng-container>
+      <ng-container *ngIf="control.errors?.['invalidData']">Email or password is incorrect!</ng-container>
+    </ng-template>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Password!">
+        <nz-form-control [nzErrorTip]="passwordErrorTpl">
           <nz-input-group >
             <input type="password" nz-input formControlName="password" placeholder="Password"  />
           </nz-input-group>
+          <ng-template #passwordErrorTpl let-control>
+      <ng-container *ngIf="control.errors?.['required']">Please input your password!</ng-container>
+      <ng-container *ngIf="control.errors?.['invalidData']">Email or password is incorrect!</ng-container>
+    </ng-template>
         </nz-form-control>
       </nz-form-item>
       <div nz-row class="login-form-margin">

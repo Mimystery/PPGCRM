@@ -49,6 +49,39 @@ namespace PPGCRM.DataAccess.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("PPGCRM.DataAccess.Entities.PendingUserEntity", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RegistrationCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal?>("Salary")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("isRegistered")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("PendingUsers");
+                });
+
             modelBuilder.Entity("PPGCRM.DataAccess.Entities.ProcessEntity", b =>
                 {
                     b.Property<Guid>("ProcessId")
@@ -143,6 +176,36 @@ namespace PPGCRM.DataAccess.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("PPGCRM.DataAccess.Entities.RefreshTokenEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("PPGCRM.DataAccess.Entities.StageEntity", b =>
@@ -262,6 +325,17 @@ namespace PPGCRM.DataAccess.Migrations
                         .HasForeignKey("ClientId");
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("PPGCRM.DataAccess.Entities.RefreshTokenEntity", b =>
+                {
+                    b.HasOne("PPGCRM.DataAccess.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PPGCRM.DataAccess.Entities.StageEntity", b =>

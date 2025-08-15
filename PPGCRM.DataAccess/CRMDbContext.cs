@@ -25,6 +25,7 @@ namespace PPGCRM.DataAccess
             modelBuilder.ApplyConfiguration(new TaskConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PendingUserConfiguration());
+            modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
         }
         // Define DbSets for your entities
         // public DbSet<YourEntity> YourEntities { get; set; }
@@ -35,6 +36,7 @@ namespace PPGCRM.DataAccess
         public DbSet<TaskEntity> Tasks { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<PendingUserEntity> PendingUsers { get; set; }
+        public DbSet<RefreshTokenEntity> RefreshTokens { get; set; } 
 
     }
 }

@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PPGCRM.Application\PPGCRM.Application.csproj" />
     <ProjectReference Include="..\PPGCRM.DataAccess\PPGCRM.DataAccess.csproj" />
   </ItemGroup>

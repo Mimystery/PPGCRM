@@ -49,18 +49,16 @@ namespace PPGCRM.DataAccess.Repositories
                 throw new InvalidOperationException("This registration code has already been used.");
             }
 
-            pendingUser.isRegistered = true; 
             await _context.SaveChangesAsync();
 
             return _mapper.Map<PendingUserModel>(pendingUser);
         }
 
-        public async Task<string> AddPendingUserAsync(PendingUserModel pendingUser)
+        public async Task AddPendingUserAsync(PendingUserModel pendingUser)
         {
             var userEntity = _mapper.Map<PendingUserEntity>(pendingUser);
             _context.PendingUsers.Add(userEntity);
             await _context.SaveChangesAsync();
-            return userEntity.RegistrationCode;
         }
         public async Task UpdatePendingUserPropertyAsync(string registrationCode)
         {

@@ -1,0 +1,17 @@
+﻿using PPGCRM.Core.Contracts.Processes;
+using PPGCRM.Core.Contracts.Users;
+using PPGCRM.Core.Models;
+
+namespace PPGCRM.Application.Services;
+
+public interface IUsersService
+{
+    Task<List<UserMainCardDTO>> GetAllUsersAsync();
+    Task<UserDetailsDTO> GetUserDetailsByIdAsync(Guid userId);
+    Task<UserModel?> GetUserByIdAsync(Guid userId);
+    Task<UserModel?> GetUserByEmailAsync(string email);
+    Task<List<ProcessMainCardDTO>> GetUserProcessesAsync(Guid userId, Guid? projectId, Guid? stageId);
+    Task AddUserAsync(UserModel user);
+    Task UpdateUserAsync(Guid userId, UserUpdateDTO userUpdateDto);
+    Task DeleteUserAsync(Guid userId);
+}

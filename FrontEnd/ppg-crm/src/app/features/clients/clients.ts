@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
@@ -9,6 +9,8 @@ import {FormsModule} from '@angular/forms';
 import {NzModalModule} from 'ng-zorro-antd/modal';
 import {CommonModule} from '@angular/common';
 import {ClientCardComponent} from './client-card/client-card';
+import { ClientsService } from './data/services/clients-service';
+import { ClientCardData } from './data/interfaces/client-card-data';
 
 @Component({
   selector: 'app-clients',
@@ -19,4 +21,52 @@ import {ClientCardComponent} from './client-card/client-card';
 })
 export class ClientsComponent {
 //clients
+clientService = inject(ClientsService)
+
+isVisible = false;
+isOkDisabled = true;
+newClientName = '';
+
+clients: ClientCardData[] = [];
+
+constructor(){
+  this.clientService.getClients().subscribe(val => {
+    this.clients = val
+  })
+}
+
+checkIsInputEmpty(){
+    this.isOkDisabled = this.newClientName.trim() === '';
+  }
+
+ showCreateClientModal(): void {
+    this.isVisible = true;
+  }
+
+  handleCreateClientModalOk(): void {
+    this.isVisible = false;
+
+    this.clientService.createClient(this.newClientName).subscribe({
+      next: (res) => {
+        this.clientService.getClients().subscribe(val => {
+        this.clients = val
+      })
+      },
+      error: (err) => {
+        console.log('Ошибка:', err);
+      }
+    });
+
+    this.newClientName = '';
+    this.checkIsInputEmpty();
+  }
+
+  handleCreateClientModalCancel(): void {
+    this.isVisible = false;
+
+    this.newClientName = '';
+    this.checkIsInputEmpty()
+  }
+
+
 }

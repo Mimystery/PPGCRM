@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PPGCRM.Core.Abstractions.Projects;
 using PPGCRM.Core.Contracts.Project;
@@ -7,6 +8,7 @@ using PPGCRM.Core.Models;
 
 namespace PPGCRM.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ProjectsController : ControllerBase
@@ -26,6 +28,7 @@ namespace PPGCRM.API.Controllers
             var projects = await _projectsService.GetAllProjectsOnlyAsync();
             return Ok(projects);
         }
+
         [HttpGet("AllProjectsMainData")]
         public async Task<ActionResult<List<ProjectMainDTO>>> GetAllProjectMainData()
         {

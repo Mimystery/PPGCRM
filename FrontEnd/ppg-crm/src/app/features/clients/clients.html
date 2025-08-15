@@ -1,8 +1,18 @@
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new client" 
+(nzOnCancel)="handleCreateClientModalCancel()"
+(nzOnOk)="handleCreateClientModalOk()" [nzOkDisabled]="isOkDisabled">
+      <ng-container *nzModalContent>
+        <input nz-input placeholder="Enter new client's company name" [(ngModel)]="newClientName"
+        (ngModelChange)="checkIsInputEmpty()">
+      </ng-container>
+</nz-modal>
+
 <!-- HEADER LIKE IN PROJECTS PAGE-->
 <div class="page-header">
   <div class="page-header-left">
-    <button nz-button nzType="default" class="page-header-btn create">
-      <nz-icon nzType="plus" nzTheme="outline" />
+    <button nz-button nzType="default" class="page-header-btn create" 
+    (click)=" showCreateClientModal()">
+      <nz-icon nzType="plus" nzTheme="outline"/>
       Create new Client
     </button>
   </div>
@@ -16,19 +26,19 @@
 </div>
 
 
-<!-- TABLE FLEX -->
+<!-- TABLE FLEX
 <div class="flex-table">
   <app-client-card></app-client-card>
-</div>
+</div> -->
 
-<!-- ЗАГОТОВКА
+<!-- ЗАГОТОВКА -->
 
 @if(clients){
   <div class="flex-table">
-    @for (project of projects; track project.projectId) {
-      <app-project-card [project]="project"></app-project-card>
+    @for (client of clients; track client.clientId) {
+      <app-client-card [client]="client"></app-client-card>
     }
   </div>
 }@else {
   <span>No added any projects yet</span>
-} -->
+}

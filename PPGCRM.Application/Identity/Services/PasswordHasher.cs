@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PPGCRM.Application.ExternalServices
+namespace PPGCRM.Application.Identity.Services
 {
     public class PasswordHasher : IPasswordHasher
     {
         public string Generate(string password)
         {
-            BCrypt.Net.BCrypt.EnhancedHashPassword(password);
-            return password;
+            var hashPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(password);
+            return hashPassword;
         }
 
         public bool Verify(string password, string hashedPassword)

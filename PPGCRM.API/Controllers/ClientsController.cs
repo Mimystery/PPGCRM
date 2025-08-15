@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PPGCRM.Core.Abstractions.Clients;
 using PPGCRM.Core.Contracts.Clients;
@@ -6,6 +7,7 @@ using PPGCRM.Core.Models;
 
 namespace PPGCRM.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ClientsController : ControllerBase

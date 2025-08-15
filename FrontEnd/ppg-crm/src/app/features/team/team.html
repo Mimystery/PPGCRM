@@ -1,3 +1,12 @@
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new client" 
+(nzOnCancel)="handleCreateUserModalCancel()"
+(nzOnOk)="handleCreateUserModalOk()" [nzOkDisabled]="isOkDisabled">
+      <ng-container *nzModalContent>
+        <input nz-input placeholder="Enter new client's company name" [(ngModel)]="newClientName"
+        (ngModelChange)="checkIsInputEmpty()">
+      </ng-container>
+</nz-modal>
+
 <!-- HEADER LIKE IN PROJECTS PAGE-->
 <div class="page-header">
   <div class="page-header-left">

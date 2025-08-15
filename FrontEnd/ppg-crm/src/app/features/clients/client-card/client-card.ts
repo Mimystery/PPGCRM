@@ -6,19 +6,25 @@ import {NzAvatarModule} from 'ng-zorro-antd/avatar';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import { ClientCardData } from '../data/interfaces/client-card-data';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-client-card',
-  imports: [NzCardModule, NzBadgeModule,NzProgressModule, NzAvatarModule, NzButtonModule, NzIconModule],
+  imports: [NzCardModule, NzBadgeModule, NzProgressModule, NzAvatarModule, NzButtonModule,
+    NzIconModule, CommonModule],
   templateUrl: './client-card.html',
   styleUrl: './client-card.less'
 })
 export class ClientCardComponent {
-  client = input<ClientCardData>({ clientId: '7f6b9c40-6a28-4f0f-9c8f-8d3a23c0a321',
-    companyName: 'Acme Corporation',
-    director: 'Tip Tipovich',
-    contactPerson: 'George Smith',
-    clientEmail: 'companyname@gmail.com',
-    clientPhone: '+48 777 666 333',}
-  );
+  client = input<ClientCardData>();
+
+  get activeProjects(){
+    const clientData = this.client();
+    return clientData ? clientData.projects?.filter(p => !p.isArchived) : [];
+  }
+
+  get historyProjects(){
+    const clientData = this.client();
+    return clientData ? clientData.projects?.filter(p => p.isArchived) : [];
+  }
 }

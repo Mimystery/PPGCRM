@@ -14,6 +14,7 @@ namespace PPGCRM.Application.Mappings
         public PendingUserMappingProfile()
         {
             CreateMap<PendingUserEntity, PendingUserModel>();
+            CreateMap<PendingUserModel, PendingUserEntity>();
         }
     }
 }

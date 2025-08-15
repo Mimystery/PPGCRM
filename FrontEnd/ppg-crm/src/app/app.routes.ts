@@ -11,6 +11,9 @@ import { ClientsComponent } from './features/clients/clients';
 import { AnalyticsComponent } from './features/analytics/analytics';
 import { TeamComponent } from './features/team/team';
 import { RegistrationComponent } from './core/auth/pages/registration/registration';
+import { RegistrationInputByUserComponent } from './core/auth/pages/registration-input-by-user/registration-input-by-user';
+import { RegistrationSuccessComponent } from './core/auth/pages/registration-success/registration-success';
+import { canActivateAuth } from './core/auth/data/services/access.guard';
 
 export const routes: Routes = [
   {
@@ -27,6 +30,7 @@ export const routes: Routes = [
     { path: 'analytics', component: AnalyticsComponent },
     { path: 'team', component: TeamComponent },
   ],
+  // canActivate: [canActivateAuth]
 },
   {
   path:'login',
@@ -36,4 +40,12 @@ export const routes: Routes = [
     path: 'registration',
     component: RegistrationComponent,
   },
+  {
+    path: 'registrationInput',
+    component: RegistrationInputByUserComponent
+  },
+  {
+    path: 'registrationSuccess',
+    component: RegistrationSuccessComponent
+  }
 ];
