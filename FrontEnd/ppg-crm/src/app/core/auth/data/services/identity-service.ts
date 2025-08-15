@@ -57,7 +57,7 @@ export class IdentityService {
 
   registerByAdmin(payload: {firstName: string, lastName: string, role: string, salary: number}){
     const user = {payload}
-    return this.http.post<string>(`https://localhost:7189/api/Identity/RegisterByAdmin`, user)
+    return this.http.post<{registrationCode: string}>(`https://localhost:7189/api/Identity/RegisterByAdmin`, user)
   }
 
   login(payload: {email: string, password: string}){
@@ -80,16 +80,16 @@ export class IdentityService {
         }),
         catchError(err => {
           this.logout()
-          return throwError(err)
+          return throwError(() => err)
         })
       )
   }
 
   logout() {
-    this.cookieService.deleteAll
+    this.cookieService.deleteAll()
     this.token = null
     this.refreshToken = null
-    this.router.navigate(['login'])
+    this.router.navigate(['/login'])
   }
 
   saveTokens(res: TokenResponse){

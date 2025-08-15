@@ -1,0 +1,25 @@
+<div class="result-wrapper">
+  <nz-result
+    nzStatus="success"
+    [nzTitle]="titleTemplate"
+    nzSubTitle="You must give registration code to Employee for him to register."
+  >
+    <ng-template #titleTemplate>
+        <span class="ant-result-title">
+            You have successfully registered new user. Registration code: "{{ regCode }}".
+        </span>
+        <button 
+            nz-button 
+            nzType="default" 
+            nzSize="small" 
+            (click)="copyCode()" 
+            style="margin-left: 8px;">
+                Copy
+        </button>
+</ng-template>
+
+    <div nz-result-extra class="extra-center">
+      <button nz-button nzType="primary" (click)="onGoBackButtonClickHandle()">Go back</button>
+    </div>
+  </nz-result>
+</div>

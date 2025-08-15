@@ -15,7 +15,8 @@ import { ClientCardData } from './data/interfaces/client-card-data';
 @Component({
   selector: 'app-clients',
   imports: [NzButtonModule, NzDescriptionsModule, NzPageHeaderModule,
-    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule, CommonModule, ClientCardComponent],
+    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule, CommonModule, ClientCardComponent,
+  ],
   templateUrl: './clients.html',
   styleUrl: './clients.less'
 })

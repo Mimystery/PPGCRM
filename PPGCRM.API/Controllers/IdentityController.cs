@@ -27,7 +27,7 @@ namespace PPGCRM.API.Controllers
         public async Task<ActionResult> RegisterByAdmin([FromBody] UserCreateByAdminDTO userCreateByAdminDto)
         {
             var registrationCode = await _identityService.RegisterByAdmin(userCreateByAdminDto);
-            return Ok(registrationCode);
+            return Ok(new { registrationCode }); 
         }
 
         [HttpPost("RegisterByUser/{registrationCode}")]

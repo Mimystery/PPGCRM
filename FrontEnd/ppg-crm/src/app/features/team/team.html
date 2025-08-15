@@ -1,16 +1,44 @@
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new client" 
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new user" 
 (nzOnCancel)="handleCreateUserModalCancel()"
-(nzOnOk)="handleCreateUserModalOk()" [nzOkDisabled]="isOkDisabled">
+(nzOnOk)="handleCreateUserModalOk()" [nzOkDisabled]="!validateForm.valid">
       <ng-container *nzModalContent>
-        <input nz-input placeholder="Enter new client's company name" [(ngModel)]="newClientName"
-        (ngModelChange)="checkIsInputEmpty()">
-      </ng-container>
+        <form nz-form [formGroup]="validateForm">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>First Name</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzHasFeedback nzValidatingTip="Validating...">
+          <input nz-input formControlName="firstName" placeholder="Enter user's first name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Last Name</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzHasFeedback>
+          <input nz-input formControlName="lastName" placeholder="Enter user's last name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Role</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzHasFeedback nzErrorTip="Please input your password!">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select user's role" formControlName="role">
+            <nz-option nzLabel="Admin" nzValue="Admin"></nz-option>
+            <nz-option nzLabel="GIP" nzValue="GIP"></nz-option>
+            <nz-option nzLabel="Employee" nzValue="Employee"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Salary</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzHasFeedback>
+          <input nz-input type="number" formControlName="salary" placeholder="Enter user's salary" />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
 </nz-modal>
 
 <!-- HEADER LIKE IN PROJECTS PAGE-->
 <div class="page-header">
   <div class="page-header-left">
-    <button nz-button nzType="default" class="page-header-btn create">
+    <button nz-button nzType="default" class="page-header-btn create" (click)="showCreateUserModal()">
       <nz-icon nzType="plus" nzTheme="outline" />
       Create new Teammate
     </button>
@@ -24,8 +52,12 @@
   </ng-template>
 </div>
 
-
-<!-- TABLE FLEX -->
-<div class="flex-table">
-  <app-team-card></app-team-card>
-</div>
+@if(users){
+  <div class="flex-table">
+    @for (user of users; track user.userId) {
+      <app-team-card [user]="user"></app-team-card>
+    }
+  </div>
+}@else {
+  <span>No added any projects yet</span>
+}

@@ -5,7 +5,7 @@ import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
 import {NzSpaceModule} from 'ng-zorro-antd/space';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzInputModule} from 'ng-zorro-antd/input';
-import {FormsModule} from '@angular/forms';
+import {AbstractControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
 import {NzModalModule} from 'ng-zorro-antd/modal';
 import {CommonModule} from '@angular/common';
 import { TeamCardComponent } from './team-card/team-card';
@@ -14,11 +14,17 @@ import { ClientCardData } from '../clients/data/interfaces/client-card-data';
 import { User } from '../../core/auth/data/interfaces/user.interface';
 import { UserService } from '../../core/auth/data/services/user-service';
 import { IdentityService } from '../../core/auth/data/services/identity-service';
+import { NzFormItemComponent } from "ng-zorro-antd/form";
+import { NzColDirective } from "ng-zorro-antd/grid";
+import { last, Observable, Observer, Subject, takeUntil } from 'rxjs';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-team',
   imports: [NzButtonModule, NzDescriptionsModule, NzPageHeaderModule,
-    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule, CommonModule, TeamCardComponent],
+    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule, CommonModule, TeamCardComponent, 
+    NzFormItemComponent, NzColDirective, ReactiveFormsModule, NzSelectModule],
   templateUrl: './team.html',
   styleUrl: './team.less'
 })
@@ -26,10 +32,13 @@ import { IdentityService } from '../../core/auth/data/services/identity-service'
 export class TeamComponent {
 userService = inject(UserService)
 identityService = inject(IdentityService)
+router = inject(Router)
 
 isVisible = false;
 isOkDisabled = true;
+selectedValue = null;
 newClientName = '';
+
 
 users: User[] = [];
 
@@ -39,8 +48,33 @@ constructor(){
   })
 }
 
-checkIsInputEmpty(){
-    this.isOkDisabled = this.newClientName.trim() === '';
+private fb = inject(NonNullableFormBuilder);
+  private destroy$ = new Subject<void>();
+  validateForm = this.fb.group({
+    firstName: this.fb.control('', [Validators.required],),
+    lastName: this.fb.control('', [Validators.required]),
+    role: this.fb.control('', [Validators.required]),
+    salary: this.fb.control<number>(0, [Validators.required]),
+  });
+
+  ngOnInit(): void {
+    this.validateForm.controls.role.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.validateForm.controls.salary.updateValueAndValidity();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  submitForm(): void {
+    console.log('submit', this.validateForm.value);
+  }
+
+  resetForm(e: MouseEvent): void {
+    e.preventDefault();
+    this.validateForm.reset();
   }
 
  showCreateUserModal(): void {
@@ -48,28 +82,31 @@ checkIsInputEmpty(){
   }
 
   handleCreateUserModalOk(): void {
-    this.isVisible = false;
+    if(this.validateForm.valid){
+      
+      const payload = {
+        firstName: this.validateForm.controls.firstName.value,
+        lastName: this.validateForm.controls.lastName.value,
+        role: this.validateForm.controls.role.value,
+        salary: this.validateForm.controls.salary.value
+      }
 
-    // this.identityService.registerByAdmin(this.newClientName).subscribe({
-    //   next: (res) => {
-    //     this.clientService.getClients().subscribe(val => {
-    //     this.clients = val
-    //   })
-    //   },
-    //   error: (err) => {
-    //     console.log('Ошибка:', err);
-    //   }
-    // });
+      console.log('submit', payload);
 
-    this.newClientName = '';
-    this.checkIsInputEmpty();
+      this.identityService.registerByAdmin(payload).subscribe(val => {
+        console.log('Code', val)
+        this.router.navigate(['team/create-success'], { state: { regCode: val.registrationCode } });
+      })
+
+      this.isVisible = false;
+    }
+    this.validateForm.reset();
   }
 
   handleCreateUserModalCancel(): void {
     this.isVisible = false;
-
-    this.newClientName = '';
-    this.checkIsInputEmpty()
+    this.validateForm.reset();
+    //this.checkIsInputEmpty()
   }
 
 
