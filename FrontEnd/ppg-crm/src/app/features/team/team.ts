@@ -19,6 +19,7 @@ import { NzColDirective } from "ng-zorro-antd/grid";
 import { last, Observable, Observer, Subject, takeUntil } from 'rxjs';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-team',
@@ -33,6 +34,7 @@ export class TeamComponent {
 userService = inject(UserService)
 identityService = inject(IdentityService)
 router = inject(Router)
+message = inject(NzMessageService);
 
 isVisible = false;
 isOkDisabled = true;
@@ -91,16 +93,19 @@ private fb = inject(NonNullableFormBuilder);
         salary: this.validateForm.controls.salary.value
       }
 
-      console.log('submit', payload);
+      this.identityService.registerByAdmin(payload).subscribe({
+        next: val => {
+          this.router.navigate(['team/create-success'], { state: { regCode: val.registrationCode } });
+          this.isVisible = false;
+          this.validateForm.reset();
+        },
+        error: err => {
+          console.error('Ошибка при регистрации:', err);
+          this.message.error('Registration error');
+        }
+        });
 
-      this.identityService.registerByAdmin(payload).subscribe(val => {
-        console.log('Code', val)
-        this.router.navigate(['team/create-success'], { state: { regCode: val.registrationCode } });
-      })
-
-      this.isVisible = false;
     }
-    this.validateForm.reset();
   }
 
   handleCreateUserModalCancel(): void {
