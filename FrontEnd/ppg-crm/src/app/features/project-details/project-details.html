@@ -4,7 +4,7 @@
       <div class="project-title">
         <!-- Если не редактируем -->
         <h2 *ngIf="!isEditingProjectName">
-          {{ projectName }}
+          {{ project?.projectName }}
           <nz-icon
             nzType="edit"
             nzTheme="outline"
@@ -219,7 +219,7 @@
 
         <nz-select nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
           style="width: 100%;" [(ngModel)]="selectedStatus">
-          <nz-option nzCustomContent nzLabel="Not started" nzValue="notStarted">
+          <nz-option nzCustomContent nzLabel="Not started" nzValue="NotStarted">
             <div style="display: flex; align-items: center; gap: 4px;">
               <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -229,7 +229,7 @@
             Not started
             </div>
           </nz-option>
-          <nz-option nzCustomContent nzLabel="In progress" nzValue="inProgress">
+          <nz-option nzCustomContent nzLabel="In progress" nzValue="InProgress">
             <div style="display: flex; align-items: center; gap: 4px;">
               <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -239,7 +239,7 @@
             In progress
             </div>
           </nz-option>
-          <nz-option nzCustomContent nzLabel="Paused" nzValue="paused">
+          <nz-option nzCustomContent nzLabel="Paused" nzValue="Paused">
             <div style="display: flex; align-items: center; gap: 4px;">
               <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -249,7 +249,7 @@
             Paused
             </div>
           </nz-option>
-          <nz-option nzCustomContent nzLabel="Done" nzValue="done">
+          <nz-option nzCustomContent nzLabel="Done" nzValue="Done">
             <div style="display: flex; align-items: center; gap: 4px;">
               <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -259,7 +259,7 @@
             Done
             </div>
           </nz-option>
-          <nz-option nzCustomContent nzLabel="Expired" nzValue="expired">
+          <nz-option nzCustomContent nzLabel="Expired" nzValue="Expired">
             <div style="display: flex; align-items: center; gap: 4px;">
               <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -269,7 +269,7 @@
             Expired
             </div>
           </nz-option>
-          <nz-option nzCustomContent nzLabel="Cancelled" nzValue="cancelled">
+          <nz-option nzCustomContent nzLabel="Cancelled" nzValue="Cancelled">
             <div style="display: flex; align-items: center; gap: 4px;">
               <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">

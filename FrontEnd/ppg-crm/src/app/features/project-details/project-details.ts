@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzSpaceModule} from 'ng-zorro-antd/space';
@@ -16,6 +16,9 @@ import { CommonModule } from '@angular/common';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSelectComponent, NzSelectModule } from "ng-zorro-antd/select";
 import { SelectedProjectService } from '../../core/services/selected-project/selected-project';
+import { ProjectDetails } from './data/interfaces/project.details.interface';
+import { ProjectDetailsService } from './data/services/project-details-service';
+import { error } from '@ant-design/icons-angular';
 
 @Component({
   selector: 'app-project-details',
@@ -28,6 +31,9 @@ import { SelectedProjectService } from '../../core/services/selected-project/sel
 })
 export class ProjectDetailsComponent {
   selectedProjectService = inject(SelectedProjectService)
+  projectDetailsService = inject(ProjectDetailsService)
+
+  project: ProjectDetails | null = null;
 
   isEditingProjectName = false;
   isEditingBudget = false;
@@ -41,10 +47,20 @@ export class ProjectDetailsComponent {
   endDate = null;
   constWorkStartDate = null;
 
-  selectedStatus: string | null = 'notStarted';
+  selectedStatus: string = 'NotStarted';
 
   constructor(){
     console.log(this.selectedProjectService.selectedProjectId())
+    this.projectDetailsService.getAllProjectDetails(this.selectedProjectService.selectedProjectId()!)
+      .subscribe({
+        next: (val) => {
+          this.project = val;
+          console.log("Test;", this.project)
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      })
   }
 
   onChange(result: Date): void {
@@ -80,12 +96,12 @@ export class ProjectDetailsComponent {
 
   getColor(value: string): string {
   switch(value) {
-    case 'notStarted': return '#9E9E9E';
-    case 'inProgress': return '#2679ff';
-    case 'paused': return '#FF9800';
-    case 'done': return '#00C040';
-    case 'expired': return '#F44336';
-    case 'cancelled': return '#fadd05';
+    case 'NotStarted': return '#9E9E9E';
+    case 'InProgress': return '#2679ff';
+    case 'Paused': return '#FF9800';
+    case 'Done': return '#00C040';
+    case 'Expired': return '#F44336';
+    case 'Cancelled': return '#fadd05';
     default: return '#000';
   }
 }

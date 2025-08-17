@@ -9,6 +9,6 @@ export class ProjectDetailsService {
   http = inject(HttpClient)
 
   getAllProjectDetails(projectId: string){
-    this.http.get<ProjectDetails>(`https://localhost:7189/api/Projects/AllProjectDetails/${projectId}`)
+    return this.http.get<ProjectDetails>(`https://localhost:7189/api/Projects/AllProjectDetails/${projectId}`)
   }
 }
