@@ -67,6 +67,7 @@
         nz-button
         nzType="default"
         class="card-button archive"
+        (click)="$event.stopPropagation(); onArchiveClick()"
       >
         Archive
       </button>

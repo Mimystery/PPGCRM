@@ -21,4 +21,8 @@ export class ProjectCardComponent {
     this.selectedProjectService.selectedProjectName.set(this.project().projectName);
     this.selectedProjectService.selectedProjectId.set(this.project().projectId);
   }
+
+  onArchiveClick() {
+  console.log('Archive clicked!');
+}
 }

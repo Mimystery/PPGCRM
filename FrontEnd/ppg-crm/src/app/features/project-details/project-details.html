@@ -2,11 +2,32 @@
 
   <nz-content>
     <div class="project-details">
-      <h2>Project name</h2>
+      <div class="project-title">
+        <!-- Если не редактируем -->
+        <h2 *ngIf="!isEditingProjectName">
+          {{ projectName }}
+          <nz-icon
+            nzType="edit"
+            nzTheme="outline"
+            class="edit-icon"
+            (click)="startEditing('projectName')"
+          ></nz-icon>
+        </h2>
+
+        <!-- Если редактируем -->
+        <input
+          *ngIf="isEditingProjectName"
+          [(ngModel)]="projectName"
+          (blur)="finishEditing('projectName')"
+          (keyup.enter)="finishEditing('projectName')"
+          class="edit-input"
+          autofocus
+        />
+      </div>
 
       <!-- DETAILS SECTION -->
       <div class="container">
-        <div class="card-label">DESCRIPTION</div>
+        <div class="card-label">DETAILS</div>
         <div class="flex-table project-details">
           <nz-card class="card" [nzBordered]="false">
             <div class="card-info-container">
@@ -21,7 +42,8 @@
               </nz-icon>
               <div class="card-info-item">
                 <span class="card-info-label">Start Date</span>
-                <span>25 Jun, 2025</span>
+                <nz-date-picker [(ngModel)]="startDate" (ngModelChange)="onChange($event)" nzSize="large"
+                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
               </div>
             </div>
           </nz-card>
@@ -39,7 +61,8 @@
               </nz-icon>
               <div class="card-info-item">
                 <span class="card-info-label">End Date</span>
-                <span>25 Jun, 2025</span>
+                <nz-date-picker [(ngModel)]="endDate" (ngModelChange)="onChange($event)" nzSize="large"
+                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
               </div>
             </div>
           </nz-card>
@@ -56,8 +79,9 @@
                 </svg>
               </nz-icon>
               <div class="card-info-item">
-                <span class="card-info-label">Construction Work Start Date</span>
-                <span>25 Jun, 2025</span>
+                <span class="card-info-label">Const. Work Start Date</span>
+                <nz-date-picker [(ngModel)]="constWorkStartDate" (ngModelChange)="onChange($event)" nzSize="large"
+                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
               </div>
             </div>
           </nz-card>
@@ -71,8 +95,21 @@
                 </svg>
               </nz-icon>
               <div class="card-info-item">
-                <span class="card-info-label">Budget</span>
-                <span>$21,000</span>
+                <span class="card-info-label">Budget <nz-icon
+                  nzType="edit"
+                  nzTheme="outline"
+                  class="edit-icon"
+                  (click)="startEditing('budget')"/>
+                </span>
+                <span *ngIf="!isEditingBudget">{{ budget }}$</span>
+                <!-- input при редактировании -->
+                <input
+                  type="number"
+                  *ngIf="isEditingBudget"
+                  [(ngModel)]="budget"
+                  (blur)="finishEditing('budget')"
+                  (keyup.enter)="finishEditing('budget')"
+                  class="edit-input"/>
               </div>
             </div>
           </nz-card>
@@ -86,8 +123,20 @@
                 </svg>
               </nz-icon>
               <div class="card-info-item">
-                <span class="card-info-label">Expenses</span>
-                <span>$21,000</span>
+                <span class="card-info-label">Expenses <nz-icon
+                  nzType="edit"
+                  nzTheme="outline"
+                  class="edit-icon"
+                  (click)="startEditing('expenses')"/></span>
+                <span *ngIf="!isEditingExpenses">{{ expenses }}$</span>
+                <!-- input при редактировании -->
+                <input
+                  type="number"
+                  *ngIf="isEditingExpenses"
+                  [(ngModel)]="expenses"
+                  (blur)="finishEditing('expenses')"
+                  (keyup.enter)="finishEditing('expenses')"
+                  class="edit-input"/>
               </div>
             </div>
           </nz-card>
@@ -149,7 +198,7 @@
       <!-- STATUS -->
       <div class="container">
         <h3>STATUS</h3>
-        <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStatus" class="project-details-sider-btn">
+        <!-- <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStatus" class="project-details-sider-btn">
           Button
           <nz-icon nzType="down"></nz-icon>
         </button>
@@ -167,7 +216,67 @@
             <li nz-menu-item>Stopped</li>
             <li nz-menu-item>Awaiting</li>
           </ul>
-        </nz-dropdown-menu>
+        </nz-dropdown-menu> -->
+
+        <nz-select nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
+          style="width: 100%;">
+          <nz-option nzCustomContent nzLabel="Not started" nzValue="notStarted">
+            <nz-icon>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="7.60714" height="8" rx="2" fill="#9E9E9E"/>
+              </svg>
+            </nz-icon>
+            Not started
+          </nz-option>
+          <nz-option nzCustomContent nzLabel="In progress" nzValue="inProgress">
+            <nz-icon>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="7.60714" height="8" rx="2" fill="#2679ff"/>
+              </svg>
+            </nz-icon>
+            In progress
+          </nz-option>
+          <nz-option nzCustomContent nzLabel="Paused" nzValue="paused">
+            <nz-icon>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="7.60714" height="8" rx="2" fill="#FF9800"/>
+              </svg>
+            </nz-icon>
+            Paused
+          </nz-option>
+          <nz-option nzCustomContent nzLabel="Done" nzValue="done">
+            <nz-icon>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+              </svg>
+            </nz-icon>
+            Done
+          </nz-option>
+          <nz-option nzCustomContent nzLabel="Expired" nzValue="expired">
+            <nz-icon>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="7.60714" height="8" rx="2" fill="#F44336"/>
+              </svg>
+            </nz-icon>
+            Expired
+          </nz-option>
+          <nz-option nzCustomContent nzLabel="Cancelled" nzValue="cancelled">
+            <nz-icon>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="7.60714" height="8" rx="2" fill="#fadd05"/>
+              </svg>
+            </nz-icon>
+            Cancelled
+          </nz-option>
+        </nz-select>
+        <ng-template #defaultTemplate let-selected>
+          <nz-icon>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+            </svg>
+          </nz-icon>
+          {{ selected.nzLabel }}
+        </ng-template>
       </div>
 
       <!-- CLIENT -->

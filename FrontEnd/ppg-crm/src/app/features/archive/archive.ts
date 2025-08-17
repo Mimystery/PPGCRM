@@ -33,6 +33,6 @@ export class ArchiveComponent {
     selectedProjectService = inject(SelectedProjectService);
 
     constructor(){
-      console.log(this.selectedProjectService.selectedProjectId())
+      //console.log(this.selectedProjectService.selectedProjectId())
     }
 }

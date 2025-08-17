@@ -7,13 +7,12 @@ import {NzProgressModule} from 'ng-zorro-antd/progress';
 import {NzTagModule} from 'ng-zorro-antd/tag';
 import {NzCollapseModule} from 'ng-zorro-antd/collapse';
 import {NzCardModule} from 'ng-zorro-antd/card';
-import {NgTemplateOutlet} from '@angular/common';
 import {ProcessDrawerComponent} from './process-drawer/process-drawer';
 
 @Component({
   selector: 'app-stages-list',
   imports: [NzIconModule, NzButtonModule, NzDropDownModule,
-    NzFlexModule, NzProgressModule, NzCollapseModule, NzTagModule, NzCardModule, NgTemplateOutlet, ProcessDrawerComponent,
+    NzFlexModule, NzProgressModule, NzCollapseModule, NzTagModule, NzCardModule, ProcessDrawerComponent,
   ],
   templateUrl: './stages-list.html',
   styleUrl: './stages-list.less'

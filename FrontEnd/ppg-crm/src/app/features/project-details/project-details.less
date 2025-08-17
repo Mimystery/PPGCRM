@@ -19,6 +19,38 @@
       }
     }
   }
+
+  .project-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  h2 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .edit-icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: #969696;
+    transition: color 0.2s;
+    &:hover {
+      color: #b3b3b3;
+    }
+  }
+
+  .edit-input {
+    font-size: 1.5rem;
+    padding: 2px 6px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    width: auto;
+  }
+}
+
   .card-info-item{
     text-align: left;
     .card-info-label{
@@ -28,7 +60,26 @@
     span{
       font-size: 1.8vh;
     }
-  }
+    .edit-icon {
+      margin-left: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #969696;
+      transition: color 0.2s;
+      &:hover {
+        color: #b3b3b3;
+      }
+    }
+
+    .edit-input {
+      margin-left: 6px;
+      padding: 2px 6px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      font-size: inherit;
+      width: auto;
+    }
+}
 
   .description-card {
     width: 100%;
