@@ -219,63 +219,77 @@
         </nz-dropdown-menu> -->
 
         <nz-select nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
-          style="width: 100%;">
+          style="width: 100%;" [(ngModel)]="selectedStatus">
           <nz-option nzCustomContent nzLabel="Not started" nzValue="notStarted">
-            <nz-icon>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="7.60714" height="8" rx="2" fill="#9E9E9E"/>
               </svg>
             </nz-icon>
             Not started
+            </div>
           </nz-option>
           <nz-option nzCustomContent nzLabel="In progress" nzValue="inProgress">
-            <nz-icon>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="7.60714" height="8" rx="2" fill="#2679ff"/>
               </svg>
             </nz-icon>
             In progress
+            </div>
           </nz-option>
           <nz-option nzCustomContent nzLabel="Paused" nzValue="paused">
-            <nz-icon>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="7.60714" height="8" rx="2" fill="#FF9800"/>
               </svg>
             </nz-icon>
             Paused
+            </div>
           </nz-option>
           <nz-option nzCustomContent nzLabel="Done" nzValue="done">
-            <nz-icon>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
               </svg>
             </nz-icon>
             Done
+            </div>
           </nz-option>
           <nz-option nzCustomContent nzLabel="Expired" nzValue="expired">
-            <nz-icon>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="7.60714" height="8" rx="2" fill="#F44336"/>
               </svg>
             </nz-icon>
             Expired
+            </div>
           </nz-option>
           <nz-option nzCustomContent nzLabel="Cancelled" nzValue="cancelled">
-            <nz-icon>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <nz-icon>
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="7.60714" height="8" rx="2" fill="#fadd05"/>
               </svg>
             </nz-icon>
             Cancelled
+            </div>
           </nz-option>
         </nz-select>
         <ng-template #defaultTemplate let-selected>
-          <nz-icon>
+          <div style="display: flex; align-items: center; gap: 4px;">
+            <nz-icon>
             <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+              <rect width="7.60714" height="8" rx="2" [attr.fill]="getColor(selected.nzValue)"/>
             </svg>
           </nz-icon>
           {{ selected.nzLabel }}
+          </div>
         </ng-template>
       </div>
 

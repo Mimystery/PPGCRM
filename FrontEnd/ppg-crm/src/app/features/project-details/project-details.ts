@@ -38,6 +38,8 @@ export class ProjectDetailsComponent {
   endDate = null;
   constWorkStartDate = null;
 
+  selectedStatus: string | null = 'notStarted';
+
   onChange(result: Date): void {
     console.log('onChange: ', result);
   }
@@ -68,4 +70,17 @@ export class ProjectDetailsComponent {
       console.log('Новое значение:', this.projectName);
     } 
   }
+
+  getColor(value: string): string {
+  switch(value) {
+    case 'notStarted': return '#9E9E9E';
+    case 'inProgress': return '#2679ff';
+    case 'paused': return '#FF9800';
+    case 'done': return '#00C040';
+    case 'expired': return '#F44336';
+    case 'cancelled': return '#fadd05';
+    default: return '#000';
+  }
+}
+
 }
