@@ -1,9 +1,10 @@
-﻿using System;
+﻿using PPGCRM.Core.Contracts.Users;
+using PPGCRM.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PPGCRM.Core.Enums;
 
 namespace PPGCRM.Core.Models
 {
@@ -24,7 +25,7 @@ namespace PPGCRM.Core.Models
             int progress, // Percentage from 0 to 100
             decimal totalProcessCost,
             List<TaskModel> tasks, 
-            List<UserModel> responsibleUsers) 
+            List<UserMainCardDTO> responsibleUsers) 
         {
             ProcessId = processId;
             StageId = stageId;
@@ -40,7 +41,7 @@ namespace PPGCRM.Core.Models
             Progress = progress;
             TotalProcessCost = totalProcessCost;
             Tasks = tasks?.AsReadOnly() ?? new List<TaskModel>().AsReadOnly();
-            ResponsibleUsers = responsibleUsers?.AsReadOnly() ?? new List<UserModel>().AsReadOnly();
+            ResponsibleUsers = responsibleUsers?.AsReadOnly() ?? new List<UserMainCardDTO>().AsReadOnly();
         }
 
         public Guid ProcessId { get; }
@@ -57,6 +58,6 @@ namespace PPGCRM.Core.Models
         public int Progress { get; } // Percentage from 0 to 100
         public decimal TotalProcessCost { get; } 
         public IReadOnlyList<TaskModel> Tasks { get; }
-        public IReadOnlyList<UserModel> ResponsibleUsers { get; } 
+        public IReadOnlyList<UserMainCardDTO> ResponsibleUsers { get; } 
     }
 }
