@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzSpaceModule} from 'ng-zorro-antd/space';
@@ -15,6 +15,7 @@ import { StagesListComponent } from './stages-list/stages-list';
 import { CommonModule } from '@angular/common';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSelectComponent, NzSelectModule } from "ng-zorro-antd/select";
+import { SelectedProjectService } from '../../core/services/selected-project/selected-project';
 
 @Component({
   selector: 'app-project-details',
@@ -26,6 +27,8 @@ import { NzSelectComponent, NzSelectModule } from "ng-zorro-antd/select";
   styleUrl: './project-details.less'
 })
 export class ProjectDetailsComponent {
+  selectedProjectService = inject(SelectedProjectService)
+
   isEditingProjectName = false;
   isEditingBudget = false;
   isEditingExpenses = false;
@@ -39,6 +42,10 @@ export class ProjectDetailsComponent {
   constWorkStartDate = null;
 
   selectedStatus: string | null = 'notStarted';
+
+  constructor(){
+    console.log(this.selectedProjectService.selectedProjectId())
+  }
 
   onChange(result: Date): void {
     console.log('onChange: ', result);

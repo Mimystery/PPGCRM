@@ -19,6 +19,7 @@ import { User } from '../../auth/data/interfaces/user.interface';
   styleUrls: ['./main-layout.css']
 })
 export class MainLayoutComponent {
+selectedProjectService = inject(SelectedProjectService);
 userService = inject(UserService)
 
 userProfile: User | undefined;
@@ -29,7 +30,12 @@ userProfile: User | undefined;
     })
   }
 
+  projectId = localStorage.getItem('selectedProjectId');
+  projectName = localStorage.getItem('selectedProjectName');
+
   constructor() {
+    this.selectedProjectService.selectedProjectId.set(this.projectId)
+    this.selectedProjectService.selectedProjectName.set(this.projectName)
   }
 
   public userDrawerVisible = signal(false);
@@ -38,8 +44,6 @@ userProfile: User | undefined;
     this.userDrawerVisible.set(false);
   };
   projectDetails = 'projectDetails';
-
-  selectedProjectService = inject(SelectedProjectService);
 
 }
 

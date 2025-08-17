@@ -20,6 +20,9 @@ export class ProjectCardComponent {
   onCardClick = () =>{
     this.selectedProjectService.selectedProjectName.set(this.project().projectName);
     this.selectedProjectService.selectedProjectId.set(this.project().projectId);
+
+    localStorage.setItem('selectedProjectId', this.project().projectId);
+    localStorage.setItem('selectedProjectName', this.project().projectName);
   }
 
   onArchiveClick() {

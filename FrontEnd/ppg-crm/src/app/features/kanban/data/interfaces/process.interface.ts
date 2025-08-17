@@ -1,27 +1,22 @@
-export interface ProcessDetails {
+import { User } from "../../../../core/auth/data/interfaces/user.interface";
+import { Task } from "./task.interface";
 
+export interface ProcessDetails {
+    processId: string;
+    stageId: string;
+    processName: string;
+    startDate: string;
+    planEndDate: string;
+    factEndDate: string;
+    notes: string;
+    status: string;
+    progress: number;
+    totalProcessCost: number;
+    tasks: Task[];
+    responsibleUsers: User[];
 }
 
 // {
-//   "projectId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//   "clientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//   "client": {
-//     "clientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//     "companyName": "string",
-//     "contactPerson": "string",
-//     "clientEmail": "string",
-//     "clientPhone": "string"
-//   },
-//   "projectName": "string",
-//   "description": "string",
-//   "status": "NotStarted",
-//   "startDate": "2025-08-17T18:33:31.530Z",
-//   "endDate": "2025-08-17T18:33:31.530Z",
-//   "constructionWorksStart": "2025-08-17T18:33:31.530Z",
-//   "budget": 0,
-//   "expenses": 0,
-//   "progress": 0,
-//   "isArchived": true,
 //   "stages": [
 //     {
 //       "stageId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
