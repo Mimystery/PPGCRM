@@ -15,7 +15,6 @@ namespace PPGCRM.Core.Models
             StageName = stageName;
             PlanEndDate = planEndDate;
             Processes = processes.AsReadOnly() ?? new List<ProcessModel>().AsReadOnly();
-
         }
 
         public Guid StageId { get; }

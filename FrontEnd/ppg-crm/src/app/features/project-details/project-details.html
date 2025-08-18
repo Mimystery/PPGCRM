@@ -4,7 +4,7 @@
       <div class="project-title">
         <!-- Если не редактируем -->
         <h2 *ngIf="!isEditingProjectName">
-          {{ project?.projectName }}
+          {{ project!.projectName }}
           <nz-icon
             nzType="edit"
             nzTheme="outline"

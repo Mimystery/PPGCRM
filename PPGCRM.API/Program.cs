@@ -11,6 +11,7 @@ using PPGCRM.Application.Mappings;
 using PPGCRM.Application.Services;
 using PPGCRM.Core.Abstractions.Clients;
 using PPGCRM.Core.Abstractions.Projects;
+using PPGCRM.Core.Abstractions.Stages;
 using PPGCRM.DataAccess;
 using PPGCRM.DataAccess.Repositories;
 
@@ -27,7 +28,7 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
-        Description = "Введите JWT токен как: Bearer {token}",
+        Description = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ JWT пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ: Bearer {token}",
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
@@ -74,6 +75,9 @@ builder.Services.AddScoped<IClientsService, ClientsService>();
 
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
 builder.Services.AddScoped<IProjectsService, ProjectsService>();
+
+builder.Services.AddScoped<IStagesRepository, StagesRepository>();
+builder.Services.AddScoped<IStagesService, StagesService>();
 
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersService, UsersService>();
