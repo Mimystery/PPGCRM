@@ -67,7 +67,7 @@ export class ProjectDetailsComponent {
   }
 
   onChange(result: Date): void {
-    console.log('onChange: ', result);
+    console.log('onChange: ', result.toLocaleDateString('ru-RU'));
   }
 
   startEditing(field: string) {
