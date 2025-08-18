@@ -76,7 +76,7 @@ namespace PPGCRM.DataAccess.Repositories
         public async Task AddProjectAsync(ProjectModel projectModel)
         {
             var projectEntity = _mapper.Map<ProjectEntity>(projectModel); 
-            _context.Projects.Add(projectEntity);
+            await _context.Projects.AddAsync(projectEntity);
             await _context.SaveChangesAsync();
         }
 

@@ -54,7 +54,7 @@
                                   (keyup.enter)="finishEditing('startDate')"
                                   nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
                 } @else {
-                  <span>{{ startDate | date:'dd.MM.yyyy' }}</span>
+                  <span>{{ project?.startDate| date:'dd.MM.yyyy' }}</span>
                 }
               </div>
             </div>
