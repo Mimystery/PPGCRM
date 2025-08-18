@@ -14,6 +14,7 @@ import { RegistrationComponent } from './core/auth/pages/registration/registrati
 import { RegistrationInputByUserComponent } from './core/auth/pages/registration-input-by-user/registration-input-by-user';
 import { RegistrationSuccessComponent } from './core/auth/pages/registration-success/registration-success';
 import { canActivateAuth } from './core/auth/data/services/access.guard';
+import { CreateUserSuccessComponent } from './features/team/create-user-success/create-user-success';
 
 export const routes: Routes = [
   {
@@ -28,9 +29,10 @@ export const routes: Routes = [
     { path: 'archive', component: ArchiveComponent },
     { path: 'clients', component: ClientsComponent },
     { path: 'analytics', component: AnalyticsComponent },
-    { path: 'team', component: TeamComponent },
+    { path: 'team', component: TeamComponent, },
+    { path: 'team/create-success', component: CreateUserSuccessComponent}
   ],
-  // canActivate: [canActivateAuth]
+   //canActivate: [canActivateAuth]
 },
   {
   path:'login',

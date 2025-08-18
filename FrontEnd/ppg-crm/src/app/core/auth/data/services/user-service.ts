@@ -17,4 +17,5 @@ export class UserService {
   getAllUsers(){
     return this.http.get<User[]>(`https://localhost:7189/api/Users/GetAllUsers`)
   }
+
 }

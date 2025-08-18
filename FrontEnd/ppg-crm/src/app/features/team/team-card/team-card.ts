@@ -6,6 +6,7 @@ import {NzAvatarModule} from 'ng-zorro-antd/avatar';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzTagModule} from 'ng-zorro-antd/tag';
+import { User } from '../../../core/auth/data/interfaces/user.interface';
 
 @Component({
   selector: 'app-team-card',
@@ -19,5 +20,6 @@ export class TeamCardComponent {
   phone = input('+48 777 333 222');
   balance = input('22.000$');
   tag = input('GIP');
+  user = input<User>();
 
 }

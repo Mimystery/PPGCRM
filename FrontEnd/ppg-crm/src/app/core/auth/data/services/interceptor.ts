@@ -19,7 +19,7 @@ export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(addToken(req,token)).pipe(
         catchError(error => {
-            if(error.status === 401){
+            if(error.status === 401 || error.status === 400){
                 return refreshAndProceed(identityService, req, next)
             }
             return throwError(error)
