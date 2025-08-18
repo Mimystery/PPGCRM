@@ -7,6 +7,7 @@ namespace PPGCRM.Core.Abstractions.Stages;
 
 public interface IStagesService
 {
+    Task<List<StageModel>> GetAllStagesByProjectIdAsync(Guid projectId);
     Task AddStageByProjectIdAsync(Guid projectId, StageCreateDTO stageCreateDto);
     Task UpdateStageAsync(Guid stageId, StageUpdateDTO stageUpdate);
     Task DeleteStageAsync(Guid stageId);

@@ -31,7 +31,7 @@ namespace PPGCRM.Application.Services
                 projectId,
                 stageCreateDto.StageName,
                 null,
-                null);
+                new List<ProcessModel>());
             await _stagesRepository.AddStageByProjectIdAsync(stageModel);
         }
         public async Task UpdateStageAsync(Guid stageId, StageUpdateDTO stageUpdate)
