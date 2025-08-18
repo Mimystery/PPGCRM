@@ -52,6 +52,7 @@ export class IdentityService {
   }
   registerByUser(code: string, email: string, password: string){
     const user = {email: email, password: password}
+    console.log("rabotaeir")
     return this.http.post(`https://localhost:7189/api/Identity/RegisterByUser/${code}`, user);
   }
 
@@ -73,7 +74,7 @@ export class IdentityService {
     if (!this.refreshToken) {
     this.refreshToken = this.cookieService.get('refreshToken');
   }
-    return this.http.post<TokenResponse>(`https://localhost:7189/api/Identity/RefreshToken`, 
+    return this.http.post<TokenResponse>(`https://localhost:7189/api/Identity/RefreshToken`,
       { refreshToken: this.refreshToken }).pipe(
         tap(res => {
           this.saveTokens(res)

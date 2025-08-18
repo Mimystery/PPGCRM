@@ -22,6 +22,7 @@ export const routes: Routes = [
   component: MainLayoutComponent,
   children: [
     { path: '', component: ProjectsComponent },
+    { path: 'projects', component: ProjectsComponent },
     { path: 'project-details', component: ProjectDetailsComponent },
     { path: 'kanban', component: KanbanComponent },
     { path: 'calendar', component: CalendarComponent },
@@ -32,7 +33,7 @@ export const routes: Routes = [
     { path: 'team', component: TeamComponent, },
     { path: 'team/create-success', component: CreateUserSuccessComponent}
   ],
-   //canActivate: [canActivateAuth]
+   canActivate: [canActivateAuth],
 },
   {
   path:'login',

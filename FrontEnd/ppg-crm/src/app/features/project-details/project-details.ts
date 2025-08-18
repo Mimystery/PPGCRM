@@ -38,14 +38,17 @@ export class ProjectDetailsComponent {
   isEditingProjectName = false;
   isEditingBudget = false;
   isEditingExpenses = false;
+  isEditingStartDate: boolean = false;
+  isEditingEndDate: boolean = false;
+  isEditingConstWorkStartDate: boolean = false;
 
 
   projectName = 'Project name';
   budget = '21.000';
   expenses = '21.000';
-  startDate = null;
-  endDate = null;
-  constWorkStartDate = null;
+  startDate = new Date(2023,10,1);
+  endDate = new Date(2023,10,1);
+  constWorkStartDate = new Date(2023,10,1);
 
   selectedStatus: string = 'NotStarted';
 
@@ -69,13 +72,22 @@ export class ProjectDetailsComponent {
 
   startEditing(field: string) {
   if (field === 'budget') {
-    this.isEditingBudget = true;
+      this.isEditingBudget = true;
     }
     if (field === 'expenses') {
-    this.isEditingExpenses = true;
+      this.isEditingExpenses = true;
     }
     if (field === 'projectName') {
-    this.isEditingProjectName = true;
+      this.isEditingProjectName = true;
+    }
+    if (field === 'startDate') {
+      this.isEditingStartDate = true;
+    }
+    if (field === 'endDate') {
+      this.isEditingEndDate = true;
+    }
+    if (field === 'constWorkStartDate') {
+      this.isEditingConstWorkStartDate = true;
     }
   }
 
@@ -83,15 +95,24 @@ export class ProjectDetailsComponent {
     if (field === 'budget') {
       this.isEditingBudget = false;
       console.log('Новое значение:', this.budget);
-    } 
+    }
     if (field === 'expenses') {
       this.isEditingExpenses = false;
       console.log('Новое значение:', this.expenses);
-    } 
+    }
     if (field === 'projectName') {
       this.isEditingProjectName = false;
       console.log('Новое значение:', this.projectName);
-    } 
+    }
+    if (field === 'startDate') {
+      this.isEditingStartDate = false;
+    }
+    if (field === 'endDate') {
+      this.isEditingEndDate = false;
+    }
+    if (field === 'constWorkStartDate') {
+      this.isEditingConstWorkStartDate = false;
+    }
   }
 
   getColor(value: string): string {

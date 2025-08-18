@@ -7,6 +7,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IdentityService } from '../../data/services/identity-service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -52,8 +53,8 @@ export class RegistrationInputByUserComponent {
     confirmCtrl.setErrors({ ...confirmCtrl.errors, passwordsMismatch: true });
     return { passwordsMismatch: true };
   }
-  } 
-  
+  }
+
   validateForm = this.fb.group({
     email: this.fb.control('', [Validators.required, Validators.email]),
     password: this.fb.control('', [Validators.required]),
@@ -64,7 +65,14 @@ export class RegistrationInputByUserComponent {
     if (this.validateForm.valid) {
       const email = this.validateForm.controls.email.value;
       const password = this.validateForm.controls.password.value
-      this.identityService.registerByUser(this.regCode, email, password);
+      this.identityService.registerByUser(this.regCode, email, password).subscribe({
+        next: (res) => {
+          this.router.navigate(['registrationSuccess'])
+        },
+        error: (error) => {
+          console.error("Error", error)
+        }
+      });
       this.router.navigate(['registrationSuccess'])
     } else {
       this.validateForm.markAllAsTouched();  // Помечаем все как тронутые, чтобы ошибки отобразились
@@ -95,7 +103,7 @@ export class RegistrationInputByUserComponent {
 getPasswordError(): string {
   const passwordCtrl = this.validateForm.controls.password;
   if (passwordCtrl.hasError('required')) return 'Password is required';
-  if (this.validateForm.hasError('passwordsMismatch')) 
+  if (this.validateForm.hasError('passwordsMismatch'))
     return 'Passwords do not match';
   return '';
 }
@@ -103,7 +111,7 @@ getPasswordError(): string {
 getConfirmPasswordError(): string {
   const confirmCtrl = this.validateForm.controls.confirmPassword;
   if (confirmCtrl.hasError('required')) return 'Confirm password is required';
-  if (this.validateForm.hasError('passwordsMismatch') ) 
+  if (this.validateForm.hasError('passwordsMismatch') )
     return 'Passwords do not match';
   return '';
 }

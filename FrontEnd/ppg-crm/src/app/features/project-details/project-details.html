@@ -40,9 +40,22 @@
                 </svg>
               </nz-icon>
               <div class="card-info-item">
-                <span class="card-info-label">Start Date</span>
-                <nz-date-picker [(ngModel)]="startDate" (ngModelChange)="onChange($event)" nzSize="large"
-                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
+                <span class="card-info-label">
+                  Start Date
+                  <nz-icon
+                    nzType="edit"
+                    nzTheme="outline"
+                    class="edit-icon"
+                    (click)="startEditing('startDate')"/>
+                </span>
+                @if (isEditingStartDate) {
+                  <nz-date-picker [(ngModel)]="startDate" (ngModelChange)="onChange($event)" nzSize="large"
+                                  (blur)="finishEditing('startDate')"
+                                  (keyup.enter)="finishEditing('startDate')"
+                                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
+                } @else {
+                  <span>{{ startDate | date:'dd.MM.yyyy' }}</span>
+                }
               </div>
             </div>
           </nz-card>
@@ -59,9 +72,23 @@
                 </svg>
               </nz-icon>
               <div class="card-info-item">
-                <span class="card-info-label">End Date</span>
-                <nz-date-picker [(ngModel)]="endDate" (ngModelChange)="onChange($event)" nzSize="large"
-                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
+                <span class="card-info-label">
+                  End Date
+                  <nz-icon
+                    nzType="edit"
+                    nzTheme="outline"
+                    class="edit-icon"
+                    (click)="startEditing('endDate')"/>
+                </span>
+                @if (isEditingEndDate) {
+                  <nz-date-picker [(ngModel)]="endDate" (ngModelChange)="onChange($event)"
+                                  (blur)="finishEditing('endDate')"
+                                  (keyup.enter)="finishEditing('endDate')"
+                                  nzSize="large"
+                                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
+                } @else {
+                  <span>{{ endDate | date:'dd.MM.yyyy' }}</span>
+                }
               </div>
             </div>
           </nz-card>
@@ -78,9 +105,23 @@
                 </svg>
               </nz-icon>
               <div class="card-info-item">
-                <span class="card-info-label">Const. Work Start Date</span>
-                <nz-date-picker [(ngModel)]="constWorkStartDate" (ngModelChange)="onChange($event)" nzSize="large"
-                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
+                <span class="card-info-label">
+                  Const. Work Start
+                  <nz-icon
+                    nzType="edit"
+                    nzTheme="outline"
+                    class="edit-icon"
+                    (click)="startEditing('constWorkStartDate')"/>
+                </span>
+                @if (isEditingConstWorkStartDate) {
+                  <nz-date-picker [(ngModel)]="constWorkStartDate" (ngModelChange)="onChange($event)"
+                                  nzSize="large"
+                                  (blur)="finishEditing('constWorkStartDate')"
+                                  (keyup.enter)="finishEditing('constWorkStartDate')"
+                                  nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
+                } @else {
+                  <span>{{ constWorkStartDate | date:'dd.MM.yyyy' }}</span>
+                }
               </div>
             </div>
           </nz-card>
