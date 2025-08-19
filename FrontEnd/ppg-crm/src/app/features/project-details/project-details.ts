@@ -20,6 +20,9 @@ import { ProjectDetails } from './data/interfaces/project.details.interface';
 import { ProjectDetailsService } from './data/services/project-details-service';
 import { error } from '@ant-design/icons-angular';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ClientsService } from '../clients/data/services/clients-service';
+import { ClientProjectCard } from '../clients/data/interfaces/client-card-in-project-details.interface';
+import { ClientCardData } from '../clients/data/interfaces/client-card-data';
 
 @Component({
   selector: 'app-project-details',
@@ -33,9 +36,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class ProjectDetailsComponent {
   selectedProjectService = inject(SelectedProjectService)
   projectDetailsService = inject(ProjectDetailsService)
+  clientsService = inject(ClientsService)
   message = inject(NzMessageService);
 
   project: ProjectDetails | null = null;
+  clients: ClientCardData[] | null = null;
 
   //*** ЧЧОГО boolean | "submitting"???? БО КОЛИ ВІДПРАВЛЯТИ ДАННІ І ОЧІКУЄМО ОТВЕТ БЕКЕНДА ЩОБ БУЛА АНІМАЦІЯ КРУЖОЧКА ЯК ТІЛЬКИ ЗМІНИТЬСЯ ТО
   //* МІНЯЄМО З СУБМІТІНГ НА БУЛЛ І ВСЕ
@@ -60,6 +65,31 @@ export class ProjectDetailsComponent {
           console.error(error);
         }
       })
+
+    this.clientsService.getClients().subscribe(val => this.clients = val)
+  }
+  dropdownVisible = false;
+  onClientSelect(clientData: ClientCardData) {
+    console.log(clientData.clientId);
+
+    if (this.project) {
+      this.project.clientId = clientData.clientId;
+      this.project.client = clientData; // 🔑 сразу обновляем связанную сущность
+    }
+
+    this.projectDetailsService.updateProjectDetails(
+      this.selectedProjectService.selectedProjectId()!,
+      this.project!
+    ).subscribe({
+      error: (err) => {
+        this.message.error('Ошибка при обновлении данных: ' + err.message);
+      },
+      complete: () => {
+        this.message.success('Данные успешно обновлены!');
+      }
+    });
+
+    this.dropdownVisible = false;
   }
 
    @ViewChild('budgetInput') budgetInput!: ElementRef<HTMLInputElement>;
