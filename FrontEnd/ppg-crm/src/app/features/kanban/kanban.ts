@@ -4,13 +4,13 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { StagesService } from './data/services/stages-service';
 import { NzModalComponent, NzModalModule } from "ng-zorro-antd/modal";
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { NzInputModule } from "ng-zorro-antd/input"; 
 
 @Component({
   selector: 'app-kanban',
   imports: [KanbanStageComponent, NzButtonModule, NzIconModule, NzModalComponent, FormsModule,
-    NzModalModule
-  ],
+    NzModalModule, NzInputModule],
   templateUrl: './kanban.html',
   styleUrl: './kanban.less'
 })
