@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, input, ViewChild } from '@angular/core';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzSpaceModule} from 'ng-zorro-antd/space';
@@ -19,6 +19,10 @@ import { SelectedProjectService } from '../../core/services/selected-project/sel
 import { ProjectDetails } from './data/interfaces/project.details.interface';
 import { ProjectDetailsService } from './data/services/project-details-service';
 import { error } from '@ant-design/icons-angular';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ClientsService } from '../clients/data/services/clients-service';
+import { ClientProjectCard } from '../clients/data/interfaces/client-card-in-project-details.interface';
+import { ClientCardData } from '../clients/data/interfaces/client-card-data';
 
 @Component({
   selector: 'app-project-details',
@@ -32,8 +36,11 @@ import { error } from '@ant-design/icons-angular';
 export class ProjectDetailsComponent {
   selectedProjectService = inject(SelectedProjectService)
   projectDetailsService = inject(ProjectDetailsService)
+  clientsService = inject(ClientsService)
+  message = inject(NzMessageService);
 
   project: ProjectDetails | null = null;
+  clients: ClientCardData[] | null = null;
 
   //*** ЧЧОГО boolean | "submitting"???? БО КОЛИ ВІДПРАВЛЯТИ ДАННІ І ОЧІКУЄМО ОТВЕТ БЕКЕНДА ЩОБ БУЛА АНІМАЦІЯ КРУЖОЧКА ЯК ТІЛЬКИ ЗМІНИТЬСЯ ТО
   //* МІНЯЄМО З СУБМІТІНГ НА БУЛЛ І ВСЕ
@@ -49,48 +56,115 @@ export class ProjectDetailsComponent {
   selectedStatus: string = 'NotStarted';
 
   constructor(){
-    console.log(this.selectedProjectService.selectedProjectId())
     this.projectDetailsService.getAllProjectDetails(this.selectedProjectService.selectedProjectId()!)
       .subscribe({
         next: (val) => {
           this.project = val;
-          console.log("Test;", this.project)
         },
         error: (error) => {
           console.error(error);
         }
       })
+
+    this.clientsService.getClients().subscribe(val => this.clients = val)
+  }
+  dropdownVisible = false;
+  onClientSelect(clientData: ClientCardData) {
+    console.log(clientData.clientId);
+
+    if (this.project) {
+      this.project.clientId = clientData.clientId;
+      this.project.client = clientData; // 🔑 сразу обновляем связанную сущность
+    }
+
+    this.projectDetailsService.updateProjectDetails(
+      this.selectedProjectService.selectedProjectId()!,
+      this.project!
+    ).subscribe({
+      error: (err) => {
+        this.message.error('Ошибка при обновлении данных: ' + err.message);
+      },
+      complete: () => {
+        this.message.success('Данные успешно обновлены!');
+      }
+    });
+
+    this.dropdownVisible = false;
   }
 
-  onChange(result: Date): void {
-    console.log('onChange: ', result.toLocaleDateString('ru-RU'));
-  }
+   @ViewChild('budgetInput') budgetInput!: ElementRef<HTMLInputElement>;
+   @ViewChild('expensesInput') expensesInput!: ElementRef<HTMLInputElement>;
+   @ViewChild('descriptionInput') descriptionInput!: ElementRef<HTMLInputElement>;
 
-  startEditing(field: string) {
+  startEditingDetailsField(field: string) {
   if (field === 'budget') {
-      this.isEditingBudget = true;
+      this.isEditingBudget = !this.isEditingBudget;
+
+      setTimeout(() => {
+        this.budgetInput.nativeElement.focus(); 
+      });
     }
     if (field === 'expenses') {
-      this.isEditingExpenses = true;
+      this.isEditingExpenses = !this.isEditingExpenses;
+
+      setTimeout(() => {
+        this.expensesInput.nativeElement.focus();
+      });
     }
     if (field === 'projectName') {
-      this.isEditingProjectName = true;
+      this.isEditingProjectName = !this.isEditingProjectName;
     }
     if (field === 'startDate') {
-      this.isEditingStartDate = true;
+      this.isEditingStartDate = !this.isEditingStartDate;
     }
     if (field === 'endDate') {
-      this.isEditingEndDate = true;
+      this.isEditingEndDate = !this.isEditingEndDate;
     }
     if (field === 'constWorkStartDate') {
-      this.isEditingConstWorkStartDate = true;
+      this.isEditingConstWorkStartDate = !this.isEditingConstWorkStartDate;
     }
     if (field == 'description'){
-      this.isEditingDescription = true;
+      this.isEditingDescription = !this.isEditingDescription;
+
+      setTimeout(() => {
+        this.descriptionInput.nativeElement.focus(); 
+      });
     }
   }
 
-  finishEditing(field: string) {
+  @HostListener('document:keydown', ['$event'])
+    handleEnterKey(event: KeyboardEvent) {
+      if ((event.key === 'Enter' || event.key === 'Escape') && this.isEditingBudget) {
+        this.finishEditingDetailsField('budget');
+        event.preventDefault();
+      }
+      if ((event.key === 'Enter' || event.key === 'Escape') && this.isEditingExpenses) {
+        this.finishEditingDetailsField('expenses');
+        event.preventDefault();
+      }
+      if ((event.key === 'Enter' || event.key === 'Escape') && this.isEditingStartDate) {
+        this.finishEditingDetailsField('startDate');
+        event.preventDefault();
+      }
+      if ((event.key === 'Enter' || event.key === 'Escape') && this.isEditingEndDate) {
+        this.finishEditingDetailsField('endDate');
+        event.preventDefault();
+      }
+      if ((event.key === 'Enter' || event.key === 'Escape') && this.isEditingConstWorkStartDate) {
+        this.finishEditingDetailsField('constWorkStartDate');
+        event.preventDefault();
+      }
+      if ((event.key === 'Enter' || event.key === 'Escape') && this.isEditingDescription) {
+        this.finishEditingDetailsField('description');
+        event.preventDefault();
+      }
+      if ((event.key === 'Enter' || event.key === 'Escape') && this.isEditingProjectName) {
+        this.finishEditingDetailsField('projectName');
+        event.preventDefault();
+      }
+  }
+
+  finishEditingDetailsField(field: string) {
     if (field === 'budget') {
       this.isEditingBudget = false;
       console.log('Новое значение:', this.project?.budget);
@@ -118,10 +192,10 @@ export class ProjectDetailsComponent {
     this.projectDetailsService.updateProjectDetails(this.selectedProjectService.selectedProjectId()!, this.project!)
       .subscribe({
         error: (err) => {
-          alert("Ошибка при обновлении данных: " + err.message);
+          this.message.error('Ошибка при обновлении данных: ', err.message)
         },
         complete: () => {
-          alert("Данные успешно обновлены!");
+          this.message.success('Данные успешно обновлены!')
         }
       });
   }

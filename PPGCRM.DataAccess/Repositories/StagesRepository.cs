@@ -12,7 +12,7 @@ using PPGCRM.DataAccess.Entities;
 
 namespace PPGCRM.DataAccess.Repositories
 {
-    public class StagesRepository : IStagesRepository//JAK DELAT? DA
+    public class StagesRepository : IStagesRepository
     {
         private readonly CRMDbContext _context;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace PPGCRM.DataAccess.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public async Task<List<StageModel>> GetAllStagesByProjectIdAsync(Guid projectId) // CYKA DE SERVICES CHE DALSHE ????!!!!!
+        public async Task<List<StageModel>> GetAllStagesByProjectIdAsync(Guid projectId) 
         {
             var stages = await _context.Stages
                 .Where(s => s.ProjectId == projectId)
@@ -32,10 +32,10 @@ namespace PPGCRM.DataAccess.Repositories
             return _mapper.Map<List<StageModel>>(stages); 
         }
 
-        public async Task AddStageByProjectIdAsync(StageModel stage) //DOBRE😏🤙
+        public async Task AddStageByProjectIdAsync(StageModel stage) 
         {
-            var stageEntity = _mapper.Map<StageEntity>(stage);  //CHE DALSHE?? UDALIT?
-            _context.Stages.Add(stageEntity); //tipa??
+            var stageEntity = _mapper.Map<StageEntity>(stage); 
+            _context.Stages.Add(stageEntity);
             await _context.SaveChangesAsync();
         }
         public async Task UpdateStageAsync(Guid stageId, StageUpdateDTO stageUpdate)
@@ -52,7 +52,7 @@ namespace PPGCRM.DataAccess.Repositories
             }
             if (stageUpdate.PlanEndDate != null)
             {
-                stageEntity.PlanEndDate = stageUpdate.PlanEndDate; //poniav 
+                stageEntity.PlanEndDate = stageUpdate.PlanEndDate;
             }
             await _context.SaveChangesAsync();
         }
@@ -68,6 +68,5 @@ namespace PPGCRM.DataAccess.Repositories
             _context.Stages.Remove(stageEntity);
             await _context.SaveChangesAsync();
         }
-        //NIE SOMNIVEAJUS V MOMY PUPSI❤️😏
     }
 }

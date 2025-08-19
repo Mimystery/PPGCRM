@@ -124,7 +124,7 @@ namespace PPGCRM.DataAccess.Repositories
             }
             if (processUpdate.SortOrder != null)
             {
-                processEntity.SortOrder = processUpdate.SortOrder;
+                processEntity.SortOrder = processUpdate.SortOrder.Value;
             }
             if (processUpdate.Status != null)
             {
@@ -132,11 +132,11 @@ namespace PPGCRM.DataAccess.Repositories
             }
             if (processUpdate.Progress != null)
             {
-                processEntity.Progress = processUpdate.Progress;
+                processEntity.Progress = processUpdate.Progress.Value;
             }
             if (processUpdate.TotalProcessCost != null)
             {
-                processEntity.TotalProcessCost = processUpdate.TotalProcessCost;
+                processEntity.TotalProcessCost = processUpdate.TotalProcessCost.Value;
             }
             
             await _context.SaveChangesAsync();

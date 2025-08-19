@@ -7,6 +7,30 @@ nz-layout, nz-content {
   height: 100%;
 }
 
+.client-card {
+  margin-bottom: 12px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-6px) scale(1.02); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.edit-icon {
+      margin-left: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #969696;
+      transition: color 0.2s;
+      &:hover {
+        color: #b3b3b3;
+      }
+    }
+
 .project-details {
   display: flex;
   flex-direction: column;
