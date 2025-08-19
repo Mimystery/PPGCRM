@@ -1,4 +1,4 @@
-import { ProcessCard } from "../../process-card/process-card";
+import { ProcessCard } from "./process-card.interface";
 
 export interface StageCard {
     stageId: string;

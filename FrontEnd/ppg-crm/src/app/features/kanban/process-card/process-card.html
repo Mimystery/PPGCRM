@@ -1,15 +1,21 @@
 <nz-card class="card process">
     <div class="card-title">
-        <span>Process name</span>
+        <span>{{process()!.processName || 'No process'}}</span>
        <!-- <nz-icon nzType="user" nzTheme="outline" /> -->
     </div>
   <div class="card-info-container process">
-    <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"><span>Responsible user</span></nz-card>
-    <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"><span>Responsible user</span></nz-card>
-    <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"><span>Responsible user</span></nz-card>
+    @for (responsibleUser of process()!.responsibleUsers; track responsibleUser.userId!) {
+      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}">
+        <span>{{responsibleUser.firstName}} {{responsibleUser.lastName}}</span>
+      </nz-card>
+    } @empty {
+      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}">
+        <span>No responsible user</span>
+      </nz-card>
+    }
     <div nz-flex nzJustify="space-between">
-      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> July 28, 2025 </nz-card>
-      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> July 30, 2025 </nz-card>
+      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> {{process()!.planEndDate}} </nz-card>
+      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> {{process()!.factEndDate}} </nz-card>
     </div>
   </div>
 
