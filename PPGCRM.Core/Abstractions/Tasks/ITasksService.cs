@@ -1,0 +1,15 @@
+﻿using PPGCRM.Core.Contracts.Tasks;
+using PPGCRM.Core.Models;
+
+namespace PPGCRM.Core.Abstractions.Tasks;
+
+public interface ITasksService
+{
+    Task<List<TaskModel>> GetAllTasksByProcessIdAsync(Guid processId);
+
+    Task AddTaskByProcessIdAsync(Guid processId, TaskUpdateDTO taskUpdate);
+
+    Task UpdateTaskAsync(Guid taskId, TaskUpdateDTO taskUpdate);
+
+    Task DeleteTaskAsync(Guid taskId);
+}

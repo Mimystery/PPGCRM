@@ -13,6 +13,7 @@ using PPGCRM.Core.Abstractions.Clients;
 using PPGCRM.Core.Abstractions.Processes;
 using PPGCRM.Core.Abstractions.Projects;
 using PPGCRM.Core.Abstractions.Stages;
+using PPGCRM.Core.Abstractions.Tasks;
 using PPGCRM.DataAccess;
 using PPGCRM.DataAccess.Repositories;
 
@@ -83,6 +84,9 @@ builder.Services.AddScoped<IStagesService, StagesService>();
 
 builder.Services.AddScoped<IProcessesRepository, ProcessesRepository>();
 builder.Services.AddScoped<IProcessesService, ProcessesService>();
+
+builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<ITasksService, TasksService>();
 
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersService, UsersService>();

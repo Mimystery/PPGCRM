@@ -5,7 +5,7 @@ using PPGCRM.Core.Models;
 
 namespace PPGCRM.Application.Services;
 
-public class TasksService
+public class TasksService : ITasksService
 {
     private readonly IMapper _mapper;
     private readonly ITasksRepository _tasksRepository;
@@ -20,9 +20,15 @@ public class TasksService
         return await _tasksRepository.GetAllTasksByProcessIdAsync(processId);
     }
 
-    public async Task AddTaskByProcessIdAsync()
+    public async Task AddTaskByProcessIdAsync(Guid processId, TaskUpdateDTO taskUpdate)
     {
-        
+        var taskModel = new TaskModel(
+            Guid.NewGuid(),
+            processId,
+            taskUpdate.TaskName,
+            taskUpdate.IsDone
+        );
+        await _tasksRepository.AddTaskByProcessIdAsync(taskModel);
     }
     public async Task UpdateTaskAsync(Guid taskId, TaskUpdateDTO taskUpdate)
     {
