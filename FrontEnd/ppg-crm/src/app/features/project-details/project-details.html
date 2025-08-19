@@ -9,7 +9,7 @@
             nzType="edit"
             nzTheme="outline"
             class="edit-icon"
-            (click)="startEditing('projectName')"
+            (click)="startEditingDetailsField('projectName')"
           ></nz-icon>
         </h2>
 
@@ -17,7 +17,7 @@
         <input
           *ngIf="isEditingProjectName"
           [(ngModel)]="project!.projectName"
-          (keyup.enter)="finishEditing('projectName')"
+          (keyup.enter)="finishEditingDetailsField('projectName')"
           class="edit-input"
           autofocus
         />
@@ -45,11 +45,11 @@
                     nzType="edit"
                     nzTheme="outline"
                     class="edit-icon"
-                    (click)="startEditing('startDate')"/>
+                    (click)="startEditingDetailsField('startDate')"/>
                 </span>
                 @if (isEditingStartDate) {
-                  <nz-date-picker [(ngModel)]="project!.startDate" (ngModelChange)="onChange($event)" nzSize="large"
-                                  (keyup.enter)="finishEditing('startDate')"
+                  <nz-date-picker [(ngModel)]="project!.startDate" (ngModelChange)="finishEditingDetailsField('start')" nzSize="large"
+                                  (keyup.enter)="finishEditingDetailsField('startDate')"
                                   nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
                 } @else {
                   <span>{{ project?.startDate | date:'dd.MM.yyyy' }}</span>
@@ -76,11 +76,11 @@
                     nzType="edit"
                     nzTheme="outline"
                     class="edit-icon"
-                    (click)="startEditing('endDate')"/>
+                    (click)="startEditingDetailsField('endDate')"/>
                 </span>
                 @if (isEditingEndDate) {
-                  <nz-date-picker [(ngModel)]="project!.endDate" (ngModelChange)="onChange($event)"
-                                  (keyup.enter)="finishEditing('endDate')"
+                  <nz-date-picker [(ngModel)]="project!.endDate"
+                                  (keyup.enter)="finishEditingDetailsField('endDate')"
                                   nzSize="large"
                                   nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
                 } @else {
@@ -108,12 +108,12 @@
                     nzType="edit"
                     nzTheme="outline"
                     class="edit-icon"
-                    (click)="startEditing('constWorkStartDate')"/>
+                    (click)="startEditingDetailsField('constWorkStartDate')"/>
                 </span>
                 @if (isEditingConstWorkStartDate) {
-                  <nz-date-picker [(ngModel)]="project!.constructionWorksStart" (ngModelChange)="onChange($event)"
+                  <nz-date-picker [(ngModel)]="project!.constructionWorksStart"
                                   nzSize="large"
-                                  (keyup.enter)="finishEditing('constWorkStartDate')"
+                                  (keyup.enter)="finishEditingDetailsField('constWorkStartDate')"
                                   nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
                 } @else {
                   <span>{{ project?.constructionWorksStart | date:'dd.MM.yyyy' }}</span>
@@ -135,15 +135,16 @@
                   nzType="edit"
                   nzTheme="outline"
                   class="edit-icon"
-                  (click)="startEditing('budget')"/>
+                  (click)="startEditingDetailsField('budget')"/>
                 </span>
                 <span *ngIf="!isEditingBudget">{{ project?.budget }}$</span>
                 <!-- input при редактировании -->
                 <input
+                  #budgetInput
                   type="number"
                   *ngIf="isEditingBudget"
                   [(ngModel)]="project!.budget"
-                  (keyup.enter)="finishEditing('budget')"
+                  (keyup.enter)="finishEditingDetailsField('budget')"
                   class="edit-input"/>
               </div>
             </div>
@@ -162,14 +163,15 @@
                   nzType="edit"
                   nzTheme="outline"
                   class="edit-icon"
-                  (click)="startEditing('expenses')"/></span>
+                  (click)="startEditingDetailsField('expenses')"/></span>
                 <span *ngIf="!isEditingExpenses">{{ project?.expenses }}$</span>
                 <!-- input при редактировании -->
                 <input
+                  #expensesInput
                   type="number"
                   *ngIf="isEditingExpenses"
                   [(ngModel)]="project!.expenses"
-                  (keyup.enter)="finishEditing('expenses')"
+                  (keyup.enter)="finishEditingDetailsField('expenses')"
                   class="edit-input"/>
               </div>
             </div>
@@ -186,14 +188,15 @@
             nzType="edit"
             nzTheme="outline"
             class="edit-icon"
-            (click)="startEditing('description')"/>
+            (click)="startEditingDetailsField('description')"/>
         </div>
         <nz-card class="card description-card" [nzBordered]="false">
           @if (isEditingDescription){
-            <textarea [(ngModel)]="project!.description"
+            <textarea #descriptionInput
+                      [(ngModel)]="project!.description"
                       style="width: 100%; height: 100%;"
                       placeholder=""
-                      (keyup.enter)="finishEditing('description')"
+                      (keyup.enter)="finishEditingDetailsField('description')"
             >{{project?.description}}</textarea>
           }
           @else {
@@ -249,7 +252,7 @@
       <div class="container">
         <h3>STATUS</h3>
         <nz-select *ngIf="project" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
-          style="width: 100%;" [(ngModel)]="project.status" (ngModelChange)="finishEditing('status')">
+          style="width: 100%;" [(ngModel)]="project.status" (ngModelChange)="finishEditingDetailsField('status')">
           <nz-option nzCustomContent nzLabel="Not started" nzValue="NotStarted">
             <div style="display: flex; align-items: center; gap: 4px;">
               <nz-icon>
@@ -325,7 +328,13 @@
 
       <!-- CLIENT -->
       <div class="container" >
-        <h3>CLIENT</h3>
+        <div class="header" style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 style="margin:0;">CLIENT</h3>
+            <nz-icon
+                  nzType="plus"
+                  nzTheme="outline"
+                  class="edit-icon"/>
+        </div>
         <nz-card [nzBodyStyle]="{ padding: '10px' }" class="card client">
           @if (project?.client) {
             <nz-card-meta
