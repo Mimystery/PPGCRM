@@ -70,7 +70,6 @@ export class ProjectDetailsComponent {
   }
   dropdownVisible = false;
   onClientSelect(clientData: ClientCardData) {
-    console.log(clientData.clientId);
 
     if (this.project) {
       this.project.clientId = clientData.clientId;
