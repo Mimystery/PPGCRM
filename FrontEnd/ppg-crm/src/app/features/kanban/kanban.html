@@ -8,13 +8,13 @@
 
 <div>
     <div class="page-header">
-        <button nz-button nzType="default" class="page-header-btn create" 
+        <button nz-button nzType="default" class="page-header-btn create"
             (click)="showCreateProjectModal()">
             <nz-icon nzType="plus" nzTheme="outline" />
             Create new stage
         </button>
     </div>
-    <div class="board">
-        <app-kanban-stage></app-kanban-stage>
-    </div>
+  <div class="flex-table kanban">
+    <app-kanban-card></app-kanban-card>
+  </div>
 </div>

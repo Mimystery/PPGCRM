@@ -1,13 +1,16 @@
-<div class="card">
-    <div class="card-header">
+<nz-card class="card process">
+    <div class="card-title">
         <span>Process name</span>
-        <nz-icon nzType="user" nzTheme="outline" />
+       <!-- <nz-icon nzType="user" nzTheme="outline" /> -->
     </div>
-    <span class="responsible-user">Responsible user</span>
-    <span class="responsible-user">Responsible user</span>
-    <span class="responsible-user">Responsible user</span>
-    <div class="dates"> 
-        <div class="date"> <nz-icon nzType="calendar" nzTheme="outline" /> July 28, 2025 </div>
-        <span class="date"> <nz-icon nzType="calendar" nzTheme="outline" /> July 30, 2025 </span>
+  <div class="card-info-container process">
+    <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"><span>Responsible user</span></nz-card>
+    <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"><span>Responsible user</span></nz-card>
+    <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"><span>Responsible user</span></nz-card>
+    <div nz-flex nzJustify="space-between">
+      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> July 28, 2025 </nz-card>
+      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> July 30, 2025 </nz-card>
     </div>
-</div>
+  </div>
+
+</nz-card>
