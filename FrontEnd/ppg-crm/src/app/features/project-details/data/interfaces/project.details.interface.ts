@@ -3,19 +3,19 @@ import { Stage } from "../../../kanban/data/interfaces/stages.interface";
 
 export interface ProjectDetails {
     projectId: string;
-    clientId: string;
-    client: ClientProjectCard;
+    clientId?: string | null;
+    client?: ClientProjectCard | null;
     projectName: string;
-    description: string;
+    description?: string | null;
     status: string;
-    startDate: Date;
-    endDate: Date;
-    constructionWorksStart: Date;
-    budget: number;
-    expenses: number;
+    startDate?: Date | null;
+    endDate?: Date | null;
+    constructionWorksStart?: Date | null;
+    budget?: number | null;
+    expenses?: number | null;
     progress: number;
     isArchived: boolean;
-    stages: Stage[];
+    stages?: Stage[] | null;
     
 }
 
