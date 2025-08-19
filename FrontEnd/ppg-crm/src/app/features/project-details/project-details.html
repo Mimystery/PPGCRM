@@ -52,7 +52,7 @@
                                   (keyup.enter)="finishEditing('startDate')"
                                   nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
                 } @else {
-                  <span>{{ project!.startDate| date:'dd.MM.yyyy' }}</span>
+                  <span>{{ project?.startDate | date:'dd.MM.yyyy' }}</span>
                 }
               </div>
             </div>
@@ -84,7 +84,7 @@
                                   nzSize="large"
                                   nzVariant="underlined" nzFormat="dd.MM.yyyy"></nz-date-picker>
                 } @else {
-                  <span>{{ project!.endDate | date:'dd.MM.yyyy' }}</span>
+                  <span>{{ project?.endDate | date:'dd.MM.yyyy' }}</span>
                 }
               </div>
             </div>
@@ -248,28 +248,8 @@
       <!-- STATUS -->
       <div class="container">
         <h3>STATUS</h3>
-        <!-- <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStatus" class="project-details-sider-btn">
-          Button
-          <nz-icon nzType="down"></nz-icon>
-        </button>
-
-        <nz-dropdown-menu #nzDropdownMenuStatus="nzDropdownMenu">
-          <ul nz-menu>
-            <li nz-menu-item>
-              <nz-icon>
-                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
-                </svg>
-              </nz-icon>
-              Started
-            </li>
-            <li nz-menu-item>Stopped</li>
-            <li nz-menu-item>Awaiting</li>
-          </ul>
-        </nz-dropdown-menu> -->
-
-        <nz-select nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
-          style="width: 100%;" [(ngModel)]="selectedStatus">
+        <nz-select *ngIf="project" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
+          style="width: 100%;" [(ngModel)]="project.status" (ngModelChange)="finishEditing('status')">
           <nz-option nzCustomContent nzLabel="Not started" nzValue="NotStarted">
             <div style="display: flex; align-items: center; gap: 4px;">
               <nz-icon>
@@ -344,18 +324,15 @@
       </div>
 
       <!-- CLIENT -->
-      <!-- КРЧ ВСЕ РАБОТАЄ НЕ ПУЛЬ НЕТ НЕ КОМІТИВ БО ХОЧУ ЦЕ ДОРОБИТИ ОСТАЛАСЬ КАРТОЧКА КЛІЄНТА І Я ДУМАЮ ЯК РЕАЛЗІУВАТИ
-
-      ПОТОМ БЛЯ КРЧ СКАЖИ ЯК СУКА ВОТ В НАС Є КЛІЄНТ АЙДІ. ДА І НАМ ТРЕБА ПОЛУЧИТИ ІНФУ О КЛІЄНТІ ЦЕ ВАРТО СЕРВІС ПИСАТИ??
-      -->
       <div class="container" >
         <h3>CLIENT</h3>
         <nz-card [nzBodyStyle]="{ padding: '10px' }" class="card client">
-          <nz-card-meta
+          @if (project?.client) {
+            <nz-card-meta
             [nzTitle]="clientTitle"
             [nzDescription]="clientInfo"
           ></nz-card-meta>
-        </nz-card>
+
 
         <ng-template #clientTitle>
           <nz-icon>
@@ -391,6 +368,12 @@
             </div>
           </div>
         </ng-template>
+          } @else {
+            <div style="text-align:center; font-style:italic; color:gray;">
+              Client do not added yet
+            </div>
+          }
+        </nz-card>
       </div>
 
       <!-- MEMBERS -->
