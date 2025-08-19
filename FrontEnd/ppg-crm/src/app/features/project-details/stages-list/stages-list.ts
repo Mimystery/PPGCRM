@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {Component, input, signal} from '@angular/core';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
@@ -8,10 +8,12 @@ import {NzTagModule} from 'ng-zorro-antd/tag';
 import {NzCollapseModule} from 'ng-zorro-antd/collapse';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {ProcessDrawerComponent} from './process-drawer/process-drawer';
+import {Stage} from './data/interfaces/stage.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-stages-list',
-  imports: [NzIconModule, NzButtonModule, NzDropDownModule,
+  imports: [NzIconModule, NzButtonModule, NzDropDownModule, CommonModule,
     NzFlexModule, NzProgressModule, NzCollapseModule, NzTagModule, NzCardModule, ProcessDrawerComponent,
   ],
   templateUrl: './stages-list.html',
@@ -19,6 +21,7 @@ import {ProcessDrawerComponent} from './process-drawer/process-drawer';
 })
 export class StagesListComponent {
   public processDrawerVisible =  signal(false);
+  public stages = input.required<Stage[] | null>();
 
   openProcessDrawer = () => this.processDrawerVisible.set(true);
 

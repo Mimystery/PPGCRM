@@ -236,7 +236,7 @@
           [nzShowInfo]="false"
         ></nz-progress>
       </div>
-      <app-stages-list></app-stages-list>
+      <app-stages-list [stages]="project?.stages || null"></app-stages-list>
     </div>
   </nz-content>
 
