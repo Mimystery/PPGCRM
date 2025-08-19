@@ -35,20 +35,16 @@ export class ProjectDetailsComponent {
 
   project: ProjectDetails | null = null;
 
-  isEditingProjectName = false;
-  isEditingBudget = false;
-  isEditingExpenses = false;
-  isEditingStartDate: boolean = false;
-  isEditingEndDate: boolean = false;
-  isEditingConstWorkStartDate: boolean = false;
+  //*** ЧЧОГО boolean | "submitting"???? БО КОЛИ ВІДПРАВЛЯТИ ДАННІ І ОЧІКУЄМО ОТВЕТ БЕКЕНДА ЩОБ БУЛА АНІМАЦІЯ КРУЖОЧКА ЯК ТІЛЬКИ ЗМІНИТЬСЯ ТО
+  //* МІНЯЄМО З СУБМІТІНГ НА БУЛЛ І ВСЕ
+  isEditingProjectName: boolean | "submiting" = false;
+  isEditingBudget: boolean | "submiting" = false;
+  isEditingExpenses: boolean | "submiting" = false;
+  isEditingStartDate: boolean | "submiting" = false;
+  isEditingEndDate: boolean | "submiting" = false;
+  isEditingConstWorkStartDate: boolean | "submiting" = false;
+  isEditingDescription: boolean | "submiting" = false;
 
-
-  projectName = 'Project name';
-  budget = '21.000';
-  expenses = '21.000';
-  startDate = new Date(2023,10,1);
-  endDate = new Date(2023,10,1);
-  constWorkStartDate = new Date(2023,10,1);
 
   selectedStatus: string = 'NotStarted';
 
@@ -89,20 +85,23 @@ export class ProjectDetailsComponent {
     if (field === 'constWorkStartDate') {
       this.isEditingConstWorkStartDate = true;
     }
+    if (field == 'description'){
+      this.isEditingDescription = true;
+    }
   }
 
   finishEditing(field: string) {
     if (field === 'budget') {
       this.isEditingBudget = false;
-      console.log('Новое значение:', this.budget);
+      console.log('Новое значение:', this.project?.budget);
     }
     if (field === 'expenses') {
       this.isEditingExpenses = false;
-      console.log('Новое значение:', this.expenses);
+      console.log('Новое значение:', this.project?.expenses);
     }
     if (field === 'projectName') {
       this.isEditingProjectName = false;
-      console.log('Новое значение:', this.projectName);
+      console.log('Новое значение:', this.project?.projectName);
     }
     if (field === 'startDate') {
       this.isEditingStartDate = false;
@@ -113,8 +112,23 @@ export class ProjectDetailsComponent {
     if (field === 'constWorkStartDate') {
       this.isEditingConstWorkStartDate = false;
     }
+    if (field == 'description'){
+      this.isEditingDescription = false;
+    }
+    this.projectDetailsService.updateProjectDetails(this.selectedProjectService.selectedProjectId()!, this.project!)
+      .subscribe({
+        error: (err) => {
+          alert("Ошибка при обновлении данных: " + err.message);
+        },
+        complete: () => {
+          alert("Данные успешно обновлены!");
+        }
+      });
   }
 
+  loadClientbyId(clientId: string) {
+
+  }
   getColor(value: string): string {
   switch(value) {
     case 'NotStarted': return '#9E9E9E';
@@ -127,4 +141,5 @@ export class ProjectDetailsComponent {
   }
 }
 
+  //protected readonly ProjectDetails = ProjectDetails;
 }
