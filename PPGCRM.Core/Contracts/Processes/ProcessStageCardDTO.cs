@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPGCRM.Core.Contracts.Processes
 {
-    public class ProcessInStageCardDTO
+    public class ProcessStageCardDTO
     {
     }
 }
