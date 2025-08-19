@@ -53,13 +53,16 @@ public class TasksRepository : ITasksRepository
     }
     public async Task DeleteTaskAsync(Guid taskId)
     {
-        var taskEntity = await _context.Tasks.FirstOrDefaultAsync(t => t.TaskId == taskId);
-        if (taskEntity == null)
-        {
-            throw new KeyNotFoundException($"Task with provided Id {taskId} not found");
-        }
+        // Еслі нам не нада CascadeDelete метод Delete можна писати в 1 строку:
 
-        _context.Tasks.Remove(taskEntity);
-        await _context.SaveChangesAsync();
+        //var taskEntity = await _context.Tasks.FirstOrDefaultAsync(t => t.TaskId == taskId);
+        //if (taskEntity == null)
+        //{
+        //    throw new KeyNotFoundException($"Task with provided Id {taskId} not found");
+        //}
+
+        //_context.Tasks.Remove(taskEntity);
+        //await _context.SaveChangesAsync();
+        await _context.Tasks.Where(t => t.TaskId == taskId).ExecuteDeleteAsync();
     }
 }
