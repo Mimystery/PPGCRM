@@ -1,0 +1,30 @@
+﻿# 
+# **  Я ПРОСТО СКОПІРУВАВ ФАЙЛ З СВОГО ПРОЕКТА ПОТОМ ПОДУМАЮ ЯК ЙОГО НАЛАШТУВАТИ **
+# 
+services:
+
+  spring:
+    image: docker.io/eclipse-temurin:21-jdk
+    working_dir: /app
+    volumes:
+      - gradle_cache:/root/.gradle
+      - .:/app
+    command: ./gradlew --no-daemon bootRun
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:h2:mem:testdb'
+    ports:
+      - "8080:8080"
+
+  vite:
+    image: docker.io/node:24-slim
+    working_dir: /app
+    volumes:
+      - npm_cache:/usr/local/share/.cache/npm
+      - ./src/main/progresscheckfront:/app
+    command: [ "sh", "./start-server", "-u", "http://spring:8080" ]
+    ports:
+      - "5173:5173"
+
+volumes:
+  npm_cache:
+  gradle_cache:

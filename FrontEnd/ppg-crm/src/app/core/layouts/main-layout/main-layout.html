@@ -8,31 +8,39 @@
         <ul nz-menu nzTheme="light" nzMode="inline">
           @if (selectedProjectService.selectedProjectName()!=null) {
             <li nz-submenu
-                nzTitle="Projects"
-                nzIcon="bars"
+                [nzTitle]="subMenuTitle"
                 [nzOpen]="true"
                 nzMenuClassName = "project-submenu"
             >
+              <ng-template #subMenuTitle>
+                <span>
+                  <a [routerLink]="['/projects']" (click) = 'projectsLinkOnClick($event)'>
+                    <nz-icon nzType="bars" nzTheme="outline" />
+                 <span>Projects</span>
+                  </a>
+                </span>
+
+              </ng-template>
                 <ul>
-                    <li nz-menu-item >
-                        <a [routerLink]="['/project-details']">
+                    <li nz-menu-item nzMatchRouterExact nzMatchRouter>
+                        <a [routerLink]="['/project-details']" >
                             <nz-icon nzType="project" nzTheme="outline" />
                             <span>Project Details</span>
                         </a>
                     </li>
-                    <li nz-menu-item >
+                    <li nz-menu-item nzMatchRouterExact nzMatchRouter>
                         <a [routerLink]="['/kanban']">
                             <nz-icon nzType="group" nzTheme="outline" />
                             <span>Kanban</span>
                         </a>
                     </li>
-                    <li nz-menu-item >
+                    <li nz-menu-item nzMatchRouterExact nzMatchRouter>
                         <a [routerLink]="['/calendar']">
                             <nz-icon nzType="calendar" />
                             <span>Calendar</span>
                         </a>
                     </li>
-                    <li nz-menu-item >
+                    <li nz-menu-item nzMatchRouterExact nzMatchRouter>
                         <a [routerLink]="['/file']">
                             <nz-icon nzType="file" />
                             <span>File</span>
@@ -41,32 +49,32 @@
                 </ul>
             </li>
             } @else if (selectedProjectService.selectedProjectName()==null) {
-            <li nz-menu-item >
+            <li nz-menu-item nzMatchRouterExact nzMatchRouter>
               <a [routerLink]="['projects']">
                 <nz-icon nzType="bars" nzTheme="outline" />
                 <span>Projects</span>
               </a>
             </li>
             }
-            <li nz-menu-item >
+            <li nz-menu-item nzMatchRouterExact nzMatchRouter>
                 <a [routerLink]="['/archive']">
                     <nz-icon nzType="container" nzTheme="outline" />
                     <span>Archive</span>
                 </a>
             </li>
-            <li nz-menu-item >
+            <li nz-menu-item nzMatchRouterExact nzMatchRouter>
                 <a [routerLink]="['/clients']">
                     <nz-icon nzType="solution" nzTheme="outline" />
                     <span>Clients</span>
                 </a>
             </li>
-            <li nz-menu-item >
+            <li nz-menu-item nzMatchRouterExact nzMatchRouter>
                 <a [routerLink]="['/analytics']">
                     <nz-icon nzType="bar-chart" nzTheme="outline" />
                     <span>Analytics</span>
                 </a>
             </li>
-            <li nz-menu-item >
+            <li nz-menu-item nzMatchRouterExact nzMatchRouter>
                 <a [routerLink]="['/team']">
                     <nz-icon nzType="team" nzTheme="outline" />
                     <span>Team</span>

@@ -45,5 +45,8 @@ userProfile: User | undefined;
   };
   projectDetails = 'projectDetails';
 
+  projectsLinkOnClick(e: MouseEvent) {
+  e.stopPropagation();
+  }
 }
 
