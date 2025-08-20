@@ -1,5 +1,5 @@
 import { ClientProjectCard } from "../../../clients/data/interfaces/client-card-in-project-details.interface";
-import { Stage } from "../../../kanban/data/interfaces/stages.interface";
+import { Stage } from "../../../kanban/data/interfaces/stage.interface";
 
 export interface ProjectDetails {
     projectId: string;

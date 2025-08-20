@@ -1,15 +1,56 @@
 .card.kanban{
   max-width: 19.006vw;
+  min-width: 250px;
 }
 
 .card-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between; /* заголовок слева, кнопки справа */
+  align-items: center;
   width: 100%;
+}
+
+.card-title-text {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0; /* обязательно для корректного сжатия flex */
+}
+
+.ellipsis-text {
+  flex: 1;                 /* занимает всё доступное место */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+}
+
+.edit-input {
+  flex: 1;              
+  min-width: 0;    
+  font-size: 1rem;  
+  padding: 0px 4px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+.card-title-actions {
+  display: flex;
+  gap: 0.25rem; /* отступ между кнопками */
 }
 
 .card-info-container.kanban{
     flex-direction: column;
     gap: 1vh;
+}
+
+.edit-icon {
+      margin-left: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #969696;
+      transition: color 0.2s;
+      &:hover {
+        color: #b3b3b3;
+      }
 }

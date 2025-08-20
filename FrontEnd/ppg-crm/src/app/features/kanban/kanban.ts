@@ -18,45 +18,49 @@ import { StageCard } from './data/interfaces/stage-card.interface';
 })
 export class KanbanComponent {
 
-  isVisible = false;
-  isOkDisabled = true;
-  newProjectName = '';
+  isCreateStageModalVisible = false;
+  isOkButtonInCreateStageModalDisabled = true;
+  newStageName = '';
 
   stages: StageCard[] | null = null;
 
   stagesService = inject(StagesService);
   selectedProjectService = inject(SelectedProjectService);
 constructor() {
-  this.stagesService.getAllStages(this.selectedProjectService.selectedProjectId()!)
-    .subscribe({
-      next: (val) => {
-        this.stages = val;
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    })
+
 }
 
   checkIsInputEmpty(){
-    this.isOkDisabled = this.newProjectName.trim() === '';
+    this.isOkButtonInCreateStageModalDisabled = this.newStageName.trim() === '';
   }
 
   showCreateProjectModal(): void {
-    this.isVisible = true;
+    this.isCreateStageModalVisible = true;
   }
 
   handleCreateProjectModalOk(): void {
-    this.isVisible = false;
+    this.isCreateStageModalVisible = false;
 
-    this.newProjectName = '';
+    this.stagesService.createStage(this.newStageName).subscribe({
+      next: (res) => {
+        this.stagesService.getStages()
+      .subscribe(val => {
+        this.stages = val
+      })
+      },
+      error: (err) => {
+        console.log('Ошибка:', err);
+      }
+    });
+
+    this.newStageName = '';
     this.checkIsInputEmpty();
   }
 
   handleCreateProjectModalCancel(): void {
-    this.isVisible = false;
+    this.isCreateStageModalVisible = false;
 
-    this.newProjectName = '';
+    this.newStageName = '';
     this.checkIsInputEmpty()
   }
 
