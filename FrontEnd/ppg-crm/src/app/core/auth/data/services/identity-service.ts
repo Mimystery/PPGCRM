@@ -98,6 +98,6 @@ export class IdentityService {
     this.refreshToken = res.refreshToken
 
     this.cookieService.set('token', this.token)
-    this.cookieService.set('refreshToken', this.refreshToken)
+    this.cookieService.set('refreshToken', this.refreshToken, new Date().setMonth(new Date().getMonth() + 1));
   }
 }
