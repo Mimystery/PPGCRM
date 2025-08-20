@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, ElementRef, input, ViewChild } from '@angular/core';
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ProcessCardComponent } from "../process-card/process-card";
@@ -20,8 +20,16 @@ export class KanbanCardComponent {
 
   isEditingStageName = false
 
+   @ViewChild('stageInput') stageInput!: ElementRef<HTMLInputElement>;
+   
   startEditingDetailsField(field: string){
+    if(field === 'stageName'){
+      this.isEditingStageName = !this.isEditingStageName;
+    }
 
+    setTimeout(() => {
+        this.stageInput.nativeElement.focus(); 
+      });
   }
 
 }
