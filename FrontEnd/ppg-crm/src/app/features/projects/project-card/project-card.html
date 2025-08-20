@@ -7,22 +7,26 @@
   <!-- Title & Description -->
   <nz-card-meta
     [nzTitle]="titleTpl"
-    nzDescription="asdassssssssssssssssssssssssdasd"
+    [nzDescription]="project().description"
   ></nz-card-meta>
 
   <ng-template #titleTpl>
     <span class="card-title">{{ project().projectName }}</span>
   </ng-template>
 
+  <ng-template #descTpl>
+    <span class="card-title">{{ project().description }}</span>
+  </ng-template>
+
   <!-- Dates -->
   <div class="card-info-container">
     <div class="card-info-item">
       <span class="card-info-label">From:</span>
-      <span>{{ project().startDate }}</span>
+      <span>{{ project().startDate | date:'dd.MM.yyyy' }}</span>
     </div>
     <div class="card-info-item">
       <span class="card-info-label">To:</span>
-      <span>{{ project().endDate }}</span>
+      <span>{{ project().endDate | date:'dd.MM.yyyy' }}</span>
     </div>
   </div>
 

@@ -12,7 +12,7 @@ import { ProcessCard } from '../data/interfaces/process-card.interface';
   styleUrl: './process-card.less'
 })
 export class ProcessCardComponent {
-  public process = input.required<ProcessCard>();
+  public process = input.required<ProcessDetails>();
 
 
 }

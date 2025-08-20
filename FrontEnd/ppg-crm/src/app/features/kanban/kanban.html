@@ -1,7 +1,7 @@
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new project" (nzOnCancel)="handleCreateProjectModalCancel()"
-(nzOnOk)="handleCreateProjectModalOk()" [nzOkDisabled]="isOkDisabled">
+<nz-modal [(nzVisible)]="isCreateStageModalVisible" nzTitle="Create new project" (nzOnCancel)="handleCreateProjectModalCancel()"
+(nzOnOk)="handleCreateProjectModalOk()" [nzOkDisabled]="isOkButtonInCreateStageModalDisabled">
       <ng-container *nzModalContent>
-        <input nz-input placeholder="Enter new project name" [(ngModel)]="newProjectName"
+        <input nz-input placeholder="Enter new project name" [(ngModel)]="newStageName"
         (ngModelChange)="checkIsInputEmpty()">
       </ng-container>
 </nz-modal>
@@ -15,9 +15,10 @@
         </button>
     </div>
   <div class="flex-table kanban">
-    @for(stage of stages; track stage.stageId!) {
-      <app-kanban-card [stage] = "stage"></app-kanban-card>
-    }
-
+    <app-kanban-card></app-kanban-card>
   </div>
+}@else {
+  <span>No added any projects yet</span>
+} -->
+
 </div>

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ProcessCardComponent } from "../process-card/process-card";
@@ -13,5 +13,5 @@ import {NzEmptyModule} from 'ng-zorro-antd/empty';
   styleUrl: './kanban-card.less'
 })
 export class KanbanCardComponent {
-  public stage = input.required<StageCard>();
+
 }

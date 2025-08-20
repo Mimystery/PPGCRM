@@ -13,7 +13,7 @@ export class ProjectsService {
     return this.http.get<ProjectCardData[]>('https://localhost:7189/api/Projects/AllProjectsMainData')
   }
   createProject(projName: string){
-    const createProjectBody = { projectName: projName}
+    const createProjectBody = { projectName: projName }
     return this.http.post('https://localhost:7189/api/Projects/AddProject', createProjectBody)
   }
 
