@@ -1,0 +1,66 @@
+<nz-drawer
+  [nzVisible]="isVisible()"
+  nzPlacement="right"
+  nzClosable="true"
+  nzTitle="Team Member"
+  [nzWidth]="window.innerWidth*0.85"
+  (nzOnClose)="handleClose()"
+  [nzBodyStyle]="{padding: '0 0.5vw'}"
+>
+  <ng-container *nzDrawerContent>
+    <div class="container">
+      <div nz-flex nzJustify="space-between" nzAlign="center">
+        <div>
+          <h3><b>First Last Namovych</b> | Username</h3>
+          <p>
+            His role <span style="color: green;">1200₴ per life</span>
+          </p>
+          <p>+380988230100</p>
+          <p>+380988230100</p>
+          <p><span>anotheremail.com</span></p>
+        </div>
+      </div>
+
+      <div nz-flex nzJustify="space-between" class="top-bar">
+        <div>
+          <label>Project:</label>
+          <nz-card style="padding: 5px;">Select project</nz-card>
+        </div>
+        <div>
+          <label>Stage:</label>
+          <nz-card style="padding: 5px;">Select stage</nz-card>
+        </div>
+      </div>
+
+      <nz-card>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Process name</th>
+            <th>Description</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Progress</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Sample process</td>
+            <td>Just a description</td>
+            <td>27 July, 2025</td>
+            <td><nz-tag nzColor="blue">In Progress</nz-tag></td>
+            <td>
+              <nz-progress
+                [nzPercent]="34"
+                nzStrokeColor="#7AC327"
+                [nzShowInfo]="true"
+                nzStrokeLinecap="round"
+              ></nz-progress>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </nz-card>
+    </div>
+  </ng-container>
+</nz-drawer>

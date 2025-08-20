@@ -1,4 +1,4 @@
-<nz-card class="card team" [nzBordered]="false">
+<nz-card class="card team" [nzBordered]="false" (click)="openTeamDrawer()">
   <div class="card-info-container">
     <nz-avatar nzSize="large" nzShape="circle" nzIcon="user"  s></nz-avatar>
 
@@ -15,3 +15,5 @@
     <nz-tag [nzColor]="'#FFA94D'" class="card-tag">{{ user()?.role }}</nz-tag>
   </div>
 </nz-card>
+
+<app-teammate-drawer  [isVisible]="teamDrawerVisible()" (closed)="closeTeamDrawer()"></app-teammate-drawer>
