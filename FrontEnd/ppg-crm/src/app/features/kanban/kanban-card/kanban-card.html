@@ -20,8 +20,8 @@
                   #stageInput
                   *ngIf="isEditingStageName"
                   [(ngModel)]="stage().stageName"
-                  (blur)="isEditingStageName = false"
-                  (keyup.enter)="startEditingDetailsField('stageName')"
+                  (blur)="finishEditingDetailsField('stageName')"
+                  (keyup.enter)="finishEditingDetailsField('stageName')"
                   class="edit-input"/>
       </div>
 

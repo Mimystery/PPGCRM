@@ -19,4 +19,9 @@ export class StagesService {
     return this.http.post(`https://localhost:7189/api/Stages/AddStageByProjectId/${this.selectedProjectService.selectedProjectId()}`, createStageBody)
   }
 
+  updateStage(stageId: string, stageName: string){
+    const updateStageBody = { stageName: stageName}
+    return this.http.put(`https://localhost:7189/api/Stages/UpdateStageByProjectId/${this.selectedProjectService.selectedProjectId()}?stageId=${stageId}`, updateStageBody)
+  }
+
 }
