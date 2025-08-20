@@ -20,13 +20,13 @@ public class TasksService : ITasksService
         return await _tasksRepository.GetAllTasksByProcessIdAsync(processId);
     }
 
-    public async Task AddTaskByProcessIdAsync(Guid processId, TaskUpdateDTO taskUpdate)
+    public async Task AddTaskByProcessIdAsync(Guid processId, TaskCreateDTO taskCreate)
     {
         var taskModel = new TaskModel(
             Guid.NewGuid(),
             processId,
-            taskUpdate.TaskName,
-            taskUpdate.IsDone
+            taskCreate.TaskName,
+            taskCreate.IsDone
         );
         await _tasksRepository.AddTaskByProcessIdAsync(taskModel);
     }

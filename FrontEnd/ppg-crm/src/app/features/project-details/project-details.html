@@ -26,7 +26,7 @@
       <!-- DETAILS SECTION -->
       <div class="container">
         <div class="card-label">DETAILS</div>
-        <div class="flex-table project-details">
+        <div class="flex-table project-details" style="min-height: fit-content;">
           <nz-card class="card" [nzBordered]="false">
             <div class="card-info-container">
               <nz-icon>
@@ -340,11 +340,11 @@
               class="edit-icon"/>
 
             <nz-dropdown-menu #menu="nzDropdownMenu">
-              <div style="background-color: white; border-radius: 10px; 
+              <div style="background-color: white; border-radius: 10px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
                 <div style="max-height: 400px; overflow-y: auto; padding: 8px; min-width: 250px;">
                 @for (client of clients; track client.clientId) {
-                  <nz-card 
+                  <nz-card
                     class="client-card"
                     (click)="onClientSelect(client)">
                       <nz-icon>
@@ -360,7 +360,7 @@
               </div>
               </div>
             </nz-dropdown-menu>
-                  
+
         </div>
         <nz-card [nzBodyStyle]="{ padding: '10px' }" class="card client">
           @if (project?.client) {
