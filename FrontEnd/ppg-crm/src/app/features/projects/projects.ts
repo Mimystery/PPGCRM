@@ -15,60 +15,69 @@ import { ProjectCardData } from './data/interfaces/project-card-data';
 
 @Component({
   selector: 'app-projects',
-  imports: [NzButtonModule, NzDescriptionsModule, NzPageHeaderModule,
-    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, ProjectCardComponent, NzModalModule, CommonModule],
+  imports: [
+    NzButtonModule,
+    NzDescriptionsModule,
+    NzPageHeaderModule,
+    NzSpaceModule,
+    NzIconModule,
+    NzInputModule,
+    FormsModule,
+    ProjectCardComponent,
+    NzModalModule,
+    CommonModule
+  ],
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })
 export class ProjectsComponent {
-
-  isVisible = false;
-  isOkDisabled = true;
-  newProjectName = '';
+  createNewProjectModalVisible = false;
+  createNewProjectModalOkDisabled = true;
+  createNewProjectName = '';
 
   projects: ProjectCardData[] = [];
 
   projectsService = inject(ProjectsService)
 
-  constructor(){
+  constructor() {
     this.projectsService.getProjects()
       .subscribe(val => {
         this.projects = val
       })
   }
 
-  checkIsInputEmpty(){
-    this.isOkDisabled = this.newProjectName.trim() === '';
+  checkIfNewProjectNameEmpty() {
+    this.createNewProjectModalOkDisabled = this.createNewProjectName.trim() === '';
   }
 
-  showCreateProjectModal(): void {
-    this.isVisible = true;
+  openCreateNewProjectModal(): void {
+    this.createNewProjectModalVisible = true;
   }
 
-  handleCreateProjectModalOk(): void {
-    this.isVisible = false;
+  handleCreateNewProjectModalOk(): void {
+    this.createNewProjectModalVisible = false;
 
-    this.projectsService.createProject(this.newProjectName).subscribe({
-      next: (res) => {
+    this.projectsService.createProject(this.createNewProjectName).subscribe({
+      next: () => {
         this.projectsService.getProjects()
-      .subscribe(val => {
-        this.projects = val
-      })
+          .subscribe(val => {
+            this.projects = val
+          })
       },
       error: (err) => {
         console.log('Ошибка:', err);
       }
     });
 
-    this.newProjectName = '';
-    this.checkIsInputEmpty();
+    this.createNewProjectName = '';
+    this.checkIfNewProjectNameEmpty();
   }
 
-  handleCreateProjectModalCancel(): void {
-    this.isVisible = false;
+  handleCreateNewProjectModalCancel(): void {
+    this.createNewProjectModalVisible = false;
 
-    this.newProjectName = '';
-    this.checkIsInputEmpty()
+    this.createNewProjectName = '';
+    this.checkIfNewProjectNameEmpty();
   }
 
   getTotalTasks(p: any) {

@@ -1,33 +1,53 @@
+<nz-modal
+  [(nzVisible)]="createNewProcessModalVisible"
+  nzTitle="Create new process"
+  (nzOnCancel)="handleCreateNewProcessModalCancel()"
+  (nzOnOk)="handleCreateNewProcessModalOk()"
+  [nzOkDisabled]="createNewProcessModalOkDisabled">
+
+  <ng-container *nzModalContent>
+    <input
+      nz-input
+      placeholder="Enter new process name"
+      [(ngModel)]="createNewProcessName"
+      (ngModelChange)="checkIfNewProcessNameEmpty()">
+  </ng-container>
+</nz-modal>
+
 <nz-card
   class="card kanban"
   [nzTitle]="stageCardTitle"
   [nzBodyStyle]="{ padding: '1vh 0.25vw', backgroundColor: '#E5E5E5' }"
 >
-    <ng-template #stageCardTitle >
-      <div class="card-title">
-      <!-- Заголовок -->
-      <div class="card-title-text">
-        <span class="card-info-label"><nz-icon
-                  nzType="edit"
-                  nzTheme="outline"
-                  class="edit-icon"
-                  (click)="startEditingDetailsField('stageName')"/>
-                </span>
+  <ng-template #stageCardTitle>
+    <div class="card-title">
 
-                <span *ngIf="!isEditingStageName" class="ellipsis-text"> {{ stage().stageName}}</span>
-                <!-- input при редактировании -->
-                <input
-                  #stageInput
-                  *ngIf="isEditingStageName"
-                  [(ngModel)]="stage().stageName"
-                  (blur)="finishEditingDetailsField('stageName')"
-                  (keyup.enter)="finishEditingDetailsField('stageName')"
-                  class="edit-input"/>
+      <!-- Title -->
+      <div class="card-title-text">
+        <span class="card-info-label">
+          <nz-icon
+            nzType="edit"
+            nzTheme="outline"
+            class="edit-icon"
+            (click)="startEditingDetailsField('stageName')" />
+        </span>
+
+        <span *ngIf="!isEditingStageName" class="ellipsis-text">
+          {{ stage().stageName }}
+        </span>
+
+        <input
+          #stageInput
+          *ngIf="isEditingStageName"
+          [(ngModel)]="stage().stageName"
+          (blur)="finishEditingDetailsField('stageName')"
+          (keyup.enter)="finishEditingDetailsField('stageName')"
+          class="edit-input" />
       </div>
 
-      <!-- Кнопки -->
+      <!-- Actions -->
       <div class="card-title-actions">
-        <button nz-button nzType="link" nzShape="circle">
+        <button nz-button nzType="link" nzShape="circle" (click)="openCreateNewProcessModal()">
           <nz-icon nzType="plus" nzTheme="outline" />
         </button>
         <button nz-button nzType="link" nzShape="circle">
@@ -35,14 +55,16 @@
         </button>
       </div>
     </div>
-    </ng-template>
-    <div class="card-info-container kanban">
-        @for (process of stage().processes; track process.processId!) {
-        <app-process-card [process]="process"></app-process-card>
-      } @empty {
-          <p>
-            <nz-empty nzDescription="No processes in this stage"></nz-empty>
-          </p>
-      }
-    </div>
+  </ng-template>
+
+  <!-- Processes -->
+  <div class="card-info-container kanban">
+    @for (process of stage().processes; track process.processId!) {
+      <app-process-card [process]="process"></app-process-card>
+    } @empty {
+      <p>
+        <nz-empty nzDescription="No processes in this stage"></nz-empty>
+      </p>
+    }
+  </div>
 </nz-card>
