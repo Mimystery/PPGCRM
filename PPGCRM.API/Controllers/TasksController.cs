@@ -7,7 +7,6 @@ using PPGCRM.Core.Models;
 
 namespace PPGCRM.API.Controllers;
 
-
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]

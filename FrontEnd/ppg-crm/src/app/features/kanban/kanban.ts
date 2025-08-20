@@ -37,11 +37,11 @@ export class KanbanComponent {
     this.isOkButtonInCreateStageModalDisabled = this.newStageName.trim() === '';
   }
 
-  showCreateProjectModal(): void {
+  showCreateStageModal(): void {
     this.isCreateStageModalVisible = true;
   }
 
-  handleCreateProjectModalOk(): void {
+  handleCreateStageModalOk(): void {
     this.isCreateStageModalVisible = false;
 
     this.stagesService.createStage(this.newStageName).subscribe({
@@ -60,7 +60,7 @@ export class KanbanComponent {
     this.checkIsInputEmpty();
   }
 
-  handleCreateProjectModalCancel(): void {
+  handleCreateStageModalCancel(): void {
     this.isCreateStageModalVisible = false;
 
     this.newStageName = '';

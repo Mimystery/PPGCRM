@@ -13,7 +13,8 @@ namespace PPGCRM.DataAccess.Entities
         public Guid ProjectId { get; set; }
         public ProjectEntity? Project { get; set; } // Navigation property for the project
         public string StageName { get; set; } = string.Empty;
-        public DateTime? PlanEndDate { get; set; }  
+        public DateTime? PlanEndDate { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public List<ProcessEntity> Processes { get; set; } = new();
     }
 }
