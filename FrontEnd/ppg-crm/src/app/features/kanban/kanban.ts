@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { KanbanCardComponent } from "./kanban-card/kanban-card";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -6,8 +6,8 @@ import { StagesService } from './data/services/stages-service';
 import { NzModalComponent, NzModalModule } from "ng-zorro-antd/modal";
 import { FormsModule } from '@angular/forms';
 import { NzInputModule } from "ng-zorro-antd/input";
+import { Stage } from './data/interfaces/stage.interface';
 import { SelectedProjectService } from '../../core/services/selected-project/selected-project';
-import { StageCard } from './data/interfaces/stage-card.interface';
 
 @Component({
   selector: 'app-kanban',
@@ -22,13 +22,16 @@ export class KanbanComponent {
   isOkButtonInCreateStageModalDisabled = true;
   newStageName = '';
 
-  stages: StageCard[] | null = null;
+  stages: Stage[] = []; 
 
-  stagesService = inject(StagesService);
-  selectedProjectService = inject(SelectedProjectService);
-constructor() {
+  stagesService = new StagesService();
+  selectedProjectService = inject(SelectedProjectService)
 
-}
+  constructor() {
+    this.stagesService.getStages().subscribe(val => {
+      this.stages = val
+    })
+  }
 
   checkIsInputEmpty(){
     this.isOkButtonInCreateStageModalDisabled = this.newStageName.trim() === '';

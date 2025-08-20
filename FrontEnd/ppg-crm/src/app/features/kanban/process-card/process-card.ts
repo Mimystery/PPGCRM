@@ -3,7 +3,7 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzFlexModule} from 'ng-zorro-antd/flex';
-import { ProcessCard } from '../data/interfaces/process-card.interface';
+import { ProcessDetails } from '../data/interfaces/process.interface';
 
 @Component({
   selector: 'app-process-card',

@@ -5,16 +5,36 @@
 >
     <ng-template #stageCardTitle >
       <div class="card-title">
-        <span>{{ stage().stageName }}</span>
-        <div nz-flex nzJustify="space-between" style="width: fit-content">
-          <button nz-button nzType="link" nzShape="circle">
-            <nz-icon nzType="plus" nzTheme="outline" />
-          </button>
-          <button nz-button nzType="link" nzShape="circle">
-            <nz-icon nzType="minus" nzTheme="outline" />
-          </button>
-        </div>
+      <!-- Заголовок -->
+      <div class="card-title-text">
+        <span class="card-info-label"><nz-icon
+                  nzType="edit"
+                  nzTheme="outline"
+                  class="edit-icon"
+                  (click)="startEditingDetailsField('stageName')"/>
+                </span>
+
+                <span *ngIf="!isEditingStageName" class="ellipsis-text"> {{ stage().stageName}}</span>
+                <!-- input при редактировании -->
+                <input
+                  #stageInput
+                  *ngIf="isEditingStageName"
+                  [(ngModel)]="stage().stageName"
+                  (blur)="isEditingStageName = false"
+                  (keyup.enter)="startEditingDetailsField('stageName')"
+                  class="edit-input"/>
       </div>
+
+      <!-- Кнопки -->
+      <div class="card-title-actions">
+        <button nz-button nzType="link" nzShape="circle">
+          <nz-icon nzType="plus" nzTheme="outline" />
+        </button>
+        <button nz-button nzType="link" nzShape="circle">
+          <nz-icon nzType="minus" nzTheme="outline" />
+        </button>
+      </div>
+    </div>
     </ng-template>
     <div class="card-info-container kanban">
         <app-process-card></app-process-card>
