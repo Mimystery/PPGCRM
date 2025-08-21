@@ -14,6 +14,7 @@ namespace PPGCRM.Application.Mappings
         public TaskMappingProfile()
         {
             CreateMap<TaskEntity, TaskModel>();
+            CreateMap<TaskModel, TaskEntity>();
         }
     }
 }

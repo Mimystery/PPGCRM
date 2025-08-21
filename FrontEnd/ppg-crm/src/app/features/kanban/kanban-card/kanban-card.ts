@@ -80,6 +80,9 @@ export class KanbanCardComponent {
       .subscribe({
         next: () => {
           this.message.success('Процесс успешно создан!');
+          this.processesService.getProcesses(this.stage().stageId).subscribe(val => {
+            this.stage().processes = val
+          })
         },
         error: (err) => {
           this.message.error('Ошибка при создании процесса: ' + err.message);
