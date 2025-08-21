@@ -42,7 +42,7 @@ namespace PPGCRM.Application.Services
                 null, // notDoneReasons
                 null, // problems
                 null, // sortOrder
-                null, // status
+                processCreate.Status, // status
                 null, // progress
                 null, // totalProcessCost
                 new List<TaskModel>(), // tasks
