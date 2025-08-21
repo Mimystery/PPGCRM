@@ -11,6 +11,7 @@ import { StagesService } from '../data/services/stages-service';
 import { ProcessesService } from '../data/services/processes-service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'app-kanban-card',
@@ -22,7 +23,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzEmptyModule,
     FormsModule,
     CommonModule,
-    NzModalModule
+    NzModalModule,
+    NzInputModule
   ],
   templateUrl: './kanban-card.html',
   styleUrl: './kanban-card.less'
