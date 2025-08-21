@@ -31,31 +31,31 @@
   @for (stage of stages(); track stage!.stageId) {
     <nz-collapse>
 
-      <nz-collapse-panel  nzActive [nzShowArrow] = 'true' [nzHeader]="stagesCard" >
+      <nz-collapse-panel  [nzActive]="false" [nzShowArrow] = 'true' [nzHeader]="stagesCard" >
         <table style="width: 100%; border-collapse: collapse;" >
           @for(process of stage!.processes; track process!.processId) {
             <tr (click)="openProcessDrawer()" >
               <!-- Process Name -->
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
-                Process name
+                {{process.processName}}
               </td>
 
-              <!-- Description -->
+              <!-- Description
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
                 Description
-              </td>
+              </td> -->
 
               <!-- End Date -->
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
                 <div class="card-info-item">
-                  <span class="card-info-label">End Date</span>
-                  <span style="font-weight: 600;">27 July, 2025</span>
+                  <span class="card-info-label">End Date: </span>
+                  <span style="font-weight: 600;">{{ process.planEndDate }}</span>
                 </div>
               </td>
 
               <!-- Status -->
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
-                <nz-tag nzColor="blue">In Progress</nz-tag>
+                <nz-tag nzColor="blue">{{ process.status }}</nz-tag>
               </td>
 
               <!-- Progress -->
