@@ -4,11 +4,10 @@
            nzTitle="Proccess Name"
            (nzOnClose)="handleClose()"
           [nzWidth]="window.innerWidth*0.85"
-          [nzBodyStyle]="{padding: 0}"
+          [nzBodyStyle]="{padding: 0 }"
            >
   <ng-container *nzDrawerContent>
     <nz-layout>
-
       <!--Details-->
       <nz-content>
         <div class="container-process-content" style="padding: 1vh 0.5vw;">
@@ -149,7 +148,7 @@
 
 
       <!--SIDER-->
-      <nz-sider nzTheme="light" style="padding: 1vh 0.5vw;">
+      <nz-sider nzTheme="light" class="process-details-sider" nzWidth="20vw">
         <div class="container">
           <h3>Status</h3>
           <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStatus" class="project-details-drawer-btn">
@@ -172,6 +171,15 @@
             </ul>
           </nz-dropdown-menu>
         </div>
+        
+        <nz-progress
+          [nzPercent]="34"
+          nzStrokeColor="#7AC327"
+          [nzShowInfo]="true"
+          nzStrokeLinecap="round"
+          style="width: 120px; margin: 0;">
+        </nz-progress>
+
         <nz-table>
           <thead>
             <tr>
@@ -183,17 +191,10 @@
             <tr>
               <td>Tip Tipovich</td>
               <td>30 days worked</td>
-              <td>Sum: 100k</td>
+              <td>Sum: 10.000</td>
             </tr>
           </tbody>
         </nz-table>
-        <nz-progress
-          [nzPercent]="34"
-          nzStrokeColor="#7AC327"
-          [nzShowInfo]="true"
-          nzStrokeLinecap="round"
-          style="width: 120px; margin: 0;">
-        </nz-progress>
 
         <div class="container">
           <h3 class="card-label">Responsible</h3>

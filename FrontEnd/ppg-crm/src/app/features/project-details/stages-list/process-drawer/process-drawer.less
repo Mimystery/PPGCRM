@@ -1,5 +1,7 @@
 nz-layout {
-    height: 100%;
+    height: auto; /* чтобы layout тянулся под контент */
+    width: 100%;
+    min-width: 0; /* важно для flex контейнеров */
 }
 
 .project-details-bottom{
@@ -12,9 +14,24 @@ nz-layout {
     height: 14vh;
 }
 
+.card {
+    flex: 1 1 0;
+     height: fit-content;
+      text-align: center;
+      .card-info-container{
+        flex-direction: row;
+        gap: 1vw;
+      }
+    }
+
 .card-text-area {
     border: transparent;
     width: 100%;
     height: 100%;
     resize: none;
+}
+
+.process-details-sider {
+    padding: 1vh 0.5vw;
+    background-color: #E4E6EA;
 }
