@@ -15,13 +15,14 @@ import {NzTagModule} from 'ng-zorro-antd/tag';
 import {NzFlexModule} from 'ng-zorro-antd/flex';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
+import { NzDividerComponent } from "ng-zorro-antd/divider";
 
 @Component({
   selector: 'app-process-drawer',
   imports: [NzDrawerModule, NzLayoutModule, NzButtonModule, NzDescriptionsModule, NzDropDownModule,
     NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule,
     NzCardModule, NzProgressModule, NzLayoutModule, NzTagModule, NzFlexModule, NzTableModule,
-  NzSpaceModule, NzCheckboxModule],
+    NzSpaceModule, NzCheckboxModule, NzDividerComponent],
   templateUrl: './process-drawer.html',
   styleUrl: './process-drawer.less'
 })
@@ -32,6 +33,69 @@ export class ProcessDrawerComponent {
   handleClose() {
     this.close.emit();
   }
+
+  datas: any = [
+    {
+      key: '1',
+      name: 'Define project objectives and KPIs',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '3',
+      name: 'Estimate timelines and resources',
+      isDone: false
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+    {
+      key: '2',
+      name: 'List all required features',
+      isDone: true
+    },
+  ]
 
   protected readonly window = window;
 }

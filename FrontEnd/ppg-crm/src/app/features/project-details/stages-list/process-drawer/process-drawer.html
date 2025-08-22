@@ -3,17 +3,19 @@
            nzClosable="true"
            nzTitle="Proccess Name"
            (nzOnClose)="handleClose()"
-            [nzWidth]="window.innerWidth*0.85"
-           [nzBodyStyle]="{padding: '0 0.5vw'}"
+          [nzWidth]="window.innerWidth*0.85"
+          [nzBodyStyle]="{padding: 0}"
            >
   <ng-container *nzDrawerContent>
     <nz-layout>
+
+      <!--Details-->
       <nz-content>
-        <div class="container">
+        <div class="container-process-content" style="padding: 1vh 0.5vw;">
           <div nz-flex nzJustify="space-between" nzAlign="center" class="project-details-header">
             <div class="container">
               <h3>Start Date</h3>
-              <nz-card>
+              <nz-card class="card">
                 <div class="card-info-container">
                   <nz-icon>
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +34,7 @@
             </div>
             <div class="container">
               <h3>End Date</h3>
-              <nz-card>
+              <nz-card class="card">
                 <div class="card-info-container">
                   <nz-icon>
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +53,7 @@
             </div>
             <div class="container">
               <h3>Factual End Date</h3>
-              <nz-card>
+              <nz-card class="card">
                 <div class="card-info-container">
                   <nz-icon>
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,34 +72,35 @@
             </div>
           </div>
         </div>
-        <div nz-flex nzJustify="space-between">
+        <div nz-flex nzJustify="space-between" style="padding: 1vh 0.5vw;">
           <div class="container">
             <h3>Notes</h3>
-            <nz-card>
-              <textarea>
+            <nz-card class="card big">
+              <textarea class="card-text-area">
 
               </textarea>
             </nz-card>
           </div>
           <div class="container">
             <h3>Reasons for non-completion</h3>
-            <nz-card>
-              <textarea>
+            <nz-card class="card big">
+              <textarea class="card-text-area">
 
               </textarea>
             </nz-card>
           </div>
           <div class="container">
             <h3>Problems</h3>
-            <nz-card>
-              <textarea>
+            <nz-card class="card big">
+              <textarea class="card-text-area">
 
               </textarea>
             </nz-card>
           </div>
         </div>
 
-        <h3>
+        <div class="project-details-bottom">
+          <h3>
           Tasks
           <nz-icon>
             <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +108,7 @@
             </svg>
           </nz-icon>
         </h3>
-        <nz-table>
+        <!-- <nz-table class="task-table">
           <tbody>
            <tr>
              <td>Task name</td>
@@ -116,9 +119,37 @@
              </td>
            </tr>
           </tbody>
+        </nz-table> -->
+
+        <nz-table class="task-table" #basicTable [nzData]="datas">
+
+          <thead>
+            <tr>
+              <th>Task name</th>
+              <th style="width: 100px;">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (data of basicTable.data; track data) {
+              <tr>
+                <td>{{ data.name }}</td>
+                <td>
+                  <a> — </a>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <label nz-checkbox [(ngModel)]="data.isDone"></label>
+                </td>
+              </tr>
+            }
+          </tbody>
         </nz-table>
+
+        </div>
       </nz-content>
-      <nz-sider nzTheme="light">
+
+
+      <!--SIDER-->
+      <nz-sider nzTheme="light" style="padding: 1vh 0.5vw;">
         <div class="container">
           <h3>Status</h3>
           <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStatus" class="project-details-drawer-btn">
