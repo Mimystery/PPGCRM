@@ -1,6 +1,6 @@
 <nz-drawer [nzVisible]="isVisible()"
            nzPlacement="right"
-           nzClosable="true"
+           [nzClosable]="false"
            nzTitle="Proccess Name"
            (nzOnClose)="handleClose()"
           [nzWidth]="window.innerWidth*0.85"
@@ -171,7 +171,7 @@
             </ul>
           </nz-dropdown-menu>
         </div>
-        
+
         <nz-progress
           [nzPercent]="34"
           nzStrokeColor="#7AC327"

@@ -6,7 +6,9 @@
    GLOBAL STYLES
  ****  ============================ */
 
-
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
 .page-header {
   display: flex;
   flex-direction: row;
@@ -50,7 +52,7 @@
   *** CONTENT STYLES
    ============================ */
 nz-content{
-  font-family: 'Inria Sans';
+  font-family: 'Inria Sans', sans-serif;
   [class*="-btn"] {
     border: none;
     border-radius: 30px;
@@ -78,14 +80,6 @@ nz-card,
   }
 
 
-  .card-info-item {
-    display: flex;
-    flex-direction: column;
-  }
-  .card-info-label {
-    font-weight: 600;
-  }
-
   &-footer {
     text-align: right;
   }
@@ -108,7 +102,14 @@ nz-card,
   width: 100%;
   display: flex;
 }
-.card-info-container {
+.card-info-container, [class*="info-container"]  {
   display: flex;
   justify-content: start;
+}
+.card-info-item {
+  display: flex;
+  flex-direction: column;
+}
+.card-info-label {
+  font-weight: 600;
 }

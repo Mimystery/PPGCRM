@@ -1,66 +1,152 @@
 <nz-drawer
   [nzVisible]="isVisible()"
   nzPlacement="right"
-  nzClosable="true"
-  nzTitle="Team Member"
+  [nzClosable]="false"
   [nzWidth]="window.innerWidth*0.85"
   (nzOnClose)="handleClose()"
   [nzBodyStyle]="{padding: '0 0.5vw'}"
 >
   <ng-container *nzDrawerContent>
-    <div class="container">
-      <div nz-flex nzJustify="space-between" nzAlign="center">
-        <div>
-          <h3><b>First Last Namovych</b> | Username</h3>
-          <p>
-            His role <span style="color: green;">1200₴ per life</span>
-          </p>
-          <p>+380988230100</p>
-          <p>+380988230100</p>
-          <p><span>anotheremail.com</span></p>
+    <div class="container drawer-teammate">
+      <div nz-flex nzJustify="start" nzGap="1vw" style="height: 20vh;">
+        <img
+          nz-image
+          height="100%"
+          style="border-radius: 10px;"
+          nzSrc="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+          alt=""
+        />
+
+        <div nz-flex nzJustify="space-between" [nzVertical]="true" nzAlign="space-between" nzGap="1vh">
+          <!-- Editable NAME + USERNAME -->
+          <div>
+            <h2>
+              <!-- Name -->
+              <span *ngIf="!isEditingName">First Last Namovych</span>
+              <input
+                *ngIf="isEditingName"
+                #nameInput
+                type="text"
+                value="First Last Namovych"
+                (keyup.enter)="finishEditingTeammateField('name')"
+                (keyup.escape)="finishEditingTeammateField('name')"
+                class="edit-input"
+              />
+              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('name')"></nz-icon>
+
+              <nz-divider nzType="vertical"></nz-divider>
+
+              <!-- Username -->
+              <span style="color:#767676;" *ngIf="!isEditingUsername">Username123</span>
+              <input
+                *ngIf="isEditingUsername"
+                #usernameInput
+                type="text"
+                value="Username123"
+                (keyup.enter)="finishEditingTeammateField('username')"
+                (keyup.escape)="finishEditingTeammateField('username')"
+                class="edit-input"
+              />
+              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('username')"></nz-icon>
+            </h2>
+
+            <!-- Editable ROLE + RATE -->
+            <h3 style="font-weight: normal;">
+              <span *ngIf="!isEditingRole">Frontend Developer</span>
+              <input
+                *ngIf="isEditingRole"
+                #roleInput
+                type="text"
+                value="Frontend Developer"
+                (keyup.enter)="finishEditingTeammateField('role')"
+                (keyup.escape)="finishEditingTeammateField('role')"
+                class="edit-input"
+              />
+              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('role')"></nz-icon>
+
+              <nz-divider nzType="vertical"></nz-divider>
+
+              <span style="color:green;" *ngIf="!isEditingRate">1200₴</span>
+              <input
+                *ngIf="isEditingRate"
+                #rateInput
+                type="number"
+                value="1200"
+                (keyup.enter)="finishEditingTeammateField('rate')"
+                (keyup.escape)="finishEditingTeammateField('rate')"
+                class="edit-input"
+              />
+              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('rate')"></nz-icon>
+              per life
+            </h3>
+          </div>
+
+          <!-- Editable CONTACTS -->
+          <div class="info-container">
+            <!-- Phone -->
+            <p>
+              <span *ngIf="!isEditingPhone">+380988230100</span>
+              <input
+                *ngIf="isEditingPhone"
+                #phoneInput
+                type="text"
+                value="+380988230100"
+                (keyup.enter)="finishEditingTeammateField('phone')"
+                (keyup.escape)="finishEditingTeammateField('phone')"
+                class="edit-input"
+              />
+              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('phone')"></nz-icon>
+            </p>
+
+            <!-- Email -->
+            <p>
+              <span *ngIf="!isEditingEmail">anotheremail.com</span>
+              <input
+                *ngIf="isEditingEmail"
+                #emailInput
+                type="email"
+                value="anotheremail.com"
+                (keyup.enter)="finishEditingTeammateField('email')"
+                (keyup.escape)="finishEditingTeammateField('email')"
+                class="edit-input"
+              />
+              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('email')"></nz-icon>
+            </p>
+          </div>
         </div>
       </div>
 
-      <div nz-flex nzJustify="space-between" class="top-bar">
-        <div>
-          <label>Project:</label>
-          <nz-card style="padding: 5px;">Select project</nz-card>
+      <!-- Project / Stage selectors -->
+      <div nz-flex nzJustify="space-between" nzGap="2vw" style="padding: 1.5vh 0.5vw">
+        <div nz-flex nzAlign="center" nzJustify="space-between" nzGap="1vw">
+          <h3>Project:</h3>
+          <nz-select>Select project</nz-select>
         </div>
-        <div>
-          <label>Stage:</label>
-          <nz-card style="padding: 5px;">Select stage</nz-card>
+        <div nz-flex nzAlign="center" nzJustify="space-between" nzGap="1vw">
+          <h3>Stage:</h3>
+          <nz-select></nz-select>
         </div>
       </div>
 
-      <nz-card>
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Process name</th>
-            <th>Description</th>
-            <th>End Date</th>
-            <th>Status</th>
-            <th>Progress</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Sample process</td>
-            <td>Just a description</td>
-            <td>27 July, 2025</td>
-            <td><nz-tag nzColor="blue">In Progress</nz-tag></td>
-            <td>
-              <nz-progress
-                [nzPercent]="34"
-                nzStrokeColor="#7AC327"
-                [nzShowInfo]="true"
-                nzStrokeLinecap="round"
-              ></nz-progress>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </nz-card>
+      <!-- Processes -->
+      <nz-table #outBordered nzOuterBordered>
+        <tbody>
+        <tr>
+          <td>Sample process</td>
+          <td>Just a description</td>
+          <td>27 July, 2025</td>
+          <td><nz-tag nzColor="blue">In Progress</nz-tag></td>
+          <td>
+            <nz-progress
+              [nzPercent]="34"
+              nzStrokeColor="#7AC327"
+              [nzShowInfo]="true"
+              nzStrokeLinecap="round"
+            ></nz-progress>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
     </div>
   </ng-container>
 </nz-drawer>
