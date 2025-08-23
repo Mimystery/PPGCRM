@@ -16,7 +16,7 @@ import {TeammateDrawerComponent} from './teammate-drawer/teammate-drawer';
   styleUrl: './team-card.less'
 })
 export class TeamCardComponent {
-  user = input<User>();
+  teammate = input<User>();
 
   public teamDrawerVisible = signal(false);
 

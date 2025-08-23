@@ -10,6 +10,7 @@ import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzImageModule} from 'ng-zorro-antd/image';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {CommonModule} from '@angular/common';
+import {User} from '../../../../core/auth/data/interfaces/user.interface';
 
 @Component({
   selector: 'app-teammate-drawer',
@@ -20,6 +21,7 @@ import {CommonModule} from '@angular/common';
 })
 export class TeammateDrawerComponent {
   isVisible = input.required();
+  teammate = input.required<User | undefined>();
   @Output() closed = new EventEmitter<void>();
 
   isEditingName = false;

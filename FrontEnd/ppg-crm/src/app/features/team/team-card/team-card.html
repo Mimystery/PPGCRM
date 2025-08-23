@@ -4,16 +4,16 @@
 
     <div class="card-info-item" style="flex: 1;">
       <div class="card-status">
-        <span class="card-title">{{ user()?.firstName }} {{ user()?.lastName }}</span>
+        <span class="card-title">{{ teammate()?.firstName }} {{ teammate()?.lastName }}</span>
       </div>
 
-      <span>Email: {{ user()?.email }}</span>
-      <span>Phone: {{ user()?.phone }}</span>
-      <span>Salary: {{ user()?.salary }}$</span>
+      <span>Email: {{ teammate()?.email }}</span>
+      <span>Phone: {{ teammate()?.phone }}</span>
+      <span>Salary: {{ teammate()?.salary }}$</span>
     </div>
 
-    <nz-tag [nzColor]="'#FFA94D'" class="card-tag">{{ user()?.role }}</nz-tag>
+    <nz-tag [nzColor]="'#FFA94D'" class="card-tag">{{ teammate()?.role }}</nz-tag>
   </div>
 </nz-card>
 
-<app-teammate-drawer  [isVisible]="teamDrawerVisible()" (closed)="closeTeamDrawer()"></app-teammate-drawer>
+<app-teammate-drawer [teammate]="teammate()" [isVisible]="teamDrawerVisible()" (closed)="closeTeamDrawer()"></app-teammate-drawer>

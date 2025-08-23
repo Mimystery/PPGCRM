@@ -73,7 +73,7 @@ export class ProjectDetailsComponent {
 
     if (this.project) {
       this.project.clientId = clientData.clientId;
-      this.project.client = clientData; // 🔑 сразу обновляем связанную сущность
+      this.project.client = clientData;
     }
 
     this.projectDetailsService.updateProjectDetails(
@@ -100,7 +100,7 @@ export class ProjectDetailsComponent {
       this.isEditingBudget = !this.isEditingBudget;
 
       setTimeout(() => {
-        this.budgetInput.nativeElement.focus(); 
+        this.budgetInput.nativeElement.focus();
       });
     }
     if (field === 'expenses') {
@@ -126,7 +126,7 @@ export class ProjectDetailsComponent {
       this.isEditingDescription = !this.isEditingDescription;
 
       setTimeout(() => {
-        this.descriptionInput.nativeElement.focus(); 
+        this.descriptionInput.nativeElement.focus();
       });
     }
   }

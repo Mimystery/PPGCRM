@@ -22,7 +22,7 @@
           <div>
             <h2>
               <!-- Name -->
-              <span *ngIf="!isEditingName">First Last Namovych</span>
+              <span *ngIf="!isEditingName">{{teammate()?.firstName + ' ' + teammate()?.lastName}}</span>
               <input
                 *ngIf="isEditingName"
                 #nameInput
@@ -37,7 +37,7 @@
               <nz-divider nzType="vertical"></nz-divider>
 
               <!-- Username -->
-              <span style="color:#767676;" *ngIf="!isEditingUsername">Username123</span>
+              <span style="color:#767676;" *ngIf="!isEditingUsername">{{teammate()?.username}}</span>
               <input
                 *ngIf="isEditingUsername"
                 #usernameInput
@@ -52,12 +52,11 @@
 
             <!-- Editable ROLE + RATE -->
             <h3 style="font-weight: normal;">
-              <span *ngIf="!isEditingRole">Frontend Developer</span>
+              <span *ngIf="!isEditingRole">{{teammate()?.role}}</span>
               <input
                 *ngIf="isEditingRole"
                 #roleInput
                 type="text"
-                value="Frontend Developer"
                 (keyup.enter)="finishEditingTeammateField('role')"
                 (keyup.escape)="finishEditingTeammateField('role')"
                 class="edit-input"
@@ -66,12 +65,11 @@
 
               <nz-divider nzType="vertical"></nz-divider>
 
-              <span style="color:green;" *ngIf="!isEditingRate">1200₴</span>
+              <span style="color:green;" *ngIf="!isEditingRate">{{teammate()?.salary}}</span>
               <input
                 *ngIf="isEditingRate"
                 #rateInput
                 type="number"
-                value="1200"
                 (keyup.enter)="finishEditingTeammateField('rate')"
                 (keyup.escape)="finishEditingTeammateField('rate')"
                 class="edit-input"
@@ -85,12 +83,11 @@
           <div class="info-container">
             <!-- Phone -->
             <p>
-              <span *ngIf="!isEditingPhone">+380988230100</span>
+              <span *ngIf="!isEditingPhone">{{teammate()?.phone}}</span>
               <input
                 *ngIf="isEditingPhone"
                 #phoneInput
                 type="text"
-                value="+380988230100"
                 (keyup.enter)="finishEditingTeammateField('phone')"
                 (keyup.escape)="finishEditingTeammateField('phone')"
                 class="edit-input"
@@ -100,7 +97,7 @@
 
             <!-- Email -->
             <p>
-              <span *ngIf="!isEditingEmail">anotheremail.com</span>
+              <span *ngIf="!isEditingEmail">{{teammate()?.email}}</span>
               <input
                 *ngIf="isEditingEmail"
                 #emailInput

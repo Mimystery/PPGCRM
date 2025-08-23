@@ -1,4 +1,4 @@
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new user" 
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new user"
 (nzOnCancel)="handleCreateUserModalCancel()"
 (nzOnOk)="handleCreateUserModalOk()" [nzOkDisabled]="!validateForm.valid">
       <ng-container *nzModalContent>
@@ -55,7 +55,7 @@
 @if(users){
   <div class="flex-table">
     @for (user of users; track user.userId) {
-      <app-team-card [user]="user"></app-team-card>
+      <app-team-card [teammate]="user"></app-team-card>
     }
   </div>
 }@else {
