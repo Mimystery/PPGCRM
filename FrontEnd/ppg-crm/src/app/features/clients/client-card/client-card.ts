@@ -27,4 +27,41 @@ export class ClientCardComponent {
     const clientData = this.client();
     return clientData ? clientData.projects?.filter(p => p.isArchived) : [];
   }
+
+  isEditingDirector = false;
+  isEditingContact = false;
+  isEditingEmail = false;
+  isEditingPhone = false;
+  isEditingCompanyName = false
+
+  startEditing(field: string) {
+    switch (field) {
+      case 'director': this.isEditingDirector = true; break;
+      case 'contact': this.isEditingContact = true; break;
+      case 'email': this.isEditingEmail = true; break;
+      case 'phone': this.isEditingPhone = true; break;
+      case 'companyName': this.isEditingCompanyName = true; break;
+    }
+  }
+
+  finishEditing(field: string) {
+    switch (field) {
+      case 'director':
+        this.isEditingDirector = false;
+        break;
+      case 'contact':
+        this.isEditingContact = false;
+        break;
+      case 'email':
+        this.isEditingEmail = false;
+        break;
+      case 'phone':
+        this.isEditingPhone = false;
+        break;
+      case 'companyName':
+        this.isEditingCompanyName = false;
+        break;
+    }
+  }
+
 }

@@ -15,50 +15,78 @@
           <path d="M14.625 8.92611V21.169H19.3125V8.92611H14.625ZM13.8438 7.17712H20.0938C20.301 7.17712 20.4997 7.26926 20.6462 7.43326C20.7927 7.59726 20.875 7.81969 20.875 8.05162V22.0435C20.875 22.2754 20.7927 22.4979 20.6462 22.6619C20.4997 22.8259 20.301 22.918 20.0938 22.918H13.8438C13.6365 22.918 13.4378 22.8259 13.2913 22.6619C13.1448 22.4979 13.0625 22.2754 13.0625 22.0435V8.05162C13.0625 7.81969 13.1448 7.59726 13.2913 7.43326C13.4378 7.26926 13.6365 7.17712 13.8438 7.17712Z" fill="black"/>
         </svg>
       </nz-icon>
-      {{ client()?.companyName }}
+    <span *ngIf="!isEditingCompanyName">{{ client()?.companyName }}</span>
+    <nz-icon nzType="edit" class="edit-icon" *ngIf="!isEditingCompanyName" (click)="startEditing('companyName')"></nz-icon>
+    <input
+      *ngIf="isEditingCompanyName"
+      (blur)="finishEditing('companyName')"
+      (keyup.enter)="finishEditing('companyName')"
+    />
   </ng-template>
 
   <!-- Client Info -->
   <div class="card-info-container">
     <div class="card-info-item">
       <span class="card-info-label">
-        <nz-icon>
-          <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 5.72039C6.24789 5.72039 5.52658 5.42162 4.99476 4.88979C4.46293 4.35797 4.16416 3.63666 4.16416 2.88455C4.16416 2.13244 4.46293 1.41113 4.99476 0.879305C5.52658 0.347482 6.24789 0.0487061 7 0.0487061C7.75211 0.0487061 8.47342 0.347482 9.00524 0.879305C9.53707 1.41113 9.83584 2.13244 9.83584 2.88455C9.83584 3.63666 9.53707 4.35797 9.00524 4.88979C8.47342 5.42162 7.75211 5.72039 7 5.72039ZM7 6.96633C10.7704 6.96633 13.1875 9.04702 13.1875 10.0601V11.9518H0.8125V10.0601C0.8125 8.83496 3.10075 6.96633 7 6.96633Z" fill="black"/>
-          </svg>
-        </nz-icon>
         Director
+         <nz-icon nzType="edit" class="edit-icon" (click)="startEditing('director')"></nz-icon>
       </span>
-      <span>{{ client()?.director }}</span>
+      <span *ngIf="!isEditingDirector">{{ client()?.director }}</span>
+      <input
+        *ngIf="isEditingDirector"
+        (blur)="finishEditing('director')"
+        (keyup.enter)="finishEditing('director')"
+      />
     </div>
 
+    <!-- Contact -->
     <div class="card-info-item">
       <span class="card-info-label">
-        <nz-icon>
-          <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 5.72039C6.24789 5.72039 5.52658 5.42162 4.99476 4.88979C4.46293 4.35797 4.16416 3.63666 4.16416 2.88455C4.16416 2.13244 4.46293 1.41113 4.99476 0.879305C5.52658 0.347482 6.24789 0.0487061 7 0.0487061C7.75211 0.0487061 8.47342 0.347482 9.00524 0.879305C9.53707 1.41113 9.83584 2.13244 9.83584 2.88455C9.83584 3.63666 9.53707 4.35797 9.00524 4.88979C8.47342 5.42162 7.75211 5.72039 7 5.72039ZM7 6.96633C10.7704 6.96633 13.1875 9.04702 13.1875 10.0601V11.9518H0.8125V10.0601C0.8125 8.83496 3.10075 6.96633 7 6.96633Z" fill="black"/>
-          </svg>
-        </nz-icon>
         Contact Person
+         <nz-icon nzType="edit" class="edit-icon" (click)="startEditing('contact')"></nz-icon>
       </span>
-      <span>{{ client()?.contactPerson }}</span>
+      <span *ngIf="!isEditingContact">{{ client()?.contactPerson }}</span>
+      <input
+        *ngIf="isEditingContact"
+        (blur)="finishEditing('contact')"
+        (keyup.enter)="finishEditing('contact')"
+      />
     </div>
 
+    <!-- Email -->
     <div class="card-info-item">
-      <span class="card-info-label">Email</span>
-      <span>{{ client()?.clientEmail }}</span>
+      <span class="card-info-label">
+        Email
+        <nz-icon nzType="edit" class="edit-icon" (click)="startEditing('email')"></nz-icon>
+      </span>
+      <span *ngIf="!isEditingEmail">{{ client()?.clientEmail }}</span>
+      <input
+        *ngIf="isEditingEmail"
+        (blur)="finishEditing('email')"
+        (keyup.enter)="finishEditing('email')"
+      />
+
     </div>
 
+    <!-- Phone -->
     <div class="card-info-item">
-      <span class="card-info-label">Phone</span>
-      <span>{{ client()?.clientPhone }}</span>
-    </div>
+      <span class="card-info-label">
+        Phone
+        <nz-icon nzType="edit" class="edit-icon" (click)="startEditing('phone')"></nz-icon>
+      </span>
+      <span *ngIf="!isEditingPhone">{{ client()?.clientPhone }}</span>
+      <input
+        *ngIf="isEditingPhone"
+        (blur)="finishEditing('phone')"
+        (keyup.enter)="finishEditing('phone')"
+      />
 
+    </div>
     <!-- Active Project -->
     <div class="card-info-item">
       <span class="card-info-label">Active Project</span>
       <ng-container *ngIf="activeProjects && activeProjects.length > 0; else noActiveProjects">
-        <nz-card [nzBodyStyle]="{ padding: '0.25vh 0.25vw' }" *ngFor="let project of activeProjects"> 
+        <nz-card [nzBodyStyle]="{ padding: '0.25vh 0.25vw' }" *ngFor="let project of activeProjects">
           <nz-card-meta
             [nzTitle]="project.projectName"
           ></nz-card-meta>
