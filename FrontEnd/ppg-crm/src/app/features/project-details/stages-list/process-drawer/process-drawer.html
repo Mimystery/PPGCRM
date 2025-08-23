@@ -1,11 +1,21 @@
 <nz-drawer [nzVisible]="isVisible()"
            nzPlacement="right"
            [nzClosable]="false"
-           nzTitle="Proccess Name"
+           [nzTitle]="processDrawerTitle"
            (nzOnClose)="handleClose()"
           [nzWidth]="window.innerWidth*0.85"
           [nzBodyStyle]="{padding: 0 }"
            >
+  <ng-template #processDrawerTitle>
+    <span *ngIf="!isEditingProcessName">{{ process()?.processName }}</span>
+    <nz-icon nzType="edit" class="edit-icon"
+             *ngIf="!isEditingProcessName"
+             (click)="startEditing('processName')"></nz-icon>
+    <input [(ngModel)]="process()!.processName"
+           *ngIf="isEditingProcessName"
+           (blur)="finishEditing('processName')"
+           (keyup.enter)="finishEditing('processName')" />
+  </ng-template>
   <ng-container *nzDrawerContent>
     <nz-layout>
       <!--Details-->
@@ -13,7 +23,13 @@
         <div class="container-process-content" style="padding: 1vh 0.5vw;">
           <div nz-flex nzJustify="space-between" nzAlign="center" class="project-details-header">
             <div class="container">
-              <h3>Start Date</h3>
+              <h3>
+                Start Date
+                <nz-icon nzType="edit" class="edit-icon"
+                         *ngIf="!isEditingStartDate"
+                         (click)="startEditing('startDate')">
+                </nz-icon>
+              </h3>
               <nz-card class="card">
                 <div class="card-info-container">
                   <nz-icon>
@@ -26,13 +42,22 @@
                     </svg>
                   </nz-icon>
                   <div class="card-info-item">
-                    <span>25 Jun, 2025</span>
+                    <span  *ngIf="!isEditingStartDate">{{process()?.startDate}}</span>
+                    <input [(ngModel)]="process()!.startDate"
+                           *ngIf="isEditingStartDate"
+                           (blur)="finishEditing('startDate')"
+                           (keyup.enter)="finishEditing('startDate')" />
                   </div>
                 </div>
               </nz-card>
             </div>
             <div class="container">
-              <h3>End Date</h3>
+              <h3>
+                End Date
+                <nz-icon nzType="edit" class="edit-icon"
+                                   *ngIf="!isEditingPlanEndDate"
+                                   (click)="startEditing('planEndDate')"></nz-icon>
+              </h3>
               <nz-card class="card">
                 <div class="card-info-container">
                   <nz-icon>
@@ -45,13 +70,22 @@
                     </svg>
                   </nz-icon>
                   <div class="card-info-item">
-                    <span>25 Jun, 2025</span>
+                    <span *ngIf="!isEditingPlanEndDate">{{ process()?.planEndDate }}</span>
+                    <input [(ngModel)]="process()!.planEndDate"
+                           *ngIf="isEditingPlanEndDate"
+                           (blur)="finishEditing('planEndDate')"
+                           (keyup.enter)="finishEditing('planEndDate')" />
                   </div>
                 </div>
               </nz-card>
             </div>
             <div class="container">
-              <h3>Factual End Date</h3>
+              <h3>
+                Factual End Date
+                <nz-icon nzType="edit" class="edit-icon"
+                         *ngIf="!isEditingFactEndDate"
+                         (click)="startEditing('factEndDate')"/>
+              </h3>
               <nz-card class="card">
                 <div class="card-info-container">
                   <nz-icon>
@@ -64,7 +98,11 @@
                     </svg>
                   </nz-icon>
                   <div class="card-info-item">
-                    <span>25 Jun, 2025</span>
+                    <span *ngIf="!isEditingFactEndDate">{{ process()?.factEndDate }}</span>
+                    <input [(ngModel)]="process()!.factEndDate"
+                           *ngIf="isEditingFactEndDate"
+                           (blur)="finishEditing('factEndDate')"
+                           (keyup.enter)="finishEditing('factEndDate')" />
                   </div>
                 </div>
               </nz-card>
@@ -73,26 +111,50 @@
         </div>
         <div nz-flex nzJustify="space-between" style="padding: 1vh 0.5vw;">
           <div class="container">
-            <h3>Notes</h3>
+            <h3>
+              Notes
+              <nz-icon nzType="edit" class="edit-icon"
+                       *ngIf="!isEditingNotes"
+                       (click)="startEditing('notes')"/>
+            </h3>
             <nz-card class="card big">
-              <textarea class="card-text-area">
-
+              <span *ngIf="!isEditingNotes">{{ process()?.notes }}</span>
+              <textarea [(ngModel)]="process()!.notes"
+                        *ngIf="isEditingNotes"
+                        (blur)="finishEditing('notes')"
+                        (keyup.enter)="finishEditing('notes')">
               </textarea>
             </nz-card>
           </div>
           <div class="container">
-            <h3>Reasons for non-completion</h3>
+            <h3>
+              Reasons for non-completion
+              <nz-icon nzType="edit" class="edit-icon"
+                       *ngIf="!isEditingNotDoneReasons"
+                       (click)="startEditing('notDoneReasons')"/>
+            </h3>
             <nz-card class="card big">
-              <textarea class="card-text-area">
-
+              <span *ngIf="!isEditingNotDoneReasons">{{ process()?.notDoneReasons }}</span>
+              <textarea [(ngModel)]="process()!.notDoneReasons"
+                        *ngIf="isEditingNotDoneReasons"
+                        (blur)="finishEditing('notDoneReasons')"
+                        (keyup.enter)="finishEditing('notDoneReasons')">
               </textarea>
             </nz-card>
           </div>
           <div class="container">
-            <h3>Problems</h3>
+            <h3>
+              Problems
+              <nz-icon nzType="edit" class="edit-icon"
+                       *ngIf="!isEditingProblems"
+                       (click)="startEditing('problems')"/>
+            </h3>
             <nz-card class="card big">
-              <textarea class="card-text-area">
-
+              <span *ngIf="!isEditingProblems">{{ process()?.problems }}</span>
+              <textarea [(ngModel)]="process()!.problems"
+                        *ngIf="isEditingProblems"
+                        (blur)="finishEditing('problems')"
+                        (keyup.enter)="finishEditing('problems')">
               </textarea>
             </nz-card>
           </div>
@@ -101,11 +163,9 @@
         <div class="project-details-bottom">
           <h3>
           Tasks
-          <nz-icon>
-            <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 6.5H6M6 6.5H11M6 6.5V1M6 6.5V12" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </nz-icon>
+            <button nz-button nzType="text"  class="add-btn task">
+              <nz-icon nzType="plus" nzTheme="outline" />
+            </button>
         </h3>
         <!-- <nz-table class="task-table">
           <tbody>
@@ -120,7 +180,7 @@
           </tbody>
         </nz-table> -->
 
-        <nz-table class="task-table" #basicTable [nzData]="datas">
+        <nz-table class="task-table" #basicTable [nzData]="process()?.tasks!">
 
           <thead>
             <tr>
@@ -132,7 +192,7 @@
           <tbody>
             @for (data of basicTable.data; track data) {
               <tr>
-                <td>{{ data.name }}</td>
+                <td>{{ data.taskName }}</td>
                 <td>
                   <a> — </a>
                   <nz-divider nzType="vertical"></nz-divider>

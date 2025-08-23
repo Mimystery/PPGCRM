@@ -30,11 +30,10 @@
   <!--- STAGES LIST -->
   @for (stage of stages(); track stage!.stageId) {
     <nz-collapse>
-
       <nz-collapse-panel  [nzActive]="false" [nzShowArrow] = 'true' [nzHeader]="stagesCard" >
         <table style="width: 100%; border-collapse: collapse;" >
           @for(process of stage!.processes; track process!.processId) {
-            <tr (click)="openProcessDrawer()" >
+            <tr (click)="openProcessDrawer(process)" >
               <!-- Process Name -->
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
                 {{process.processName}}
@@ -80,7 +79,7 @@
       </nz-collapse-panel>
     </nz-collapse>
 
-    <app-process-drawer [isVisible]="processDrawerVisible()" (close)="closeProcessDrawer()"></app-process-drawer>
+    <app-process-drawer [isVisible]="processDrawerVisible()" [process]="selectedProcess()" (close)="closeProcessDrawer()"></app-process-drawer>
 
     <!--- STAGES CARD  HEADER-->
     <ng-template #stagesCard>

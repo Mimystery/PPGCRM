@@ -10,6 +10,7 @@ import {NzCardModule} from 'ng-zorro-antd/card';
 import {ProcessDrawerComponent} from './process-drawer/process-drawer';
 import {Stage} from './data/interfaces/stage.interface';
 import { CommonModule } from '@angular/common';
+import { ProcessDetails } from './data/interfaces/process.interface';
 
 @Component({
   selector: 'app-stages-list',
@@ -22,8 +23,12 @@ import { CommonModule } from '@angular/common';
 export class StagesListComponent {
   public processDrawerVisible =  signal(false);
   public stages = input.required<Stage[] | null>();
+  public selectedProcess = signal<ProcessDetails | null>(null);
 
-  openProcessDrawer = () => this.processDrawerVisible.set(true);
+  openProcessDrawer = (process: ProcessDetails) =>{
+    this.selectedProcess.set(process);
+    this.processDrawerVisible.set(true)}
+  ;
 
   closeProcessDrawer = () => {
     this.processDrawerVisible.set(false);

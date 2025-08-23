@@ -9,6 +9,8 @@ export interface ProcessDetails {
     planEndDate: string;
     factEndDate: string;
     notes: string;
+    notDoneReasons: string;
+    problems: string;
     status: string;
     progress: number;
     totalProcessCost: number;

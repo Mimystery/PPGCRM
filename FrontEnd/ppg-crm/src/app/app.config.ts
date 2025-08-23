@@ -10,8 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
-import { BellOutline, MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline, 
-  GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline } from '@ant-design/icons-angular/icons';
+import {
+  BellOutline, MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline,
+  GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline, PlusSquareOutline
+} from '@ant-design/icons-angular/icons';
 import { TokenInterceptor } from './core/auth/data/services/interceptor';
 
 
@@ -28,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideClientHydration(),
     provideHttpClient(withInterceptors([TokenInterceptor])),
-    { provide: NZ_ICONS, useValue: [BellOutline,MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline, 
-      GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline] }
+    { provide: NZ_ICONS, useValue: [BellOutline,MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline,
+      GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline, PlusSquareOutline] }
   ]
 };
