@@ -20,12 +20,13 @@ import { last, Observable, Observer, Subject, takeUntil } from 'rxjs';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import {TeammateDrawerComponent} from './teammate-drawer/teammate-drawer';
 
 @Component({
   selector: 'app-team',
   imports: [NzButtonModule, NzDescriptionsModule, NzPageHeaderModule,
-    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule, CommonModule, TeamCardComponent, 
-    NzFormItemComponent, NzColDirective, ReactiveFormsModule, NzSelectModule],
+    NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule, CommonModule, TeamCardComponent,
+    NzFormItemComponent, NzColDirective, ReactiveFormsModule, NzSelectModule, TeammateDrawerComponent, TeammateDrawerComponent],
   templateUrl: './team.html',
   styleUrl: './team.less'
 })
@@ -85,7 +86,7 @@ private fb = inject(NonNullableFormBuilder);
 
   handleCreateUserModalOk(): void {
     if(this.validateForm.valid){
-      
+
       const payload = {
         firstName: this.validateForm.controls.firstName.value,
         lastName: this.validateForm.controls.lastName.value,
