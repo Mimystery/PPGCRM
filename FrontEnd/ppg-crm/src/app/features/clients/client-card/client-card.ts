@@ -1,67 +1,101 @@
-import { Component, input } from '@angular/core';
-import {NzCardModule} from 'ng-zorro-antd/card';
-import {NzBadgeModule} from 'ng-zorro-antd/badge';
-import {NzProgressModule} from 'ng-zorro-antd/progress';
-import {NzAvatarModule} from 'ng-zorro-antd/avatar';
-import {NzButtonModule} from 'ng-zorro-antd/button';
-import {NzIconModule} from 'ng-zorro-antd/icon';
-import { ClientCardData } from '../data/interfaces/client-card-data';
+import { Component, ElementRef, HostListener, ViewChild, inject, input } from '@angular/core';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
+import { ClientCardData } from '../data/interfaces/client-card-data';
+import { ClientsService } from '../data/services/clients-service';
 
 @Component({
   selector: 'app-client-card',
-  imports: [NzCardModule, NzBadgeModule, NzProgressModule, NzAvatarModule, NzButtonModule,
-    NzIconModule, CommonModule],
+  standalone: true,
+  imports: [NzCardModule, NzIconModule, NzProgressModule, CommonModule, FormsModule],
   templateUrl: './client-card.html',
   styleUrl: './client-card.less'
 })
 export class ClientCardComponent {
   client = input<ClientCardData>();
+  clientsService = inject(ClientsService);
+  message = inject(NzMessageService);
 
-  get activeProjects(){
-    const clientData = this.client();
-    return clientData ? clientData.projects?.filter(p => !p.isArchived) : [];
+  isEditingCompanyName: boolean | "submitting" = false;
+  isEditingDirector: boolean | "submitting" = false;
+  isEditingContact: boolean | "submitting" = false;
+  isEditingEmail: boolean | "submitting" = false;
+  isEditingPhone: boolean | "submitting" = false;
+
+  @ViewChild('companyInput') companyInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('directorInput') directorInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('contactInput') contactInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('emailInput') emailInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('phoneInput') phoneInput!: ElementRef<HTMLInputElement>;
+
+  get activeProjects() {
+    const c = this.client();
+    return c?.projects?.filter(p => !p.isArchived) ?? [];
   }
 
-  get historyProjects(){
-    const clientData = this.client();
-    return clientData ? clientData.projects?.filter(p => p.isArchived) : [];
+  get historyProjects() {
+    const c = this.client();
+    return c?.projects?.filter(p => p.isArchived) ?? [];
   }
-
-  isEditingDirector = false;
-  isEditingContact = false;
-  isEditingEmail = false;
-  isEditingPhone = false;
-  isEditingCompanyName = false
 
   startEditing(field: string) {
     switch (field) {
-      case 'director': this.isEditingDirector = true; break;
-      case 'contact': this.isEditingContact = true; break;
-      case 'email': this.isEditingEmail = true; break;
-      case 'phone': this.isEditingPhone = true; break;
-      case 'companyName': this.isEditingCompanyName = true; break;
+      case 'companyName':
+        this.isEditingCompanyName = true;
+        setTimeout(() => this.companyInput?.nativeElement.focus());
+        break;
+      case 'director':
+        this.isEditingDirector = true;
+        setTimeout(() => this.directorInput?.nativeElement.focus());
+        break;
+      case 'contact':
+        this.isEditingContact = true;
+        setTimeout(() => this.contactInput?.nativeElement.focus());
+        break;
+      case 'email':
+        this.isEditingEmail = true;
+        setTimeout(() => this.emailInput?.nativeElement.focus());
+        break;
+      case 'phone':
+        this.isEditingPhone = true;
+        setTimeout(() => this.phoneInput?.nativeElement.focus());
+        break;
     }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeys(event: KeyboardEvent) {
+    if (event.key !== 'Enter' && event.key !== 'Escape') return;
+
+    if (this.isEditingCompanyName) this.finishEditing('companyName');
+    if (this.isEditingDirector) this.finishEditing('director');
+    if (this.isEditingContact) this.finishEditing('contact');
+    if (this.isEditingEmail) this.finishEditing('email');
+    if (this.isEditingPhone) this.finishEditing('phone');
+
+    event.preventDefault();
   }
 
   finishEditing(field: string) {
     switch (field) {
-      case 'director':
-        this.isEditingDirector = false;
-        break;
-      case 'contact':
-        this.isEditingContact = false;
-        break;
-      case 'email':
-        this.isEditingEmail = false;
-        break;
-      case 'phone':
-        this.isEditingPhone = false;
-        break;
-      case 'companyName':
-        this.isEditingCompanyName = false;
-        break;
+      case 'companyName': this.isEditingCompanyName = false; break;
+      case 'director': this.isEditingDirector = false; break;
+      case 'contact': this.isEditingContact = false; break;
+      case 'email': this.isEditingEmail = false; break;
+      case 'phone': this.isEditingPhone = false; break;
     }
-  }
 
+    const clientData = this.client();
+    if (!clientData) return;
+
+    this.clientsService.updateClient(clientData.clientId, clientData).subscribe({
+      error: (err) => this.message.error('Ошибка при обновлении клиента: ' + err.message),
+      complete: () => this.message.success('Клиент успешно обновлен!')
+    });
+  }
 }

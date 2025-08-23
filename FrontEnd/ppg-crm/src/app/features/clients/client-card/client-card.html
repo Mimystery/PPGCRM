@@ -17,11 +17,8 @@
       </nz-icon>
     <span *ngIf="!isEditingCompanyName">{{ client()?.companyName }}</span>
     <nz-icon nzType="edit" class="edit-icon" *ngIf="!isEditingCompanyName" (click)="startEditing('companyName')"></nz-icon>
-    <input
-      *ngIf="isEditingCompanyName"
-      (blur)="finishEditing('companyName')"
-      (keyup.enter)="finishEditing('companyName')"
-    />
+    <input #companyInput [(ngModel)]="client()!.companyName" *ngIf="isEditingCompanyName"
+           (blur)="finishEditing('companyName')" (keyup.enter)="finishEditing('companyName')" />
   </ng-template>
 
   <!-- Client Info -->
@@ -32,11 +29,8 @@
          <nz-icon nzType="edit" class="edit-icon" (click)="startEditing('director')"></nz-icon>
       </span>
       <span *ngIf="!isEditingDirector">{{ client()?.director }}</span>
-      <input
-        *ngIf="isEditingDirector"
-        (blur)="finishEditing('director')"
-        (keyup.enter)="finishEditing('director')"
-      />
+      <input #directorInput [(ngModel)]="client()!.director" *ngIf="isEditingDirector"
+             (blur)="finishEditing('director')" (keyup.enter)="finishEditing('director')" />
     </div>
 
     <!-- Contact -->
@@ -46,11 +40,9 @@
          <nz-icon nzType="edit" class="edit-icon" (click)="startEditing('contact')"></nz-icon>
       </span>
       <span *ngIf="!isEditingContact">{{ client()?.contactPerson }}</span>
-      <input
-        *ngIf="isEditingContact"
-        (blur)="finishEditing('contact')"
-        (keyup.enter)="finishEditing('contact')"
-      />
+
+      <input #contactInput [(ngModel)]="client()!.contactPerson" *ngIf="isEditingContact"
+             (blur)="finishEditing('contact')" (keyup.enter)="finishEditing('contact')" />
     </div>
 
     <!-- Email -->
@@ -60,12 +52,8 @@
         <nz-icon nzType="edit" class="edit-icon" (click)="startEditing('email')"></nz-icon>
       </span>
       <span *ngIf="!isEditingEmail">{{ client()?.clientEmail }}</span>
-      <input
-        *ngIf="isEditingEmail"
-        (blur)="finishEditing('email')"
-        (keyup.enter)="finishEditing('email')"
-      />
-
+      <input #emailInput [(ngModel)]="client()!.clientEmail" *ngIf="isEditingEmail"
+             (blur)="finishEditing('email')" (keyup.enter)="finishEditing('email')" />
     </div>
 
     <!-- Phone -->
@@ -75,12 +63,8 @@
         <nz-icon nzType="edit" class="edit-icon" (click)="startEditing('phone')"></nz-icon>
       </span>
       <span *ngIf="!isEditingPhone">{{ client()?.clientPhone }}</span>
-      <input
-        *ngIf="isEditingPhone"
-        (blur)="finishEditing('phone')"
-        (keyup.enter)="finishEditing('phone')"
-      />
-
+      <input #phoneInput [(ngModel)]="client()!.clientPhone" *ngIf="isEditingPhone"
+             (blur)="finishEditing('phone')" (keyup.enter)="finishEditing('phone')" />
     </div>
     <!-- Active Project -->
     <div class="card-info-item">
