@@ -6,4 +6,13 @@ import { inject, Injectable } from '@angular/core';
 })
 export class TasksService {
   http = inject(HttpClient)
+
+  addTask(){
+
+  }
+
+  removeTask(){
+    
+  }
+
 }
