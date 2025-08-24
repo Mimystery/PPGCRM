@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, HostListener, input, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, inject, input, Output, ViewChild} from '@angular/core';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzButtonModule} from 'ng-zorro-antd/button';
@@ -18,6 +18,8 @@ import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 import { NzDividerComponent } from "ng-zorro-antd/divider";
 import {ProcessDetails} from '../data/interfaces/process.interface';
 import {CommonModule} from '@angular/common';
+import { UserService } from '../../../../core/auth/data/services/user-service';
+import { User } from '../../../../core/auth/data/interfaces/user.interface';
 
 @Component({
   selector: 'app-process-drawer',
@@ -29,9 +31,24 @@ import {CommonModule} from '@angular/common';
   styleUrl: './process-drawer.less'
 })
 export class ProcessDrawerComponent {
+  usersService = inject(UserService)
+
   isVisible  = input.required<boolean>();
   process = input.required<ProcessDetails | null>();
   @Output() close = new EventEmitter<void>();
+  users: User[] = []
+
+  constructor(){
+    this.usersService.getAllUsers().subscribe(val => {
+      this.users = val
+      console.log(this.users)
+    })
+  }
+
+  get availableUsers(): User[] {
+  const responsible = this.process()?.responsibleUsers ?? [];
+  return this.users.filter(u => !responsible.some(r => r.userId === u.userId));
+}
 
   @ViewChild('process') processNameInput!: ElementRef<HTMLInputElement>;
   @ViewChild('startDate') startDateInput!: ElementRef<HTMLInputElement>;
@@ -40,6 +57,20 @@ export class ProcessDrawerComponent {
   @ViewChild('notes') notesInput!: ElementRef<HTMLInputElement>;
   @ViewChild('problems') problemsInput!: ElementRef<HTMLInputElement>;
   @ViewChild('notDoneReasons') notDoneReasonsInput!: ElementRef<HTMLInputElement>;
+
+  dropdownVisible = false;
+  onUserSelect(user: User){
+    this.process()?.responsibleUsers.push(user)
+    this.dropdownVisible = false;
+  }
+
+  deleteResponsibleUser(user: User){
+    if (this.process()?.responsibleUsers) {
+    this.process()!.responsibleUsers = this.process()!.responsibleUsers.filter(
+      u => u.userId !== user.userId
+    );
+  }
+  }
 
 
   isEditingProcessName = false;
@@ -53,31 +84,31 @@ export class ProcessDrawerComponent {
   startEditing(field: string) {
     switch (field) {
       case 'processName':
-        this.isEditingProcessName = true;
+        this.isEditingProcessName = !this.isEditingProcessName;
         setTimeout(() => this.processNameInput?.nativeElement.focus());
         break;
       case 'startDate':
-        this.isEditingStartDate = true;
+        this.isEditingStartDate = !this.isEditingStartDate;
         setTimeout(() => this.startDateInput?.nativeElement.focus());
         break;
       case 'planEndDate':
-        this.isEditingPlanEndDate = true;
+        this.isEditingPlanEndDate = !this.isEditingPlanEndDate;
         setTimeout(() => this.planEndDateInput?.nativeElement.focus());
         break;
       case 'factEndDate':
-        this.isEditingFactEndDate = true;
+        this.isEditingFactEndDate = !this.isEditingFactEndDate;
         setTimeout(() => this.factEndDateInput?.nativeElement.focus());
         break;
       case 'notes':
-        this.isEditingNotes = true;
+        this.isEditingNotes = !this.isEditingNotes;
         setTimeout(() => this.notesInput?.nativeElement.focus());
         break;
       case 'problems':
-        this.isEditingProblems = true;
+        this.isEditingProblems = !this.isEditingProblems;
         setTimeout(() => this.problemsInput?.nativeElement.focus());
         break;
       case 'notDoneReasons':
-        this.isEditingNotDoneReasons = true;
+        this.isEditingNotDoneReasons = !this.isEditingNotDoneReasons;
         setTimeout(() => this.notDoneReasonsInput?.nativeElement.focus());
         break;
     }

@@ -41,3 +41,57 @@ nz-layout {
   border-bottom: 2px solid #dddcdc !important;
 }
 
+.process-details-progress {
+    ::ng-deep .ant-progress-inner {
+    border-radius: 5px !important;
+    }
+
+    ::ng-deep .ant-progress-outer {
+        margin-top: 1vh;
+    }
+
+    ::ng-deep .ant-progress-line .ant-progress-bg {
+    height: 30px !important;
+    border-radius: 5px !important;
+    }
+}
+
+.process-details-responsible{
+    margin-top: 1vh;
+    .header {
+        display:flex;
+        justify-content:space-between; 
+        align-items:center;
+    }
+}
+
+.card.user {
+  margin-bottom: 4px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.page-header-search.users{
+    height: 4vh;
+    min-width: 250px;
+    width: 10vw;
+}
+
+.edit-icon {
+      margin-left: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #969696;
+      transition: color 0.2s;
+      &:hover {
+        color: #b3b3b3;
+      }
+    }
+

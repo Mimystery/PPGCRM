@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProcessDrawer } from './process-drawer';
+import { ProcessDrawerComponent } from './process-drawer';
 
-describe('ProcessDrawer', () => {
-  let component: ProcessDrawer;
-  let fixture: ComponentFixture<ProcessDrawer>;
+describe('ProcessDrawerComponent', () => {
+  let component: ProcessDrawerComponent;
+  let fixture: ComponentFixture<ProcessDrawerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProcessDrawer]
+      imports: [ProcessDrawerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ProcessDrawer);
+    fixture = TestBed.createComponent(ProcessDrawerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
