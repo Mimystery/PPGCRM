@@ -94,13 +94,13 @@ export class ProjectDetailsComponent {
    @ViewChild('budgetInput') budgetInput!: ElementRef<HTMLInputElement>;
    @ViewChild('expensesInput') expensesInput!: ElementRef<HTMLInputElement>;
    @ViewChild('descriptionInput') descriptionInput!: ElementRef<HTMLInputElement>;
-
+   
   startEditingDetailsField(field: string) {
   if (field === 'budget') {
       this.isEditingBudget = !this.isEditingBudget;
 
       setTimeout(() => {
-        this.budgetInput.nativeElement.focus();
+        this.budgetInput.nativeElement.focus(); 
       });
     }
     if (field === 'expenses') {
@@ -126,13 +126,15 @@ export class ProjectDetailsComponent {
       this.isEditingDescription = !this.isEditingDescription;
 
       setTimeout(() => {
-        this.descriptionInput.nativeElement.focus();
+        this.descriptionInput.nativeElement.focus(); 
       });
     }
   }
 
   @HostListener('document:keydown', ['$event'])
     handleEnterKey(event: KeyboardEvent) {
+      if (event.shiftKey) return;
+
       if ((event.key === 'Enter' || event.key === 'Escape') && this.isEditingBudget) {
         this.finishEditingDetailsField('budget');
         event.preventDefault();
