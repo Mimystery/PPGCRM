@@ -1,5 +1,5 @@
 import { User } from "../../../../../core/auth/data/interfaces/user.interface";
-import { Task } from "./task.interface";
+import { Task } from "../../process-drawer/data/interfaces/task.interface";
 
 export interface ProcessDetails {
     processId: string;
