@@ -18,6 +18,4 @@ public class ProcessUpdateDTO
     public string? Status { get; set; } 
     public int? Progress { get; set; } 
     public decimal? TotalProcessCost { get; set; } 
-    public List<TaskModel> Tasks { get; set; }
-    public List<UserMainCardDTO> ResponsibleUsers { get; set; }
 }

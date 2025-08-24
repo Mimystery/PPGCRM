@@ -24,4 +24,12 @@ export class ProcessesService {
   updateProcess(processId: string, process: ProcessDetails){
     return this.http.put<ProcessDetails>(`https://localhost:7189/api/Processes/UpdateProcess/${processId}`, process)
   }
+
+  addResponsibleUser(userId: string, processId: string){
+    return this.http.post(`https://localhost:7189/api/Processes/AddResponsibleUser/${processId}/${userId}`, null)
+  }
+
+  removeResponsibleUser(userId: string, processId: string){
+    return this.http.delete(`https://localhost:7189/api/Processes/RemoveResponsibleUser/${processId}/${userId}`)
+  }
 }

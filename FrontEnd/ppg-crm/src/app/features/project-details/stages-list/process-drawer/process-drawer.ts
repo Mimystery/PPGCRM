@@ -137,7 +137,11 @@ export class ProcessDrawerComponent {
   onUserSelect(user: User){
     this.process()?.responsibleUsers.push(user)
 
-    this.updateProcess(this.process()!)
+    this.processesService.addResponsibleUser(user.userId, this.process()!.processId)
+      .subscribe({
+        next: () => this.message.success('User added!'),
+        error: () => this.message.error('Error updating')
+      });
     //4eddde59-44f5-437a-9e80-7a6671a991b2 process
     //bf18146a-1df8-4eb9-b2af-6820107d7d72 stage
     //bd385c97-42ae-4098-8a35-3489945c299e user
@@ -149,6 +153,11 @@ export class ProcessDrawerComponent {
     this.process()!.responsibleUsers = this.process()!.responsibleUsers.filter(
       u => u.userId !== user.userId
     );
+    this.processesService.removeResponsibleUser(user.userId, this.process()!.processId)
+      .subscribe({
+        next: () => this.message.success('User removed!'),
+        error: () => this.message.error('Error updating')
+      })
   }
   }
 
@@ -263,6 +272,9 @@ export class ProcessDrawerComponent {
         break;
       case 'notDoneReasons':
         this.isEditingNotDoneReasons = false;
+        this.updateProcess(this.process()!)
+        break;
+      case 'status':
         this.updateProcess(this.process()!)
         break;
     }

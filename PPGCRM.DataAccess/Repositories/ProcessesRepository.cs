@@ -151,7 +151,7 @@ namespace PPGCRM.DataAccess.Repositories
             {
                 processEntity.TotalProcessCost = processUpdate.TotalProcessCost.Value;
             }
-            
+
             await _context.SaveChangesAsync();
         }
 

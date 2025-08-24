@@ -67,7 +67,8 @@ namespace PPGCRM.DataAccess.Repositories
             var project = await _context.Projects
                 .Include(p => p.Client)
                 .Include(p => p.Stages)
-                    .ThenInclude(s => s.Processes).ThenInclude(p => p.Tasks)
+                    .ThenInclude(s => s.Processes)
+                        .ThenInclude(p => p.Tasks)
                 .Include(p => p.Stages)
                     .ThenInclude(s => s.Processes)
                         .ThenInclude(proc => proc.ResponsibleUsers)
