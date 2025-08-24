@@ -7,7 +7,7 @@ using PPGCRM.Core.Models;
 
 namespace PPGCRM.API.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class ProcessesController : ControllerBase
@@ -26,6 +26,13 @@ public class ProcessesController : ControllerBase
     {
         var processes = await _processesService.GetAllProcessesByStageIdAsync(stageId);
         return Ok(processes);
+    }
+
+    [HttpGet("GetProcessById/{processId}")]
+    public async Task<ActionResult<ProcessModel>> GetProcessById(Guid processId)
+    {
+        var process = await _processesService.GetProcessById(processId);
+        return Ok(process);
     }
 
     [HttpPost("AddProcessByStageId/{stageId}")]

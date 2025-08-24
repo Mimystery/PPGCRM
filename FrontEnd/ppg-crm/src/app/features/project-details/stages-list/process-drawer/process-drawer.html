@@ -8,7 +8,9 @@
            >
   <ng-template #processDrawerTitle>
     <span *ngIf="!isEditingProcessName">{{ process()?.processName }}</span>
-    <input [(ngModel)]="process()!.processName"
+    <input 
+          #processNameInput
+          [(ngModel)]="process()!.processName"
            *ngIf="isEditingProcessName"
            (blur)="finishEditing('processName')"
            (keyup.enter)="finishEditing('processName')" />
@@ -123,11 +125,11 @@
               <!-- <nz-icon nzType="edit" class="edit-icon"
                        (click)="startEditing('notes')"/> -->
             </h3>
-            <nz-card class="card big">
+            <nz-card class="card big" *ngIf="process() as p">
               <!-- <span *ngIf="!isEditingNotes">{{ process()?.notes }}</span> -->
               <textarea
                 class="card-text-area"
-                [(ngModel)]="process()!.notes"
+                [(ngModel)]="p.notes"
                 (ngModelChange)="onNotesChange($event)"
                 (blur)="finishEditing('notes')">
               </textarea>
@@ -139,11 +141,11 @@
               <!-- <nz-icon nzType="edit" class="edit-icon"
                        (click)="startEditing('notDoneReasons')"/> -->
             </h3>
-            <nz-card class="card big">
+            <nz-card class="card big" *ngIf="process() as p">
               <!-- <span *ngIf="!isEditingNotDoneReasons">{{ process()?.notDoneReasons }}</span> -->
               <textarea 
                 class="card-text-area"
-                [(ngModel)]="process()!.notDoneReasons"
+                [(ngModel)]="p.notDoneReasons"
                 (ngModelChange)="onNotDoneReasonsChange($event)"
                 (blur)="finishEditing('notDoneReasons')">
               </textarea>
@@ -155,11 +157,11 @@
               <!-- <nz-icon nzType="edit" class="edit-icon"
                        (click)="startEditing('problems')"/> -->
             </h3>
-            <nz-card class="card big">
+            <nz-card class="card big" *ngIf="process() as p">
               <!-- <span *ngIf="!isEditingProblems">{{ process()?.problems }}</span> -->
               <textarea 
                 class="card-text-area"
-                [(ngModel)]="process()!.problems"
+                [(ngModel)]="p.problems"
                 (ngModelChange)="onProblemsChange($event)"
                 (blur)="finishEditing('problems')">
               </textarea>

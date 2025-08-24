@@ -33,6 +33,19 @@ namespace PPGCRM.DataAccess.Repositories
             return _mapper.Map<List<ProcessModel>>(processes);
         }
 
+        public async Task<ProcessModel> GetProcessById(Guid processId)
+        {
+            var process = await _context.Processes
+                .Include(p => p.ResponsibleUsers)
+                .Include(p => p.Tasks)
+                .FirstOrDefaultAsync(p => p.ProcessId == processId);
+            if (process == null)
+            {
+                throw new KeyNotFoundException($"Process with ID {processId} NOT found.");
+            }
+            return _mapper.Map<ProcessModel>(process);
+        }
+
         public async Task AddProcessByStageIdAsync(ProcessModel process)
         {
             var processEntity = _mapper.Map<ProcessEntity>(process);

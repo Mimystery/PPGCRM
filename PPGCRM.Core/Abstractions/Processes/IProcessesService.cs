@@ -6,6 +6,7 @@ namespace PPGCRM.Core.Abstractions.Processes;
 public interface IProcessesService
 {
     Task<List<ProcessModel>> GetAllProcessesByStageIdAsync(Guid stageId);
+    Task<ProcessModel> GetProcessById(Guid processId);
 
     Task AddProcessByStageIdAsync(Guid stageId, ProcessCreateDTO processCreate);
 

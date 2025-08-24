@@ -60,6 +60,7 @@ export class ProjectDetailsComponent {
       .subscribe({
         next: (val) => {
           this.project = val;
+          console.log(this.project)
         },
         error: (error) => {
           console.error(error);

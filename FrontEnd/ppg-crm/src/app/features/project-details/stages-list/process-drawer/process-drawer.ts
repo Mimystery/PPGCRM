@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, HostListener, inject, input, Output, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, EventEmitter, HostListener, inject, Input, input, Output, signal, ViewChild} from '@angular/core';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzButtonModule} from 'ng-zorro-antd/button';
@@ -24,6 +24,7 @@ import { NzOptionComponent, NzSelectModule } from "ng-zorro-antd/select";
 import { NzDatePickerComponent, NzDatePickerModule } from "ng-zorro-antd/date-picker";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { debounceTime, Subject } from 'rxjs';
+import { ProcessesService } from '../../../kanban/data/services/processes-service';
 
 @Component({
   selector: 'app-process-drawer',
@@ -37,10 +38,13 @@ import { debounceTime, Subject } from 'rxjs';
 })
 export class ProcessDrawerComponent {
   usersService = inject(UserService)
-    message = inject(NzMessageService);
+  message = inject(NzMessageService);
+  processesService = inject(ProcessesService)
 
   isVisible  = input.required<boolean>();
   process = input.required<ProcessDetails | null>();
+
+
   @Output() close = new EventEmitter<void>();
   users: User[] = []
 
@@ -48,38 +52,52 @@ export class ProcessDrawerComponent {
   private notDoneReasons$ = new Subject<string>();
   private problems$ = new Subject<string>();
 
+  updateProcess(process: ProcessDetails){
+    this.processesService.updateProcess(process.processId, process)
+      .subscribe({
+        next: () => this.message.success('Data updated!'),
+        error: () => this.message.error('Error updating')
+      });
+  }
+
   constructor(){
+
+    effect(() => {
+    this.processesService.getProcessById(this.process()!.processId)
+    .subscribe(val => {
+      //this.process.set(val);
+    })
+    
+  });
+
     this.usersService.getAllUsers().subscribe(val => {
       this.users = val
       console.log(this.users)
     })
 
     this.notesUpdate$
-      .pipe(debounceTime(500)) // 0.5 сек
+      .pipe(debounceTime(500))
       .subscribe(newNotes => {
         if (this.process()) {
-          this.message.success('Notes updated!')
-          // this.process.updateProcess(this.process()!.id, newNotes).subscribe({
-          //   next: () => this.message.success('Notes updated!'),
-          //   error: () => this.message.error('Error updating notes')
-          // });
+          this.updateProcess(this.process()!)
         }
       });
     this.notDoneReasons$
       .pipe(debounceTime(500))
       .subscribe(newReasons => {
         if(this.process()){
-          this.message.success('Reasons updated!')
+          this.updateProcess(this.process()!)
         }
       })
     this.problems$
       .pipe(debounceTime(500))
       .subscribe(newProblems => {
         if(this.process()){
-          this.message.success('Problems updated!')
+          this.updateProcess(this.process()!)
         }
       })
   }
+
 
   onNotesChange(value: string) {
     if (this.process()) {
@@ -118,6 +136,11 @@ export class ProcessDrawerComponent {
   dropdownVisible = false;
   onUserSelect(user: User){
     this.process()?.responsibleUsers.push(user)
+
+    this.updateProcess(this.process()!)
+    //4eddde59-44f5-437a-9e80-7a6671a991b2 process
+    //bf18146a-1df8-4eb9-b2af-6820107d7d72 stage
+    //bd385c97-42ae-4098-8a35-3489945c299e user
     this.dropdownVisible = false;
   }
 
@@ -142,18 +165,38 @@ export class ProcessDrawerComponent {
     switch (field) {
       case 'processName':
         this.isEditingProcessName = !this.isEditingProcessName;
+        
+        if(!this.isEditingProcessName){
+          this.updateProcess(this.process()!)
+        }
+
         setTimeout(() => this.processNameInput?.nativeElement.focus());
         break;
       case 'startDate':
         this.isEditingStartDate = !this.isEditingStartDate;
+        
+        if(!this.isEditingStartDate){
+          this.updateProcess(this.process()!)
+        }
+
         setTimeout(() => this.startDateInput?.nativeElement.focus());
         break;
       case 'planEndDate':
         this.isEditingPlanEndDate = !this.isEditingPlanEndDate;
+        
+        if(!this.isEditingPlanEndDate){
+          this.updateProcess(this.process()!)
+        }
+
         setTimeout(() => this.planEndDateInput?.nativeElement.focus());
         break;
       case 'factEndDate':
         this.isEditingFactEndDate = !this.isEditingFactEndDate;
+        
+        if(!this.isEditingFactEndDate){
+          this.updateProcess(this.process()!)
+        }
+
         setTimeout(() => this.factEndDateInput?.nativeElement.focus());
         break;
       case 'notes':
@@ -189,16 +232,6 @@ export class ProcessDrawerComponent {
   //   if (this.isEditingFactEndDate) {
   //     this.finishEditing('factEndDate');
   //   }
-  //   if (this.isEditingNotes) {
-  //     this.finishEditing('notes');
-  //   }
-  //   if (this.isEditingProblems) {
-  //     this.finishEditing('problems');
-  //   }
-  //   if (this.isEditingNotDoneReasons) {
-  //     this.finishEditing('notDoneReasons');
-  //   }
-
   //   event.preventDefault();
   // }
 
@@ -206,25 +239,31 @@ export class ProcessDrawerComponent {
     switch (field) {
       case 'processName':
         this.isEditingProcessName = false;
+        this.updateProcess(this.process()!)
         break;
       case 'startDate':
         this.isEditingStartDate = false;
+        this.updateProcess(this.process()!)
         break;
       case 'planEndDate':
         this.isEditingPlanEndDate = false;
+        this.updateProcess(this.process()!)
         break;
       case 'factEndDate':
         this.isEditingFactEndDate = false;
+        this.updateProcess(this.process()!)
         break;
       case 'notes':
         this.isEditingNotes = false;
-        this.message.success('Данные успешно обновлены!')
+        this.updateProcess(this.process()!)
         break;
       case 'problems':
         this.isEditingProblems = false;
+        this.updateProcess(this.process()!)
         break;
       case 'notDoneReasons':
         this.isEditingNotDoneReasons = false;
+        this.updateProcess(this.process()!)
         break;
     }
   }

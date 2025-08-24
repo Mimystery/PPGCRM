@@ -25,6 +25,10 @@ export class StagesListComponent {
   public stages = input.required<Stage[] | null>();
   public selectedProcess = signal<ProcessDetails | null>(null);
 
+  constructor(){
+    
+  }
+
   openProcessDrawer = (process: ProcessDetails) =>{
     this.selectedProcess.set(process);
     this.processDrawerVisible.set(true)}

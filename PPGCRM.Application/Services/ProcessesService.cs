@@ -29,6 +29,11 @@ namespace PPGCRM.Application.Services
             return await _processesRepository.GetAllProcessesByStageIdAsync(stageId);
         }
 
+        public async Task<ProcessModel> GetProcessById(Guid processId)
+        {
+            return await _processesRepository.GetProcessById(processId);
+        }
+
         public async Task AddProcessByStageIdAsync(Guid stageId, ProcessCreateDTO processCreate)
         {
             var processModel = new ProcessModel(

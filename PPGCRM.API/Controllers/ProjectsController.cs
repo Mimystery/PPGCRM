@@ -8,7 +8,7 @@ using PPGCRM.Core.Models;
 
 namespace PPGCRM.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ProjectsController : ControllerBase

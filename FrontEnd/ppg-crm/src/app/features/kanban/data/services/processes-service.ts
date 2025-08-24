@@ -16,4 +16,12 @@ export class ProcessesService {
   getProcesses(stageId: string){
     return this.http.get<ProcessDetails[]>(`https://localhost:7189/api/Processes/GetAllProcessesByStageId/${stageId}`)
   }
+
+  getProcessById(processId: string){
+    return this.http.get<ProcessDetails>(`https://localhost:7189/api/Processes/GetProcessById/${processId}`)
+  }
+
+  updateProcess(processId: string, process: ProcessDetails){
+    return this.http.put<ProcessDetails>(`https://localhost:7189/api/Processes/UpdateProcess/${processId}`, process)
+  }
 }

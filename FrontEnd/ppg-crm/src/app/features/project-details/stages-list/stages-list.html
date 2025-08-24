@@ -32,7 +32,7 @@
     <nz-collapse>
       <nz-collapse-panel  [nzActive]="false" [nzShowArrow] = 'true' [nzHeader]="stagesCard" >
         <table style="width: 100%; border-collapse: collapse;" >
-          
+
           @for(process of stage!.processes; track process!.processId) {
             <tr (click)="openProcessDrawer(process)" >
               <!-- Process Name -->
