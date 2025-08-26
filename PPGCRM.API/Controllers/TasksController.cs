@@ -7,7 +7,7 @@ using PPGCRM.Core.Models;
 
 namespace PPGCRM.API.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
@@ -29,15 +29,15 @@ public class TasksController : ControllerBase
     }
     
     [HttpPost("AddTaskByProcessId/{processId}")]
-    public async Task<ActionResult> AddTaskByProcessId(Guid processId, [FromBody] TaskCreateDTO taskCreate)
+    public async Task<ActionResult<TaskModel>> AddTaskByProcessId(Guid processId, [FromBody] TaskCreateDTO taskCreate)
     {
         if (taskCreate == null)
         {
             return BadRequest("Task data is required.");
         }
 
-        await _tasksService.AddTaskByProcessIdAsync(processId, taskCreate);
-        return Ok();
+        var task = await _tasksService.AddTaskByProcessIdAsync(processId, taskCreate);
+        return Ok(task);
     }
 
     [HttpPut("UpdateTaskById/{taskId}")]

@@ -7,7 +7,7 @@ public interface ITasksService
 {
     Task<List<TaskModel>> GetAllTasksByProcessIdAsync(Guid processId);
 
-    Task AddTaskByProcessIdAsync(Guid processId, TaskCreateDTO taskCreate);
+    Task<TaskModel> AddTaskByProcessIdAsync(Guid processId, TaskCreateDTO taskCreate);
 
     Task UpdateTaskAsync(Guid taskId, TaskUpdateDTO taskUpdate);
 

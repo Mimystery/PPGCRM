@@ -43,7 +43,7 @@ export class ProcessDrawerComponent {
   processesService = inject(ProcessesService)
 
   isVisible  = input.required<boolean>();
-  process = input.required<ProcessDetails>();
+  process = input.required<ProcessDetails | null>();
 
   createNewTaskModalVisible = false;
   createNewTaskModalOkDisabled = true;
@@ -64,6 +64,8 @@ export class ProcessDrawerComponent {
 
     this.tasksService.addTask(this.process()?.processId!, this.createNewTaskName).subscribe({
       next: val => {
+        const tasks = this.process()?.tasks || [];
+        this.process()!.tasks = [val, ...tasks];
         this.message.success('Task added!')
       },
       error: (err) => {
