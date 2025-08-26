@@ -14,12 +14,13 @@ import {User} from '../../../core/auth/data/interfaces/user.interface';
 import {FormsModule} from '@angular/forms';
 import {UserService} from '../../../core/auth/data/services/user-service';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzInputDirective} from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'app-teammate-drawer',
   imports: [NzDrawerModule, NzCardModule, NzTagModule, FormsModule, CommonModule,
     NzProgressModule, NzDividerModule, NzFlexModule, NzSelectModule, NzIconModule, CommonModule,
-    NzTableModule, NzImageModule,],
+    NzTableModule, NzImageModule, NzInputDirective,],
   templateUrl: './teammate-drawer.html',
   styleUrl: './teammate-drawer.less'
 })

@@ -24,6 +24,7 @@
               <!-- Name -->
               <span *ngIf="!isEditingName">{{userUpdate.firstName + ' ' + userUpdate.lastName}}</span>
               <input
+                nz-input
                 *ngIf="isEditingName"
                 #nameInput
                 type="text"
@@ -32,6 +33,7 @@
                 (keyup.escape)="finishEditingTeammateField('name')"
               />
               <input
+                nz-input
                 *ngIf="isEditingName"
                 #nameInput
                 type="text"
@@ -46,6 +48,7 @@
               <!-- Username -->
               <span style="color:#767676;" *ngIf="!isEditingUsername">{{userUpdate.username}}</span>
               <input
+                nz-input
                 *ngIf="isEditingUsername"
                 #usernameInput
                 type="text"
@@ -106,6 +109,7 @@
 
               <span style="color:green;" *ngIf="!isEditingRate">{{userUpdate.salary}}</span>
               <input
+                nz-input
                 *ngIf="isEditingRate"
                 #rateInput
                 type="number"
@@ -124,6 +128,7 @@
             <p>
               <span *ngIf="!isEditingPhone">{{userUpdate.phone}}</span>
               <input
+                nz-input
                 *ngIf="isEditingPhone"
                 #phoneInput
                 type="text"
@@ -139,6 +144,7 @@
             <p>
               <span *ngIf="!isEditingEmail">{{userUpdate.email}}</span>
               <input
+                nz-input
                 *ngIf="isEditingEmail"
                 #emailInput
                 type="email"

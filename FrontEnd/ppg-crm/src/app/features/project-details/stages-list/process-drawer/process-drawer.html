@@ -1,3 +1,18 @@
+<nz-modal
+  [(nzVisible)]="createNewTaskModalVisible"
+  nzTitle="Create new task"
+  (nzOnCancel)="handleCreateNewTaskModalCancel()"
+  (nzOnOk)="handleCreateNewTaskModalOk()"
+  [nzOkDisabled]="createNewTaskModalOkDisabled">
+
+  <ng-container *nzModalContent>
+    <input
+      nz-input
+      placeholder="Enter new task name"
+      [(ngModel)]="createNewTaskName"
+      (ngModelChange)="checkIfNewTaskNameEmpty()">
+  </ng-container>
+</nz-modal>
 <nz-drawer [nzVisible]="isVisible()"
            nzPlacement="right"
            [nzClosable]="false"
@@ -8,14 +23,14 @@
            >
   <ng-template #processDrawerTitle>
     <span *ngIf="!isEditingProcessName">{{ process()?.processName }}</span>
-    <input 
+    <input
           #processNameInput
           [(ngModel)]="process()!.processName"
            *ngIf="isEditingProcessName"
            (blur)="finishEditing('processName')"
            (keyup.enter)="finishEditing('processName')" />
     <nz-icon nzType="edit" class="edit-icon"
-             (click)="startEditing('processName')"></nz-icon>       
+             (click)="startEditing('processName')"></nz-icon>
   </ng-template>
   <ng-container *nzDrawerContent>
     <nz-layout>
@@ -43,12 +58,12 @@
                   </nz-icon>
                   <div class="card-info-item">
                     <span  *ngIf="!isEditingStartDate">{{process()?.startDate | date:'dd.MM.yyyy' }}</span>
-                    <nz-date-picker 
+                    <nz-date-picker
                       *ngIf="isEditingStartDate"
-                      [(ngModel)]="process()!.startDate" 
+                      [(ngModel)]="process()!.startDate"
                       nzSize="large"
-                      (keyup.enter)="finishEditing('startDate')" 
-                      nzVariant="underlined" 
+                      (keyup.enter)="finishEditing('startDate')"
+                      nzVariant="underlined"
                       nzFormat="dd.MM.yyyy"></nz-date-picker>
                   </div>
                 </div>
@@ -73,12 +88,12 @@
                   </nz-icon>
                   <div class="card-info-item">
                     <span *ngIf="!isEditingPlanEndDate">{{ process()?.planEndDate | date:'dd.MM.yyyy' }}</span>
-                    <nz-date-picker 
+                    <nz-date-picker
                       *ngIf="isEditingPlanEndDate"
-                      [(ngModel)]="process()!.planEndDate" 
+                      [(ngModel)]="process()!.planEndDate"
                       nzSize="large"
-                      (keyup.enter)="finishEditing('planEndDate')" 
-                      nzVariant="underlined" 
+                      (keyup.enter)="finishEditing('planEndDate')"
+                      nzVariant="underlined"
                       nzFormat="dd.MM.yyyy"></nz-date-picker>
                   </div>
                 </div>
@@ -103,12 +118,12 @@
                   </nz-icon>
                   <div class="card-info-item">
                     <span *ngIf="!isEditingFactEndDate">{{ process()?.factEndDate | date:'dd.MM.yyyy' }}</span>
-                    <nz-date-picker 
+                    <nz-date-picker
                       *ngIf="isEditingFactEndDate"
-                      [(ngModel)]="process()!.factEndDate" 
+                      [(ngModel)]="process()!.factEndDate"
                       nzSize="large"
-                      (keyup.enter)="finishEditing('factEndDate')" 
-                      nzVariant="underlined" 
+                      (keyup.enter)="finishEditing('factEndDate')"
+                      nzVariant="underlined"
                       nzFormat="dd.MM.yyyy"></nz-date-picker>
                   </div>
                 </div>
@@ -143,7 +158,7 @@
             </h3>
             <nz-card class="card big" *ngIf="process() as p">
               <!-- <span *ngIf="!isEditingNotDoneReasons">{{ process()?.notDoneReasons }}</span> -->
-              <textarea 
+              <textarea
                 class="card-text-area"
                 [(ngModel)]="p.notDoneReasons"
                 (ngModelChange)="onNotDoneReasonsChange($event)"
@@ -159,7 +174,7 @@
             </h3>
             <nz-card class="card big" *ngIf="process() as p">
               <!-- <span *ngIf="!isEditingProblems">{{ process()?.problems }}</span> -->
-              <textarea 
+              <textarea
                 class="card-text-area"
                 [(ngModel)]="p.problems"
                 (ngModelChange)="onProblemsChange($event)"
@@ -172,7 +187,7 @@
         <div class="project-details-bottom">
           <h3>
           Tasks
-            <button nz-button nzType="text"  class="add-btn task">
+            <button nz-button nzType="text"  class="add-btn task" (click)="createNewTaskModalVisible=true">
               <nz-icon nzType="plus" nzTheme="outline" />
             </button>
         </h3>
@@ -317,7 +332,7 @@
         </nz-table>
 
         <div class="process-details-responsible">
-          
+
           <div class="header">
             <h3 class="card-label">Responsible</h3>
             <nz-icon
@@ -344,11 +359,11 @@
 
                   <div style="max-height: 400px; overflow-y: auto; padding: 8px; min-width: 250px;">
                     @for (user of availableUsers; track user.userId) {
-                      <nz-card 
+                      <nz-card
                         class="card user"
                         (click)="onUserSelect(user)"
-                        [nzBodyStyle]="{padding: '1vh 0.2vw', 
-                          display: 'flex',flexDirection:'row', alignItems: 'left', 
+                        [nzBodyStyle]="{padding: '1vh 0.2vw',
+                          display: 'flex',flexDirection:'row', alignItems: 'left',
                           justifyContent: 'space-between'}" >
                         <span>
                         <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -368,9 +383,9 @@
 
           @if(process()?.responsibleUsers!.length > 0){
             @for (user of process()?.responsibleUsers; track user.userId) {
-              <nz-card 
+              <nz-card
                 class="card user"
-                [nzBodyStyle]="{padding: '1vh 0.2vw', display: 'flex',flexDirection:'row', alignItems: 'center', 
+                [nzBodyStyle]="{padding: '1vh 0.2vw', display: 'flex',flexDirection:'row', alignItems: 'center',
                 justifyContent: 'space-between', gap: '0px'}" >
                 <span>
                   <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -25,13 +25,14 @@ import { NzDatePickerComponent, NzDatePickerModule } from "ng-zorro-antd/date-pi
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { debounceTime, Subject } from 'rxjs';
 import { ProcessesService } from '../../../kanban/data/services/processes-service';
+import {TasksService} from './data/services/tasks-service';
 
 @Component({
   selector: 'app-process-drawer',
   imports: [NzDrawerModule, NzLayoutModule, NzButtonModule, NzDescriptionsModule, NzDropDownModule,
     NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule, CommonModule,
     NzCardModule, NzProgressModule, NzLayoutModule, NzTagModule, NzFlexModule, NzTableModule,
-    NzSpaceModule, NzCheckboxModule, NzDividerComponent, NzOptionComponent, NzSelectModule, 
+    NzSpaceModule, NzCheckboxModule, NzDividerComponent, NzOptionComponent, NzSelectModule,
     NzDatePickerModule],
   templateUrl: './process-drawer.html',
   styleUrl: './process-drawer.less'
@@ -42,7 +43,44 @@ export class ProcessDrawerComponent {
   processesService = inject(ProcessesService)
 
   isVisible  = input.required<boolean>();
-  process = input.required<ProcessDetails | null>();
+  process = input.required<ProcessDetails>();
+
+  createNewTaskModalVisible = false;
+  createNewTaskModalOkDisabled = true;
+  createNewTaskName = '';
+
+  tasksService = inject(TasksService);
+
+  checkIfNewTaskNameEmpty() {
+    this.createNewTaskModalOkDisabled = this.createNewTaskName.trim() === '';
+  }
+
+  openCreateNewTaskModal(): void {
+    this.createNewTaskModalVisible = true;
+  }
+
+  handleCreateNewTaskModalOk(): void {
+    this.createNewTaskModalVisible = false;
+
+    this.tasksService.addTask(this.process()?.processId!, this.createNewTaskName).subscribe({
+      complete: () => {
+        this.message.success('Данные успешно обновлены!')
+      },
+      error: (err) => {
+        this.message.error('Ошибка при обновлении данных: ', err.message)
+      }
+    });
+
+    this.createNewTaskName = '';
+    this.checkIfNewTaskNameEmpty();
+  }
+
+  handleCreateNewTaskModalCancel(): void {
+    this.createNewTaskModalVisible = false;
+
+    this.createNewTaskName = '';
+    this.checkIfNewTaskNameEmpty();
+  }
 
 
   @Output() close = new EventEmitter<void>();
@@ -67,7 +105,7 @@ export class ProcessDrawerComponent {
     .subscribe(val => {
       //this.process.set(val);
     })
-    
+
   });
 
     this.usersService.getAllUsers().subscribe(val => {
@@ -174,7 +212,7 @@ export class ProcessDrawerComponent {
     switch (field) {
       case 'processName':
         this.isEditingProcessName = !this.isEditingProcessName;
-        
+
         if(!this.isEditingProcessName){
           this.updateProcess(this.process()!)
         }
@@ -183,7 +221,7 @@ export class ProcessDrawerComponent {
         break;
       case 'startDate':
         this.isEditingStartDate = !this.isEditingStartDate;
-        
+
         if(!this.isEditingStartDate){
           this.updateProcess(this.process()!)
         }
@@ -192,7 +230,7 @@ export class ProcessDrawerComponent {
         break;
       case 'planEndDate':
         this.isEditingPlanEndDate = !this.isEditingPlanEndDate;
-        
+
         if(!this.isEditingPlanEndDate){
           this.updateProcess(this.process()!)
         }
@@ -201,7 +239,7 @@ export class ProcessDrawerComponent {
         break;
       case 'factEndDate':
         this.isEditingFactEndDate = !this.isEditingFactEndDate;
-        
+
         if(!this.isEditingFactEndDate){
           this.updateProcess(this.process()!)
         }
@@ -227,7 +265,7 @@ export class ProcessDrawerComponent {
   // handleKeys(event: KeyboardEvent) {
   //   if (event.key !== 'Enter' && event.key !== 'Escape') return;
 
-    
+
 
   //   if (this.isEditingProcessName) {
   //     this.finishEditing('processName');
