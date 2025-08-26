@@ -63,8 +63,8 @@ export class ProcessDrawerComponent {
     this.createNewTaskModalVisible = false;
 
     this.tasksService.addTask(this.process()?.processId!, this.createNewTaskName).subscribe({
-      complete: () => {
-        this.message.success('Данные успешно обновлены!')
+      next: val => {
+        this.message.success('Task added!')
       },
       error: (err) => {
         this.message.error('Ошибка при обновлении данных: ', err.message)
@@ -98,15 +98,9 @@ export class ProcessDrawerComponent {
       });
   }
 
+private notesInitialized = false;
+
   constructor(){
-
-    effect(() => {
-    this.processesService.getProcessById(this.process()!.processId)
-    .subscribe(val => {
-      //this.process.set(val);
-    })
-
-  });
 
     this.usersService.getAllUsers().subscribe(val => {
       this.users = val
@@ -199,7 +193,6 @@ export class ProcessDrawerComponent {
   }
   }
 
-
   isEditingProcessName = false;
   isEditingStartDate = false;
   isEditingPlanEndDate = false;
@@ -260,27 +253,6 @@ export class ProcessDrawerComponent {
         break;
     }
   }
-
-  // @HostListener('document:keydown', ['$event'])
-  // handleKeys(event: KeyboardEvent) {
-  //   if (event.key !== 'Enter' && event.key !== 'Escape') return;
-
-
-
-  //   if (this.isEditingProcessName) {
-  //     this.finishEditing('processName');
-  //   }
-  //   if (this.isEditingStartDate) {
-  //     this.finishEditing('startDate');
-  //   }
-  //   if (this.isEditingPlanEndDate) {
-  //     this.finishEditing('planEndDate');
-  //   }
-  //   if (this.isEditingFactEndDate) {
-  //     this.finishEditing('factEndDate');
-  //   }
-  //   event.preventDefault();
-  // }
 
   finishEditing(field: string) {
     switch (field) {

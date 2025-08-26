@@ -2,6 +2,6 @@
 
 public class TaskCreateDTO
 {
-    public string? TaskName { get; }
-    public bool IsDone { get; } = false;
+    public string TaskName { get; set; }
+    public bool IsDone { get; set; } = false;
 }

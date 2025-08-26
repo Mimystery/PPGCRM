@@ -29,7 +29,7 @@ public class TasksController : ControllerBase
     }
     
     [HttpPost("AddTaskByProcessId/{processId}")]
-    public async Task<ActionResult> AddTaskByProcessId(Guid processId, TaskCreateDTO taskCreate)
+    public async Task<ActionResult> AddTaskByProcessId(Guid processId, [FromBody] TaskCreateDTO taskCreate)
     {
         if (taskCreate == null)
         {
@@ -41,7 +41,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpPut("UpdateTaskById/{taskId}")]
-    public async Task<ActionResult> UpdateTaskById(Guid taskId, TaskUpdateDTO taskUpdate)
+    public async Task<ActionResult> UpdateTaskById(Guid taskId, [FromBody]TaskUpdateDTO taskUpdate)
     {
         if (taskUpdate == null)
         {

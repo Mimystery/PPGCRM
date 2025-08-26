@@ -36,7 +36,7 @@ public class ProcessesController : ControllerBase
     }
 
     [HttpPost("AddProcessByStageId/{stageId}")]
-    public async Task<ActionResult> AddProcessByStageId(Guid stageId, ProcessCreateDTO processCreateDto)
+    public async Task<ActionResult> AddProcessByStageId(Guid stageId, [FromBody] ProcessCreateDTO processCreateDto)
     {
         if (processCreateDto == null)
         {
@@ -48,12 +48,12 @@ public class ProcessesController : ControllerBase
     }
 
     [HttpPost("AddResponsibleUser/{processId}/{userId}")]
-    public async Task<ActionResult> AddResponsibleUser(Guid processId, Guid userId)
+    public async Task<ActionResult> AddResponsibleUser(Guid processId, [FromBody] Guid userId)
     {
         await _processesService.AddResponsibleUserAsync(processId, userId);
         return Ok();
     }
-
+        
     [HttpDelete("RemoveResponsibleUser/{processId}/{userId}")]
     public async Task<ActionResult> RemoveResponsibleUser(Guid processId, Guid userId)
     {
@@ -62,7 +62,7 @@ public class ProcessesController : ControllerBase
     }
 
     [HttpPut("UpdateProcess/{processId}")]
-    public async Task<ActionResult> UpdateProcess(Guid processId, ProcessUpdateDTO processUpdateDto)
+    public async Task<ActionResult> UpdateProcess(Guid processId, [FromBody] ProcessUpdateDTO processUpdateDto)
     {
         if (processUpdateDto == null)
         {

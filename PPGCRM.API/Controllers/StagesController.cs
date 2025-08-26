@@ -29,7 +29,7 @@ public class StagesController : ControllerBase
     }
 
     [HttpPost("AddStageByProjectId/{projectId}")]
-    public async Task<ActionResult> AddStageByProjectId(Guid projectId, StageCreateDTO stageCreateDto)
+    public async Task<ActionResult> AddStageByProjectId(Guid projectId, [FromBody] StageCreateDTO stageCreateDto)
     {
         if (stageCreateDto == null)
         {
@@ -41,7 +41,7 @@ public class StagesController : ControllerBase
     }
     
     [HttpPut("UpdateStageByProjectId/{projectId}")]
-    public async Task<ActionResult> UpdateStageByProjectId(Guid stageId, StageUpdateDTO stageUpdate)
+    public async Task<ActionResult> UpdateStageByProjectId(Guid stageId, [FromBody] StageUpdateDTO stageUpdate)
     {
         if (stageUpdate == null)
         {
