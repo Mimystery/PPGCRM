@@ -55,17 +55,16 @@
 @if(users){
   <div class="flex-table">
     @for (user of users; track user.userId) {
-      <app-team-card [setUser]="setUser" [user]="user"></app-team-card>
+      <app-team-card (userSelected)="setUser($event)" [user]="user"></app-team-card>
     }
   </div>
 }@else {
   <span>No added any projects yet</span>
 }
 
-<!-- ВОТ ТУТ БУДЕ КРАШИТИ Я ЗНАЮ. дА ЗАПУШИВ З БАГААМИ КРЧ НАДА ЗРОБИТИ СИГНАЛ ЧИ
-** ЗМІННУ ЯКА Б ДИВИЛАСЬ НА ЯКУ КАРТОЧКУ НАЖАВ КЕНТАФАРІК І ТОДІ ВИСОВУВАТИ ДРОВЕР З ЦИМ ТІПОМ
-TODO: VOT TUT BUDE KRASHYTY YA ZNAYU. dA ZAPUSHYV Z BAHAMY KRCH NADA ZROBYTY SIGNAL CHY
+<!--
+TODO: ПЕРЕПИСАТИ ВСЕ З АУТПУТАМИ А НЕ ІНПУТАМИ ВСЕ ВЖЕ ПРАЦЮЄ АЛЕ НЕ ЗОВСІМ ПО КОНВЕНЦІЇ АНГУЛАРА
 -->
 @if (selectedUser() != null) {
-  <app-teammate-drawer [user]="selectedUser()!" [isVisible]="teamDrawerVisible()" [teamDrawerClosed]="closeTeamDrawer"></app-teammate-drawer>
+  <app-teammate-drawer [user]="selectedUser()!" [isVisible]="teamDrawerVisible()" (teamDrawerClosed)="closeTeamDrawer()"></app-teammate-drawer>
 }

@@ -18,6 +18,6 @@ export class UserService {
     return this.http.get<User[]>(`https://localhost:7189/api/Users/GetAllUsers`)
   }
   updateUser(userId: string, userUpdateBody: User) {
-    return this.http.put(`https://localhost:7189/api/Users/UpdateUserField/${userId}`, userUpdateBody);
+    return this.http.put(`https://localhost:7189/api/Users/UpdateUser/${userId}`, userUpdateBody);
   }
 }

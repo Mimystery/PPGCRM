@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, input, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, input, Input, output, Output} from '@angular/core';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzTagModule} from 'ng-zorro-antd/tag';
@@ -13,6 +13,7 @@ import {CommonModule} from '@angular/common';
 import {User} from '../../../core/auth/data/interfaces/user.interface';
 import {FormsModule} from '@angular/forms';
 import {UserService} from '../../../core/auth/data/services/user-service';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-teammate-drawer',
@@ -30,8 +31,9 @@ export class TeammateDrawerComponent {
   user = input.required<User>();
   userUpdate!: User;
   userService = inject(UserService);
+  message = inject(NzMessageService);
 
-  teamDrawerClosed = input.required<() => void>();
+  teamDrawerClosed = output();
 
   isEditingName = false;
   isEditingUsername = false;
@@ -40,7 +42,7 @@ export class TeammateDrawerComponent {
   isEditingPhone = false;
   isEditingEmail = false;
   handleClose() {
-    this.teamDrawerClosed();
+    this.teamDrawerClosed.emit();
   }
   startEditingTeammateField(field: string) {
     if (field === 'name') {
@@ -73,7 +75,14 @@ export class TeammateDrawerComponent {
     if (field === 'phone') this.isEditingPhone = false;
     if (field === 'email') this.isEditingEmail = false;
 
-    this.userService.updateUser(this.user()!.userId, this.userUpdate).subscribe();
+    this.userService.updateUser(this.user().userId, this.userUpdate).subscribe({
+      error: (err) => {
+        this.message.error('Ошибка при обновлении данных: ', err.message)
+      },
+      complete: () => {
+        this.message.success('Данные успешно обновлены!')
+      }
+    });
   }
   protected readonly window = window;
 }

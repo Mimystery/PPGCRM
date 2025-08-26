@@ -95,13 +95,13 @@ export class ProjectDetailsComponent {
    @ViewChild('budgetInput') budgetInput!: ElementRef<HTMLInputElement>;
    @ViewChild('expensesInput') expensesInput!: ElementRef<HTMLInputElement>;
    @ViewChild('descriptionInput') descriptionInput!: ElementRef<HTMLInputElement>;
-   
+
   startEditingDetailsField(field: string) {
   if (field === 'budget') {
       this.isEditingBudget = !this.isEditingBudget;
 
       setTimeout(() => {
-        this.budgetInput.nativeElement.focus(); 
+        this.budgetInput.nativeElement.focus();
       });
     }
     if (field === 'expenses') {
@@ -127,7 +127,7 @@ export class ProjectDetailsComponent {
       this.isEditingDescription = !this.isEditingDescription;
 
       setTimeout(() => {
-        this.descriptionInput.nativeElement.focus(); 
+        this.descriptionInput.nativeElement.focus();
       });
     }
   }
@@ -202,9 +202,6 @@ export class ProjectDetailsComponent {
       });
   }
 
-  loadClientbyId(clientId: string) {
-
-  }
   getColor(value: string): string {
   switch(value) {
     case 'NotStarted': return '#9E9E9E';

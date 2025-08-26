@@ -1,4 +1,4 @@
-import {Component, inject, input, signal} from '@angular/core';
+import {Component, inject, input, output, signal} from '@angular/core';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzBadgeModule} from 'ng-zorro-antd/badge';
 import {NzProgressModule} from 'ng-zorro-antd/progress';
@@ -16,10 +16,10 @@ import { User } from '../../../core/auth/data/interfaces/user.interface';
 })
 export class TeamCardComponent {
   user = input.required<User>();
-  setUser = input.required<(user: User) => void>();
+  userSelected = output<User>();
 
   onTeamCardClicked(){
     console.log('Team card clicked:', this.user());
-    this.setUser()!(this.user()!);
+    this.userSelected.emit(this.user());
   }
 }
