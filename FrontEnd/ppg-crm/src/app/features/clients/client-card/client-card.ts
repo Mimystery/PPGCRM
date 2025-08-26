@@ -8,11 +8,12 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { ClientCardData } from '../data/interfaces/client-card-data';
 import { ClientsService } from '../data/services/clients-service';
+import {NzInputDirective} from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'app-client-card',
   standalone: true,
-  imports: [NzCardModule, NzIconModule, NzProgressModule, CommonModule, FormsModule],
+  imports: [NzCardModule, NzIconModule, NzProgressModule, CommonModule, FormsModule, NzInputDirective],
   templateUrl: './client-card.html',
   styleUrl: './client-card.less'
 })

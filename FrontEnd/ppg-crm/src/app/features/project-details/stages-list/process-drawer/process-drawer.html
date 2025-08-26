@@ -24,6 +24,7 @@
   <ng-template #processDrawerTitle>
     <span *ngIf="!isEditingProcessName">{{ process()?.processName }}</span>
     <input
+      nz-input
           #processNameInput
           [(ngModel)]="process()!.processName"
            *ngIf="isEditingProcessName"
@@ -37,7 +38,7 @@
       <!--Details-->
       <nz-content>
         <div class="container-process-content" style="padding: 1vh 0.5vw;">
-          <div nz-flex nzJustify="space-between" nzAlign="center" class="project-details-header">
+          <div nz-flex nzJustify="space-between" nzGap="2vw" nzAlign="center" class="project-details-header">
             <div class="container">
               <h3>
                 Start Date
@@ -143,6 +144,7 @@
             <nz-card class="card big" *ngIf="process() as p">
               <!-- <span *ngIf="!isEditingNotes">{{ process()?.notes }}</span> -->
               <textarea
+                nz-input
                 class="card-text-area"
                 [(ngModel)]="p.notes"
                 (ngModelChange)="onNotesChange($event)"
@@ -159,6 +161,7 @@
             <nz-card class="card big" *ngIf="process() as p">
               <!-- <span *ngIf="!isEditingNotDoneReasons">{{ process()?.notDoneReasons }}</span> -->
               <textarea
+                nz-input
                 class="card-text-area"
                 [(ngModel)]="p.notDoneReasons"
                 (ngModelChange)="onNotDoneReasonsChange($event)"
@@ -175,6 +178,7 @@
             <nz-card class="card big" *ngIf="process() as p">
               <!-- <span *ngIf="!isEditingProblems">{{ process()?.problems }}</span> -->
               <textarea
+                nz-input
                 class="card-text-area"
                 [(ngModel)]="p.problems"
                 (ngModelChange)="onProblemsChange($event)"

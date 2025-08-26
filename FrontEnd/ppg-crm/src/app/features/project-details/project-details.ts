@@ -23,6 +23,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { ClientsService } from '../clients/data/services/clients-service';
 import { ClientProjectCard } from '../clients/data/interfaces/client-card-in-project-details.interface';
 import { ClientCardData } from '../clients/data/interfaces/client-card-data';
+import {User} from '../../core/auth/data/interfaces/user.interface';
 
 @Component({
   selector: 'app-project-details',
@@ -52,6 +53,7 @@ export class ProjectDetailsComponent {
   isEditingConstWorkStartDate: boolean | "submiting" = false;
   isEditingDescription: boolean | "submiting" = false;
 
+  projectResponsibleUsers = new Array<User>();
 
   selectedStatus: string = 'NotStarted';
 
@@ -60,6 +62,12 @@ export class ProjectDetailsComponent {
       .subscribe({
         next: (val) => {
           this.project = val;
+          for (let stage of this.project?.stages!) {
+            for (let process of stage.processes){
+              this.projectResponsibleUsers =  [...this.projectResponsibleUsers, ...process.responsibleUsers];
+            }
+          }
+          console.log(typeof this.projectResponsibleUsers);
           console.log(this.project)
         },
         error: (error) => {

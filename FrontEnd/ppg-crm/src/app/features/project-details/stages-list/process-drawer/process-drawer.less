@@ -4,7 +4,11 @@ nz-layout {
     min-width: 0; /* важно для flex контейнеров */
     min-height: 100%;
 }
-
+.container-process-content{
+  .container{
+    flex: 0.5 1 0;
+  }
+}
 .project-details-bottom{
     padding: 1vh 0.5vw;
 }
@@ -60,7 +64,7 @@ nz-layout {
     margin-top: 1vh;
     .header {
         display:flex;
-        justify-content:space-between; 
+        justify-content:space-between;
         align-items:center;
     }
 }
