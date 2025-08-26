@@ -19,13 +19,13 @@ import {NzMessageService} from 'ng-zorro-antd/message';
   selector: 'app-teammate-drawer',
   imports: [NzDrawerModule, NzCardModule, NzTagModule, FormsModule, CommonModule,
     NzProgressModule, NzDividerModule, NzFlexModule, NzSelectModule, NzIconModule, CommonModule,
-    NzTableModule, NzImageModule],
+    NzTableModule, NzImageModule,],
   templateUrl: './teammate-drawer.html',
   styleUrl: './teammate-drawer.less'
 })
 export class TeammateDrawerComponent {
   ngOnInit() {
-    this.userUpdate = { ...this.user()! };
+    this.userUpdate = { ...this.user() };
   }
   isVisible = input.required();
   user = input.required<User>();

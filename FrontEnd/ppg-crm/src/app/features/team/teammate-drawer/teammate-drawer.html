@@ -22,12 +22,12 @@
           <div>
             <h2>
               <!-- Name -->
-              <span *ngIf="!isEditingName">{{user()?.firstName + ' ' + user()?.lastName}}</span>
+              <span *ngIf="!isEditingName">{{userUpdate.firstName + ' ' + userUpdate.lastName}}</span>
               <input
                 *ngIf="isEditingName"
                 #nameInput
                 type="text"
-                [(ngModel)]="userUpdate.firstName!"
+                [(ngModel)]="userUpdate.firstName"
                 (keyup.enter)="finishEditingTeammateField('name')"
                 (keyup.escape)="finishEditingTeammateField('name')"
               />
@@ -44,13 +44,13 @@
               <nz-divider nzType="vertical"></nz-divider>
 
               <!-- Username -->
-              <span style="color:#767676;" *ngIf="!isEditingUsername">{{user()?.username}}</span>
+              <span style="color:#767676;" *ngIf="!isEditingUsername">{{userUpdate.username}}</span>
               <input
                 *ngIf="isEditingUsername"
                 #usernameInput
                 type="text"
                 value="Username123"
-                [(ngModel)]="userUpdate.username!"
+                [(ngModel)]="userUpdate.username"
                 (keyup.enter)="finishEditingTeammateField('username')"
                 (keyup.escape)="finishEditingTeammateField('username')"
                 class="edit-input"
@@ -59,23 +59,52 @@
             </h2>
 
             <!-- Editable ROLE + RATE -->
-            <h3 style="font-weight: normal;">
-              <span *ngIf="!isEditingRole">{{user()?.role}}</span>
-              <input
-                *ngIf="isEditingRole"
-                #roleInput
-                [(ngModel)]="userUpdate.role!"
-                type="text"
-                (keyup.enter)="finishEditingTeammateField('role')"
-                (keyup.escape)="finishEditingTeammateField('role')"
-                class="edit-input"
-              />
-
-              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('role')"></nz-icon>
-
+              <nz-select *ngIf="userUpdate" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
+                         [(ngModel)]="userUpdate.role" (ngModelChange)="finishEditingTeammateField('role')">
+                <nz-option nzCustomContent nzLabel="Admin" nzValue="Admin">
+                  <div style="display: flex; align-items: center; gap: 4px;">
+                    <nz-icon>
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="7.60714" height="8" rx="2" fill="#2679ff"/>
+                      </svg>
+                    </nz-icon>
+                    Admin
+                  </div>
+                </nz-option>
+                <nz-option nzCustomContent nzLabel="GIP" nzValue="GIP">
+                  <div style="display: flex; align-items: center; gap: 4px;">
+                    <nz-icon>
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="7.60714" height="8" rx="2" fill="#FF9800"/>
+                      </svg>
+                    </nz-icon>
+                    GIP
+                  </div>
+                </nz-option>
+                <nz-option nzCustomContent nzLabel="Employee" nzValue="Employee">
+                  <div style="display: flex; align-items: center; gap: 4px;">
+                    <nz-icon>
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+                      </svg>
+                    </nz-icon>
+                    Employee
+                  </div>
+                </nz-option>
+              </nz-select>
+              <ng-template #defaultTemplate let-selected>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <nz-icon>
+                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+                    </svg>
+                  </nz-icon>
+                  {{ selected.nzLabel }}
+                </div>
+              </ng-template>
               <nz-divider nzType="vertical"></nz-divider>
 
-              <span style="color:green;" *ngIf="!isEditingRate">{{user()?.salary}}</span>
+              <span style="color:green;" *ngIf="!isEditingRate">{{userUpdate.salary}}</span>
               <input
                 *ngIf="isEditingRate"
                 #rateInput
@@ -87,14 +116,13 @@
               />
               <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('rate')"></nz-icon>
               per life
-            </h3>
           </div>
 
           <!-- Editable CONTACTS -->
           <div class="info-container">
             <!-- Phone -->
             <p>
-              <span *ngIf="!isEditingPhone">{{user()?.phone}}</span>
+              <span *ngIf="!isEditingPhone">{{userUpdate.phone}}</span>
               <input
                 *ngIf="isEditingPhone"
                 #phoneInput
@@ -109,7 +137,7 @@
 
             <!-- Email -->
             <p>
-              <span *ngIf="!isEditingEmail">{{user()?.email}}</span>
+              <span *ngIf="!isEditingEmail">{{userUpdate.email}}</span>
               <input
                 *ngIf="isEditingEmail"
                 #emailInput
