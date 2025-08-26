@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
@@ -37,7 +37,25 @@ identityService = inject(IdentityService)
 router = inject(Router)
 message = inject(NzMessageService);
 
-isVisible = false;
+  selectedUser = signal<User | null>(null);
+
+  setUser = (user: User) => {
+    console.log('Selected user:', user);
+    this.selectedUser.set(user);
+    this.openTeamDrawer();
+  };
+
+  public teamDrawerVisible = signal(false);
+
+  openTeamDrawer = () => {
+    console.log('Opening team drawer');
+    this.teamDrawerVisible.set(true)
+  };
+  closeTeamDrawer = () => {
+    this.teamDrawerVisible.set(false)
+    this.selectedUser.set(null)
+  };
+  isVisible = false;
 isOkDisabled = true;
 selectedValue = null;
 newClientName = '';

@@ -23,12 +23,15 @@ import {UserService} from '../../../core/auth/data/services/user-service';
   styleUrl: './teammate-drawer.less'
 })
 export class TeammateDrawerComponent {
+  ngOnInit() {
+    this.userUpdate = { ...this.user()! };
+  }
   isVisible = input.required();
-  user = input.required<User | null>();
-  userUpdate = this.user()!;
+  user = input.required<User>();
+  userUpdate!: User;
   userService = inject(UserService);
 
-  @Output() closed = new EventEmitter<void>();
+  teamDrawerClosed = input.required<() => void>();
 
   isEditingName = false;
   isEditingUsername = false;
@@ -37,7 +40,7 @@ export class TeammateDrawerComponent {
   isEditingPhone = false;
   isEditingEmail = false;
   handleClose() {
-    this.closed.emit();
+    this.teamDrawerClosed();
   }
   startEditingTeammateField(field: string) {
     if (field === 'name') {

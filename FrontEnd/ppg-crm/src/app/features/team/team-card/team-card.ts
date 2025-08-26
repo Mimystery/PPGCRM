@@ -15,11 +15,11 @@ import { User } from '../../../core/auth/data/interfaces/user.interface';
   styleUrl: './team-card.less'
 })
 export class TeamCardComponent {
-  user = input.required<User | null>();
+  user = input.required<User>();
+  setUser = input.required<(user: User) => void>();
 
-  public teamDrawerVisible = signal(false);
-
-  openTeamDrawer = () => this.teamDrawerVisible.set(true);
-  closeTeamDrawer = () => this.teamDrawerVisible.set(false);
-
+  onTeamCardClicked(){
+    console.log('Team card clicked:', this.user());
+    this.setUser()!(this.user()!);
+  }
 }

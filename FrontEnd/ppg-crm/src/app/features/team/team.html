@@ -55,7 +55,7 @@
 @if(users){
   <div class="flex-table">
     @for (user of users; track user.userId) {
-      <app-team-card [user]="user || null"></app-team-card>
+      <app-team-card [setUser]="setUser" [user]="user"></app-team-card>
     }
   </div>
 }@else {
@@ -66,4 +66,6 @@
 ** ЗМІННУ ЯКА Б ДИВИЛАСЬ НА ЯКУ КАРТОЧКУ НАЖАВ КЕНТАФАРІК І ТОДІ ВИСОВУВАТИ ДРОВЕР З ЦИМ ТІПОМ
 TODO: VOT TUT BUDE KRASHYTY YA ZNAYU. dA ZAPUSHYV Z BAHAMY KRCH NADA ZROBYTY SIGNAL CHY
 -->
-<!-- <app-teammate-drawer [user]="user() || null" [isVisible]="teamDrawerVisible()" (closed)="closeTeamDrawer()"></app-teammate-drawer> -->
+@if (selectedUser() != null) {
+  <app-teammate-drawer [user]="selectedUser()!" [isVisible]="teamDrawerVisible()" [teamDrawerClosed]="closeTeamDrawer"></app-teammate-drawer>
+}
