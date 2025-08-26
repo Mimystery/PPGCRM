@@ -79,9 +79,8 @@
         </table>
       </nz-collapse-panel>
     </nz-collapse>
-    @if (selectedProcess()!=null){
-      <app-process-drawer [isVisible]="processDrawerVisible()" [process]="selectedProcess()!" (close)="closeProcessDrawer()"></app-process-drawer>
-    }
+    
+    <app-process-drawer [isVisible]="processDrawerVisible()" [process]="selectedProcess()!" (close)="closeProcessDrawer()"></app-process-drawer>
 
     <!--- STAGES CARD  HEADER-->
     <ng-template #stagesCard>
