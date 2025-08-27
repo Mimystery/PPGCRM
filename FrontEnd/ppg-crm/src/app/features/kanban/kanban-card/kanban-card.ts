@@ -1,17 +1,17 @@
-import { Component, ElementRef, inject, input, ViewChild } from '@angular/core';
-import { NzButtonModule } from "ng-zorro-antd/button";
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { ProcessCardComponent } from "./process-card/process-card";
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzEmptyModule } from 'ng-zorro-antd/empty';
-import { FormsModule } from '@angular/forms';
-import { Stage } from '../data/interfaces/stage.interface';
-import { CommonModule } from '@angular/common';
-import { StagesService } from '../data/services/stages-service';
-import { ProcessesService } from '../data/services/processes-service';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzInputModule } from 'ng-zorro-antd/input';
+import {Component, ElementRef, inject, input, ViewChild} from '@angular/core';
+import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {ProcessCardComponent} from "./process-card/process-card";
+import {NzCardModule} from 'ng-zorro-antd/card';
+import {NzEmptyModule} from 'ng-zorro-antd/empty';
+import {FormsModule} from '@angular/forms';
+import {Stage} from '../data/interfaces/stage.interface';
+import {CommonModule} from '@angular/common';
+import {StagesService} from '../data/services/stages-service';
+import {ProcessesService} from '../data/services/processes-service';
+import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzModalModule} from 'ng-zorro-antd/modal';
+import {NzInputModule} from 'ng-zorro-antd/input';
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ProcessDetails} from '../data/interfaces/process.interface';
 
@@ -118,6 +118,13 @@ export class KanbanCardComponent {
         event.previousIndex,
         event.currentIndex,
       );
+      let movedProcess = event.container.data[event.currentIndex];
+      movedProcess.stageId = event.container.id;
+      this.processesService.updateProcess(movedProcess.processId, movedProcess)
+        .subscribe({
+          complete: () => this.message.success('Data updated!'),
+          error: () => this.message.error('Error updating')
+        });
     }
   }
 }
