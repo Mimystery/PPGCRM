@@ -26,6 +26,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { debounceTime, Subject } from 'rxjs';
 import { ProcessesService } from '../../../kanban/data/services/processes-service';
 import {TasksService} from './data/services/tasks-service';
+import { Task } from './data/interfaces/task.interface';
 
 @Component({
   selector: 'app-process-drawer',
@@ -43,7 +44,7 @@ export class ProcessDrawerComponent {
   processesService = inject(ProcessesService)
 
   isVisible  = input.required<boolean>();
-  process = input.required<ProcessDetails | null>();
+  process = input.required<ProcessDetails>();
 
   createNewTaskModalVisible = false;
   createNewTaskModalOkDisabled = true;
@@ -174,6 +175,26 @@ private notesInitialized = false;
   @ViewChild('notDoneReasons') notDoneReasonsInput!: ElementRef<HTMLInputElement>;
 
   dropdownVisible = false;
+
+  onTaskDeleteClick(task: Task){
+    //console.log(task.taskId)
+
+    this.process().tasks = this.process().tasks.filter(t => t.taskId !== task.taskId)
+
+    this.tasksService.removeTask(task.taskId).subscribe({
+        next: () => this.message.success('Task removed!'),
+        error: () => this.message.error('Error updating')
+      });
+  }
+
+  onCheckBoxClick(task: Task){
+    this.tasksService.updateTask(task.taskId, task.taskName, task.isDone)
+    .subscribe({
+      next: () => this.message.success('Task updated!'),
+      error: () => this.message.error('Error updating')
+    });
+  }
+
   onUserSelect(user: User){
     this.process()?.responsibleUsers.push(user)
 

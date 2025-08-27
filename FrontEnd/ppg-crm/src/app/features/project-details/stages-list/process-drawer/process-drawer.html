@@ -218,13 +218,16 @@
           </thead>
 
           <tbody>
-            @for (data of basicTable.data; track data) {
+            @for (data of basicTable.data; track data.taskId) {
               <tr>
                 <td>{{ data.taskName }}</td>
                 <td>
-                  <a> — </a>
+                  <a (click)="onTaskDeleteClick(data)"> — </a>
                   <nz-divider nzType="vertical"></nz-divider>
-                  <label nz-checkbox [(ngModel)]="data.isDone"></label>
+                  <label 
+                    nz-checkbox 
+                    [(ngModel)]="data.isDone"
+                    (ngModelChange)="onCheckBoxClick(data)"></label>
                 </td>
               </tr>
             }

@@ -13,8 +13,13 @@ export class TasksService {
     return this.http.post<Task>(`https://localhost:7189/api/Tasks/AddTaskByProcessId/${processId}`, taskCreateBody);
   }
 
-  removeTask(){
+  updateTask(taskId: string, taskNewName: string, taskNewIsDone: boolean){
+    const body = {taskName: taskNewName, isDone: taskNewIsDone}
+    return this.http.put(`https://localhost:7189/api/Tasks/UpdateTaskById/${taskId}`, body)
+  }
 
+  removeTask(taskId: string){
+    return this.http.delete(`https://localhost:7189/api/Tasks/DeleteTaskById/${taskId}`)
   }
 
 }
