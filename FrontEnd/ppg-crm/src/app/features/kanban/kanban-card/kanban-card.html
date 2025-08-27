@@ -18,6 +18,7 @@
   class="card kanban"
   [nzTitle]="stageCardTitle"
   [nzBodyStyle]="{ padding: '1vh 0.25vw', backgroundColor: '#E5E5E5' }"
+
 >
   <ng-template #stageCardTitle>
     <div class="card-title">
@@ -58,7 +59,11 @@
   </ng-template>
 
   <!-- Processes -->
-  <div class="card-info-container kanban">
+  <div class="card-info-container kanban" [id]="stage().stageId"
+       [cdkDropListConnectedTo]="stagesIDs()"
+       [cdkDropListData]="stage().processes"
+       (cdkDropListDropped)="processCardDrop($event)"
+       cdkDropList>
     @for (process of stage().processes; track process.processId!) {
       <app-process-card [process]="process"></app-process-card>
     } @empty {

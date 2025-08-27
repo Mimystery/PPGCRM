@@ -1,4 +1,6 @@
-<nz-card class="card process">
+<nz-card class="card process"
+         [nzBodyStyle]="{padding:'1vh 0.25vw'}"
+         cdkDrag>
     <div class="card-title">
         <span>{{process()!.processName || 'No process'}}</span>
        <!-- <nz-icon nzType="user" nzTheme="outline" /> -->
@@ -18,5 +20,4 @@
       <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> {{process()!.factEndDate}} </nz-card>
     </div>
   </div>
-
 </nz-card>

@@ -22,7 +22,8 @@ export class KanbanComponent {
   isOkButtonInCreateStageModalDisabled = true;
   newStageName = '';
 
-  stages: Stage[] = []; 
+  stages: Stage[] = [];
+  stagesIDs: string[] = [];
 
   stagesService = new StagesService();
   selectedProjectService = inject(SelectedProjectService)
@@ -30,6 +31,7 @@ export class KanbanComponent {
   constructor() {
     this.stagesService.getStages().subscribe(val => {
       this.stages = val
+      this.stagesIDs = val.map(stage => stage.stageId);
     })
   }
 

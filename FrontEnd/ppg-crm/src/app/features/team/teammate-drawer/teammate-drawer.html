@@ -24,6 +24,7 @@
               <!-- Name -->
               <span *ngIf="!isEditingName">{{userUpdate.firstName + ' ' + userUpdate.lastName}}</span>
               <input
+                class="edit-input"
                 nz-input
                 *ngIf="isEditingName"
                 #nameInput
@@ -33,6 +34,7 @@
                 (keyup.escape)="finishEditingTeammateField('name')"
               />
               <input
+                class="edit-input"
                 nz-input
                 *ngIf="isEditingName"
                 #nameInput

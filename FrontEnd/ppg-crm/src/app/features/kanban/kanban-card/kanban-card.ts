@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, input, ViewChild } from '@angular/core';
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { ProcessCardComponent } from "../process-card/process-card";
+import { ProcessCardComponent } from "./process-card/process-card";
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,8 @@ import { ProcessesService } from '../data/services/processes-service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {ProcessDetails} from '../data/interfaces/process.interface';
 
 @Component({
   selector: 'app-kanban-card',
@@ -24,13 +26,16 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     FormsModule,
     CommonModule,
     NzModalModule,
-    NzInputModule
+    NzInputModule,
+    CdkDropList,
+    CdkDrag
   ],
   templateUrl: './kanban-card.html',
   styleUrl: './kanban-card.less'
 })
 export class KanbanCardComponent {
   public stage = input.required<Stage>();
+  public stagesIDs = input.required<string[]>();
   message = inject(NzMessageService);
   stagesService = inject(StagesService);
   processesService = inject(ProcessesService);
@@ -101,5 +106,18 @@ export class KanbanCardComponent {
 
   checkIfNewProcessNameEmpty() {
     this.createNewProcessModalOkDisabled = this.createNewProcessName.trim() === '';
+  }
+
+  processCardDrop(event: CdkDragDrop<ProcessDetails[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 }

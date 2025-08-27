@@ -65,6 +65,4 @@
 <!--
 TODO: ZDELAV
 -->
-@if (selectedUser() != null) {
   <app-teammate-drawer [user]="selectedUser()!" [isVisible]="teamDrawerVisible()" (teamDrawerClosed)="closeTeamDrawer()"></app-teammate-drawer>
-}
