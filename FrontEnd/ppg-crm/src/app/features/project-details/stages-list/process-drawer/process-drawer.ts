@@ -154,6 +154,12 @@ private notesInitialized = false;
     }
   }
 
+  get sortedTasks() {
+  return this.process()?.tasks
+    ?.slice()
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+}
+
   get availableUsers(): User[] {
   const responsible = this.process()?.responsibleUsers ?? [];
   return this.users.filter(u => !responsible.some(r => r.userId === u.userId));

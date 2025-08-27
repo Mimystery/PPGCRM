@@ -21,6 +21,7 @@ public class TasksRepository : ITasksRepository
     {
         var tasks = await _context.Tasks
             .Where(t => t.ProcessId == processId)
+            .OrderByDescending(t => t.CreatedAt)
             .ToListAsync();
             
         return _mapper.Map<List<TaskModel>>(tasks);

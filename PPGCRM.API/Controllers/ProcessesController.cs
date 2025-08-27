@@ -48,7 +48,7 @@ public class ProcessesController : ControllerBase
     }
 
     [HttpPost("AddResponsibleUser/{processId}/{userId}")]
-    public async Task<ActionResult> AddResponsibleUser(Guid processId, [FromBody] Guid userId)
+    public async Task<ActionResult> AddResponsibleUser(Guid processId, Guid userId)
     {
         await _processesService.AddResponsibleUserAsync(processId, userId);
         return Ok();

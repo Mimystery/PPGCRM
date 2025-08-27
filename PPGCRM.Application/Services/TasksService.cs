@@ -26,6 +26,7 @@ public class TasksService : ITasksService
             Guid.NewGuid(),
             processId,
             taskCreate.TaskName,
+            DateTime.UtcNow,
             taskCreate.IsDone
         );
         await _tasksRepository.AddTaskByProcessIdAsync(taskModel);

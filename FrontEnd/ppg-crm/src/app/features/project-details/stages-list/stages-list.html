@@ -49,7 +49,7 @@
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
                 <div class="card-info-item">
                   <span class="card-info-label">End Date: </span>
-                  <span style="font-weight: 600;">{{ process.planEndDate }}</span>
+                  <span style="font-weight: 600;">{{ process.planEndDate | date:'dd.MM.yyyy' }}</span>
                 </div>
               </td>
 
@@ -80,7 +80,7 @@
       </nz-collapse-panel>
     </nz-collapse>
 
-    <app-process-drawer [isVisible]="processDrawerVisible()" [process]="selectedProcess()!" (close)="closeProcessDrawer()"></app-process-drawer>
+    <app-process-drawer [isVisible]="processDrawerVisible()" [process]="selectedProcess()" (close)="closeProcessDrawer()"></app-process-drawer>
 
 
     <!--- STAGES CARD  HEADER-->
