@@ -27,6 +27,7 @@ import { debounceTime, Subject } from 'rxjs';
 import { ProcessesService } from '../../../kanban/data/services/processes-service';
 import {TasksService} from './data/services/tasks-service';
 import { Task } from './data/interfaces/task.interface';
+import { ProjectUserService } from '../../data/services/project-user-service';
 
 @Component({
   selector: 'app-process-drawer',
@@ -40,6 +41,7 @@ import { Task } from './data/interfaces/task.interface';
 })
 export class ProcessDrawerComponent {
   usersService = inject(UserService)
+  projectUsersService = inject(ProjectUserService)
   message = inject(NzMessageService);
   processesService = inject(ProcessesService)
 
@@ -203,6 +205,8 @@ private notesInitialized = false;
         next: () => this.message.success('User added!'),
         error: () => this.message.error('Error updating')
       });
+
+    this.projectUsersService.addUser(user)
     //4eddde59-44f5-437a-9e80-7a6671a991b2 process
     //bf18146a-1df8-4eb9-b2af-6820107d7d72 stage
     //bd385c97-42ae-4098-8a35-3489945c299e user
@@ -219,6 +223,7 @@ private notesInitialized = false;
         next: () => this.message.success('User removed!'),
         error: () => this.message.error('Error updating')
       })
+      this.projectUsersService.removeUser(user.userId);
   }
   }
 

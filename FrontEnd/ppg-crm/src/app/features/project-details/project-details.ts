@@ -24,6 +24,7 @@ import { ClientsService } from '../clients/data/services/clients-service';
 import { ClientProjectCard } from '../clients/data/interfaces/client-card-in-project-details.interface';
 import { ClientCardData } from '../clients/data/interfaces/client-card-data';
 import {User} from '../../core/auth/data/interfaces/user.interface';
+import { ProjectUserService } from './data/services/project-user-service';
 
 @Component({
   selector: 'app-project-details',
@@ -37,6 +38,7 @@ import {User} from '../../core/auth/data/interfaces/user.interface';
 export class ProjectDetailsComponent {
   selectedProjectService = inject(SelectedProjectService)
   projectDetailsService = inject(ProjectDetailsService)
+  projectUsersSerivce = inject(ProjectUserService)
   clientsService = inject(ClientsService)
   message = inject(NzMessageService);
 
@@ -69,6 +71,8 @@ export class ProjectDetailsComponent {
           }
           console.log(typeof this.projectResponsibleUsers);
           console.log(this.project)
+
+          this.projectUsersSerivce.setUsers(this.projectResponsibleUsers)
         },
         error: (error) => {
           console.error(error);
@@ -76,7 +80,13 @@ export class ProjectDetailsComponent {
       })
 
     this.clientsService.getClients().subscribe(val => this.clients = val)
+
+    this.projectUsersSerivce.users$.subscribe(users => {
+      this.projectResponsibleUsers = users;
+      console.log("Updated:", users);
+    })
   }
+
   dropdownVisible = false;
   onClientSelect(clientData: ClientCardData) {
 
