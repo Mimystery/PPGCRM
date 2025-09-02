@@ -189,7 +189,18 @@ private notesInitialized = false;
       });
   }
 
+  get progressPercent(): number {
+    const process = this.process();
+    if(!process || !process.tasks || process.tasks.length === 0){
+      return 0;
+    }
+
+    const doneCount = process.tasks.filter(t => t.isDone).length;
+    return Math.round((doneCount / process.tasks.length) * 100);
+  }
+
   onCheckBoxClick(task: Task){
+    //task.isDone = !task.isDone;
     this.tasksService.updateTask(task.taskId, task.taskName, task.isDone)
     .subscribe({
       next: () => this.message.success('Task updated!'),

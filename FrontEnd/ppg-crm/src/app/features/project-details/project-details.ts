@@ -83,7 +83,6 @@ export class ProjectDetailsComponent {
 
     this.projectUsersSerivce.users$.subscribe(users => {
       this.projectResponsibleUsers = users;
-      console.log("Updated:", users);
     })
   }
 
