@@ -64,14 +64,22 @@ export class ProjectDetailsComponent {
       .subscribe({
         next: (val) => {
           this.project = val;
+
+          const uniqueUsers: User[] = [];
+
           for (let stage of this.project?.stages!) {
             for (let process of stage.processes){
-              this.projectResponsibleUsers =  [...this.projectResponsibleUsers, ...process.responsibleUsers];
               process.factEndDate = process.factEndDate ? new Date(process.factEndDate) : null;
+              for(let user of process.responsibleUsers){
+                if(!uniqueUsers.some(u => u.userId === user.userId)){
+                  uniqueUsers.push(user);
+                }
+              }
             }
           }
           console.log(typeof this.projectResponsibleUsers);
           console.log(this.project)
+          this.projectResponsibleUsers = uniqueUsers
 
           this.projectUsersSerivce.setUsers(this.projectResponsibleUsers)
         },
