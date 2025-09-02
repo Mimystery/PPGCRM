@@ -5,9 +5,9 @@ export interface ProcessDetails {
     processId: string;
     stageId: string;
     processName: string;
-    startDate: string;
-    planEndDate: string;
-    factEndDate: string;
+    startDate: Date | null;
+    planEndDate: Date | null;
+    factEndDate: Date | null;
     notes: string;
     notDoneReasons: string;
     problems: string;

@@ -67,6 +67,7 @@ export class ProjectDetailsComponent {
           for (let stage of this.project?.stages!) {
             for (let process of stage.processes){
               this.projectResponsibleUsers =  [...this.projectResponsibleUsers, ...process.responsibleUsers];
+              process.factEndDate = process.factEndDate ? new Date(process.factEndDate) : null;
             }
           }
           console.log(typeof this.projectResponsibleUsers);
