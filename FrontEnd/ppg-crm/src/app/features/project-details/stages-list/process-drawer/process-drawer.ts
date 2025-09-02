@@ -196,7 +196,17 @@ private notesInitialized = false;
     }
 
     const doneCount = process.tasks.filter(t => t.isDone).length;
-    return Math.round((doneCount / process.tasks.length) * 100);
+    const percent = Math.round((doneCount / process.tasks.length) * 100);
+
+    if (percent === 100 && process.status !== 'Done'){
+      process.status = 'Done';
+      this.finishEditing('status');
+    }else if (percent < 100 && process.status === 'Done'){
+      process.status = 'InProgress';
+      this.finishEditing('status')
+    }
+
+    return percent;
   }
 
   onCheckBoxClick(task: Task){
