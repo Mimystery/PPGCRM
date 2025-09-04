@@ -25,6 +25,7 @@ import { ClientProjectCard } from '../clients/data/interfaces/client-card-in-pro
 import { ClientCardData } from '../clients/data/interfaces/client-card-data';
 import {User} from '../../core/auth/data/interfaces/user.interface';
 import { ProjectUserService } from './data/services/project-user-service';
+import { CalculateSalaryService } from './data/services/calculate-salary-service';
 
 @Component({
   selector: 'app-project-details',
@@ -40,6 +41,7 @@ export class ProjectDetailsComponent {
   projectDetailsService = inject(ProjectDetailsService)
   projectUsersSerivce = inject(ProjectUserService)
   clientsService = inject(ClientsService)
+  salaryService = inject(CalculateSalaryService)
   message = inject(NzMessageService);
 
   project: ProjectDetails | null = null;
@@ -121,6 +123,17 @@ export class ProjectDetailsComponent {
    @ViewChild('budgetInput') budgetInput!: ElementRef<HTMLInputElement>;
    @ViewChild('expensesInput') expensesInput!: ElementRef<HTMLInputElement>;
    @ViewChild('descriptionInput') descriptionInput!: ElementRef<HTMLInputElement>;
+
+  getProjectTotalExpenses(): number {
+    if(!this.project || !this.project.stages){
+      return 0;
+    }
+
+    return this.project.stages
+    .flatMap(stage => stage.processes || [])
+    .map(process => this.salaryService.getTotalSalary(process))
+    .reduce((sum, salary) => sum + salary, 0);
+  }
 
   getProjectProgress(project: ProjectDetails | null){
     if (!project || !project.stages) {

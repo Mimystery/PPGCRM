@@ -29,6 +29,7 @@ import {TasksService} from './data/services/tasks-service';
 import { Task } from './data/interfaces/task.interface';
 import { ProjectUserService } from '../../data/services/project-user-service';
 import { CalculateProgressService } from '../../data/services/calculate-progress-service';
+import { CalculateSalaryService } from '../../data/services/calculate-salary-service';
 
 @Component({
   selector: 'app-process-drawer',
@@ -46,6 +47,7 @@ export class ProcessDrawerComponent {
   message = inject(NzMessageService);
   processesService = inject(ProcessesService)
   calculateProgressService = inject(CalculateProgressService)
+  salaryService = inject(CalculateSalaryService)
 
   isVisible  = input.required<boolean>();
   process = input.required<ProcessDetails>();
@@ -180,63 +182,19 @@ private notesInitialized = false;
 
   dropdownVisible = false;
 
-  getWorkingDays (start: Date, end: Date): number {
-    const startDate = new Date(start)
-    const endDate = new Date(end)
-    let count = 0;
-
-    for(let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)){
-      const day = d.getDay();
-      if(day !== 0 && day !== 6){
-        count++;
-      }
-    }
-
-    return count;
-  }
-
-  getEffectiveEndDate(factEndDate: Date | null): Date {
-    const today = new Date();
-    let end = factEndDate || today;
-
-    const day = end.getDay();
-    if(day === 6){
-      end.setDate(end.getDate() - 1);
-    } else if (day === 0){
-      end.setDate(end.getDate() - 2);
-    }
-
-    return end;
-  }
-
-  calculateSalary(user: User, startDate: Date, factEndDate: Date | null){
-    const endDate = this.getEffectiveEndDate(factEndDate);
-    const daysWorked = this.getWorkingDays(startDate, endDate);
-
-    const dailySalary = user.salary / 22;
-    const totalSalary = dailySalary * daysWorked;
-
-    return { daysWorked, totalSalary };
-  }
-
   getUserWorkInfo(user: User){
     if(!this.process()){
       return { daysWorked: 0, totalSalary: 0 };
     }
 
-    const startDate = this.process().startDate;
-    const factEndDate = this.process().factEndDate;
-
-    return this.calculateSalary(user, startDate!, factEndDate);
+    return this.salaryService.calculateSalary(user, this.process().startDate!, this.process().factEndDate);
   }
 
   getTotalSalary(): number {
-  if (!this.process() || !this.process().responsibleUsers) return 0;
+    if (!this.process() || !this.process().responsibleUsers) return 0;
 
-  return this.process().responsibleUsers
-    .map(user => this.getUserWorkInfo(user).totalSalary)
-    .reduce((sum, salary) => sum + salary, 0);
-}
+    return this.salaryService.getTotalSalary(this.process())
+  }
 
   onTaskDeleteClick(task: Task){
     //console.log(task.taskId)

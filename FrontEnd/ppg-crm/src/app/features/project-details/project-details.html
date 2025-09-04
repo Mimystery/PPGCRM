@@ -138,7 +138,7 @@
                   class="edit-icon"
                   (click)="startEditingDetailsField('budget')"/>
                 </span>
-                <span *ngIf="!isEditingBudget">{{ project?.budget }}$</span>
+                <span *ngIf="!isEditingBudget">{{ project?.budget | currency}}</span>
                 <!-- input при редактировании -->
                 <input
                   nz-input
@@ -166,7 +166,7 @@
                   nzTheme="outline"
                   class="edit-icon"
                   (click)="startEditingDetailsField('expenses')"/></span>
-                <span *ngIf="!isEditingExpenses">{{ project?.expenses }}$</span>
+                <span *ngIf="!isEditingExpenses">{{ getProjectTotalExpenses() | currency}}</span>
                 <!-- input при редактировании -->
                 <input
                   nz-input
