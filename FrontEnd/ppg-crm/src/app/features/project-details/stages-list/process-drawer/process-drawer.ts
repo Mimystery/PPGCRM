@@ -30,6 +30,7 @@ import { Task } from './data/interfaces/task.interface';
 import { ProjectUserService } from '../../data/services/project-user-service';
 import { CalculateProgressService } from '../../data/services/calculate-progress-service';
 import { CalculateSalaryService } from '../../data/services/calculate-salary-service';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 @Component({
   selector: 'app-process-drawer',
@@ -37,7 +38,7 @@ import { CalculateSalaryService } from '../../data/services/calculate-salary-ser
     NzSpaceModule, NzIconModule, NzInputModule, FormsModule, NzModalModule, CommonModule,
     NzCardModule, NzProgressModule, NzLayoutModule, NzTagModule, NzFlexModule, NzTableModule,
     NzSpaceModule, NzCheckboxModule, NzDividerComponent, NzOptionComponent, NzSelectModule,
-    NzDatePickerModule],
+    NzDatePickerModule, NzPopconfirmModule],
   templateUrl: './process-drawer.html',
   styleUrl: './process-drawer.less'
 })
@@ -57,6 +58,22 @@ export class ProcessDrawerComponent {
   createNewTaskName = '';
 
   tasksService = inject(TasksService);
+
+  @Output() deleted = new EventEmitter<string>();
+
+  confirmDelete(){
+    this.processesService.deleteProcess(this.process().processId).subscribe({
+      next: val => {
+        this.message.success('ProcessDeleted!');
+        this.deleted.emit(this.process().processId);
+        this.handleClose();
+        
+      },
+      error: (err) => {
+        this.message.error('Ошибка при обновлении данных: ', err.message)
+      }
+    })
+  }
 
   checkIfNewTaskNameEmpty() {
     this.createNewTaskModalOkDisabled = this.createNewTaskName.trim() === '';

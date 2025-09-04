@@ -24,6 +24,7 @@ namespace PPGCRM.Core.Models
             ProcessStatus? status, // e.g., "In Progress", "Completed", "On Hold"
             int? progress, // Percentage from 0 to 100
             decimal? totalProcessCost,
+            DateTime createdAt,
             List<TaskModel>? tasks, 
             List<UserMainCardDTO>? responsibleUsers) 
         {
@@ -40,6 +41,7 @@ namespace PPGCRM.Core.Models
             Status = status;
             Progress = progress;
             TotalProcessCost = totalProcessCost;
+            CreatedAt = createdAt;
             Tasks = tasks?.AsReadOnly() ?? new List<TaskModel>().AsReadOnly();
             ResponsibleUsers = responsibleUsers?.AsReadOnly() ?? new List<UserMainCardDTO>().AsReadOnly();
         }
@@ -56,7 +58,8 @@ namespace PPGCRM.Core.Models
         public int? SortOrder { get; }
         public ProcessStatus? Status { get; } // e.g., "In Progress", "Completed", "On Hold"
         public int? Progress { get; } // Percentage from 0 to 100
-        public decimal? TotalProcessCost { get; } 
+        public decimal? TotalProcessCost { get; }
+        public DateTime CreatedAt { get; }
         public IReadOnlyList<TaskModel>? Tasks { get; }
         public IReadOnlyList<UserMainCardDTO>? ResponsibleUsers { get; } 
     }

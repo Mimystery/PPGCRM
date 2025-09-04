@@ -50,6 +50,7 @@ namespace PPGCRM.Application.Services
                 processCreate.Status, // status
                 null, // progress
                 null, // totalProcessCost
+                DateTime.UtcNow, // createdAt
                 new List<TaskModel>(), // tasks
                 new List<UserMainCardDTO>() // responsibleUsers
             );

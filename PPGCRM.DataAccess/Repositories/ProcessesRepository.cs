@@ -28,6 +28,7 @@ namespace PPGCRM.DataAccess.Repositories
                 .Where(p => p.StageId == stageId)
                 .Include(p => p.Tasks)
                 .Include(p => p.ResponsibleUsers)
+                .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
             
             return _mapper.Map<List<ProcessModel>>(processes);

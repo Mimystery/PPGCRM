@@ -32,4 +32,8 @@ export class ProcessesService {
   removeResponsibleUser(userId: string, processId: string){
     return this.http.delete(`https://localhost:7189/api/Processes/RemoveResponsibleUser/${processId}/${userId}`)
   }
+
+  deleteProcess(processId: string){
+    return this.http.delete(`https://localhost:7189/api/Processes/DeleteProcess/${processId}`)
+  }
 }

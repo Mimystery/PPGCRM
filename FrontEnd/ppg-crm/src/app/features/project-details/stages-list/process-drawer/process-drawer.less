@@ -39,6 +39,19 @@ nz-layout {
 .process-details-sider {
     padding: 1vh 0.5vw;
     background-color: #E4E6EA;
+
+    position: relative; /* обязательно, чтобы absolute работал внутри */
+}
+
+.sider-footer {
+  position: absolute;
+  bottom: 20px;
+  width: 95%;
+
+  .btn.delete{
+    width: 100%;
+  }
+
 }
 
 .total-row th {
@@ -97,5 +110,6 @@ nz-layout {
       &:hover {
         color: #b3b3b3;
       }
-    }
+}
+
 

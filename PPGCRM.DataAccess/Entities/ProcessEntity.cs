@@ -24,6 +24,7 @@ namespace PPGCRM.DataAccess.Entities
         public string Status { get; set; } // e.g., "In Progress", "Completed", "On Hold"
         public int Progress { get; set; } // Percentage from 0 to 100
         public decimal TotalProcessCost { get; set; } = 0;
+        public DateTime CreatedAt { get; set; }
         public List<TaskEntity> Tasks { get; set; }
         public List<UserEntity> ResponsibleUsers { get; set; }
     }

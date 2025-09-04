@@ -33,6 +33,12 @@ export class StagesListComponent {
     
   }
 
+  onProcessDeleted(processId: string) {
+  for (let stage of this.stages()!) {
+    stage.processes = stage.processes.filter(p => p.processId !== processId);
+  }
+}
+
   getStageEndDate(stage: Stage): Date | null{
     if(!stage || !stage.processes || stage.processes.length === 0) {
       return null

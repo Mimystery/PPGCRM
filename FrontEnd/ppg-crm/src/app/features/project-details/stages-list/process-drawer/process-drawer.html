@@ -240,7 +240,7 @@
 
       <!--SIDER-->
       <nz-sider nzTheme="light" class="process-details-sider" nzWidth="20vw">
-        <div class="container">
+        <div class="sider-content">
         <h3>STATUS</h3>
         <nz-select *ngIf="process()" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
           style="width: 100%;" [(ngModel)]="process()!.status" (ngModelChange)="finishEditing('status')">
@@ -416,6 +416,18 @@
               </nz-card>
           }
         </div>
+
+        <div class="sider-footer">
+          <button nz-button nzType="primary" nzDanger class="btn delete" 
+            nz-popconfirm
+            nzPopconfirmTitle="Are you sure you want to delete this process?"
+            nzPopconfirmPlacement="topLeft"
+            (nzOnConfirm)="confirmDelete()">
+            <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+            Delete Process
+          </button>
+        </div>
+
       </nz-sider>
     </nz-layout>
   </ng-container>

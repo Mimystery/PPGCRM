@@ -80,7 +80,7 @@
       </nz-collapse-panel>
     </nz-collapse>
 
-    <app-process-drawer [isVisible]="processDrawerVisible()" [process]="selectedProcess()!" (close)="closeProcessDrawer()"></app-process-drawer>
+    <app-process-drawer (deleted)="onProcessDeleted($event)" [isVisible]="processDrawerVisible()" [process]="selectedProcess()!" (close)="closeProcessDrawer()"></app-process-drawer>
 
 
     <!--- STAGES CARD  HEADER-->
