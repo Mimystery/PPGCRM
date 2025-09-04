@@ -74,9 +74,7 @@ nz-footer {
 
 .logout {
   position: absolute;
-  bottom: 20px; /* отступ снизу */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%; /* ширина кнопки (по желанию) */
+  bottom: 20px;
+  width: 100%;
   text-align: center;
 }
