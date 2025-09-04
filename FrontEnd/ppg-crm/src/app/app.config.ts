@@ -12,7 +12,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import {
   BellOutline, MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline,
-  GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline, PlusSquareOutline
+  GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline, PlusSquareOutline,
+  LogoutOutline
 } from '@ant-design/icons-angular/icons';
 import { TokenInterceptor } from './core/auth/data/services/interceptor';
 
@@ -31,6 +32,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withInterceptors([TokenInterceptor])),
     { provide: NZ_ICONS, useValue: [BellOutline,MessageOutline, UserOutline, MailOutline, PlusOutline, HomeOutline, ProjectOutline,
-      GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline, PlusSquareOutline] }
+      GroupOutline, TeamOutline, BarChartOutline, SolutionOutline, ContainerOutline, MinusOutline, PlusSquareOutline, LogoutOutline] }
   ]
 };

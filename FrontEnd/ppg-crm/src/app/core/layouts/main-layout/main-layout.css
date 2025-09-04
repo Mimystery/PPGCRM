@@ -71,3 +71,12 @@ nz-footer {
   font-size: 14px;
   white-space: nowrap;
 }
+
+.logout {
+  position: absolute;
+  bottom: 20px; /* отступ снизу */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* ширина кнопки (по желанию) */
+  text-align: center;
+}
