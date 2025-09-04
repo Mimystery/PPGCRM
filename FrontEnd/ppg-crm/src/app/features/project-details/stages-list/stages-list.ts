@@ -1,4 +1,4 @@
-import {Component, input, signal} from '@angular/core';
+import {Component, inject, input, signal} from '@angular/core';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
@@ -11,6 +11,7 @@ import {ProcessDrawerComponent} from './process-drawer/process-drawer';
 import {Stage} from './data/interfaces/stage.interface';
 import { CommonModule } from '@angular/common';
 import { ProcessDetails } from './data/interfaces/process.interface';
+import { CalculateProgressService } from '../data/services/calculate-progress-service';
 
 @Component({
   selector: 'app-stages-list',
@@ -21,12 +22,52 @@ import { ProcessDetails } from './data/interfaces/process.interface';
   styleUrl: './stages-list.less'
 })
 export class StagesListComponent {
+  calculateProgressService = inject(CalculateProgressService)
+
   public processDrawerVisible =  signal(false);
   public stages = input.required<Stage[] | null>();
   public selectedProcess = signal<ProcessDetails | null>(null);
 
   constructor(){
     
+  }
+
+  getStageSuccessProgress(stage: Stage): number {
+    if(!stage || !stage.processes){
+      return 0
+    }
+
+    const total = stage.processes.length || 1;
+
+    const done = stage.processes.filter(p => p.status === 'Done').length;
+    return Math.round((done / total) * 100);
+  }
+
+  getStageProgress(stage: Stage): number {
+    if(!stage || !stage.processes){
+      return 0
+    }
+    // const InProgress = stage.processes.filter(p => p.status === 'InProgress').length;
+    // const done = stage.processes.filter(p => p.status === 'Done').length;
+    // const InProgressPercent = Math.round((InProgress / stage.processes.length) * 100);
+    // const DonePercent = Math.round((done / stage.processes.length) * 100);
+    // return InProgressPercent + DonePercent;
+
+    const total = stage.processes.length || 1;
+
+    const active = stage.processes.filter(p => p.status === 'InProgress' || p.status === 'Done').length;
+    return Math.round((active / total) * 100);
+  }
+
+  getProgressPercent(process: ProcessDetails): number {
+    return this.calculateProgressService.calculateProgress(process)
+  }
+
+  getProcessStatusCount(stage: Stage, status: string): number {
+    if(!stage || !stage.processes){
+      return 0
+    }
+    return stage.processes.filter(p => p.status === status).length;
   }
 
   openProcessDrawer = (process: ProcessDetails) =>{

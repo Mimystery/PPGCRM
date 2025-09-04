@@ -28,6 +28,7 @@ import { ProcessesService } from '../../../kanban/data/services/processes-servic
 import {TasksService} from './data/services/tasks-service';
 import { Task } from './data/interfaces/task.interface';
 import { ProjectUserService } from '../../data/services/project-user-service';
+import { CalculateProgressService } from '../../data/services/calculate-progress-service';
 
 @Component({
   selector: 'app-process-drawer',
@@ -44,6 +45,7 @@ export class ProcessDrawerComponent {
   projectUsersService = inject(ProjectUserService)
   message = inject(NzMessageService);
   processesService = inject(ProcessesService)
+  calculateProgressService = inject(CalculateProgressService)
 
   isVisible  = input.required<boolean>();
   process = input.required<ProcessDetails>();
@@ -249,12 +251,12 @@ private notesInitialized = false;
 
   get progressPercent(): number {
     const process = this.process();
-    if(!process || !process.tasks || process.tasks.length === 0){
+
+    if (!process) {
       return 0;
     }
 
-    const doneCount = process.tasks.filter(t => t.isDone).length;
-    const percent = Math.round((doneCount / process.tasks.length) * 100);
+    const percent = this.calculateProgressService.calculateProgress(process)
 
     if (percent === 100 && process.status !== 'Done'){
       process.status = 'Done';

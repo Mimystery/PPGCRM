@@ -122,6 +122,25 @@ export class ProjectDetailsComponent {
    @ViewChild('expensesInput') expensesInput!: ElementRef<HTMLInputElement>;
    @ViewChild('descriptionInput') descriptionInput!: ElementRef<HTMLInputElement>;
 
+  getProjectProgress(project: ProjectDetails | null){
+    if (!project || !project.stages) {
+    return { done: 0, inProgress: 0, toDo: 0, percent: 0, successPercent: 0 };
+    }
+
+    const allProcesses = project.stages.flatMap(stage => stage.processes || []);
+
+    const done = allProcesses.filter(p => p.status === 'Done').length;
+    const inProgress = allProcesses.filter(p => p.status === 'InProgress').length;
+    const toDo = allProcesses.filter(p => p.status === 'ToDo').length;
+
+    const total = allProcesses.length || 1;
+
+    const successPercent = Math.round((done / total) * 100);
+    const percent = Math.round(((done + inProgress) / total) * 100);
+
+    return { done, inProgress, toDo, percent, successPercent };
+  }
+
   startEditingDetailsField(field: string) {
   if (field === 'budget') {
       this.isEditingBudget = !this.isEditingBudget;

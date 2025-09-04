@@ -61,7 +61,7 @@
               <!-- Progress -->
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
                 <nz-progress
-                  [nzPercent]="34"
+                  [nzPercent]="getProgressPercent(process)"
                   nzStrokeColor="#7AC327"
                   [nzShowInfo]="true"
                   nzStrokeLinecap="round"
@@ -95,7 +95,7 @@
             </svg>
           </nz-icon>
 
-          <span>2 done</span>
+          <span>{{ getProcessStatusCount(stage, 'Done') }} Done</span>
         </div>
         <div class="card-status-item in-progress">
           <nz-icon>
@@ -105,7 +105,7 @@
             </svg>
           </nz-icon>
 
-          <span>5 In progress</span>
+          <span>{{ getProcessStatusCount(stage, 'InProgress') }} In progress</span>
         </div>
         <div class="card-status-item to-do">
           <nz-icon>
@@ -114,14 +114,14 @@
             </svg>
           </nz-icon>
 
-          <span>4 To do</span>
+          <span>{{ getProcessStatusCount(stage, 'ToDo') }} To do</span>
         </div>
       </div>
       <nz-progress
         nz-tooltip
         nzTooltipTitle="3 done / 3 in progress / 4 to do"
-        [nzPercent]="60"
-        [nzSuccessPercent]="30"
+        [nzPercent]="getStageProgress(stage)"
+        [nzSuccessPercent]="getStageSuccessProgress(stage)"
         nzStrokeColor="#FFA220"
         [nzStrokeWidth]="3"
         [nzShowInfo]="false"
