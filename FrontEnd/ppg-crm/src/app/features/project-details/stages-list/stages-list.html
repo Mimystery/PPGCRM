@@ -86,7 +86,7 @@
     <!--- STAGES CARD  HEADER-->
     <ng-template #stagesCard>
       <h2>{{ stage!.stageName}}</h2>
-      <span>End date: {{ stage!.planEndDate}}</span>
+      <span>End date: {{ getStageEndDate(stage) | date:'dd.MM.yyyy' }}</span>
       <div nz-flex nzJustify="space-between" nzAlign="center" style="width: fit-content;" nzGap="1vw">
         <div class="card-status-item done">
           <nz-icon>

@@ -12,6 +12,7 @@ import {Stage} from './data/interfaces/stage.interface';
 import { CommonModule } from '@angular/common';
 import { ProcessDetails } from './data/interfaces/process.interface';
 import { CalculateProgressService } from '../data/services/calculate-progress-service';
+import { max } from 'rxjs';
 
 @Component({
   selector: 'app-stages-list',
@@ -30,6 +31,25 @@ export class StagesListComponent {
 
   constructor(){
     
+  }
+
+  getStageEndDate(stage: Stage): Date | null{
+    if(!stage || !stage.processes || stage.processes.length === 0) {
+      return null
+    }
+
+    let maxDate: Date | null = null;
+
+    for(const process of stage.processes){
+      const endDate = process.factEndDate ? new Date(process.factEndDate) : (process.planEndDate ? new Date(process.planEndDate) : null);
+      if(endDate){
+        if(!maxDate || endDate > maxDate){
+          maxDate = endDate;
+        }
+      }
+    }
+
+    return maxDate;
   }
 
   getStageSuccessProgress(stage: Stage): number {
