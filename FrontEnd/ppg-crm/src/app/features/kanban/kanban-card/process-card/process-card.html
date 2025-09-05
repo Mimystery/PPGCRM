@@ -16,16 +16,23 @@
         <span>No responsible user</span>
       </nz-card>
     }
+    <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0vh 0vw'}">
+        <nz-tag nzColor="blue"> {{ process().status }} </nz-tag>
+      </nz-card>
     <div nz-flex nzJustify="space-between">
       <nz-card class="card-info-item"
          [nzBodyStyle]="{padding:'0.25vh 0.25vw', display:'flex', flexDirection:'row', alignItems:'center', gap:'6px'}">
         <nz-icon nzType="calendar" nzTheme="outline"></nz-icon>
-        <span>{{ process()!.planEndDate | date:'dd.MM.yyyy' }}</span>
+        <span>{{ process()!.startDate | date:'dd.MM.yyyy' }}</span>
       </nz-card>
       <nz-card class="card-info-item"
            [nzBodyStyle]="{padding:'0.25vh 0.25vw', display:'flex', flexDirection:'row', alignItems:'center', gap:'6px'}">
         <nz-icon nzType="calendar" nzTheme="outline"></nz-icon>
-        <span>{{ process()!.factEndDate | date:'dd.MM.yyyy' }}</span>
+        @if(process().factEndDate !== null){
+          <span>{{ process()!.factEndDate | date:'dd.MM.yyyy' }}</span>
+        } @else {
+          <span>{{ process()!.planEndDate | date:'dd.MM.yyyy' }}</span>
+        }
       </nz-card>
     </div>
   </div>

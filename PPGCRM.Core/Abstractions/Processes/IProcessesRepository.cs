@@ -7,9 +7,10 @@ public interface IProcessesRepository
 {
     Task<List<ProcessModel>> GetAllProcessesByStageIdAsync(Guid stageId);
     Task<ProcessModel> GetProcessById(Guid processId);
-    Task AddProcessByStageIdAsync(ProcessModel process);
+    Task AddProcessByStageIdAsync(Guid stageId, ProcessModel process);
     Task AddResponsibleUserAsync(Guid processId, Guid userId);
     Task RemoveResponsibleUserAsync(Guid processId, Guid userId);
     Task UpdateProcessAsync(Guid processId, ProcessUpdateDTO processUpdate);
+    Task UpdateProcessesAsync(IEnumerable<ProcessModel> processes);
     Task DeleteProcessAsync(Guid processId);
 }

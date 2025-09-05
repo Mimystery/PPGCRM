@@ -47,11 +47,17 @@ namespace PPGCRM.DataAccess.Repositories
             return _mapper.Map<ProcessModel>(process);
         }
 
-        public async Task AddProcessByStageIdAsync(ProcessModel process)
+        public async Task AddProcessByStageIdAsync(Guid stageId, ProcessModel process)
         {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            await _context.Processes.Where(p => p.StageId == stageId)
+                .ExecuteUpdateAsync(p => p.SetProperty(x => x.SortOrder, x => x.SortOrder + 1));
+
             var processEntity = _mapper.Map<ProcessEntity>(process);
             _context.Processes.Add(processEntity);
             await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
         }
 
         public async Task AddResponsibleUserAsync(Guid processId, Guid userId)
@@ -153,6 +159,12 @@ namespace PPGCRM.DataAccess.Repositories
                 processEntity.TotalProcessCost = processUpdate.TotalProcessCost.Value;
             }
 
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateProcessesAsync(IEnumerable<ProcessModel> processes)
+        {
+            _context.Processes.UpdateRange(_mapper.Map<List<ProcessEntity>>(processes));
             await _context.SaveChangesAsync();
         }
 

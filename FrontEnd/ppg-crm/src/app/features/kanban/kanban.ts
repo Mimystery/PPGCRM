@@ -30,12 +30,14 @@ export class KanbanComponent {
 
   constructor() {
   this.stagesService.getStages().subscribe(val => {
+    console.log("Stage",val)
     this.stages = val.map(stage => ({
       ...stage,
       processes: stage.processes.map(process => ({
         ...process,
         startDate: process.startDate ? new Date(process.startDate) : null,
         factEndDate: process.factEndDate ? new Date(process.factEndDate) : null
+        
       }))
     }));
 

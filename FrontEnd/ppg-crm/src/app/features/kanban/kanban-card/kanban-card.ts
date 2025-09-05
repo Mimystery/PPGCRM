@@ -54,6 +54,12 @@ export class KanbanCardComponent {
   createNewProcessModalOkDisabled = true;
   createNewProcessName = '';
 
+  getSortedProcesses(stage: Stage){
+    return stage.processes 
+    ? [...stage.processes].sort((a,b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    : [];
+  }
+
   startEditingDetailsField(field: string) {
     if (field === 'stageName') {
       this.isEditingStageName = !this.isEditingStageName;

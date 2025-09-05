@@ -18,19 +18,18 @@
   }
 }
 
-.card-info-container.process{
+.card-info-container.process {
+  display: flex;
   flex-direction: column;
-  gap:1vh;
+  gap: 0.5rem;
+}
 
-  .card-info-item{
-    display: flex;
-    align-items: center;
-    padding: 2px 6px;
-    border-radius: 6px;
-    background: #f5f5f5; /* легкий фон для читаемости */
-    width: 100%; /* пусть занимает всю ширину */
-    box-sizing: border-box;
-  }
+.card-info-container.process .card-info-item {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 4px 8px !important;
+  box-sizing: border-box;
 }
 
 .card-header {

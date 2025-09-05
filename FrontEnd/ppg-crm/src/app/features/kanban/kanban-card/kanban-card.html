@@ -64,7 +64,7 @@
        [cdkDropListData]="stage().processes"
        (cdkDropListDropped)="processCardDrop($event)"
        cdkDropList>
-    @for (process of stage().processes; track process.processId!) {
+    @for (process of getSortedProcesses(stage()); track process.processId!) {
       <app-process-card (click)="openProcessDrawer(process)" [process]="process"></app-process-card>
     } @empty {
       <p>

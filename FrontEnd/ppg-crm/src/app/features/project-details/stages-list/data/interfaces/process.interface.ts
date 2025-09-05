@@ -11,6 +11,7 @@ export interface ProcessDetails {
     notes: string;
     notDoneReasons: string;
     problems: string;
+    sortOrder: number;
     status: string;
     progress: number;
     totalProcessCost: number;

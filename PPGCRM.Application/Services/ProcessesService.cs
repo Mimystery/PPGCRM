@@ -46,7 +46,7 @@ namespace PPGCRM.Application.Services
                 null, // notes
                 null, // notDoneReasons
                 null, // problems
-                null, // sortOrder
+                0, // sortOrder
                 processCreate.Status, // status
                 null, // progress
                 null, // totalProcessCost
@@ -54,7 +54,7 @@ namespace PPGCRM.Application.Services
                 new List<TaskModel>(), // tasks
                 new List<UserMainCardDTO>() // responsibleUsers
             );
-            await _processesRepository.AddProcessByStageIdAsync(processModel);
+            await _processesRepository.AddProcessByStageIdAsync(stageId, processModel);
         }
 
         public async Task AddResponsibleUserAsync(Guid processId, Guid userId)
