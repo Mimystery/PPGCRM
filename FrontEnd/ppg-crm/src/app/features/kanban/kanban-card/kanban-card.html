@@ -65,7 +65,7 @@
        (cdkDropListDropped)="processCardDrop($event)"
        cdkDropList>
     @for (process of stage().processes; track process.processId!) {
-      <app-process-card [process]="process"></app-process-card>
+      <app-process-card (click)="openProcessDrawer(process)" [process]="process"></app-process-card>
     } @empty {
       <p>
         <nz-empty nzDescription="No processes in this stage"></nz-empty>
@@ -73,3 +73,5 @@
     }
   </div>
 </nz-card>
+
+<app-process-drawer (deleted)="onProcessDeleted($event)" [isVisible]="processDrawerVisible()" [process]="selectedProcess()!" (close)="closeProcessDrawer()"></app-process-drawer>

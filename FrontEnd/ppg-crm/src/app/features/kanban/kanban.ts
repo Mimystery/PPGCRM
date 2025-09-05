@@ -29,11 +29,20 @@ export class KanbanComponent {
   selectedProjectService = inject(SelectedProjectService)
 
   constructor() {
-    this.stagesService.getStages().subscribe(val => {
-      this.stages = val
-      this.stagesIDs = val.map(stage => stage.stageId);
-    })
-  }
+  this.stagesService.getStages().subscribe(val => {
+    this.stages = val.map(stage => ({
+      ...stage,
+      processes: stage.processes.map(process => ({
+        ...process,
+        startDate: process.startDate ? new Date(process.startDate) : null,
+        factEndDate: process.factEndDate ? new Date(process.factEndDate) : null
+      }))
+    }));
+
+    this.stagesIDs = this.stages.map(stage => stage.stageId);
+  });
+}
+
 
   checkIsInputEmpty(){
     this.isOkButtonInCreateStageModalDisabled = this.newStageName.trim() === '';

@@ -1,12 +1,13 @@
 <nz-card class="card process"
          [nzBodyStyle]="{padding:'1vh 0.25vw'}"
-         cdkDrag>
+         cdkDrag
+         (click)="processCardClickHandle()">
     <div class="card-title">
         <span>{{process()!.processName || 'No process'}}</span>
        <!-- <nz-icon nzType="user" nzTheme="outline" /> -->
     </div>
   <div class="card-info-container process">
-    @for (responsibleUser of process()!.responsibleUsers; track responsibleUser.userId!) {
+    @for (responsibleUser of process().responsibleUsers; track responsibleUser.userId) {
       <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}">
         <span>{{responsibleUser.firstName}} {{responsibleUser.lastName}}</span>
       </nz-card>
@@ -16,8 +17,18 @@
       </nz-card>
     }
     <div nz-flex nzJustify="space-between">
-      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> {{process()!.planEndDate}} </nz-card>
-      <nz-card class="card-info-item" [nzBodyStyle]="{padding:'0.25vh 0.25vw'}"> <nz-icon nzType="calendar" nzTheme="outline" /> {{process()!.factEndDate}} </nz-card>
+      <nz-card class="card-info-item"
+         [nzBodyStyle]="{padding:'0.25vh 0.25vw', display:'flex', flexDirection:'row', alignItems:'center', gap:'6px'}">
+        <nz-icon nzType="calendar" nzTheme="outline"></nz-icon>
+        <span>{{ process()!.planEndDate | date:'dd.MM.yyyy' }}</span>
+      </nz-card>
+      <nz-card class="card-info-item"
+           [nzBodyStyle]="{padding:'0.25vh 0.25vw', display:'flex', flexDirection:'row', alignItems:'center', gap:'6px'}">
+        <nz-icon nzType="calendar" nzTheme="outline"></nz-icon>
+        <span>{{ process()!.factEndDate | date:'dd.MM.yyyy' }}</span>
+      </nz-card>
     </div>
   </div>
 </nz-card>
+
+

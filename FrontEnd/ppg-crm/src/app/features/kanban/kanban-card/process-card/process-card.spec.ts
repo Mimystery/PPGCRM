@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProcessCard } from './process-card';
+import { ProcessCardComponent } from './process-card';
 
-describe('ProcessCard', () => {
-  let component: ProcessCard;
-  let fixture: ComponentFixture<ProcessCard>;
+describe('ProcessCardComponent', () => {
+  let component: ProcessCardComponent;
+  let fixture: ComponentFixture<ProcessCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProcessCard]
+      imports: [ProcessCardComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ProcessCard);
+    fixture = TestBed.createComponent(ProcessCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

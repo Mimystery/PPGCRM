@@ -26,7 +26,11 @@ namespace PPGCRM.DataAccess.Repositories
         {
             var stages = await _context.Stages
                 .Where(s => s.ProjectId == projectId)
-                .Include(s => s.Processes).OrderBy(s => s.CreatedAt)
+                .Include(s => s.Processes)
+                    .ThenInclude(p => p.ResponsibleUsers)
+                .Include(s => s.Processes)
+                    .ThenInclude(p => p.Tasks)
+                .OrderBy(s => s.CreatedAt)
                 .ToListAsync();
 
             return _mapper.Map<List<StageModel>>(stages); 

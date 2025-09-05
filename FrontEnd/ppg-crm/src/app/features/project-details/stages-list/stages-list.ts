@@ -96,10 +96,11 @@ export class StagesListComponent {
     return stage.processes.filter(p => p.status === status).length;
   }
 
-  openProcessDrawer = (process: ProcessDetails) =>{
+  openProcessDrawer = (process: ProcessDetails) => {
+    console.log(process)
     this.selectedProcess.set(process);
-    this.processDrawerVisible.set(true)}
-  ;
+    this.processDrawerVisible.set(true) 
+}
 
   closeProcessDrawer = () => {
     this.processDrawerVisible.set(false);

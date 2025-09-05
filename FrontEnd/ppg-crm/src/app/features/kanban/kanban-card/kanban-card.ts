@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, input, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, input, signal, ViewChild} from '@angular/core';
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {ProcessCardComponent} from "./process-card/process-card";
@@ -14,6 +14,7 @@ import {NzModalModule} from 'ng-zorro-antd/modal';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ProcessDetails} from '../data/interfaces/process.interface';
+import { ProcessDrawerComponent } from "../../project-details/stages-list/process-drawer/process-drawer";
 
 @Component({
   selector: 'app-kanban-card',
@@ -28,8 +29,9 @@ import {ProcessDetails} from '../data/interfaces/process.interface';
     NzModalModule,
     NzInputModule,
     CdkDropList,
-    CdkDrag
-  ],
+    CdkDrag,
+    ProcessDrawerComponent
+],
   templateUrl: './kanban-card.html',
   styleUrl: './kanban-card.less'
 })
@@ -39,6 +41,9 @@ export class KanbanCardComponent {
   message = inject(NzMessageService);
   stagesService = inject(StagesService);
   processesService = inject(ProcessesService);
+
+  public processDrawerVisible =  signal(false);
+  public selectedProcess = signal<ProcessDetails | null>(null);
 
   isEditingStageName = false;
 
@@ -126,5 +131,19 @@ export class KanbanCardComponent {
           error: () => this.message.error('Error updating')
         });
     }
+  }
+
+  onProcessDeleted(processId: string) {
+    this.stage().processes = this.stage().processes.filter(p => p.processId !== processId);
+  }
+
+  openProcessDrawer = (process: ProcessDetails) => {
+    //console.log("Drawer click:", process)
+    this.selectedProcess.set(process);
+    this.processDrawerVisible.set(true) 
+  }
+
+  closeProcessDrawer = () => {
+    this.processDrawerVisible.set(false);
   }
 }
