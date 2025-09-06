@@ -63,7 +63,7 @@ export class ProcessDrawerComponent {
 
   confirmDelete(){
     this.processesService.deleteProcess(this.process().processId).subscribe({
-      next: val => {
+      next: () => {
         this.message.success('ProcessDeleted!');
         this.deleted.emit(this.process().processId);
         this.handleClose();

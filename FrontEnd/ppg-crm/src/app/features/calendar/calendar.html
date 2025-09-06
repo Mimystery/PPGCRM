@@ -8,13 +8,17 @@
         nzPlaceHolder="Select stage"
         style="width: 30%; margin-left: auto;"
         [ngModel]="selectedStageId()"
-        (ngModelChange)="selectedStageId.set($event)"
+        (ngModelChange)="onStageChange($event)"
       >
         <nz-option nzLabel="All stages" nzValue="All"></nz-option>
         @for (stage of stages; track stage.stageId) {
           <nz-option [nzLabel]="stage.stageName" [nzValue]="stage.stageId"></nz-option>
         }
-      </nz-select>
+    </nz-select>
 
 </div>
 <div #calendar style="padding: 10px; height: 95%;"></div>
+
+<app-process-drawer (deleted)="onProcessDeleted($event)" 
+    [isVisible]="processDrawerVisible()" [process]="selectedProcess()!" 
+    (close)="closeProcessDrawer()"></app-process-drawer>
