@@ -30,7 +30,6 @@ export class KanbanComponent {
 
   constructor() {
   this.stagesService.getStages().subscribe(val => {
-    console.log("Stage",val)
     this.stages = val.map(stage => ({
       ...stage,
       processes: stage.processes.map(process => ({
@@ -45,6 +44,9 @@ export class KanbanComponent {
   });
 }
 
+  removeStageFromList(stageId: string) {
+    this.stages = this.stages.filter(stage => stage.stageId !== stageId);
+  }
 
   checkIsInputEmpty(){
     this.isOkButtonInCreateStageModalDisabled = this.newStageName.trim() === '';
@@ -61,7 +63,15 @@ export class KanbanComponent {
       next: (res) => {
         this.stagesService.getStages()
       .subscribe(val => {
-        this.stages = val
+        this.stages = val.map(stage => ({
+          ...stage,
+          processes: stage.processes.map(process => ({
+            ...process,
+            startDate: process.startDate ? new Date(process.startDate) : null,
+            factEndDate: process.factEndDate ? new Date(process.factEndDate) : null
+            
+          }))
+        }));
       })
       },
       error: (err) => {

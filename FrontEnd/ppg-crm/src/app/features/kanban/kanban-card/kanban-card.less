@@ -90,3 +90,25 @@
         color: #b3b3b3;
       }
 }
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+div[cdkDrag] {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  /* тень вокруг содержимого */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.cdk-drag-preview {
+  overflow: hidden !important;
+}

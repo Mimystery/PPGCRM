@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, input, signal, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, inject, input, Output, signal, ViewChild} from '@angular/core';
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {ProcessCardComponent} from "./process-card/process-card";
@@ -15,6 +15,7 @@ import {NzInputModule} from 'ng-zorro-antd/input';
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ProcessDetails} from '../data/interfaces/process.interface';
 import { ProcessDrawerComponent } from "../../project-details/stages-list/process-drawer/process-drawer";
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 @Component({
   selector: 'app-kanban-card',
@@ -30,7 +31,8 @@ import { ProcessDrawerComponent } from "../../project-details/stages-list/proces
     NzInputModule,
     CdkDropList,
     CdkDrag,
-    ProcessDrawerComponent
+    ProcessDrawerComponent,
+    NzPopconfirmModule
 ],
   templateUrl: './kanban-card.html',
   styleUrl: './kanban-card.less'
@@ -48,11 +50,16 @@ export class KanbanCardComponent {
   isEditingStageName = false;
 
   @ViewChild('stageInput') stageInput!: ElementRef<HTMLInputElement>;
+  @Output() stageDeleted = new EventEmitter<string>();
 
   // 🔹 New process modal state
   createNewProcessModalVisible = false;
   createNewProcessModalOkDisabled = true;
   createNewProcessName = '';
+
+  getDeleteStageTitle(): string {
+    return `Are you sure you want to delete "${this.stage().stageName}" stage?`;
+  } 
 
   getSortedProcesses(stage: Stage){
     return stage.processes 
@@ -131,12 +138,16 @@ export class KanbanCardComponent {
       );
       let movedProcess = event.container.data[event.currentIndex];
       movedProcess.stageId = event.container.id;
-      this.processesService.updateProcess(movedProcess.processId, movedProcess)
+    }
+
+    event.container.data.forEach((process, index) => {
+      process.sortOrder = index;
+      this.processesService.updateProcess(process.processId, process)
         .subscribe({
           complete: () => this.message.success('Data updated!'),
           error: () => this.message.error('Error updating')
         });
-    }
+    });
   }
 
   onProcessDeleted(processId: string) {
@@ -151,5 +162,17 @@ export class KanbanCardComponent {
 
   closeProcessDrawer = () => {
     this.processDrawerVisible.set(false);
+  }
+
+  confirmDeleteStage(stageId: string){
+    this.stagesService.deleteStage(stageId).subscribe({
+      next: () => {
+        this.message.success('StageDeleted!');
+        this.stageDeleted.emit(stageId);
+      },
+      error: (err) => {
+        this.message.error('Ошибка при обновлении данных: ', err.message)
+      }
+    })
   }
 }

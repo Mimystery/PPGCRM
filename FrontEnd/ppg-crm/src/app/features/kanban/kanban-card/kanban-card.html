@@ -51,7 +51,11 @@
         <button nz-button nzType="link" nzShape="circle" (click)="openCreateNewProcessModal()">
           <nz-icon nzType="plus" nzTheme="outline" />
         </button>
-        <button nz-button nzType="link" nzShape="circle">
+        <button nz-button nzType="link" nzShape="circle"
+                nz-popconfirm
+                [nzPopconfirmTitle]="getDeleteStageTitle()"
+                nzPopconfirmPlacement="topLeft"
+                (nzOnConfirm)="confirmDeleteStage(stage().stageId)">
           <nz-icon nzType="minus" nzTheme="outline" />
         </button>
       </div>
@@ -59,13 +63,16 @@
   </ng-template>
 
   <!-- Processes -->
-  <div class="card-info-container kanban" [id]="stage().stageId"
-       [cdkDropListConnectedTo]="stagesIDs()"
-       [cdkDropListData]="stage().processes"
-       (cdkDropListDropped)="processCardDrop($event)"
-       cdkDropList>
+  <div  cdkDropList
+        class="card-info-container kanban" [id]="stage().stageId"
+        [cdkDropListConnectedTo]="stagesIDs()"
+        [cdkDropListData]="stage().processes"
+        (cdkDropListDropped)="processCardDrop($event)"
+        cdkDropListOrientation="vertical">
     @for (process of getSortedProcesses(stage()); track process.processId!) {
-      <app-process-card (click)="openProcessDrawer(process)" [process]="process"></app-process-card>
+      <div cdkDrag>
+        <app-process-card (click)="openProcessDrawer(process)" [process]="process"></app-process-card>
+      </div>
     } @empty {
       <p>
         <nz-empty nzDescription="No processes in this stage"></nz-empty>

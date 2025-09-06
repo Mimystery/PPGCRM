@@ -1,6 +1,5 @@
 <nz-card class="card process"
          [nzBodyStyle]="{padding:'1vh 0.25vw'}"
-         cdkDrag
          (click)="processCardClickHandle()">
     <div class="card-title">
         <span>{{process()!.processName || 'No process'}}</span>
@@ -37,5 +36,7 @@
     </div>
   </div>
 </nz-card>
+
+
 
 

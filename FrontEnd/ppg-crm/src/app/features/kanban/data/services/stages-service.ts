@@ -24,4 +24,8 @@ export class StagesService {
     return this.http.put(`https://localhost:7189/api/Stages/UpdateStageByProjectId/${this.selectedProjectService.selectedProjectId()}?stageId=${stageId}`, updateStageBody)
   }
 
+  deleteStage(stageId: string){
+    return this.http.delete(`https://localhost:7189/api/Stages/DeleteStageById/${stageId}`)
+  }
+
 }
