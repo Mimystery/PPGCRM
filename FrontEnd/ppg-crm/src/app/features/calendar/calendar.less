@@ -1,0 +1,52 @@
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px; /* можешь изменить */
+  padding: 10px 10px;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  padding: 10px 10px;
+}
+
+.nav-button {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease; /* плавный переход */
+}
+
+.nav-button:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05); /* слегка увеличиваем */
+  border-color: #888;
+}
+
+.nav-button:active {
+  transform: scale(0.95); /* сжатие при клике */
+  background-color: #e0e0e0;
+}
+
+.nav-button.today {
+  font-weight: bold;
+  color: #007bff;
+  border-color: #007bff;
+}
+
+.nav-button.today:hover {
+  background-color: #e6f0ff;
+}
+
+.current-month {
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}

@@ -1,1 +1,20 @@
-<p>calendar works!</p>
+<div class="calendar-header">
+  <button class="nav-button" (click)="goPrev()">‹</button>
+  <button class="nav-button today" (click)="goToday()">Today</button>
+  <button class="nav-button" (click)="goNext()">›</button>
+  <span class="current-month">{{ currentMonthDate | date:'MMMM yyyy' }}</span>
+
+    <nz-select
+        nzPlaceHolder="Select stage"
+        style="width: 30%; margin-left: auto;"
+        [ngModel]="selectedStageId()"
+        (ngModelChange)="selectedStageId.set($event)"
+      >
+        <nz-option nzLabel="All stages" nzValue="All"></nz-option>
+        @for (stage of stages; track stage.stageId) {
+          <nz-option [nzLabel]="stage.stageName" [nzValue]="stage.stageId"></nz-option>
+        }
+      </nz-select>
+
+</div>
+<div #calendar style="padding: 10px; height: 95%;"></div>

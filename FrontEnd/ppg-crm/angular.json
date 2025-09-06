@@ -30,7 +30,8 @@
               }
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              "node_modules/@toast-ui/calendar/dist/toastui-calendar.min.css"
             ]
           },
           "configurations": {
@@ -88,7 +89,8 @@
               }
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              "node_modules/@toast-ui/calendar/dist/toastui-calendar.min.css"
             ]
           }
         }
