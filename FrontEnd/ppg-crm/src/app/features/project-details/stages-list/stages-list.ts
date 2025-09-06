@@ -13,12 +13,15 @@ import { CommonModule } from '@angular/common';
 import { ProcessDetails } from './data/interfaces/process.interface';
 import { CalculateProgressService } from '../data/services/calculate-progress-service';
 import { max } from 'rxjs';
+import { NzOptionComponent, NzSelectModule } from "ng-zorro-antd/select";
+import { NzSelectComponent } from "../../../../../node_modules/ng-zorro-antd/select/index";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-stages-list',
   imports: [NzIconModule, NzButtonModule, NzDropDownModule, CommonModule,
-    NzFlexModule, NzProgressModule, NzCollapseModule, NzTagModule, NzCardModule, ProcessDrawerComponent,
-  ],
+    NzFlexModule, NzProgressModule, NzCollapseModule, NzTagModule, NzCardModule, 
+    ProcessDrawerComponent, NzOptionComponent, FormsModule, NzSelectModule],
   templateUrl: './stages-list.html',
   styleUrl: './stages-list.less'
 })
@@ -29,8 +32,18 @@ export class StagesListComponent {
   public stages = input.required<Stage[] | null>();
   public selectedProcess = signal<ProcessDetails | null>(null);
 
+  public selectedStageId = signal<string>('All');
+
   constructor(){
     
+  }
+
+  get filteredStages(): Stage[] {
+    if (!this.stages()) return [];
+    if (this.selectedStageId() === 'All'){
+      return this.stages()!;
+    }
+    return this.stages()!.filter(s => s.stageId === this.selectedStageId());
   }
 
   onProcessDeleted(processId: string) {

@@ -5,30 +5,22 @@
         <path d="M1.66676 0.75H16.3335C16.8398 0.75 17.2502 1.16034 17.2502 1.66655L17.2504 3.12022C17.2505 3.36339 17.1538 3.5966 16.9819 3.76854L11.1019 9.64817C10.93 9.82005 10.8334 10.0532 10.8334 10.2963V16.0759C10.8334 16.6723 10.273 17.1099 9.69447 16.9653L7.86113 16.5069C7.45303 16.4049 7.16676 16.0383 7.16676 15.6176V10.2963C7.16676 10.0532 7.07018 9.82005 6.89827 9.64817L1.01857 3.76848C0.846662 3.59658 0.750092 3.36342 0.750092 3.12031V1.66667C0.750092 1.16041 1.16049 0.75 1.66676 0.75Z" fill="black" stroke="black" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </nz-icon>
-     <button nz-button nz-dropdown [nzDropdownMenu]="nzDropdownMenuStages">
-         Button
-         <nz-icon nzType="down" />
-       </button>
-
-    <!-- DROP DOWN MENU FOR STATUS -->
-       <nz-dropdown-menu #nzDropdownMenuStages="nzDropdownMenu">
-         <ul nz-menu>
-           <li nz-menu-item>
-             <nz-icon>
-               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
-               </svg>
-             </nz-icon>
-             Started
-           </li>
-           <li nz-menu-item>Stopped</li>
-           <li nz-menu-item>Awaiting</li>
-         </ul>
-       </nz-dropdown-menu>
+     <nz-select 
+        nzAllowClear
+        nzPlaceHolder="Select stage"
+        style="width: 100%;"
+        [ngModel]="selectedStageId()"
+        (ngModelChange)="selectedStageId.set($event)"
+      >
+        <nz-option nzLabel="All stages" nzValue="All"></nz-option>
+        @for (stage of stages(); track stage.stageId) {
+          <nz-option [nzLabel]="stage.stageName" [nzValue]="stage.stageId"></nz-option>
+        }
+      </nz-select>
   </div>
 
   <!--- STAGES LIST -->
-  @for (stage of stages(); track stage!.stageId) {
+  @for (stage of filteredStages; track stage!.stageId) {
     <nz-collapse>
       <nz-collapse-panel  [nzActive]="false" [nzShowArrow] = 'true' [nzHeader]="stagesCard" >
         <table style="width: 100%; border-collapse: collapse;" >
@@ -39,12 +31,6 @@
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
                 {{process.processName}}
               </td>
-
-              <!-- Description
-              <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
-                Description
-              </td> -->
-
               <!-- End Date -->
               <td style="padding: 12px; border-right: 1px solid #f0f0f0;">
                 <div class="card-info-item">
