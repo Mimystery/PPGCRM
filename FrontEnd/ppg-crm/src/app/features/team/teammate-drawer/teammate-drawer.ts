@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, input, Input, output, Output} from '@angular/core';
+import {Component, EventEmitter, inject, input, Input, OnChanges, output, Output, SimpleChanges} from '@angular/core';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzTagModule} from 'ng-zorro-antd/tag';
@@ -24,8 +24,8 @@ import {NzInputDirective} from 'ng-zorro-antd/input';
   templateUrl: './teammate-drawer.html',
   styleUrl: './teammate-drawer.less'
 })
-export class TeammateDrawerComponent {
-  ngOnInit() {
+export class TeammateDrawerComponent implements OnChanges{
+  ngOnChanges(changes: SimpleChanges)  {
     this.userUpdate = { ...this.user() };
   }
   isVisible = input.required();

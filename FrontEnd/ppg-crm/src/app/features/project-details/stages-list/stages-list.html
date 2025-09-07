@@ -21,7 +21,7 @@
   <!--- STAGES LIST -->
   @for (stage of filteredStages; track stage!.stageId) {
     <nz-collapse>
-      <nz-collapse-panel  [nzActive]="false" [nzShowArrow] = 'true' [nzHeader]="stagesCard" >
+      <nz-collapse-panel [nzShowArrow]="false"	 [nzActive]="false"  [nzHeader]="stagesCard" >
         <table style="width: 100%; border-collapse: collapse;" >
 
           @for(process of stage!.processes; track process!.processId) {

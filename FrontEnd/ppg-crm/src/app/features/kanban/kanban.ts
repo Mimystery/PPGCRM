@@ -36,7 +36,7 @@ export class KanbanComponent {
         ...process,
         startDate: process.startDate ? new Date(process.startDate) : null,
         factEndDate: process.factEndDate ? new Date(process.factEndDate) : null
-        
+
       }))
     }));
 
@@ -60,7 +60,7 @@ export class KanbanComponent {
     this.isCreateStageModalVisible = false;
 
     this.stagesService.createStage(this.newStageName).subscribe({
-      next: (res) => {
+      complete: () => {
         this.stagesService.getStages()
       .subscribe(val => {
         this.stages = val.map(stage => ({
@@ -69,9 +69,9 @@ export class KanbanComponent {
             ...process,
             startDate: process.startDate ? new Date(process.startDate) : null,
             factEndDate: process.factEndDate ? new Date(process.factEndDate) : null
-            
           }))
-        }));
+        }))
+        this.stagesIDs = this.stages.map(stage => stage.stageId);
       })
       },
       error: (err) => {
