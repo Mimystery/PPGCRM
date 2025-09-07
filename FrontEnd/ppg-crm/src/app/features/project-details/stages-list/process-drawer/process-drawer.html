@@ -395,9 +395,10 @@
             @for (user of process()?.responsibleUsers; track user.userId) {
               <nz-card
                 class="card user"
-                [nzBodyStyle]="{padding: '1vh 0.2vw', display: 'flex',flexDirection:'row', alignItems: 'center',
-                justifyContent: 'space-between', gap: '0px'}" >
-                <span>
+                [nzBodyStyle]="{padding: '1vh 0.2vw',
+                display: 'flex',flexDirection:'row', alignItems: 'center',
+                justifyContent: 'space-between'}" >
+                <span style="display: inline-block">
                   <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.1875 5.67169C5.43539 5.67169 4.71408 5.37291 4.18226 4.84109C3.65043 4.30926 3.35166 3.58796 3.35166 2.83584C3.35166 2.08373 3.65043 1.36242 4.18226 0.830599C4.71408 0.298776 5.43539 0 6.1875 0C6.93961 0 7.66092 0.298776 8.19274 0.830599C8.72457 1.36242 9.02334 2.08373 9.02334 2.83584C9.02334 3.58796 8.72457 4.30926 8.19274 4.84109C7.66092 5.37291 6.93961 5.67169 6.1875 5.67169ZM6.1875 6.91763C9.95794 6.91763 12.375 8.99831 12.375 10.0114V11.9031H0V10.0114C0 8.78625 2.28825 6.91763 6.1875 6.91763Z" fill="black"/>
                   </svg>

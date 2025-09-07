@@ -64,7 +64,7 @@
             </h2>
 
             <!-- Editable ROLE + RATE -->
-              <nz-select *ngIf="userUpdate" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
+              <nz-select *ngIf="userUpdate" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultSelectedTemplate"
                          [(ngModel)]="userUpdate.role" (ngModelChange)="finishEditingTeammateField('role')">
                 <nz-option nzCustomContent nzLabel="Admin" nzValue="Admin">
                   <div style="display: flex; align-items: center; gap: 4px;">
@@ -97,7 +97,7 @@
                   </div>
                 </nz-option>
               </nz-select>
-              <ng-template #defaultTemplate let-selected>
+              <ng-template #defaultSelectedTemplate let-selected>
                 <div style="display: flex; align-items: center; gap: 4px;">
                   <nz-icon>
                     <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -166,31 +166,103 @@
       <div nz-flex nzJustify="space-between" nzGap="2vw" style="padding: 2.5vh 0.5vw 1.5vh">
         <div nz-flex nzAlign="center" nzJustify="space-between" nzGap="1vw">
           <h3>Project:</h3>
-          <nz-select>Select project</nz-select>
+          <nz-select nzAllowClear
+                     [(ngModel)]="selectedProjectId"
+                     (ngModelChange)="projectIdSelected()"
+                     nzPlaceHolder="Select project">
+            @for (project of projects; track project.projectId) {
+              <nz-option nzCustomContent [nzLabel]="project.projectName" [nzValue]="project.projectId">
+                <span>{{project.projectName}}</span>
+              </nz-option>
+            }
+          </nz-select>
         </div>
         <div nz-flex nzAlign="center" nzJustify="space-between" nzGap="1vw">
           <h3>Stage:</h3>
-          <nz-select></nz-select>
+          <nz-select nzAllowClear
+                     [(ngModel)]="selectedStageId"
+                     (ngModelChange)="stageIdSelected()"
+                     nzPlaceHolder="Select stages">
+            @if (selectedProjectId==='') {
+              @for (stage of stages; track stage.stageId) {
+                <nz-option nzCustomContent [nzLabel]="stage.stageName" [nzValue]="stage.stageId">
+                  <span>{{stage.stageName}}</span>
+                </nz-option>
+              }
+            }
+            @else {
+              @for (stage of filteredStagesByProjectId; track stage.stageId) {
+               <nz-option nzCustomContent [nzLabel]="stage.stageName" [nzValue]="stage.stageId">
+                <span>{{stage.stageName}}</span>
+                </nz-option>
+              }
+            }
+          </nz-select>
         </div>
       </div>
 
       <!-- Processes -->
       <nz-table #outBordered nzOuterBordered>
         <tbody>
-        <tr>
-          <td>Sample process</td>
-          <td>Just a description</td>
-          <td>27 July, 2025</td>
-          <td><nz-tag nzColor="blue">In Progress</nz-tag></td>
-          <td>
-            <nz-progress
-              [nzPercent]="34"
-              nzStrokeColor="#7AC327"
-              [nzShowInfo]="true"
-              nzStrokeLinecap="round"
-            ></nz-progress>
-          </td>
-        </tr>
+          @if (selectedProjectId==='') {
+            @for (process of processes; track process.processId) {
+              <tr>
+                <td>{{process.processName}}</td>
+                <td>{{process.notes}}</td>
+                <td>{{process.planEndDate}}</td>
+                <td><nz-tag nzColor="blue">{{process.status}}</nz-tag></td>
+                <td>
+                  <nz-progress
+                    [nzPercent]="process.progress"
+                    nzStrokeColor="#7AC327"
+                    [nzShowInfo]="true"
+                    nzStrokeLinecap="round"
+                  ></nz-progress>
+                </td>
+              </tr>
+            } @empty {
+              niema
+            }
+          } @else if (selectedProjectId!='' && selectedStageId==='') {
+            @for (process of filteredProcessesByProjectId; track process.processId) {
+              <tr>
+                <td>{{process.processName}}</td>
+                <td>{{process.notes}}</td>
+                <td>{{process.planEndDate}}</td>
+                <td><nz-tag nzColor="blue">{{process.status}}</nz-tag></td>
+                <td>
+                  <nz-progress
+                    [nzPercent]="process.progress"
+                    nzStrokeColor="#7AC327"
+                    [nzShowInfo]="true"
+                    nzStrokeLinecap="round"
+                  ></nz-progress>
+                </td>
+              </tr>
+            } @empty {
+              niema
+            }
+          } @else if (selectedStageId !=''){
+            @for (process of filteredProcessesByStageId; track process.processId) {
+              <tr>
+                <td>{{process.processName}}</td>
+                <td>{{process.notes}}</td>
+                <td>{{process.planEndDate}}</td>
+                <td><nz-tag nzColor="blue">{{process.status}}</nz-tag></td>
+                <td>
+                  <nz-progress
+                    [nzPercent]="process.progress"
+                    nzStrokeColor="#7AC327"
+                    [nzShowInfo]="true"
+                    nzStrokeLinecap="round"
+                  ></nz-progress>
+                </td>
+              </tr>
+            } @empty {
+              niema
+            }
+          }
+
         </tbody>
       </nz-table>
     </div>

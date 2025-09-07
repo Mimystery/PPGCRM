@@ -15,6 +15,9 @@ import {FormsModule} from '@angular/forms';
 import {UserService} from '../../../core/auth/data/services/user-service';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzInputDirective} from 'ng-zorro-antd/input';
+import {ProcessDetails} from '../../project-details/stages-list/data/interfaces/process.interface';
+import {ProjectDetails} from '../../project-details/data/interfaces/project.details.interface';
+import {Stage} from '../../project-details/stages-list/data/interfaces/stage.interface';
 
 @Component({
   selector: 'app-teammate-drawer',
@@ -27,9 +30,72 @@ import {NzInputDirective} from 'ng-zorro-antd/input';
 export class TeammateDrawerComponent implements OnChanges{
   ngOnChanges(changes: SimpleChanges)  {
     this.userUpdate = { ...this.user() };
+    if (this.userUpdate.userId != undefined){
+      this.userService.getAllProjectsByUserId(this.userUpdate.userId).subscribe({
+        error: (err)=> {
+          this.message.error("Ошибка при получении процесов: " + err.message)
+        },
+        next: (val: ProjectDetails[]) =>{
+          console.log(val);
+          this.projects = val;
+          for (let project of this.projects){
+            for (let stage of project.stages!){
+              this.stages.push(stage);
+              for (let process of stage.processes) {
+                this.processes.push(process);
+              }
+            }
+          }
+        },
+      });
+    } else {
+      this.selectedStageId = ''
+      this.selectedProjectId = ''
+      this.processes = new Array<ProcessDetails>
+      this.filteredProcessesByProjectId= new Array<ProcessDetails>
+      this.stages = new Array<Stage>
+      this.filteredStagesByProjectId = new Array<Stage>
+    }
   }
   isVisible = input.required();
   user = input.required<User>();
+
+  /*
+  * ТО ЯК Я ЦЕ ПИСАВ Я САМ НЕ ГРЕБУ АЛЕ ВОНО ПРАЦЮЄ  І ЦЕ САМЕ ГОЛОВНЕ
+  * *МОЖЕ ЗАВТРА РОЗВИДНИТЬСЯ І Я САМ ПОЙМУ КОД ЯКИЙ НАПИСАВ
+  * *В ХТМЛ КОДІ ТАМ ВООБЩЕ....
+  * **/
+  projects = new Array<ProjectDetails>
+  processes = new Array<ProcessDetails>
+  filteredProcessesByProjectId = new Array<ProcessDetails>
+  filteredProcessesByStageId = new Array<ProcessDetails>;
+  stages = new Array<Stage>
+  filteredStagesByProjectId = new Array<Stage>
+
+  selectedProjectId:string = ''
+
+  projectIdSelected = () => {
+    if (this.selectedProjectId===null)
+      this.selectedProjectId=''
+    this.filteredProcessesByProjectId = new Array<ProcessDetails>
+    this.selectedStageId = ''
+    this.filteredStagesByProjectId = this.stages.filter((stage)=>stage.projectId == this.selectedProjectId)
+    for(let filteredStage of this.filteredStagesByProjectId){
+      for (let filteredProcess of filteredStage.processes){
+        this.filteredProcessesByProjectId.push(filteredProcess);
+      }
+    }
+  }
+
+  selectedStageId:string = ''
+
+  stageIdSelected = () => {
+    if (this.selectedStageId===null)
+      this.selectedStageId=''
+    this.filteredProcessesByStageId = [ ...this.stages.find((stage)=>stage.stageId == this.selectedStageId)!.processes]
+  }
+
+
   userUpdate!: User;
   userService = inject(UserService);
   message = inject(NzMessageService);
