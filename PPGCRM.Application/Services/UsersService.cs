@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PPGCRM.Application.Identity.Authentication.Interfaces;
 using PPGCRM.Core.Contracts.Processes;
+using PPGCRM.Core.Contracts.Projects;
 using PPGCRM.Core.Contracts.Users;
 using PPGCRM.Core.Enums;
 using PPGCRM.Core.Models;
@@ -65,5 +66,11 @@ namespace PPGCRM.Application.Services
         {
             await _usersRepository.DeleteUserAsync(userId);
         }
+
+        public async Task<List<ProjectDetailsDTO>> GetProjectsByUserIdAsync(Guid userId)
+        {
+            return await _usersRepository.GetProjectsByUserIdAsync(userId);
+        }
+
     }
 }

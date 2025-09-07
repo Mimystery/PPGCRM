@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PPGCRM.Application.Services;
 using PPGCRM.Core.Contracts.Processes;
+using PPGCRM.Core.Contracts.Projects;
 using PPGCRM.Core.Contracts.Users;
 using PPGCRM.Core.Models;
 
@@ -70,6 +71,13 @@ namespace PPGCRM.API.Controllers
         {
             await _usersService.DeleteUserAsync(userId);
             return Ok();
+        }
+
+        [HttpGet("GetProjectsByUserId")]
+        public async Task<ActionResult<List<ProjectDetailsDTO>>> GetProjectsByUserIdAsync([FromQuery]Guid userId)
+        {
+            var projects = await _usersService.GetProjectsByUserIdAsync(userId);
+            return Ok(projects);
         }
     }
 }

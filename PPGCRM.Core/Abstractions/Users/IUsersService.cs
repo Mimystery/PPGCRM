@@ -1,4 +1,5 @@
 ﻿using PPGCRM.Core.Contracts.Processes;
+using PPGCRM.Core.Contracts.Projects;
 using PPGCRM.Core.Contracts.Users;
 using PPGCRM.Core.Models;
 
@@ -14,4 +15,5 @@ public interface IUsersService
     Task AddUserAsync(UserModel user);
     Task UpdateUserAsync(Guid userId, UserUpdateDTO userUpdateDto);
     Task DeleteUserAsync(Guid userId);
+    Task<List<ProjectDetailsDTO>> GetProjectsByUserIdAsync(Guid userId);
 }

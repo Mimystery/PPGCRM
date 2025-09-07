@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PPGCRM.Core.Contracts.Processes;
+using PPGCRM.Core.Contracts.Projects;
 using PPGCRM.Core.Contracts.Users;
 using PPGCRM.Core.Models;
 using PPGCRM.DataAccess.Entities;
@@ -43,6 +44,7 @@ namespace PPGCRM.DataAccess.Repositories
             {
                 throw new KeyNotFoundException("User not found with the provided ID.");
             }
+
             return _mapper.Map<UserModel>(user);
         }
 
@@ -53,6 +55,7 @@ namespace PPGCRM.DataAccess.Repositories
             {
                 throw new KeyNotFoundException("User not found with the provided email.");
             }
+
             return _mapper.Map<UserModel>(user);
         }
 
@@ -134,5 +137,17 @@ namespace PPGCRM.DataAccess.Repositories
         {
             await _context.Users.Where(u => u.UserId == userId).ExecuteDeleteAsync();
         }
-    }
+
+        public async Task<List<ProjectDetailsDTO>> GetProjectsByUserIdAsync(Guid userId)
+        {
+            var projects = await _context.Projects
+                .Where(p => p.Stages.Any(s => s.Processes.Any(pr => pr.ResponsibleUsers.Any(u => u.UserId == userId))))
+                .Include(p => p.Stages)
+                .ThenInclude(s => s.Processes)
+                .ThenInclude(pr => pr.ResponsibleUsers)
+                .ToListAsync();
+
+            return _mapper.Map<List<ProjectDetailsDTO>>(projects);
+        }
+}
 }
