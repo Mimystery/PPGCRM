@@ -224,8 +224,8 @@
                 <td>
                   <a (click)="onTaskDeleteClick(data)"> — </a>
                   <nz-divider nzType="vertical"></nz-divider>
-                  <label 
-                    nz-checkbox 
+                  <label
+                    nz-checkbox
                     [(ngModel)]="data.isDone"
                     (ngModelChange)="onCheckBoxClick(data)"></label>
                 </td>
@@ -240,6 +240,7 @@
 
       <!--SIDER-->
       <nz-sider nzTheme="light" class="process-details-sider" nzWidth="20vw">
+        <div nz-flex nzJustify="space-between" nzVertical style="height: 100%">
         <div class="sider-content">
         <h3>STATUS</h3>
         <nz-select *ngIf="process()" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
@@ -305,7 +306,6 @@
           {{ selected.nzLabel }}
           </div>
         </ng-template>
-      </div>
 
         <div class="process-details-progress">
           <nz-progress
@@ -416,16 +416,17 @@
               </nz-card>
           }
         </div>
-
-        <div class="sider-footer">
-          <button nz-button nzType="primary" nzDanger class="btn delete" 
+        </div>
+          <div class="sider-footer">
+            <button nz-button nzType="primary" nzDanger class="btn delete"
             nz-popconfirm
             nzPopconfirmTitle="Are you sure you want to delete this process?"
             nzPopconfirmPlacement="topLeft"
             (nzOnConfirm)="confirmDelete()">
             <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
             Delete Process
-          </button>
+           </button>
+          </div>
         </div>
 
       </nz-sider>
