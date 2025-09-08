@@ -16,5 +16,4 @@ export class ProjectsService {
     const createProjectBody = { projectName: projName }
     return this.http.post('https://localhost:7189/api/Projects/AddProject', createProjectBody)
   }
-
 }

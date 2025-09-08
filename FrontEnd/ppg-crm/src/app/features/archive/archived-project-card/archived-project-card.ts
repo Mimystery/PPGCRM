@@ -7,6 +7,8 @@ import {NzButtonModule} from 'ng-zorro-antd/button';
 import {ProjectCardData} from '../../projects/data/interfaces/project-card-data';
 import {SelectedProjectService} from '../../../core/services/selected-project/selected-project';
 import {CommonModule} from '@angular/common';
+import {ProjectDetailsService} from '../../project-details/data/services/project-details-service';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-archived-project-card',
@@ -19,6 +21,8 @@ export class ArchivedProjectCardComponent {
   project = input.required<ProjectCardData>();
 
   selectedProjectService = inject(SelectedProjectService);
+  projectDetailsService = inject(ProjectDetailsService)
+  message = inject(NzMessageService);
   onCardClick = () =>{
     this.selectedProjectService.selectedProjectName.set(this.project().projectName);
     this.selectedProjectService.selectedProjectId.set(this.project().projectId);
@@ -28,6 +32,16 @@ export class ArchivedProjectCardComponent {
   }
 
   onRestoreClick() {
-    console.log('Restore clicked!');
+    const { processCountByStatus, ...restoredProjectBody } = this.project();
+    restoredProjectBody.isArchived = false;
+    this.projectDetailsService.updateProjectDetails(this.project().projectId, restoredProjectBody)
+      .subscribe({
+        complete: () =>{
+          this.message.success("Проект восстановлен!")
+        },
+        error: (error)=>{
+          this.message.error("Ошибка при восстановлении: " + error.message)
+        }
+      });
   }
 }

@@ -11,6 +11,11 @@
             class="edit-icon"
             (click)="startEditingDetailsField('projectName')"
           ></nz-icon>
+          @if (project?.isArchived==true) {
+            <nz-tag [nzColor]="'#FFA220'">
+              Архів
+            </nz-tag>
+          }
         </h2>
 
         <!-- Если редактируем -->

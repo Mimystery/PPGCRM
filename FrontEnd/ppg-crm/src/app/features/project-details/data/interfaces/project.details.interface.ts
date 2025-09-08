@@ -13,10 +13,10 @@ export interface ProjectDetails {
     constructionWorksStart?: Date | null;
     budget?: number | null;
     expenses?: number | null;
-    progress: number;
+    progress?: number;
     isArchived: boolean;
     stages?: Stage[] | null;
-    
+
 }
 
 // {

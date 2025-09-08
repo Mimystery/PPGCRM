@@ -58,6 +58,7 @@ namespace PPGCRM.DataAccess.Repositories
         public async Task<List<ProjectMainDTO>> GetAllProjectMainDataAsync()
         {
             var projects = await _context.Projects
+                .Where(p=>p.IsArchived==false)
                 .Include(p => p.Stages)
                 .ThenInclude(s => s.Processes).ToListAsync();
 
