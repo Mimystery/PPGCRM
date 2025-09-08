@@ -28,10 +28,10 @@ namespace PPGCRM.API.Controllers
             var projects = await _projectsService.GetAllProjectsOnlyAsync();
             return Ok(projects);
         }
-        [HttpGet("AllArchivedProjectsOnly")]
-        public async Task<ActionResult<List<ProjectModel>>> GetAllArchivedProjectsOnly()
+        [HttpGet("AllArchivedProjectsMainData")]
+        public async Task<ActionResult<List<ProjectModel>>> GetAllArchivedProjectMainData()
         {
-            var projects = await _projectsService.GetAllArchivedProjectsOnlyAsync();
+            var projects = await _projectsService.GetAllArchivedProjectsMainDataAsync();
             return Ok(projects);
         }
         [HttpGet("AllProjectsMainData")]

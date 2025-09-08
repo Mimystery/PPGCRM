@@ -5,17 +5,23 @@
   [nzActions]="[archiveAction]"
 >
   <!-- Title & Description -->
-  <nz-card-meta
-    [nzTitle]="titleTpl"
-    [nzDescription]="project().description"
-  ></nz-card-meta>
+  @if (project().description!=null) {
+    <nz-card-meta
+      [nzTitle]="titleTpl"
+      [nzDescription]="descrTpl"
+    ></nz-card-meta>
+  } @else {
+    <nz-card-meta
+      [nzTitle]="titleTpl"
+    ></nz-card-meta>
+  }
 
   <ng-template #titleTpl>
     <span class="card-title">{{ project().projectName }}</span>
   </ng-template>
 
-  <ng-template #descTpl>
-    <span class="card-title">{{ project().description }}</span>
+  <ng-template #descrTpl>
+    <div class="card-description">{{ project().description }}</div>
   </ng-template>
 
   <!-- Dates -->

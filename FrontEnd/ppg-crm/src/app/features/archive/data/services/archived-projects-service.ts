@@ -11,6 +11,6 @@ export class ArchivedProjectsService {
 
 
   getArchivedProjects(){
-    return this.http.get<ProjectCardData[]>('https://localhost:7189/api/Projects/AllArchivedProjectsOnly')
+    return this.http.get<ProjectCardData[]>('https://localhost:7189/api/Projects/AllArchivedProjectsMainData')
   }
 }

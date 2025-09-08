@@ -31,11 +31,29 @@ namespace PPGCRM.DataAccess.Repositories
 
             return _mapper.Map<List<ProjectModel>>(projects);
         }
-        public async Task<List<ProjectModel>> GetAllArchivedProjectsOnlyAsync()
+        public async Task<List<ProjectMainDTO>>  GetAllArchivedProjectsMainDataAsync()
         {
-            var projects = await _context.Projects.Where(p=> p.IsArchived==true).ToListAsync();
+            var projects = await _context.Projects
+                .Where(p=>p.IsArchived==true)
+                .Include(p => p.Stages)
+                .ThenInclude(s => s.Processes).ToListAsync();
 
-            return _mapper.Map<List<ProjectModel>>(projects);
+            var result = projects.Select(project => new ProjectMainDTO
+            {
+                ProjectId = project.ProjectId,
+                ProjectName = project.ProjectName,
+                Description = project.Description,
+                Status = Enum.TryParse<ProjectStatus>(project.Status, out var status) ? status : ProjectStatus.NotStarted,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                IsArchived = project.IsArchived,
+                ProcessCountByStatus = project.Stages
+                    .SelectMany(s => s.Processes)
+                    .GroupBy(p => Enum.TryParse<ProcessStatus>(p.Status, out var result) ? result : ProcessStatus.ToDo)
+                    .ToDictionary(g => g.Key, g => g.Count())
+            }).ToList();
+
+            return result;
         }
         public async Task<List<ProjectMainDTO>> GetAllProjectMainDataAsync()
         {
@@ -46,6 +64,7 @@ namespace PPGCRM.DataAccess.Repositories
             var result = projects.Select(project => new ProjectMainDTO
             {
                 ProjectId = project.ProjectId,
+                Description = project.Description,
                 ProjectName = project.ProjectName,
                 Status = Enum.TryParse<ProjectStatus>(project.Status, out var status) ? status : ProjectStatus.NotStarted,
                 StartDate = project.StartDate,

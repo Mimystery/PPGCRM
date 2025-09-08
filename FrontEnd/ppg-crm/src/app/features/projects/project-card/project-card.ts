@@ -6,13 +6,13 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ProjectCardData } from '../data/interfaces/project-card-data';
 import { SelectedProjectService } from '../../../core/services/selected-project/selected-project';
-import { DatePipe } from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 
 @Component({
   selector: 'app-project-card',
   imports: [NzCardModule, NzBadgeModule,NzProgressModule, NzAvatarModule, NzButtonModule,
-    DatePipe
+    CommonModule
   ],
   templateUrl: './project-card.html',
   styleUrl: './project-card.less'
