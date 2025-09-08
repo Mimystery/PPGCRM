@@ -79,17 +79,4 @@ export class ProjectsComponent {
     this.createNewProjectName = '';
     this.checkIfNewProjectNameEmpty();
   }
-
-  getTotalTasks(p: any) {
-    return p.progress.done + p.progress.inProgress + p.progress.todo;
-  }
-
-  getPercent(p: any) {
-    const total = this.getTotalTasks(p);
-    return {
-      done: Math.round((p.progress.done / total) * 100),
-      inProgress: Math.round((p.progress.inProgress / total) * 100),
-      todo: Math.round((p.progress.todo / total) * 100)
-    };
-  }
 }

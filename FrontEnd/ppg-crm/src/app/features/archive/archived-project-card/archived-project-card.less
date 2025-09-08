@@ -1,14 +1,27 @@
 .card.archive {
-  width: 26.5vw;
-  font-size: 1.8vh;
+  width: 23.5vw;
+  font-size: 1.9vh;
+  background-color: #eaeaea; // світліший фон ніж у project
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  opacity: 0.85; // трохи прозоріша щоб підкреслити "архівність"
+
+  &:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+  }
 
   .card-title {
-    font-size: 1.8vh;
+    font-size: 2vh;
+    font-style: italic; // наприклад курсив щоб виділити
   }
 
   .card-description {
-    font-size: 1.8vh;
+    font-size: 1.9vh;
     height: 6vh;
+    color: #666;
   }
 
   .card-info-container {
@@ -17,6 +30,7 @@
     .card-info-item {
       .card-info-label {
         font-weight: bold;
+        color: #555;
       }
     }
   }
@@ -27,7 +41,7 @@
     .card-status-item {
       display: flex;
       align-items: center;
-      gap: 0.5vw;
+      gap: 0.2vw;
 
       &.done {
         color: green;
@@ -43,13 +57,17 @@
     }
   }
 
-  .card-button.restore {
+  .card-button {
     padding: 0 2.5vw;
-    background-color: #00C040;
     color: white;
-    text-align: right;
+    background-color: #6c757d; // інший колір для архівних (сірий)
+  }
+
+  .card-button.restore {
+    background-color: #28a745; // зелений для кнопки Restore
   }
 }
-.card-footer-wrapper{
+
+.card-footer-wrapper {
   justify-content: end;
 }

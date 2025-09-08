@@ -37,5 +37,11 @@
 
 <!-- ARCHIVES TABLE -->
 <div class="flex-table">
-  <app-archived-project-card></app-archived-project-card>
+  @for (project of projects; track project.projectId) {
+    <app-archived-project-card [project]="project"></app-archived-project-card>
+  } @empty {
+   <nz-empty nzNotFoundContent="No Archived Projects Found.">
+
+   </nz-empty>
+  }
 </div>
