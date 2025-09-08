@@ -110,7 +110,6 @@ export class StagesListComponent {
   }
 
   openProcessDrawer = (process: ProcessDetails) => {
-    console.log(process)
     this.selectedProcess.set(process);
     this.processDrawerVisible.set(true) 
 }

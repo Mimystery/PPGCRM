@@ -118,6 +118,7 @@ export class ProcessDrawerComponent {
   private problems$ = new Subject<string>();
 
   updateProcess(process: ProcessDetails){
+    console.log(process)
     this.processesService.updateProcess(process.processId, process)
       .subscribe({
         next: () => {

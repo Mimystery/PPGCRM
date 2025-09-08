@@ -118,18 +118,13 @@ namespace PPGCRM.DataAccess.Repositories
             {
                 processEntity.ProcessName = processUpdate.ProcessName;
             }
-            if (processUpdate.StartDate != null)
-            {
-                processEntity.StartDate = processUpdate.StartDate;
-            }
-            if (processUpdate.PlanEndDate != null)
-            {
-                processEntity.PlanEndDate = processUpdate.PlanEndDate;
-            }
-            if (processUpdate.FactEndDate != null)
-            {
-                processEntity.FactEndDate = processUpdate.FactEndDate;
-            }
+
+            processEntity.StartDate = processUpdate.StartDate;
+
+            processEntity.PlanEndDate = processUpdate.PlanEndDate;
+                
+            processEntity.FactEndDate = processUpdate.FactEndDate;
+
             if (processUpdate.Notes != null)
             {
                 processEntity.Notes = processUpdate.Notes;

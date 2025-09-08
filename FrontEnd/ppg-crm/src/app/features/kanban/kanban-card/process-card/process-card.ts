@@ -22,9 +22,7 @@ export class ProcessCardComponent {
     public processDrawerVisible =  signal(false);
 
   constructor(){
-    setTimeout(() => {
-      console.log(this.process())
-    }, 100)
+    
   }
 
   processCardDragStarted(event: DragEvent) {
