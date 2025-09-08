@@ -21,4 +21,5 @@
 
 <app-process-drawer (deleted)="onProcessDeleted($event)" 
     [isVisible]="processDrawerVisible()" [process]="selectedProcess()!" 
-    (close)="closeProcessDrawer()"></app-process-drawer>
+    (close)="closeProcessDrawer()"
+    (updated)="onProcessUpdated($event)"></app-process-drawer>

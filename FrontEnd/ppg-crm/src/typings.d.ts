@@ -13,5 +13,7 @@ declare module '@toast-ui/calendar' {
     on(eventName: string, handler: (event: any) => void): void;
     off(eventName: string, handler?: (event: any) => void): void;
     getDate(): Date;
+    updateEvent(eventId: string, calendarId: string, changes: Partial<EventObject>): void;
+    deleteEvent(eventId: string, calendarId: string): void;
   }
 }

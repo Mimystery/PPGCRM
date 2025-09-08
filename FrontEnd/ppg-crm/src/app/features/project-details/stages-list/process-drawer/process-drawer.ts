@@ -110,6 +110,7 @@ export class ProcessDrawerComponent {
 
 
   @Output() close = new EventEmitter<void>();
+  @Output() updated = new EventEmitter<ProcessDetails>();
   users: User[] = []
 
   private notesUpdate$ = new Subject<string>();
@@ -119,7 +120,10 @@ export class ProcessDrawerComponent {
   updateProcess(process: ProcessDetails){
     this.processesService.updateProcess(process.processId, process)
       .subscribe({
-        next: () => this.message.success('Data updated!'),
+        next: () => {
+          this.message.success('Data updated!');
+          this.updated.emit(process);
+        },
         error: () => this.message.error('Error updating')
       });
   }

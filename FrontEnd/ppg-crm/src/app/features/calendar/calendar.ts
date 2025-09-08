@@ -80,9 +80,14 @@ export class CalendarComponent implements AfterViewInit{
       this.cd.detectChanges();
     });
 
-    this.calendar.on('clickSchedule', (event: any) => {
-      const processId = event.schedule.id; // id события в календаре
-      console.log(processId)
+    // this.calendar.on('clickEvent', (event: any) => {
+    //   const processId = event.schedule.id; // id события в календаре
+    //   console.log(processId)
+    //   this.openProcessDrawer(processId);
+    // });
+
+    this.calendar.on('clickEvent', (event: any) => {
+      const processId = event.event.id;
       this.openProcessDrawer(processId);
     });
 
@@ -101,14 +106,36 @@ export class CalendarComponent implements AfterViewInit{
   }
 }
 
-  onProcessDeleted(processId: string) {
-  // удаляем процесс из stages и перерисовываем календарь
-  this.stages.forEach(stage => {
-    stage.processes = stage.processes.filter(p => p.processId !== processId);
-  });
-  this.loadCalendarEvents();
-  this.closeProcessDrawer();
+onProcessUpdated(process: ProcessDetails) {
+  // обновляем в локальном массиве stages
+  for (const stage of this.stages) {
+    const idx = stage.processes.findIndex(p => p.processId === process.processId);
+    if (idx !== -1) {
+      stage.processes[idx] = { ...process };
+    }
+  }
+
+  // обновляем событие в календаре
+  this.calendar.updateEvent(
+    String(process.processId), // id события
+    process.stageId,           // calendarId
+    {
+      start: (process.startDate as Date).toISOString(),
+      end: (process.planEndDate as Date).toISOString(),
+      title: process.processName,
+      backgroundColor: this.getColor(process.status)
+    }
+  );
 }
+
+  onProcessDeleted(processId: string) {
+    // удаляем процесс из stages и перерисовываем календарь
+    this.stages.forEach(stage => {
+      stage.processes = stage.processes.filter(p => p.processId !== processId);
+    });
+    this.loadCalendarEvents();
+    this.closeProcessDrawer();
+  }
 
 
   onStageChange(stageId: string) {
