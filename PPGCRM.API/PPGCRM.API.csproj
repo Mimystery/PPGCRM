@@ -26,4 +26,8 @@
     <ProjectReference Include="..\PPGCRM.DataAccess\PPGCRM.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\processes\" />
+  </ItemGroup>
+
 </Project>

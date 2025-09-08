@@ -22,6 +22,12 @@ namespace PPGCRM.DataAccess.Configurations
 
             builder.HasMany(p => p.ResponsibleUsers).WithMany(u => u.Processes);
 
+            builder.HasMany(p => p.ProcessFiles).WithOne(pf => pf.Process)
+                .HasForeignKey(pf => pf.ProcessId).OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(p => p.ProcessPauses).WithOne(pp => pp.Process)
+                .HasForeignKey(pp => pp.ProcessId).OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(p => p.ProcessName).IsRequired();
             builder.Property(p => p.SortOrder).IsRequired();
             builder.Property(p => p.Status).IsRequired();

@@ -136,6 +136,65 @@ namespace PPGCRM.DataAccess.Migrations
                     b.ToTable("Processes");
                 });
 
+            modelBuilder.Entity("PPGCRM.DataAccess.Entities.ProcessFileEntity", b =>
+                {
+                    b.Property<Guid>("ProcessFileId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("MimeType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ProcessId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UploadedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ProcessFileId");
+
+                    b.HasIndex("ProcessId");
+
+                    b.ToTable("ProcessFiles");
+                });
+
+            modelBuilder.Entity("PPGCRM.DataAccess.Entities.ProcessPauseEntity", b =>
+                {
+                    b.Property<Guid>("PauseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("EndPauseDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ProcessId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("StartPauseDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("PauseId");
+
+                    b.HasIndex("ProcessId");
+
+                    b.ToTable("ProcessPauses");
+                });
+
             modelBuilder.Entity("PPGCRM.DataAccess.Entities.ProjectEntity", b =>
                 {
                     b.Property<Guid>("ProjectId")
@@ -327,6 +386,28 @@ namespace PPGCRM.DataAccess.Migrations
                     b.Navigation("Stage");
                 });
 
+            modelBuilder.Entity("PPGCRM.DataAccess.Entities.ProcessFileEntity", b =>
+                {
+                    b.HasOne("PPGCRM.DataAccess.Entities.ProcessEntity", "Process")
+                        .WithMany("ProcessFiles")
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Process");
+                });
+
+            modelBuilder.Entity("PPGCRM.DataAccess.Entities.ProcessPauseEntity", b =>
+                {
+                    b.HasOne("PPGCRM.DataAccess.Entities.ProcessEntity", "Process")
+                        .WithMany("ProcessPauses")
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Process");
+                });
+
             modelBuilder.Entity("PPGCRM.DataAccess.Entities.ProjectEntity", b =>
                 {
                     b.HasOne("PPGCRM.DataAccess.Entities.ClientEntity", "Client")
@@ -391,6 +472,10 @@ namespace PPGCRM.DataAccess.Migrations
 
             modelBuilder.Entity("PPGCRM.DataAccess.Entities.ProcessEntity", b =>
                 {
+                    b.Navigation("ProcessFiles");
+
+                    b.Navigation("ProcessPauses");
+
                     b.Navigation("Tasks");
                 });
 

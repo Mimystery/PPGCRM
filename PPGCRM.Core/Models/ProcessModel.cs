@@ -26,7 +26,9 @@ namespace PPGCRM.Core.Models
             decimal? totalProcessCost,
             DateTime createdAt,
             List<TaskModel>? tasks, 
-            List<UserMainCardDTO>? responsibleUsers) 
+            List<UserMainCardDTO>? responsibleUsers,
+            List<ProcessPauseModel>? processPauses,
+            List<ProcessFileModel>? processFiles) 
         {
             ProcessId = processId;
             StageId = stageId;
@@ -44,6 +46,8 @@ namespace PPGCRM.Core.Models
             CreatedAt = createdAt;
             Tasks = tasks?.AsReadOnly() ?? new List<TaskModel>().AsReadOnly();
             ResponsibleUsers = responsibleUsers?.AsReadOnly() ?? new List<UserMainCardDTO>().AsReadOnly();
+            ProcessPauses = processPauses?.AsReadOnly() ?? new List<ProcessPauseModel>().AsReadOnly();
+            ProcessFiles = processFiles?.AsReadOnly() ?? new List<ProcessFileModel>().AsReadOnly();
         }
 
         public Guid ProcessId { get; }
@@ -61,6 +65,8 @@ namespace PPGCRM.Core.Models
         public decimal? TotalProcessCost { get; }
         public DateTime CreatedAt { get; }
         public IReadOnlyList<TaskModel>? Tasks { get; }
-        public IReadOnlyList<UserMainCardDTO>? ResponsibleUsers { get; } 
+        public IReadOnlyList<UserMainCardDTO>? ResponsibleUsers { get; }
+        public IReadOnlyList<ProcessPauseModel> ProcessPauses { get; }
+        public IReadOnlyList<ProcessFileModel> ProcessFiles { get; }
     }
 }

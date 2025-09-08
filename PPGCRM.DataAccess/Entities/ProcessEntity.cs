@@ -27,5 +27,7 @@ namespace PPGCRM.DataAccess.Entities
         public DateTime CreatedAt { get; set; }
         public List<TaskEntity> Tasks { get; set; }
         public List<UserEntity> ResponsibleUsers { get; set; }
+        public List<ProcessPauseEntity> ProcessPauses { get; set; }
+        public List<ProcessFileEntity> ProcessFiles { get; set; }
     }
 }

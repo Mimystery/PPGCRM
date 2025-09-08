@@ -26,6 +26,8 @@ namespace PPGCRM.DataAccess
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PendingUserConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
+            modelBuilder.ApplyConfiguration(new ProcessFileConfiguration());
+            modelBuilder.ApplyConfiguration(new ProcessPausesConfiguration());
         }
         // Define DbSets for your entities
         // public DbSet<YourEntity> YourEntities { get; set; }
@@ -37,6 +39,8 @@ namespace PPGCRM.DataAccess
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<PendingUserEntity> PendingUsers { get; set; }
         public DbSet<RefreshTokenEntity> RefreshTokens { get; set; } 
+        public DbSet<ProcessFileEntity> ProcessFiles { get; set; }
+        public DbSet<ProcessPauseEntity> ProcessPauses { get; set; }
 
     }
 }

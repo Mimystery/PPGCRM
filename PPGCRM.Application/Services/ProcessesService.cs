@@ -52,7 +52,9 @@ namespace PPGCRM.Application.Services
                 null, // totalProcessCost
                 DateTime.UtcNow, // createdAt
                 new List<TaskModel>(), // tasks
-                new List<UserMainCardDTO>() // responsibleUsers
+                new List<UserMainCardDTO>(), // responsibleUsers
+                new List<ProcessPauseModel>(), // processPauses
+                new List<ProcessFileModel>()  // processFiles
             );
             await _processesRepository.AddProcessByStageIdAsync(stageId, processModel);
         }
