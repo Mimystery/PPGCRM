@@ -27,11 +27,16 @@ namespace PPGCRM.DataAccess.Repositories
 
         public async Task<List<ProjectModel>> GetAllProjectsOnlyAsync()
         {
-            var projects = await _context.Projects.ToListAsync();
+            var projects = await _context.Projects.Where(p=>p.IsArchived==false).ToListAsync();
 
             return _mapper.Map<List<ProjectModel>>(projects);
         }
+        public async Task<List<ProjectModel>> GetAllArchivedProjectsOnlyAsync()
+        {
+            var projects = await _context.Projects.Where(p=> p.IsArchived==true).ToListAsync();
 
+            return _mapper.Map<List<ProjectModel>>(projects);
+        }
         public async Task<List<ProjectMainDTO>> GetAllProjectMainDataAsync()
         {
             var projects = await _context.Projects
