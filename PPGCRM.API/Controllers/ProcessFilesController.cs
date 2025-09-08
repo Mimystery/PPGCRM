@@ -21,7 +21,7 @@ namespace PPGCRM.API.Controllers
             _env = env;
         }
 
-        [HttpPost("processes/{processId}/files")]
+        [HttpPost("UploadProcessFile/{processId}/files")]
         public async Task<ActionResult> UploadFile(Guid processId, IFormFile file, Guid? userId)
         {
             if (file == null || file.Length == 0)
@@ -41,11 +41,13 @@ namespace PPGCRM.API.Controllers
                 await file.CopyToAsync(stream);
             }
 
+            var relativePath = $"/uploads/processes/{processId}/{file.FileName}";
+
             var processFile = new ProcessFileCreateDTO
             {
                 ProcessId = processId,
                 FileName = file.FileName,
-                FilePath = filePath,
+                FilePath = relativePath,
                 MimeType = file.ContentType,
                 FileSize = file.Length,
                 UploadedAt = DateTime.UtcNow,
@@ -55,7 +57,7 @@ namespace PPGCRM.API.Controllers
             return Ok();
         }
 
-        [HttpGet("files/{fileId}")]
+        [HttpGet("DownloadProcessFile/{fileId}")]
         public async Task<ActionResult> DownloadFile(Guid fileId)
         {
             var file = await _processFilesService.GetFileByIdAsync(fileId);
@@ -77,6 +79,22 @@ namespace PPGCRM.API.Controllers
         {
             var files = await _processFilesService.GetAllFilesByProcessIdAsync(processId);
             return Ok(files);
+        }
+
+        [HttpDelete("DeleteProcessFile/{fileId}/files")]
+        public async Task<ActionResult> DeleteFile(Guid fileId)
+        {
+            var file = await _processFilesService.GetFileByIdAsync(fileId);
+            if (file == null)
+            {
+                return NotFound();
+            }
+            if (System.IO.File.Exists(file.FilePath))
+            {
+                System.IO.File.Delete(file.FilePath);
+            }
+            await _processFilesService.DeleteFileAsync(fileId);
+            return NoContent();
         }
     }
 }
