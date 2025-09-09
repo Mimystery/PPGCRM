@@ -101,8 +101,8 @@ builder.Services.AddScoped<IPendingUsersRepository, PendingUsersRepository>();
 builder.Services.AddScoped<IProcessFilesRepository, ProcessFilesRepository>();
 builder.Services.AddScoped<IProcessFilesService, ProcessFilesService>();
 
-//builder.Services.AddScoped<IProcessPausesRepository, ProcessPausesRepository>();
-//builder.Services.AddScoped<IProcessPausesService, ProcessPausesService>();
+builder.Services.AddScoped<IProcessPausesRepository, ProcessPausesRepository>();
+builder.Services.AddScoped<IProcessPausesService, ProcessPausesService>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
