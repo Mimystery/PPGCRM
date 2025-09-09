@@ -27,14 +27,14 @@ namespace PPGCRM.DataAccess.Repositories
 
         public async Task<List<ProjectModel>> GetAllProjectsOnlyAsync()
         {
-            var projects = await _context.Projects.Where(p=>p.IsArchived==false).ToListAsync();
+            var projects = await _context.Projects.Where(p => p.IsArchived == false).ToListAsync();
 
             return _mapper.Map<List<ProjectModel>>(projects);
         }
         public async Task<List<ProjectMainDTO>>  GetAllArchivedProjectsMainDataAsync()
         {
             var projects = await _context.Projects
-                .Where(p=>p.IsArchived==true)
+                .Where(p => p.IsArchived == true)
                 .Include(p => p.Stages)
                 .ThenInclude(s => s.Processes).ToListAsync();
 
@@ -58,7 +58,7 @@ namespace PPGCRM.DataAccess.Repositories
         public async Task<List<ProjectMainDTO>> GetAllProjectMainDataAsync()
         {
             var projects = await _context.Projects
-                .Where(p=>p.IsArchived==false)
+                .Where(p => p.IsArchived == false)
                 .Include(p => p.Stages)
                 .ThenInclude(s => s.Processes).ToListAsync();
 
@@ -97,6 +97,9 @@ namespace PPGCRM.DataAccess.Repositories
                 .Include(p => p.Stages)
                     .ThenInclude(s => s.Processes)
                         .ThenInclude(proc => proc.ResponsibleUsers)
+                .Include(p => p.Stages)
+                    .ThenInclude(s => s.Processes)
+                        .ThenInclude(proc => proc.ProcessPauses)
                 .FirstOrDefaultAsync(p => p.ProjectId == projectId);
 
             return _mapper.Map<ProjectDetailsDTO>(project);

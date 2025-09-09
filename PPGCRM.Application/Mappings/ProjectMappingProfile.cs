@@ -18,6 +18,7 @@ namespace PPGCRM.Application.Mappings
             CreateMap<ProjectEntity, ProjectModel>();
             CreateMap<ProjectModel, ProjectEntity>();
             CreateMap<ProjectEntity, ProjectDetailsDTO>();
+            CreateMap<ProcessEntity, ProjectMainDTO>();
         }
     }
 }

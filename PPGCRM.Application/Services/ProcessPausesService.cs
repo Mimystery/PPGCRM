@@ -39,9 +39,9 @@ namespace PPGCRM.Application.Services
             await _processPausesRepository.AddProcessPause(processModel);
         }
 
-        public async Task UpdateProcessPause(Guid pauseId, ProcessPauseUpdateDTO processPauseUpdateDto)
+        public async Task UpdateProcessPause(Guid pauseId)
         {
-            await _processPausesRepository.UpdateProcessPause(pauseId, processPauseUpdateDto);
+            await _processPausesRepository.UpdateProcessPause(pauseId);
         }
 
         public async Task DeleteProcessPause(Guid pauseId)

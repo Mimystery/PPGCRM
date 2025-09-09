@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PPGCRM.DataAccess.Repositories
 {
@@ -23,7 +24,7 @@ namespace PPGCRM.DataAccess.Repositories
 
         public async Task<List<ProcessPauseModel>> GetAllProcessPausesByProcessId(Guid processId)
         {
-            var pauses = _context.ProcessPauses.Where(p => p.ProcessId == processId).ToList();
+            var pauses = await _context.ProcessPauses.Where(p => p.ProcessId == processId).ToListAsync();
 
             return _mapper.Map<List<ProcessPauseModel>>(pauses);
         }
@@ -35,12 +36,18 @@ namespace PPGCRM.DataAccess.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateProcessPause(Guid pauseId, ProcessPauseUpdateDTO pauseUpdateDto)
+        public async Task UpdateProcessPause(Guid pauseId)
         {
             var existingPause = _context.ProcessPauses.FirstOrDefault(p => p.PauseId == pauseId);
+
+            if (existingPause == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
             if (existingPause != null)
             {
-                existingPause.EndPauseDate = pauseUpdateDto.EndPauseDate;
+                existingPause.EndPauseDate = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
         }
@@ -48,6 +55,12 @@ namespace PPGCRM.DataAccess.Repositories
         public async Task DeleteProcessPause(Guid pauseId)
         {
             var existingPause = _context.ProcessPauses.FirstOrDefault(p => p.PauseId == pauseId);
+
+            if (existingPause == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
             if (existingPause != null)
             {
                 _context.ProcessPauses.Remove(existingPause);

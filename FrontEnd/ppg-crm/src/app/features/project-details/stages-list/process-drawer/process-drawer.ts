@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, EventEmitter, HostListener, inject, Input, input, Output, signal, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, EventEmitter, HostListener, inject, Input, input, OnInit, Output, signal, ViewChild} from '@angular/core';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzButtonModule} from 'ng-zorro-antd/button';
@@ -31,6 +31,8 @@ import { ProjectUserService } from '../../data/services/project-user-service';
 import { CalculateProgressService } from '../../data/services/calculate-progress-service';
 import { CalculateSalaryService } from '../../data/services/calculate-salary-service';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { PauseService } from '../../data/services/pause-service';
+import { ProcessPause } from './data/interfaces/process-pause.interface';
 
 @Component({
   selector: 'app-process-drawer',
@@ -49,6 +51,7 @@ export class ProcessDrawerComponent {
   processesService = inject(ProcessesService)
   calculateProgressService = inject(CalculateProgressService)
   salaryService = inject(CalculateSalaryService)
+  pauseService = inject(PauseService)
 
   isVisible  = input.required<boolean>();
   process = input.required<ProcessDetails>();
@@ -60,6 +63,7 @@ export class ProcessDrawerComponent {
   tasksService = inject(TasksService);
 
   @Output() deleted = new EventEmitter<string>();
+
 
   confirmDelete(){
     this.processesService.deleteProcess(this.process().processId).subscribe({
@@ -131,6 +135,12 @@ export class ProcessDrawerComponent {
 
 private notesInitialized = false;
 
+private normalizeDateOnly(value?: Date | string | null): Date | null {
+  if (!value) return null;
+  const d = new Date(value);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
   constructor(){
 
     this.usersService.getAllUsers().subscribe(val => {
@@ -159,8 +169,40 @@ private notesInitialized = false;
           this.updateProcess(this.process()!)
         }
       })
+
+      effect(() => {
+        this.checkExpired();
+      });
+
   }
 
+  checkExpired(){
+    const p = this.process?.(); // process — signal (input)
+    if (!p) return;
+
+    // не мешаем, если пользователь сейчас редактирует даты вручную
+    if (this.isEditingPlanEndDate || this.isEditingFactEndDate) return;
+
+    const planDate = this.normalizeDateOnly(p.planEndDate);
+    const factDate = this.normalizeDateOnly(p.factEndDate);
+    const today = this.normalizeDateOnly(new Date())!;
+
+    // если есть плановая дата, она уже в прошлом (только дата), факт окончания нет,
+    // и статус ещё не Expired/Done/Paused — ставим Expired и сохраняем
+    if (
+      planDate &&
+      planDate.getTime() < today.getTime() &&
+      !factDate &&
+      p.status !== 'Expired' &&
+      p.status !== 'Done' &&
+      p.status !== 'Paused'
+    ) {
+      console.log('Auto-set Expired for process', p.processId, planDate, today);
+      p.status = 'Expired';
+      // отправляем обновление на сервер
+      this.updateProcess(p);
+    }
+  }
 
   onNotesChange(value: string) {
     if (this.process()) {
@@ -204,12 +246,34 @@ private notesInitialized = false;
 
   dropdownVisible = false;
 
+  deletePauseHandle(pauseId: string){
+    this.pauseService.deletePause(pauseId).subscribe({
+      next: () => {
+        const p = this.process();
+        if (p && p.processPauses) {
+          const newPauses = p.processPauses.filter(x => x.pauseId !== pauseId);
+          p.processPauses = newPauses; // присваиваем новый массив — UI обновится
+        }
+        this.message.success('Pause removed!');
+      },
+      error: () => this.message.error('Error')
+    })
+  }
+
+  getPauseDays(start: Date, end: Date | null){
+    return this.pauseService.getPauseDays(start, end);
+  }
+
+  getTotalPauseDays(){
+    return this.pauseService.getTotalPauseDays(this.process())
+  }
+
   getUserWorkInfo(user: User){
     if(!this.process()){
       return { daysWorked: 0, totalSalary: 0 };
     }
 
-    return this.salaryService.calculateSalary(user, this.process().startDate!, this.process().factEndDate);
+    return this.salaryService.calculateSalary(user, this.process());
   }
 
   getTotalSalary(): number {
@@ -235,14 +299,16 @@ private notesInitialized = false;
     if (!process) {
       return 0;
     }
-
+    
     const percent = this.calculateProgressService.calculateProgress(process)
 
     if (percent === 100 && process.status !== 'Done'){
       process.status = 'Done';
       process.factEndDate = new Date();
       this.finishEditing('status');
-    }else if (percent < 100 && process.status === 'Done'){
+    }
+    
+    if (percent < 100 && process.status === 'Done'){
       process.status = 'InProgress';
       process.factEndDate = null;
       this.finishEditing('status')
@@ -351,6 +417,8 @@ private notesInitialized = false;
     }
   }
 
+  previouseStatus: string | null = null;
+
   finishEditing(field: string) {
     switch (field) {
       case 'processName':
@@ -382,7 +450,45 @@ private notesInitialized = false;
         this.updateProcess(this.process()!)
         break;
       case 'status':
+        const newStatus = this.process().status;
+        const processId = this.process().processId;
+        const process = this.process()
+
+        const today = new Date();
+
+        if(newStatus === 'Paused' && this.previouseStatus !== 'Paused'){
+          this.pauseService.addProcessPause(processId).subscribe({
+            next: () => {
+              this.pauseService.getAllProcessPauses(processId).subscribe({
+                next: (pauses: ProcessPause[]) => {
+                  this.process().processPauses = pauses;
+                },
+                error: err => console.error(err)
+              })
+            },
+            error: err => console.error(err)
+          });
+        }
+
+        if(this.previouseStatus === 'Paused' && newStatus !== 'Paused'){
+          const activePause = this.process().processPauses.find(p => !p.endPauseDate);
+          if(activePause){
+            this.pauseService.updateProcessPause(activePause.pauseId).subscribe({
+              next: () => {
+                this.pauseService.getAllProcessPauses(processId).subscribe({
+                next: (pauses: ProcessPause[]) => {
+                  this.process().processPauses = pauses;
+                },
+                error: err => console.error(err)
+              })
+              },
+              error: err => console.error('Error updating pause', err)
+            })
+          }
+        }
+
         this.updateProcess(this.process()!)
+        this.previouseStatus = newStatus;
         break;
     }
   }

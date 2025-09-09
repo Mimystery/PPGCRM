@@ -33,9 +33,9 @@ namespace PPGCRM.API.Controllers
         }
 
         [HttpPut("UpdateProcessPause/{pauseId}")]
-        public async Task<ActionResult> UpdateProcessPause(Guid pauseId, [FromBody] ProcessPauseUpdateDTO processPauseUpdateDto)
+        public async Task<ActionResult> UpdateProcessPause(Guid pauseId)
         {
-            await _processPausesService.UpdateProcessPause(pauseId, processPauseUpdateDto);
+            await _processPausesService.UpdateProcessPause(pauseId);
             return Ok();
         }
 

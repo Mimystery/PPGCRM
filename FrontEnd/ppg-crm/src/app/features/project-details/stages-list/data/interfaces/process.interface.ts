@@ -1,4 +1,5 @@
 import { User } from "../../../../../core/auth/data/interfaces/user.interface";
+import { ProcessPause } from "../../process-drawer/data/interfaces/process-pause.interface";
 import { Task } from "../../process-drawer/data/interfaces/task.interface";
 
 export interface ProcessDetails {
@@ -17,6 +18,7 @@ export interface ProcessDetails {
     totalProcessCost: number;
     tasks: Task[];
     responsibleUsers: User[];
+    processPauses: ProcessPause[];
 }
 
 // {

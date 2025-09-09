@@ -243,7 +243,7 @@
         <div nz-flex nzJustify="space-between" nzVertical style="height: 100%">
         <div class="sider-content">
         <h3>STATUS</h3>
-        <nz-select *ngIf="process()" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
+        <nz-select *ngIf="process()" nzPlaceHolder="Select status" [nzCustomTemplate]="defaultTemplate"
           style="width: 100%;" [(ngModel)]="process()!.status" (ngModelChange)="finishEditing('status')">
           <nz-option nzCustomContent nzLabel="To do" nzValue="ToDo">
             <div style="display: flex; align-items: center; gap: 4px;">
@@ -316,6 +316,36 @@
           style="width: 120px; margin-top: 1vh;">
         </nz-progress>
         </div>
+
+        <nz-table *ngIf="process()" style="margin-top: 1vh;" [nzData]="process().processPauses"
+          nzShowPagination="false">
+          <thead>
+            <tr class="total-row">
+              <th colspan="2" style="text-align: left;" >Total days paused:</th>
+              <th>{{ getTotalPauseDays() }}</th>
+            </tr>
+            <tr>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Days</th>
+            </tr>
+          </thead>
+          <tbody>
+              @for (pause of process().processPauses; track pause.pauseId) {
+                <tr>
+                  <td>{{ pause.startPauseDate | date: 'dd.MM.yyyy' }}</td>
+                  @if(pause.endPauseDate === null){
+                    <td>{{ "Current" }}</td>
+                  } @else {
+                    <td>{{ pause.endPauseDate | date: 'dd.MM.yyyy' }}</td>
+                  }
+                  <td>{{ getPauseDays(pause.startPauseDate, pause.endPauseDate) }} 
+                    <nz-icon nzType="close" class="delete-icon" (click)="deletePauseHandle(pause.pauseId)"></nz-icon></td>
+                    
+                </tr>
+              }
+          </tbody>
+        </nz-table>
 
         <nz-table *ngIf="process()" style="margin-top: 1vh;" [nzData]="process().responsibleUsers"
           nzShowPagination="false">

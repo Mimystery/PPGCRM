@@ -7,6 +7,6 @@ public interface IProcessPausesRepository
 {
     Task<List<ProcessPauseModel>> GetAllProcessPausesByProcessId(Guid processId);
     Task AddProcessPause(ProcessPauseModel pauseModel);
-    Task UpdateProcessPause(Guid pauseId, ProcessPauseUpdateDTO pauseUpdateDto);
+    Task UpdateProcessPause(Guid pauseId);
     Task DeleteProcessPause(Guid pauseId);
 }

@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { User } from '../../../../core/auth/data/interfaces/user.interface';
 import { ProcessDetails } from '../../stages-list/data/interfaces/process.interface';
+import { PauseService } from './pause-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculateSalaryService {
+  pauseService = inject(PauseService);
 
   getWorkingDays (start: Date, end: Date): number {
-      const startDate = new Date(start)
+      const startDate = new Date(start!)
       const endDate = new Date(end)
       let count = 0;
   
@@ -36,25 +38,28 @@ export class CalculateSalaryService {
       return end;
     }
   
-    calculateSalary(user: User, startDate: Date | null, factEndDate: Date | null){
-      if (!startDate) {
+    calculateSalary(user: User, process: ProcessDetails){
+      if (!process.startDate) {
         return { daysWorked: 0, totalSalary: 0 };
       }
 
-      const endDate = this.getEffectiveEndDate(factEndDate);
-      const daysWorked = this.getWorkingDays(startDate, endDate);
+      const effectiveEnd = this.getEffectiveEndDate(process.factEndDate);
+      const totalDays = this.getWorkingDays(process.startDate!, effectiveEnd);
+
+      const pauseDays = this.pauseService.getTotalPauseDays(process);
+      const workedDays = totalDays - pauseDays
   
       const dailySalary = user.salary / 22;
-      const totalSalary = dailySalary * daysWorked;
+      const totalSalary = dailySalary * workedDays;
   
-      return { daysWorked, totalSalary };
+      return { daysWorked: workedDays, totalSalary };
     }
 
     getTotalSalary(process: ProcessDetails): number {
     if (!process || !process.responsibleUsers) return 0;
 
     return process.responsibleUsers
-      .map(user => this.calculateSalary(user, process.startDate!, process.factEndDate).totalSalary)
+      .map(user => this.calculateSalary(user, process).totalSalary)
       .reduce((sum, salary) => sum + salary, 0);
   }
 
