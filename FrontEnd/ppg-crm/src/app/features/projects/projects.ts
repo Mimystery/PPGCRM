@@ -12,6 +12,7 @@ import { ProjectCardComponent } from './project-card/project-card';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ProjectsService } from './data/services/projects-service';
 import { ProjectCardData } from './data/interfaces/project-card-data';
+import { ArchivedProjectsService } from '../archive/data/services/archived-projects-service';
 
 @Component({
   selector: 'app-projects',
@@ -34,16 +35,54 @@ export class ProjectsComponent {
   createNewProjectModalVisible = false;
   createNewProjectModalOkDisabled = true;
   createNewProjectName = '';
+  searchQuery = '';
 
   projects: ProjectCardData[] = [];
+  archivedProjects: ProjectCardData[] = [];
 
   projectsService = inject(ProjectsService)
+  archivedProjectsService = inject(ArchivedProjectsService)
 
   constructor() {
     this.projectsService.getProjects()
       .subscribe(val => {
         this.projects = val
       })
+    
+    this.archivedProjectsService.getArchivedProjects()
+      .subscribe(val => {
+        this.archivedProjects = val
+      })
+  }
+
+  get filteredProjects(): ProjectCardData[] {
+    if (!this.searchQuery.trim()) {
+      return this.projects;
+    }
+    return this.projects.filter(p =>
+      p.projectName.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+
+  onProjectArchived(projectId: string) {
+    const archivedProject = this.projects.find(p => p.projectId === projectId);
+    if (!archivedProject) return;
+
+    this.projects = this.projects.filter(p => p.projectId !== projectId);
+
+    this.archivedProjects.push(archivedProject);
+  }
+
+  getActiveProjectsCount(): number {
+    if (!this.projects) return 0;
+
+    return this.projects.length;
+  }
+
+  getArchivedProjectsCount(): number {
+    if (!this.projects) return 0;
+
+    return this.archivedProjects.length;
   }
 
   checkIfNewProjectNameEmpty() {

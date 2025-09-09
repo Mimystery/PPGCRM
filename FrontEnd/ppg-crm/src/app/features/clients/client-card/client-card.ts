@@ -84,11 +84,11 @@ export class ClientCardComponent {
 
   finishEditing(field: string) {
     switch (field) {
-      case 'companyName': this.isEditingCompanyName = false; break;
-      case 'director': this.isEditingDirector = false; break;
-      case 'contact': this.isEditingContact = false; break;
-      case 'email': this.isEditingEmail = false; break;
-      case 'phone': this.isEditingPhone = false; break;
+      case 'companyName': this.isEditingCompanyName = !this.isEditingCompanyName; break;
+      case 'director': this.isEditingDirector = !this.isEditingDirector; break;
+      case 'contact': this.isEditingContact = !this.isEditingContact; break;
+      case 'email': this.isEditingEmail = !this.isEditingEmail; break;
+      case 'phone': this.isEditingPhone = !this.isEditingPhone; break;
     }
 
     const clientData = this.client();

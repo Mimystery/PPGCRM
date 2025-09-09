@@ -1,4 +1,4 @@
-import {Component, inject, input, Input} from '@angular/core';
+import {Component, EventEmitter, inject, input, Input, Output} from '@angular/core';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzBadgeModule} from 'ng-zorro-antd/badge';
 import {NzProgressModule} from 'ng-zorro-antd/progress';
@@ -20,6 +20,8 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 export class ArchivedProjectCardComponent {
   project = input.required<ProjectCardData>();
 
+  @Output() restored = new EventEmitter<string>();
+
   selectedProjectService = inject(SelectedProjectService);
   projectDetailsService = inject(ProjectDetailsService)
   message = inject(NzMessageService);
@@ -38,6 +40,7 @@ export class ArchivedProjectCardComponent {
       .subscribe({
         complete: () =>{
           this.message.success("Проект восстановлен!")
+          this.restored.emit(this.project().projectId)
         },
         error: (error)=>{
           this.message.error("Ошибка при восстановлении: " + error.message)

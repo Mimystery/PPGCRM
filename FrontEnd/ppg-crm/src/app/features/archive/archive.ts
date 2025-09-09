@@ -11,6 +11,7 @@ import { SelectedProjectService } from '../../core/services/selected-project/sel
 import {ArchivedProjectsService} from './data/services/archived-projects-service';
 import {ProjectCardData} from '../projects/data/interfaces/project-card-data';
 import {NzEmptyComponent} from 'ng-zorro-antd/empty';
+import { ProjectsService } from '../projects/data/services/projects-service';
 
 @Component({
   selector: 'app-archive',
@@ -21,13 +22,37 @@ import {NzEmptyComponent} from 'ng-zorro-antd/empty';
 })
 export class ArchiveComponent {
   projects: ProjectCardData[] = [];
+  activeProjects: ProjectCardData[] = [];
 
     selectedProjectService = inject(SelectedProjectService);
     archivedProjectsService = inject(ArchivedProjectsService);
+    projectsService = inject(ProjectsService)
+
     constructor(){
       this.archivedProjectsService.getArchivedProjects()
         .subscribe(val => {
           this.projects = val
         })
+
+        this.projectsService.getProjects().subscribe(val => {
+          this.activeProjects = val
+        })
+    }
+
+    getActiveProjectsCount(): number{
+      return this.activeProjects.length
+    }
+
+    getArchivedProjectsCount(): number{
+      return this.projects.length
+    }
+
+    onProjectRestored(projectId: string){
+      const activeProject = this.projects.find(p => p.projectId === projectId);
+      if(activeProject){
+        this.activeProjects.push(activeProject);
+      }
+
+      this.projects = this.projects.filter(p => p.projectId === projectId);
     }
 }

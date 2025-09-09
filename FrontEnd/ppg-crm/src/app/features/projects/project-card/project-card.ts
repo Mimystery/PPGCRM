@@ -1,4 +1,4 @@
-import {Component, inject, input} from '@angular/core';
+import {Component, EventEmitter, inject, input, Output} from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
@@ -23,6 +23,8 @@ export class ProjectCardComponent {
 
   project = input.required<ProjectCardData>();
 
+  @Output() archived = new EventEmitter<string>();
+
   selectedProjectService = inject(SelectedProjectService);
   projectDetailsService = inject(ProjectDetailsService)
   message = inject(NzMessageService);
@@ -41,6 +43,7 @@ export class ProjectCardComponent {
       .subscribe({
         complete: () =>{
           this.message.success("Проект архивирован!")
+          this.archived.emit(this.project().projectId);
         },
         error: (error)=>{
           this.message.error("Ошибка при архивировании: " + error.message)

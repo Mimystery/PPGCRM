@@ -12,7 +12,7 @@
           <path d="M0.5 15V1C0.5 0.723858 0.723858 0.5 1 0.5H15C15.2762 0.5 15.5 0.723858 15.5 1V15C15.5 15.2762 15.2762 15.5 15 15.5H1C0.723858 15.5 0.5 15.2762 0.5 15Z" stroke="#00C040" stroke-width="0.866667"/>
         </svg>
       </nz-icon>
-      Active projects
+      <span> {{ getActiveProjectsCount() }} Active projects</span>
     </button>
     <button nz-button nzType="default" class="page-header-btn archive">
       <nz-icon>
@@ -21,7 +21,7 @@
           <path d="M8 5.5V1.33333" stroke="#FFA220" stroke-width="0.866667" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </nz-icon>
-      Archived projects
+      <span> {{ getArchivedProjectsCount() }} Archived projects</span>
     </button>
   </div>
 
@@ -38,7 +38,7 @@
 <!-- ARCHIVES TABLE -->
 <div class="flex-table">
   @for (project of projects; track project.projectId) {
-    <app-archived-project-card [project]="project"></app-archived-project-card>
+    <app-archived-project-card [project]="project" (restored)="onProjectRestored($event)"></app-archived-project-card>
   } @empty {
    <nz-empty nzNotFoundContent="No Archived Projects Found.">
 
