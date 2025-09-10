@@ -32,6 +32,11 @@ namespace PPGCRM.Application.Services
             return await _processFilesRepository.GetFileByIdAsync(fileId);
         }
 
+        public async Task<ProcessFileModel> GetFileByName(Guid processId, string fileName)
+        {
+            return await _processFilesRepository.GetFileByFileName(processId, fileName);
+        }
+
         public async Task AddFileAsync(ProcessFileCreateDTO fileModel)
         {
             var processFileModel = new ProcessFileModel()
@@ -49,9 +54,9 @@ namespace PPGCRM.Application.Services
             await _processFilesRepository.AddFileAsync(processFileModel);
         }
 
-        public async Task UpdateFileAsync(Guid fileId, ProcessFileUpdateDTO processFileUpdateDto)
+        public async Task UpdateFileAsync(ProcessFileModel processFileUpdateDto)
         {
-            await _processFilesRepository.UpdateFileAsync(fileId, processFileUpdateDto);
+            await _processFilesRepository.UpdateFileAsync(processFileUpdateDto);
         }
 
         public async Task DeleteFileAsync(Guid fileId)

@@ -15,11 +15,15 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FilesService } from './data/services/files-service';
 import { ProcessFile } from './data/interfaces/process-file.interface';
 import { NzCardComponent } from "ng-zorro-antd/card";
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzPopconfirmComponent, NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 
 @Component({
   selector: 'app-file',
   imports: [NzCollapseComponent, DatePipe, NzProgressComponent, NzTagComponent,
-    ProcessDrawerComponent, NzButtonModule, NzCollapseModule, FormsModule, NzInputModule, NzIconModule, NzCardComponent],
+    ProcessDrawerComponent, NzButtonModule, NzCollapseModule, FormsModule, NzInputModule, NzIconModule, 
+    NzCardComponent, NzPopconfirmModule],
   templateUrl: './file.html',
   styleUrl: './file.less'
 })
@@ -32,6 +36,8 @@ export class FileComponent {
   public stages: Stage[] | null = null;
   public selectedProcess = signal<ProcessDetails | null>(null);
   searchQuery = '';
+  modal = inject(NzModalService);
+  message = inject(NzMessageService);
 
   public selectedStageId = signal<string>('All');
 
@@ -50,12 +56,48 @@ export class FileComponent {
     return this.stages!.filter(s => s.stageId === this.selectedStageId());
   }
 
-  downloadFile(file: ProcessFile){
+  getDeleteFileTitle(file: ProcessFile){
+    return `Are you sure you want to delete "${file.fileName}" file?`;
+  }
 
+  downloadFile(file: ProcessFile){
+    console.log(file.processFileId)
+    this.filesService.downloadFile(file.processFileId).subscribe({
+    next: (blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = file.fileName;
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      this.message.success('File downloaded successfully!');
+    },
+    error: (err) => {
+      console.error('Download error', err)
+      this.message.error('Error downloading file!');
+    }
+  });
+  }
+
+  confirmDeleteFile(file: ProcessFile){
+    this.deleteFile(file)
   }
 
   deleteFile(file: ProcessFile){
-    
+    this.filesService.deleteFile(file.processFileId).subscribe({
+    next: () => {
+      const process = this.selectedProcess();
+      if (process) {
+        process.processFiles = process.processFiles.filter(f => f.processFileId !== file.processFileId);
+      }
+      this.message.success('File successfully deleted!');
+    },
+    error: (err) => {
+      console.error('Delete error', err)
+      this.message.error('Error deleting file!');
+    }
+  });
   }
 
   showOpenFiletModal(fileInput: HTMLInputElement){
@@ -66,36 +108,59 @@ export class FileComponent {
     event.preventDefault();
   }
 
-  onFileSelected(event: Event) {
+  async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length || !this.selectedProcess()) return;
 
     const file = input.files[0];
     const process = this.selectedProcess()!;
 
-    this.filesService.addFileToProcess(process.processId, file).subscribe({
-      next: () => {
-        this.filesService.getProcessFiles(process!.processId).subscribe({
-          next(value) {
-            process!.processFiles = value
-          },
-          error: (err) => console.error('Error', err)
-        })
-      },
-      error: (err) => console.error('Error', err)
+    const exists = await this.filesService.checkFile(process!.processId, file.name).toPromise();
+
+    if (exists) {
+    this.modal.confirm({
+      nzTitle: 'Файл с таким именем уже существует',
+      nzContent: `Хотите перезаписать файл "${file.name}"?`,
+      nzOkText: 'Да',
+      nzCancelText: 'Нет',
+      nzOnOk: () => this.saveFile(process!.processId, file),
+      nzOnCancel: () => {}
     });
+  } else {
+    this.saveFile(process!.processId, file);
+  }
   }
 
-  onFileDrop(event: DragEvent){
+  async onFileDrop(event: DragEvent){
     event.preventDefault();
     if (!event.dataTransfer?.files.length || !this.selectedProcess()) return;
 
     const file = event.dataTransfer.files[0];
     const process = this.selectedProcess();
 
-    this.filesService.addFileToProcess(process!.processId, file).subscribe({
+    const exists = await this.filesService.checkFile(process!.processId, file.name).toPromise();
+
+    if (exists) {
+    this.modal.confirm({
+      nzTitle: 'Файл с таким именем уже существует',
+      nzContent: `Хотите перезаписать файл "${file.name}"?`,
+      nzOkText: 'Да',
+      nzCancelText: 'Нет',
+      nzOnOk: () => this.saveFile(process!.processId, file),
+      nzOnCancel: () => {}
+    });
+  } else {
+    this.saveFile(process!.processId, file);
+  }
+
+    //this.selectedProcess()?.processFiles.push(newFile);
+  }
+
+  saveFile(processId: string, file: File){
+    const process = this.selectedProcess()
+    this.filesService.addFileToProcess(processId, file).subscribe({
       next: () => {
-        this.filesService.getProcessFiles(process!.processId).subscribe({
+        this.filesService.getProcessFiles(processId).subscribe({
           next(value) {
             process!.processFiles = value
           },
@@ -104,8 +169,6 @@ export class FileComponent {
       },
       error: (err) => console.error('Error', err)
     })
-
-    //this.selectedProcess()?.processFiles.push(newFile);
   }
 
   onProcessDeleted(processId: string) {

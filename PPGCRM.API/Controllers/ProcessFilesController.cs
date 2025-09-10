@@ -41,19 +41,33 @@ namespace PPGCRM.API.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            var relativePath = $"/uploads/processes/{processId}/{file.FileName}";
+            var existingFile = await _processFilesService.GetFileByName(processId, file.FileName);
 
-            var processFile = new ProcessFileCreateDTO
+            if (existingFile != null)
             {
-                ProcessId = processId,
-                FileName = file.FileName,
-                FilePath = relativePath,
-                MimeType = file.ContentType,
-                FileSize = file.Length,
-                UploadedAt = DateTime.UtcNow,
-                UploadedBy = userId
-            };
-            await _processFilesService.AddFileAsync(processFile);
+                existingFile.FileSize = file.Length;
+                existingFile.MimeType = file.ContentType;
+                existingFile.UploadedAt = DateTime.UtcNow;
+                existingFile.UploadedBy = userId;
+
+                await _processFilesService.UpdateFileAsync(existingFile);
+            }
+            else
+            {
+                var relativePath = $"/uploads/processes/{processId}/{file.FileName}";
+                var processFile = new ProcessFileCreateDTO
+                {
+                    ProcessId = processId,
+                    FileName = file.FileName,
+                    FilePath = relativePath,
+                    MimeType = file.ContentType,
+                    FileSize = file.Length,
+                    UploadedAt = DateTime.UtcNow,
+                    UploadedBy = userId
+                };
+                await _processFilesService.AddFileAsync(processFile);
+            }
+
             return Ok();
         }
 
@@ -61,12 +75,20 @@ namespace PPGCRM.API.Controllers
         public async Task<ActionResult> DownloadFile(Guid fileId)
         {
             var file = await _processFilesService.GetFileByIdAsync(fileId);
-            if (file == null || !System.IO.File.Exists(file.FilePath))
+            if (file == null)
             {
                 return NotFound();
             }
+
+            var absolutePath = Path.Combine(_env.WebRootPath, "uploads", "processes", file.ProcessId.ToString(), file.FileName);
+
+            if (!System.IO.File.Exists(absolutePath))
+            {
+                return NotFound();
+            }
+
             var memory = new MemoryStream();
-            using (var stream = new FileStream(file.FilePath, FileMode.Open))
+            using (var stream = new FileStream(absolutePath, FileMode.Open, FileAccess.Read))
             {
                 await stream.CopyToAsync(memory);
             }
@@ -78,7 +100,21 @@ namespace PPGCRM.API.Controllers
         public async Task<ActionResult<List<ProcessFileModel>>> GetAllFilesByProcessId(Guid processId)
         {
             var files = await _processFilesService.GetAllFilesByProcessIdAsync(processId);
+
             return Ok(files);
+        }
+
+        [HttpGet("GetProcessFileByName/{processId}/{fileName}")]
+        public async Task<ActionResult<bool>> GetFileByName(Guid processId, string fileName)
+        {
+            var file = await _processFilesService.GetFileByName(processId, fileName);
+
+            if (file == null)
+            {
+                return Ok(false);
+            }
+
+            return Ok(true);
         }
 
         [HttpDelete("DeleteProcessFile/{fileId}/files")]
@@ -89,9 +125,11 @@ namespace PPGCRM.API.Controllers
             {
                 return NotFound();
             }
-            if (System.IO.File.Exists(file.FilePath))
+            var absolutePath = Path.Combine(_env.WebRootPath, "uploads", "processes", file.ProcessId.ToString(), file.FileName);
+
+            if (System.IO.File.Exists(absolutePath))
             {
-                System.IO.File.Delete(file.FilePath);
+                System.IO.File.Delete(absolutePath);
             }
             await _processFilesService.DeleteFileAsync(fileId);
             return NoContent();

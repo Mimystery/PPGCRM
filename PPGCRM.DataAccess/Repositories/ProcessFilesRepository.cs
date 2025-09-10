@@ -42,15 +42,29 @@ namespace PPGCRM.DataAccess.Repositories
             return _mapper.Map<ProcessFileModel>(fileEntity);
         }
 
+        public async Task<ProcessFileModel> GetFileByFileName(Guid processId, string fileName)
+        {
+            var fileEntity = await _context.ProcessFiles.Where(f => f.ProcessId == processId)
+                .FirstOrDefaultAsync(f => f.FileName == fileName);
+
+            return _mapper.Map<ProcessFileModel>(fileEntity);
+        }
+
         public async Task AddFileAsync(ProcessFileModel fileModel)
         {
             var fileEntity = _mapper.Map<ProcessFileEntity>(fileModel);
             await _context.ProcessFiles.AddAsync(fileEntity);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateFileAsync(Guid fileId, ProcessFileUpdateDTO processFileUpdateDto)
+        public async Task UpdateFileAsync(ProcessFileModel FileUpdate)
         {
-            throw new NotImplementedException();
+            var processFileEntity = await _context.ProcessFiles.FirstOrDefaultAsync(f => f.ProcessFileId == FileUpdate.ProcessFileId);
+
+            processFileEntity.FileSize = FileUpdate.FileSize;
+            processFileEntity.MimeType = FileUpdate.MimeType;
+            processFileEntity.UploadedAt = FileUpdate.UploadedAt;
+            processFileEntity.UploadedBy = FileUpdate.UploadedBy ?? processFileEntity.UploadedBy;
+            await _context.SaveChangesAsync();
         }
         public async Task DeleteFileAsync(Guid fileId)
         {
