@@ -125,16 +125,33 @@
 
             <div class="page-header-left">
                 <button nz-button nzType="default" class="page-header-btn create" 
-                (click)=" showOpenFiletModal()">
+                (click)=" showOpenFiletModal(fileInput)" [disabled]="!selectedProcess()">
                 <nz-icon nzType="plus" nzTheme="outline"/>
                 Open new file
                 </button>
+                <input 
+                    type="file" 
+                    #fileInput 
+                    style="display: none"
+                    (change)="onFileSelected($event)" />
             </div>
         </div>
-        <div class="flex-table" nzDropzone (nzFileDrop)="onFileDrop($event)">
+        <div class="file-placeholder" nzDropzone (drop)="onFileDrop($event)" 
+            (dragover)="onDragOver($event)">
+            <div class="flex-table">
             @if(selectedProcess()) {
                 @for(file of selectedProcess()?.processFiles; track file.processFileId) {
                     <div class="card file">
+                        <div class="file-actions">
+                            <button nz-button nzType="text" nzShape="circle" (click)="downloadFile(file)"
+                                class="action-button download">
+                                <nz-icon nzType="download" nzTheme="outline"></nz-icon>
+                            </button>
+                            <button nz-button nzType="text" nzShape="circle" (click)="deleteFile(file)"
+                                class="action-button delete">
+                                <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+                            </button>
+                        </div>
                         <nz-icon nzType="file" nzTheme="outline"></nz-icon>
                         <span>{{ file.fileName }}</span>
                     </div>
@@ -142,6 +159,7 @@
             } @else {
                 <span style="color: #999">Choose a process to see files</span>
             }
+        </div>
         </div>
     </div>
 </div>

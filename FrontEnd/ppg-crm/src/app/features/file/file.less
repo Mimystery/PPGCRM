@@ -31,8 +31,7 @@
         margin: 10px;
         padding: 5px 5px;
         background: #fff;
-        width: 400px;
-        min-width: 250px;
+        min-width: 350px;
         height: 99%;
 
     }
@@ -45,7 +44,7 @@
 
     .flex-table{
         margin-top: 5px;
-        margin-right: 10px;
+        padding: 0px;
     }
 
     .card.file {
@@ -58,19 +57,42 @@
         background: #fff;
         border: 1px solid #d9d9d9;
         border-radius: 4px;
-        width: 180px;
+        width: 225px;
         word-wrap: break-word;      /* перенос обычных слов */
         overflow-wrap: break-word;  /* перенос длинных слов/слогов */
         word-break: break-all;  
         text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &:hover {
+            background-color: #ffffff;
+            transform: scale(1.01);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    .file-actions{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .action-button.download{
+        color: green;
+        &:hover{
+            color: #0fb900;
+            transform: scale(1.02);
+        }
+    }
+    .action-button.delete{
+        color: rgb(255, 0, 0);
+        &:hover{
+            color: #ff2a2a;
+            transform: scale(1.02);
+        }
     }
 
     .file-placeholder {
-        width: 100%;
-        text-align: center;
-        color: #999;
-        padding: 20px 0;
-        margin-right: 10px;
+        height: 100%;
     }
 
 }

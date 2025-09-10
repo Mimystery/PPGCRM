@@ -12,17 +12,21 @@ import { StagesService } from '../kanban/data/services/stages-service';
 import { FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { FilesService } from './data/services/files-service';
+import { ProcessFile } from './data/interfaces/process-file.interface';
+import { NzCardComponent } from "ng-zorro-antd/card";
 
 @Component({
   selector: 'app-file',
-  imports: [NzCollapseComponent, DatePipe, NzProgressComponent, NzTagComponent, 
-    ProcessDrawerComponent, NzButtonModule, NzCollapseModule, FormsModule, NzInputModule, NzIconModule ],
+  imports: [NzCollapseComponent, DatePipe, NzProgressComponent, NzTagComponent,
+    ProcessDrawerComponent, NzButtonModule, NzCollapseModule, FormsModule, NzInputModule, NzIconModule, NzCardComponent],
   templateUrl: './file.html',
   styleUrl: './file.less'
 })
 export class FileComponent {
   calculateProgressService = inject(CalculateProgressService)
   stageService = inject(StagesService)
+  filesService = inject(FilesService)
 
   public processDrawerVisible =  signal(false);
   public stages: Stage[] | null = null;
@@ -46,12 +50,62 @@ export class FileComponent {
     return this.stages!.filter(s => s.stageId === this.selectedStageId());
   }
 
-  showOpenFiletModal(){
+  downloadFile(file: ProcessFile){
 
   }
 
-  onFileDrop(event: any){
+  deleteFile(file: ProcessFile){
+    
+  }
 
+  showOpenFiletModal(fileInput: HTMLInputElement){
+    fileInput.click();
+  } 
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length || !this.selectedProcess()) return;
+
+    const file = input.files[0];
+    const process = this.selectedProcess()!;
+
+    this.filesService.addFileToProcess(process.processId, file).subscribe({
+      next: () => {
+        this.filesService.getProcessFiles(process!.processId).subscribe({
+          next(value) {
+            process!.processFiles = value
+          },
+          error: (err) => console.error('Error', err)
+        })
+      },
+      error: (err) => console.error('Error', err)
+    });
+  }
+
+  onFileDrop(event: DragEvent){
+    event.preventDefault();
+    if (!event.dataTransfer?.files.length || !this.selectedProcess()) return;
+
+    const file = event.dataTransfer.files[0];
+    const process = this.selectedProcess();
+
+    this.filesService.addFileToProcess(process!.processId, file).subscribe({
+      next: () => {
+        this.filesService.getProcessFiles(process!.processId).subscribe({
+          next(value) {
+            process!.processFiles = value
+          },
+          error: (err) => console.error('Error', err)
+        })
+      },
+      error: (err) => console.error('Error', err)
+    })
+
+    //this.selectedProcess()?.processFiles.push(newFile);
   }
 
   onProcessDeleted(processId: string) {
