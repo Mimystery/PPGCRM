@@ -28,7 +28,7 @@
   <!-- SEARCH BAR -->
 
   <nz-input-group [nzSuffix]="suffixIconSearch" class="page-header-search">
-    <input type="text" nz-input placeholder="Search Projects" />
+    <input type="text" nz-input placeholder="Search Projects" [(ngModel)]="searchQuery"/>
   </nz-input-group>
   <ng-template #suffixIconSearch>
     <nz-icon nzType="search" />
@@ -37,7 +37,7 @@
 
 <!-- ARCHIVES TABLE -->
 <div class="flex-table">
-  @for (project of projects; track project.projectId) {
+  @for (project of filteredProjects; track project.projectId) {
     <app-archived-project-card [project]="project" (restored)="onProjectRestored($event)"></app-archived-project-card>
   } @empty {
    <nz-empty nzNotFoundContent="No Archived Projects Found.">

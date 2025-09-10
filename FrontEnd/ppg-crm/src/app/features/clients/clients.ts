@@ -23,6 +23,7 @@ import { ClientCardData } from './data/interfaces/client-card-data';
 export class ClientsComponent {
 //clients
 clientService = inject(ClientsService)
+searchQuery = '';
 
 isVisible = false;
 isOkDisabled = true;
@@ -35,6 +36,15 @@ constructor(){
     this.clients = val
   })
 }
+
+get filteredClients(): ClientCardData[] {
+      if (!this.searchQuery.trim()) {
+        return this.clients;
+      }
+      return this.clients.filter(p =>
+        p.companyName.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    }
 
 checkIsInputEmpty(){
     this.isOkDisabled = this.newClientName.trim() === '';

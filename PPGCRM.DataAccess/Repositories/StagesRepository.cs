@@ -30,6 +30,10 @@ namespace PPGCRM.DataAccess.Repositories
                     .ThenInclude(p => p.ResponsibleUsers)
                 .Include(s => s.Processes)
                     .ThenInclude(p => p.Tasks)
+                .Include(s => s.Processes)
+                    .ThenInclude(p => p.ProcessPauses)
+                .Include(s => s.Processes)
+                    .ThenInclude(p => p.ProcessFiles)
                 .OrderBy(s => s.CreatedAt)
                 .ToListAsync();
 

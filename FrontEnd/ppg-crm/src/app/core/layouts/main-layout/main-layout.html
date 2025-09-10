@@ -102,8 +102,12 @@
             <div class="header-left-block">
 
                 <span class="active-project">
-                  @if (selectedProjectService.selectedProjectName()!=null){
-                    {{selectedProjectService.selectedProjectName()}}
+                  @if (selectedProjectService.selectedProjectName() != null){
+                    @if(!selectedProjectService.selectedProjectIsArchived()){
+                        {{selectedProjectService.selectedProjectName()}}
+                    } @else {
+                       Arhived: {{selectedProjectService.selectedProjectName()}}
+                    }
                     }
                   @else {
                     No project selected

@@ -1,4 +1,5 @@
 import { User } from "../../../../core/auth/data/interfaces/user.interface";
+import { ProcessFile } from "../../../file/data/interfaces/process-file.interface";
 import { ProcessPause } from "../../../project-details/stages-list/process-drawer/data/interfaces/process-pause.interface";
 import { Task } from "./task.interface";
 
@@ -19,6 +20,7 @@ export interface ProcessDetails {
     tasks: Task[];
     responsibleUsers: User[];
     processPauses: ProcessPause[];
+    processFiles: ProcessFile[];
 }
 
 // {

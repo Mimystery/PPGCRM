@@ -34,10 +34,12 @@ userProfile: User | undefined;
 
   projectId = localStorage.getItem('selectedProjectId');
   projectName = localStorage.getItem('selectedProjectName');
+  projectIsArchived: boolean = localStorage.getItem('selectedProjectIsArchived') === 'true';
 
   constructor() {
     this.selectedProjectService.selectedProjectId.set(this.projectId)
     this.selectedProjectService.selectedProjectName.set(this.projectName)
+    this.selectedProjectService.selectedProjectIsArchived.set(this.projectIsArchived)
   }
 
   logout(){

@@ -23,6 +23,7 @@ import { ProjectsService } from '../projects/data/services/projects-service';
 export class ArchiveComponent {
   projects: ProjectCardData[] = [];
   activeProjects: ProjectCardData[] = [];
+  searchQuery = '';
 
     selectedProjectService = inject(SelectedProjectService);
     archivedProjectsService = inject(ArchivedProjectsService);
@@ -39,6 +40,15 @@ export class ArchiveComponent {
         })
     }
 
+    get filteredProjects(): ProjectCardData[] {
+      if (!this.searchQuery.trim()) {
+        return this.projects;
+      }
+      return this.projects.filter(p =>
+        p.projectName.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    }
+
     getActiveProjectsCount(): number{
       return this.activeProjects.length
     }
@@ -53,6 +63,6 @@ export class ArchiveComponent {
         this.activeProjects.push(activeProject);
       }
 
-      this.projects = this.projects.filter(p => p.projectId === projectId);
+      this.projects = this.projects.filter(p => p.projectId !== projectId);
     }
 }

@@ -100,6 +100,9 @@ namespace PPGCRM.DataAccess.Repositories
                 .Include(p => p.Stages)
                     .ThenInclude(s => s.Processes)
                         .ThenInclude(proc => proc.ProcessPauses)
+                .Include(p => p.Stages)
+                    .ThenInclude(s => s.Processes)
+                        .ThenInclude(proc => proc.ProcessFiles)
                 .FirstOrDefaultAsync(p => p.ProjectId == projectId);
 
             return _mapper.Map<ProjectDetailsDTO>(project);

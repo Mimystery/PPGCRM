@@ -18,7 +18,7 @@
   </div>
 
   <nz-input-group [nzSuffix]="suffixIconSearch" class="page-header-search clients">
-    <input type="text" nz-input placeholder="Search Clients" />
+    <input type="text" nz-input placeholder="Search Clients" [(ngModel)]="searchQuery"/>
   </nz-input-group>
   <ng-template #suffixIconSearch>
     <nz-icon nzType="search" />
@@ -35,7 +35,7 @@
 
 @if(clients){
   <div class="flex-table">
-    @for (client of clients; track client.clientId) {
+    @for (client of filteredClients; track client.clientId) {
       <app-client-card [client]="client"></app-client-card>
     }
   </div>

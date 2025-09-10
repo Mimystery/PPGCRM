@@ -8,8 +8,8 @@
   @if (project().description!=null) {
     <nz-card-meta
       [nzTitle]="titleTpl"
-      [nzDescription]="descrTpl"
     ></nz-card-meta>
+        <!-- [nzDescription]="descrTpl" -->
   } @else {
     <nz-card-meta
       [nzTitle]="titleTpl"
@@ -20,9 +20,9 @@
     <span class="card-title">{{ project().projectName }}</span>
   </ng-template>
 
-  <ng-template #descrTpl>
+  <!-- <ng-template #descrTpl>
     <div class="card-description">{{ project().description }}</div>
-  </ng-template>
+  </ng-template> -->
 
   <!-- Dates -->
   <div class="card-info-container">
