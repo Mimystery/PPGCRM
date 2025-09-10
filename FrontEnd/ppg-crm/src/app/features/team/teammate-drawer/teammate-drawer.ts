@@ -9,7 +9,7 @@ import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzImageModule} from 'ng-zorro-antd/image';
 import {NzIconModule} from 'ng-zorro-antd/icon';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {User} from '../../../core/auth/data/interfaces/user.interface';
 import {FormsModule} from '@angular/forms';
 import {UserService} from '../../../core/auth/data/services/user-service';
@@ -18,12 +18,13 @@ import {NzInputDirective} from 'ng-zorro-antd/input';
 import {ProcessDetails} from '../../project-details/stages-list/data/interfaces/process.interface';
 import {ProjectDetails} from '../../project-details/data/interfaces/project.details.interface';
 import {Stage} from '../../project-details/stages-list/data/interfaces/stage.interface';
+import { CalculateProgressService } from '../../project-details/data/services/calculate-progress-service';
 
 @Component({
   selector: 'app-teammate-drawer',
   imports: [NzDrawerModule, NzCardModule, NzTagModule, FormsModule, CommonModule,
     NzProgressModule, NzDividerModule, NzFlexModule, NzSelectModule, NzIconModule, CommonModule,
-    NzTableModule, NzImageModule, NzInputDirective,],
+    NzTableModule, NzImageModule, NzInputDirective, DatePipe],
   templateUrl: './teammate-drawer.html',
   styleUrl: './teammate-drawer.less'
 })
@@ -71,8 +72,13 @@ export class TeammateDrawerComponent implements OnChanges{
   filteredProcessesByStageId = new Array<ProcessDetails>;
   stages = new Array<Stage>
   filteredStagesByProjectId = new Array<Stage>
+  calculateProgressService = inject(CalculateProgressService)
 
   selectedProjectId:string = ''
+
+  getProgressPercent(process: ProcessDetails): number {
+    return this.calculateProgressService.calculateProgress(process)
+  }
 
   projectIdSelected = () => {
     if (this.selectedProjectId===null)

@@ -143,8 +143,14 @@ namespace PPGCRM.DataAccess.Repositories
             var projects = await _context.Projects
                 .Where(p => p.Stages.Any(s => s.Processes.Any(pr => pr.ResponsibleUsers.Any(u => u.UserId == userId))))
                 .Include(p => p.Stages)
-                .ThenInclude(s => s.Processes)
-                .ThenInclude(pr => pr.ResponsibleUsers)
+                    .ThenInclude(s => s.Processes)
+                        .ThenInclude(pr => pr.ResponsibleUsers)
+                .Include(p => p.Stages)
+                    .ThenInclude(s => s.Processes)
+                        .ThenInclude(p => p.Tasks)
+                .Include(p => p.Stages)
+                    .ThenInclude(s => s.Processes)
+                        .ThenInclude(p => p.ProcessPauses)
                 .ToListAsync();
 
             return _mapper.Map<List<ProjectDetailsDTO>>(projects);

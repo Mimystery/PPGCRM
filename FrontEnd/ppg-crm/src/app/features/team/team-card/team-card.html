@@ -12,6 +12,6 @@
       <span>Salary: {{ user()?.salary }}$</span>
     </div>
 
-    <nz-tag [nzColor]="'#FFA94D'" class="card-tag">{{ user()?.role }}</nz-tag>
+    <nz-tag [nzColor]="getColor(user().role)" class="card-tag">{{ user()?.role }}</nz-tag>
   </div>
 </nz-card>

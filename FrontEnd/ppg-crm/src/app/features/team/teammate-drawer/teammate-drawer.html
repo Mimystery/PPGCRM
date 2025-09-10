@@ -22,6 +22,7 @@
           <div>
             <h2>
               <!-- Name -->
+               <span>Full name: </span>
               <span *ngIf="!isEditingName">{{userUpdate.firstName + ' ' + userUpdate.lastName}}</span>
               <input
                 class="edit-input"
@@ -48,6 +49,7 @@
               <nz-divider nzType="vertical"></nz-divider>
 
               <!-- Username -->
+               <span>Username: </span>
               <span style="color:#767676;" *ngIf="!isEditingUsername">{{userUpdate.username}}</span>
               <input
                 nz-input
@@ -64,7 +66,7 @@
             </h2>
 
             <!-- Editable ROLE + RATE -->
-              <nz-select *ngIf="userUpdate" nzAllowClear nzPlaceHolder="Select status" [nzCustomTemplate]="defaultSelectedTemplate"
+              <nz-select *ngIf="userUpdate" nzPlaceHolder="Select status" [nzCustomTemplate]="defaultSelectedTemplate"
                          [(ngModel)]="userUpdate.role" (ngModelChange)="finishEditingTeammateField('role')">
                 <nz-option nzCustomContent nzLabel="Admin" nzValue="Admin">
                   <div style="display: flex; align-items: center; gap: 4px;">
@@ -109,6 +111,7 @@
               </ng-template>
               <nz-divider nzType="vertical"></nz-divider>
 
+              <span>Salary: </span>
               <span style="color:green;" *ngIf="!isEditingRate">{{userUpdate.salary}}</span>
               <input
                 nz-input
@@ -121,13 +124,13 @@
                 class="edit-input"
               />
               <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('rate')"></nz-icon>
-              per life
           </div>
 
           <!-- Editable CONTACTS -->
           <div class="info-container">
             <!-- Phone -->
             <p>
+              <span>Phone: </span>
               <span *ngIf="!isEditingPhone">{{userUpdate.phone}}</span>
               <input
                 nz-input
@@ -144,6 +147,7 @@
 
             <!-- Email -->
             <p>
+              <span>Email: </span>
               <span *ngIf="!isEditingEmail">{{userUpdate.email}}</span>
               <input
                 nz-input
@@ -202,18 +206,18 @@
       </div>
 
       <!-- Processes -->
-      <nz-table #outBordered nzOuterBordered>
+      <nz-table #outBordered nzOuterBordered [nzData]="processes">
         <tbody>
           @if (selectedProjectId==='') {
             @for (process of processes; track process.processId) {
               <tr>
                 <td>{{process.processName}}</td>
                 <td>{{process.notes}}</td>
-                <td>{{process.planEndDate}}</td>
+                <td>{{process.planEndDate | date: 'dd.MM.yyyy'}}</td>
                 <td><nz-tag nzColor="blue">{{process.status}}</nz-tag></td>
                 <td>
                   <nz-progress
-                    [nzPercent]="process.progress"
+                    [nzPercent]="getProgressPercent(process)"
                     nzStrokeColor="#7AC327"
                     [nzShowInfo]="true"
                     nzStrokeLinecap="round"
@@ -228,11 +232,11 @@
               <tr>
                 <td>{{process.processName}}</td>
                 <td>{{process.notes}}</td>
-                <td>{{process.planEndDate}}</td>
+                <td>{{process.planEndDate | date: 'dd.MM.yyyy'}}</td>
                 <td><nz-tag nzColor="blue">{{process.status}}</nz-tag></td>
                 <td>
                   <nz-progress
-                    [nzPercent]="process.progress"
+                    [nzPercent]="getProgressPercent(process)"
                     nzStrokeColor="#7AC327"
                     [nzShowInfo]="true"
                     nzStrokeLinecap="round"
@@ -247,11 +251,11 @@
               <tr>
                 <td>{{process.processName}}</td>
                 <td>{{process.notes}}</td>
-                <td>{{process.planEndDate}}</td>
+                <td>{{process.planEndDate | date: 'dd.MM.yyyy' }}</td>
                 <td><nz-tag nzColor="blue">{{process.status}}</nz-tag></td>
                 <td>
                   <nz-progress
-                    [nzPercent]="process.progress"
+                    [nzPercent]="getProgressPercent(process)"
                     nzStrokeColor="#7AC327"
                     [nzShowInfo]="true"
                     nzStrokeLinecap="round"

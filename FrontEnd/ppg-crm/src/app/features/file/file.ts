@@ -166,6 +166,7 @@ export class FileComponent {
           },
           error: (err) => console.error('Error', err)
         })
+        this.message.success('File successfully added!');
       },
       error: (err) => console.error('Error', err)
     })

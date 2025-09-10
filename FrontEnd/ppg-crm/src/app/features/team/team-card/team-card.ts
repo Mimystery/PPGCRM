@@ -22,4 +22,13 @@ export class TeamCardComponent {
     console.log('Team card clicked:', this.user());
     this.userSelected.emit(this.user());
   }
+
+  getColor(value: string): string {
+  switch(value) {
+    case 'Admin': return '#00C040';
+    case 'GIP': return '#FFA94D';
+    case 'Employee': return '#3a58dbff';
+    default: return '#FFA94D';
+  }
+}
 }
