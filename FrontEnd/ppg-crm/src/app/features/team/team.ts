@@ -38,6 +38,7 @@ router = inject(Router)
 message = inject(NzMessageService);
 
   selectedUser = signal<User | null>(null);
+  searchQuery = '';
 
   // setUser = (user: User) => {
   //   console.log('Selected user:', user);
@@ -61,8 +62,16 @@ isOkDisabled = true;
 selectedValue = null;
 newClientName = '';
 
-
 users: User[] = [];
+
+get filteredUsers(): User[] {
+    if (!this.searchQuery.trim()) {
+      return this.users;
+    }
+    return this.users.filter(u =>
+      u.firstName!.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
 
 constructor(){
   this.userService.getAllUsers().subscribe(val => {

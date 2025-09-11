@@ -45,7 +45,7 @@
   </div>
 
   <nz-input-group [nzSuffix]="suffixIconSearch" class="page-header-search">
-    <input type="text" nz-input placeholder="Search Teammates" />
+    <input type="text" nz-input placeholder="Search Teammates" [(ngModel)]="searchQuery"/>
   </nz-input-group>
   <ng-template #suffixIconSearch>
     <nz-icon nzType="search" />
@@ -54,7 +54,7 @@
 
 @if(users){
   <div class="flex-table">
-    @for (user of users; track user.userId) {
+    @for (user of filteredUsers; track user.userId) {
       <app-team-card (click)="openTeamDrawer(user)" [user]="user"></app-team-card>
     }
   </div>

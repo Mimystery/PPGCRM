@@ -62,9 +62,8 @@
   <!-- Progress Bar -->
   <nz-progress
     nz-tooltip
-
-    [nzPercent]="60"
-    [nzSuccessPercent]="30"
+    [nzPercent]="getProjectProgress(project()).percent"
+    [nzSuccessPercent]="getProjectProgress(project()).successPercent"
     nzStrokeColor="#FFA220"
     [nzStrokeWidth]="3"
     [nzShowInfo]="false"

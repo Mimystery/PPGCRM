@@ -29,6 +29,7 @@ export class ProjectCardComponent {
   projectDetailsService = inject(ProjectDetailsService)
   message = inject(NzMessageService);
   onCardClick = () =>{
+    console.log(this.project())
     this.selectedProjectService.selectedProjectName.set(this.project().projectName);
     this.selectedProjectService.selectedProjectId.set(this.project().projectId);
     this.selectedProjectService.selectedProjectIsArchived.set(this.project().isArchived)
@@ -37,6 +38,21 @@ export class ProjectCardComponent {
     localStorage.setItem('selectedProjectName', this.project().projectName);
     localStorage.setItem('selectedProjectIsArchived', String(this.project().isArchived));
   }
+
+  getProjectProgress(project: ProjectCardData){
+      if (!project || !project.processCountByStatus) {
+      return { done: 0, inProgress: 0, toDo: 0, percent: 0, successPercent: 0 };
+      }
+
+      const { ToDo = 0, InProgress = 0, Done = 0 } = project.processCountByStatus;
+
+      const total = ToDo + InProgress + Done || 1;
+
+      const successPercent = Math.round((Done / total) * 100);
+      const percent = Math.round(((Done + InProgress) / total) * 100);
+  
+      return { done: Done, inProgress: InProgress, toDo: ToDo, percent, successPercent };
+    }
 
   onArchiveClick() {
     const { processCountByStatus, ...archivedProjectBody } = this.project();

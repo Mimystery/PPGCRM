@@ -174,6 +174,12 @@ private normalizeDateOnly(value?: Date | string | null): Date | null {
         this.checkExpired();
       });
 
+      effect(() => {
+        const p = this.process?.();
+        if (p) {
+          this.previouseStatus = p.status; // устанавливаем при загрузке процесса
+        }
+      });
   }
 
   checkExpired(){
