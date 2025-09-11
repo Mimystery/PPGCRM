@@ -113,6 +113,8 @@ private fb = inject(NonNullableFormBuilder);
         salary: this.validateForm.controls.salary.value
       }
 
+      console.log('submit', payload);
+
       this.identityService.registerByAdmin(payload).subscribe({
         next: val => {
           this.router.navigate(['team/create-success'], { state: { regCode: val.registrationCode } });

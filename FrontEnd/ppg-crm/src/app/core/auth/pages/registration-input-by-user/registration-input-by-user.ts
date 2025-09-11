@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IdentityService } from '../../data/services/identity-service';
 import { Observable } from 'rxjs';
+import { UserService } from '../../data/services/user-service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -20,6 +22,8 @@ import { Observable } from 'rxjs';
 export class RegistrationInputByUserComponent {
   private fb = inject(NonNullableFormBuilder);
   identityService = inject(IdentityService);
+  userService = inject(UserService)
+  message = inject(NzMessageService)
 
   router = inject(Router)
   regCode = '';
@@ -65,15 +69,24 @@ export class RegistrationInputByUserComponent {
     if (this.validateForm.valid) {
       const email = this.validateForm.controls.email.value;
       const password = this.validateForm.controls.password.value
+
+      this.userService.getUserByEmail(email).subscribe({
+    next: (existingUser) => {
+      this.message.error('Пользователь с таким email уже существует');
+    },
+    error: (err) => {
+      // Если ошибка — значит юзер не найден и можно регистрировать
       this.identityService.registerByUser(this.regCode, email, password).subscribe({
-        next: (res) => {
-          this.router.navigate(['registrationSuccess'])
+        next: () => {
+          this.router.navigate(['registrationSuccess']);
         },
         error: (error) => {
-          console.error("Error", error)
+          console.error('Ошибка регистрации:', error);
+          this.message.error('Ошибка регистрации');
         }
       });
-      this.router.navigate(['registrationSuccess'])
+    }
+  });
     } else {
       this.validateForm.markAllAsTouched();  // Помечаем все как тронутые, чтобы ошибки отобразились
         this.validateForm.updateValueAndValidity();

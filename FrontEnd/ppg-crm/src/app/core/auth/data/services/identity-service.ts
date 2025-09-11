@@ -57,8 +57,8 @@ export class IdentityService {
   }
 
   registerByAdmin(payload: {firstName: string, lastName: string, role: string, salary: number}){
-    const user = {payload}
-    return this.http.post<{registrationCode: string}>(`https://localhost:7189/api/Identity/RegisterByAdmin`, user)
+    //const user = {payload}
+    return this.http.post<{registrationCode: string}>(`https://localhost:7189/api/Identity/RegisterByAdmin`, payload)
   }
 
   login(payload: {email: string, password: string}){
