@@ -72,17 +72,17 @@
                   <div style="display: flex; align-items: center; gap: 4px;">
                     <nz-icon>
                       <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="7.60714" height="8" rx="2" fill="#2679ff"/>
+                        <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
                       </svg>
                     </nz-icon>
                     Admin
                   </div>
                 </nz-option>
-                <nz-option nzCustomContent nzLabel="GIP" nzValue="GIP">
+                <nz-option nzCustomContent nzLabel="GIP" nzValue="Gip">
                   <div style="display: flex; align-items: center; gap: 4px;">
                     <nz-icon>
                       <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="7.60714" height="8" rx="2" fill="#FF9800"/>
+                        <rect width="7.60714" height="8" rx="2" fill="#FFA94D"/>
                       </svg>
                     </nz-icon>
                     GIP
@@ -92,7 +92,7 @@
                   <div style="display: flex; align-items: center; gap: 4px;">
                     <nz-icon>
                       <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+                        <rect width="7.60714" height="8" rx="2" fill="#3a58dbff"/>
                       </svg>
                     </nz-icon>
                     Employee
@@ -103,7 +103,7 @@
                 <div style="display: flex; align-items: center; gap: 4px;">
                   <nz-icon>
                     <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="7.60714" height="8" rx="2" fill="#00C040"/>
+                      <rect width="7.60714" height="8" rx="2" [attr.fill]="getColor(selected.nzValue)"/>
                     </svg>
                   </nz-icon>
                   {{ selected.nzLabel }}

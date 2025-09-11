@@ -212,5 +212,15 @@ export class TeammateDrawerComponent {
 
     this.updateUser();
   }
+
+  getColor(value: string): string {
+  switch(value) {
+    case 'Admin': return '#00C040';
+    case 'GIP': return '#FFA94D';
+    case 'Employee': return '#3a58dbff';
+    default: return '#FFA94D';
+  }
+}
+
   protected readonly window = window;
 }

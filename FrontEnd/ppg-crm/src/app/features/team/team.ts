@@ -116,6 +116,7 @@ private fb = inject(NonNullableFormBuilder);
       this.identityService.registerByAdmin(payload).subscribe({
         next: val => {
           this.router.navigate(['team/create-success'], { state: { regCode: val.registrationCode } });
+          console.log('submit', this.validateForm.value);
           this.isVisible = false;
           this.validateForm.reset();
         },

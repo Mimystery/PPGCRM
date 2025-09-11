@@ -127,6 +127,11 @@ namespace PPGCRM.DataAccess.Repositories
                 userEntity.Phone = userUpdateDto.Phone;
             }
 
+            if (userUpdateDto.Role != null)
+            {
+                userEntity.Role = userUpdateDto.Role;
+            }
+
             if (userUpdateDto.Salary != null)
             {
                 userEntity.Salary = userUpdateDto.Salary.Value;

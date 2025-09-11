@@ -9,7 +9,7 @@ namespace PPGCRM.Core.Enums
     public enum Role
     {
         Admin,
-        GIP,
+        Gip,
         Employee,
     }
 }
