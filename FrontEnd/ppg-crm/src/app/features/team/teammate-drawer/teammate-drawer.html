@@ -23,14 +23,14 @@
             <h2>
               <!-- Name -->
                <span>Full name: </span>
-              <span *ngIf="!isEditingName">{{userUpdate.firstName + ' ' + userUpdate.lastName}}</span>
+              <span *ngIf="!isEditingName">{{user()?.firstName + ' ' + user()?.lastName}}</span>
               <input
                 class="edit-input"
                 nz-input
                 *ngIf="isEditingName"
                 #nameInput
                 type="text"
-                [(ngModel)]="userUpdate.firstName"
+                [(ngModel)]="user().firstName"
                 (keyup.enter)="finishEditingTeammateField('name')"
                 (keyup.escape)="finishEditingTeammateField('name')"
               />
@@ -40,7 +40,7 @@
                 *ngIf="isEditingName"
                 #nameInput
                 type="text"
-                [(ngModel)]="userUpdate.lastName!"
+                [(ngModel)]="user().lastName!"
                 (keyup.enter)="finishEditingTeammateField('name')"
                 (keyup.escape)="finishEditingTeammateField('name')"
               />
@@ -50,14 +50,14 @@
 
               <!-- Username -->
                <span>Username: </span>
-              <span style="color:#767676;" *ngIf="!isEditingUsername">{{userUpdate.username}}</span>
+              <span style="color:#767676;" *ngIf="!isEditingUsername">{{user()?.username}}</span>
               <input
                 nz-input
                 *ngIf="isEditingUsername"
                 #usernameInput
                 type="text"
                 value="Username123"
-                [(ngModel)]="userUpdate.username"
+                [(ngModel)]="user().username"
                 (keyup.enter)="finishEditingTeammateField('username')"
                 (keyup.escape)="finishEditingTeammateField('username')"
                 class="edit-input"
@@ -66,8 +66,8 @@
             </h2>
 
             <!-- Editable ROLE + RATE -->
-              <nz-select *ngIf="userUpdate" nzPlaceHolder="Select status" [nzCustomTemplate]="defaultSelectedTemplate"
-                         [(ngModel)]="userUpdate.role" (ngModelChange)="finishEditingTeammateField('role')">
+              <nz-select *ngIf="user()" nzPlaceHolder="Select status" [nzCustomTemplate]="defaultSelectedTemplate"
+                         [(ngModel)]="user().role" (ngModelChange)="finishEditingTeammateField('role')">
                 <nz-option nzCustomContent nzLabel="Admin" nzValue="Admin">
                   <div style="display: flex; align-items: center; gap: 4px;">
                     <nz-icon>
@@ -112,13 +112,13 @@
               <nz-divider nzType="vertical"></nz-divider>
 
               <span>Salary: </span>
-              <span style="color:green;" *ngIf="!isEditingRate">{{userUpdate.salary}}</span>
+              <span style="color:green;" *ngIf="!isEditingRate">{{user()?.salary}}</span>
               <input
                 nz-input
                 *ngIf="isEditingRate"
                 #rateInput
                 type="number"
-                [(ngModel)]="userUpdate.salary"
+                [(ngModel)]="user().salary"
                 (keyup.enter)="finishEditingTeammateField('rate')"
                 (keyup.escape)="finishEditingTeammateField('rate')"
                 class="edit-input"
@@ -131,13 +131,13 @@
             <!-- Phone -->
             <p>
               <span>Phone: </span>
-              <span *ngIf="!isEditingPhone">{{userUpdate.phone}}</span>
+              <span *ngIf="!isEditingPhone">{{user()?.phone}}</span>
               <input
                 nz-input
                 *ngIf="isEditingPhone"
                 #phoneInput
                 type="text"
-                [(ngModel)]="userUpdate.phone!"
+                [(ngModel)]="user().phone!"
                 (keyup.enter)="finishEditingTeammateField('phone')"
                 (keyup.escape)="finishEditingTeammateField('phone')"
                 class="edit-input"
@@ -148,14 +148,14 @@
             <!-- Email -->
             <p>
               <span>Email: </span>
-              <span *ngIf="!isEditingEmail">{{userUpdate.email}}</span>
+              <span *ngIf="!isEditingEmail">{{user()?.email}}</span>
               <input
                 nz-input
                 *ngIf="isEditingEmail"
                 #emailInput
                 type="email"
                 value="anotheremail.com"
-                [(ngModel)]="userUpdate.email!"
+                [(ngModel)]="user().email!"
                 (keyup.enter)="finishEditingTeammateField('email')"
                 (keyup.escape)="finishEditingTeammateField('email')"
                 class="edit-input"

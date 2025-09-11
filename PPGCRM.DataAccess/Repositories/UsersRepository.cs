@@ -1,15 +1,17 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using PPGCRM.Core.Contracts.Clients;
+using PPGCRM.Core.Contracts.Processes;
+using PPGCRM.Core.Contracts.Projects;
+using PPGCRM.Core.Contracts.Users;
+using PPGCRM.Core.Enums;
+using PPGCRM.Core.Models;
+using PPGCRM.DataAccess.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using PPGCRM.Core.Contracts.Processes;
-using PPGCRM.Core.Contracts.Projects;
-using PPGCRM.Core.Contracts.Users;
-using PPGCRM.Core.Models;
-using PPGCRM.DataAccess.Entities;
 
 namespace PPGCRM.DataAccess.Repositories
 {
@@ -140,20 +142,86 @@ namespace PPGCRM.DataAccess.Repositories
 
         public async Task<List<ProjectDetailsDTO>> GetProjectsByUserIdAsync(Guid userId)
         {
-            var projects = await _context.Projects
-                .Where(p => p.Stages.Any(s => s.Processes.Any(pr => pr.ResponsibleUsers.Any(u => u.UserId == userId))))
-                .Include(p => p.Stages)
-                    .ThenInclude(s => s.Processes)
-                        .ThenInclude(pr => pr.ResponsibleUsers)
-                .Include(p => p.Stages)
-                    .ThenInclude(s => s.Processes)
-                        .ThenInclude(p => p.Tasks)
-                .Include(p => p.Stages)
-                    .ThenInclude(s => s.Processes)
-                        .ThenInclude(p => p.ProcessPauses)
+            //var projects = await _context.Projects
+            //    .Where(p => p.Stages.Any(s => s.Processes.Any(pr => pr.ResponsibleUsers.Any(u => u.UserId == userId))))
+            //    .Include(p => p.Stages)
+            //        .ThenInclude(s => s.Processes)
+            //            .ThenInclude(pr => pr.ResponsibleUsers)
+            //    .Include(p => p.Stages)
+            //        .ThenInclude(s => s.Processes)
+            //            .ThenInclude(p => p.Tasks)
+            //    .Include(p => p.Stages)
+            //        .ThenInclude(s => s.Processes)
+            //            .ThenInclude(p => p.ProcessPauses)
+            //    .ToListAsync();
+
+            //var processes = await _context.Processes.Where(p => p.ResponsibleUsers.Any(u => u.UserId == userId)).ToListAsync();
+
+            //return _mapper.Map<List<ProjectDetailsDTO>>(projects);
+
+            var processes = await _context.Processes
+                .Where(p => p.ResponsibleUsers.Any(u => u.UserId == userId))
+                .Include(p => p.ResponsibleUsers)
+                .Include(p => p.Tasks)
+                .Include(p => p.ProcessPauses).Include(processEntity => processEntity.Stage)
+                .ThenInclude(stageEntity => stageEntity.Project).ThenInclude(projectEntity => projectEntity.Client)
                 .ToListAsync();
 
-            return _mapper.Map<List<ProjectDetailsDTO>>(projects);
+            // 2. Группируем процессы по проекту через стадию
+            var projectsGrouped = processes
+                .GroupBy(p => p.Stage.Project)
+                .ToList();
+
+            var projectDTOs = new List<ProjectDetailsDTO>();
+
+            foreach (var projectGroup in projectsGrouped)
+            {
+                var project = projectGroup.Key;
+
+                var stages = projectGroup
+                    .GroupBy(p => p.Stage) // группы по стадиям
+                    .Select(stageGroup => new StageModel(
+                        stageGroup.Key.StageId,
+                        stageGroup.Key.ProjectId,
+                        stageGroup.Key.StageName,
+                        stageGroup.Key.PlanEndDate,
+                        stageGroup.Key.CreatedAt,
+                        stageGroup.Select(pr => _mapper.Map<ProcessModel>(pr)).ToList()
+                    ))
+                    .ToList();
+
+                var projectDTO = new ProjectDetailsDTO
+                {
+                    ProjectId = project.ProjectId,
+                    ClientId = project.ClientId,
+                    Client = _mapper.Map<ClientInProjectDTO>(project.Client),
+                    ProjectName = project.ProjectName,
+                    Description = project.Description,
+                    Status = Enum.TryParse<ProjectStatus>(project.Status, out var status) ? status : ProjectStatus.NotStarted,
+                    StartDate = project.StartDate,
+                    EndDate = project.EndDate,
+                    ConstructionWorksStart = project.ConstructionWorksStart,
+                    Budget = project.Budget,
+                    Expenses = project.Expenses,
+                    IsArchived = project.IsArchived,
+                    Stages = stages
+                };
+
+                projectDTOs.Add(projectDTO);
+            }
+
+            return projectDTOs;
         }
-}
+
+        public async Task<List<ProcessModel>> GetProcessesByUserIdAsync(Guid userId)
+        {
+            var processes = await _context.Processes.Where(p => p.ResponsibleUsers.Any(u => u.UserId == userId))
+                .Include(p => p.ResponsibleUsers)
+                .Include(p => p.Tasks)
+                .Include(p => p.ProcessPauses)
+                .Include(p => p.Stage)
+                .ThenInclude(s => s.Project).ThenInclude(projectEntity => projectEntity.Client).ToListAsync();
+            return _mapper.Map<List<ProcessModel>>(processes);
+        }
+    }
 }

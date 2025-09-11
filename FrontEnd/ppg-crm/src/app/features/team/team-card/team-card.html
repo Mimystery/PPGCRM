@@ -4,14 +4,14 @@
 
     <div class="card-info-item" style="flex: 1;">
       <div class="card-status">
-        <span class="card-title">{{ user()?.firstName }} {{ user()?.lastName }}</span>
+        <span class="card-title">{{ user().firstName }} {{ user().lastName }}</span>
       </div>
 
-      <span>Email: {{ user()?.email }}</span>
-      <span>Phone: {{ user()?.phone }}</span>
-      <span>Salary: {{ user()?.salary }}$</span>
+      <span>Email: {{ user().email }}</span>
+      <span>Phone: {{ user().phone }}</span>
+      <span>Salary: {{ user().salary }}$</span>
     </div>
 
-    <nz-tag [nzColor]="getColor(user().role)" class="card-tag">{{ user()?.role }}</nz-tag>
+    <nz-tag [nzColor]="getColor(user().role)" class="card-tag">{{ user().role }}</nz-tag>
   </div>
 </nz-card>

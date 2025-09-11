@@ -79,5 +79,12 @@ namespace PPGCRM.API.Controllers
             var projects = await _usersService.GetProjectsByUserIdAsync(userId);
             return Ok(projects);
         }
+
+        [HttpGet("GetProcessesByUserId/{userId}")]
+        public async Task<ActionResult<List<ProcessModel>>> GetProcessesByUserId(Guid userId)
+        {
+            var processes = await _usersService.GetProcessesByUserIdAsync(userId);
+            return Ok(processes);
+        }
     }
 }

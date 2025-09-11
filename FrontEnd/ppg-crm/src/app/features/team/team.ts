@@ -39,16 +39,17 @@ message = inject(NzMessageService);
 
   selectedUser = signal<User | null>(null);
 
-  setUser = (user: User) => {
-    console.log('Selected user:', user);
-    this.selectedUser.set(user);
-    this.openTeamDrawer();
-  };
+  // setUser = (user: User) => {
+  //   console.log('Selected user:', user);
+  //   this.selectedUser.set(user);
+  //   this.openTeamDrawer();
+  // };
 
   public teamDrawerVisible = signal(false);
 
-  openTeamDrawer = () => {
+  openTeamDrawer(user: User){
     console.log('Opening team drawer');
+    this.selectedUser.set(user);
     this.teamDrawerVisible.set(true)
   };
   closeTeamDrawer = () => {

@@ -15,6 +15,6 @@ public interface IUsersRepository
     Task AddUserAsync(UserModel user);
     Task UpdateUserAsync(Guid userId, UserUpdateDTO userUpdateDto);
     Task DeleteUserAsync(Guid userId);
-
     Task<List<ProjectDetailsDTO>> GetProjectsByUserIdAsync(Guid userId);
+    Task<List<ProcessModel>> GetProcessesByUserIdAsync(Guid userId);
 }

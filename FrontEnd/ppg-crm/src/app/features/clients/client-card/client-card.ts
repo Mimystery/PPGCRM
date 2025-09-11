@@ -47,23 +47,23 @@ export class ClientCardComponent {
   startEditing(field: string) {
     switch (field) {
       case 'companyName':
-        this.isEditingCompanyName = true;
+        this.isEditingCompanyName = !this.isEditingCompanyName;
         setTimeout(() => this.companyInput?.nativeElement.focus());
         break;
       case 'director':
-        this.isEditingDirector = true;
+        this.isEditingDirector = !this.isEditingDirector;
         setTimeout(() => this.directorInput?.nativeElement.focus());
         break;
       case 'contact':
-        this.isEditingContact = true;
+        this.isEditingContact = !this.isEditingContact;
         setTimeout(() => this.contactInput?.nativeElement.focus());
         break;
       case 'email':
-        this.isEditingEmail = true;
+        this.isEditingEmail = !this.isEditingEmail;
         setTimeout(() => this.emailInput?.nativeElement.focus());
         break;
       case 'phone':
-        this.isEditingPhone = true;
+        this.isEditingPhone = !this.isEditingPhone;
         setTimeout(() => this.phoneInput?.nativeElement.focus());
         break;
     }

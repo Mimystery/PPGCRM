@@ -16,4 +16,5 @@ public interface IUsersService
     Task UpdateUserAsync(Guid userId, UserUpdateDTO userUpdateDto);
     Task DeleteUserAsync(Guid userId);
     Task<List<ProjectDetailsDTO>> GetProjectsByUserIdAsync(Guid userId);
+    Task<List<ProcessModel>> GetProcessesByUserIdAsync(Guid userId);
 }

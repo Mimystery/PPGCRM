@@ -72,5 +72,10 @@ namespace PPGCRM.Application.Services
             return await _usersRepository.GetProjectsByUserIdAsync(userId);
         }
 
+        public async Task<List<ProcessModel>> GetProcessesByUserIdAsync(Guid userId)
+        {
+            return await _usersRepository.GetProcessesByUserIdAsync(userId);
+        }
+
     }
 }
