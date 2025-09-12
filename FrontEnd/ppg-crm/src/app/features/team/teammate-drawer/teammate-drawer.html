@@ -44,7 +44,10 @@
                 (keyup.enter)="finishEditingTeammateField('name')"
                 (keyup.escape)="finishEditingTeammateField('name')"
               />
-              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('name')"></nz-icon>
+              
+              @if(canEditField){
+                <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('name')"></nz-icon>
+              }
 
               <nz-divider nzType="vertical"></nz-divider>
 
@@ -62,12 +65,14 @@
                 (keyup.escape)="finishEditingTeammateField('username')"
                 class="edit-input"
               />
-              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('username')"></nz-icon>
+              @if(canEditField){
+                <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('username')"></nz-icon>
+              }
             </h2>
 
             <!-- Editable ROLE + RATE -->
               <nz-select *ngIf="user()" nzPlaceHolder="Select status" [nzCustomTemplate]="defaultSelectedTemplate"
-                         [(ngModel)]="user().role" (ngModelChange)="finishEditingTeammateField('role')">
+                         [(ngModel)]="user().role" (ngModelChange)="finishEditingTeammateField('role')" [disabled]="!canEditRole">
                 <nz-option nzCustomContent nzLabel="Admin" nzValue="Admin">
                   <div style="display: flex; align-items: center; gap: 4px;">
                     <nz-icon>
@@ -123,7 +128,9 @@
                 (keyup.escape)="finishEditingTeammateField('rate')"
                 class="edit-input"
               />
-              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('rate')"></nz-icon>
+              @if(canEditSalary){
+                <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('rate')"></nz-icon>
+              }
           </div>
 
           <!-- Editable CONTACTS -->
@@ -142,7 +149,9 @@
                 (keyup.escape)="finishEditingTeammateField('phone')"
                 class="edit-input"
               />
-              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('phone')"></nz-icon>
+              @if(canEditField){
+                <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('phone')"></nz-icon>
+              }
             </p>
 
             <!-- Email -->
@@ -160,7 +169,9 @@
                 (keyup.escape)="finishEditingTeammateField('email')"
                 class="edit-input"
               />
-              <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('email')"></nz-icon>
+              @if(canEditField){
+                <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('email')"></nz-icon>
+              }
             </p>
           </div>
         </div>

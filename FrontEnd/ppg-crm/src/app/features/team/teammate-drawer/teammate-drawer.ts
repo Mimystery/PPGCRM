@@ -19,6 +19,7 @@ import {ProcessDetails} from '../../project-details/stages-list/data/interfaces/
 import {ProjectDetails} from '../../project-details/data/interfaces/project.details.interface';
 import {Stage} from '../../project-details/stages-list/data/interfaces/stage.interface';
 import { CalculateProgressService } from '../../project-details/data/services/calculate-progress-service';
+import { IdentityService } from '../../../core/auth/data/services/identity-service';
 
 @Component({
   selector: 'app-teammate-drawer',
@@ -101,6 +102,7 @@ export class TeammateDrawerComponent {
 
   userUpdate = signal<User | null>(null);
   userService = inject(UserService);
+  identityService = inject(IdentityService)
   message = inject(NzMessageService);
 
   teamDrawerClosed = output();
@@ -112,10 +114,39 @@ export class TeammateDrawerComponent {
   isEditingPhone = false;
   isEditingEmail = false;
 
+  canEditRole = false;
+  canEditSalary = false
+  canEditField = false;
+
   constructor(){
     effect(() => {
       const u = this.user();
       if (u) {
+        const currentUserId = this.identityService.getUserId();
+        const currentUserRole = this.identityService.getUserRole();
+
+        if (currentUserId === u.userId && currentUserRole !== 'Admin') {
+          this.canEditRole = false;
+          this.canEditSalary = false;
+        } else if(currentUserId !== u.userId && currentUserRole !== 'Admin'){
+          this.canEditRole = false;
+          this.canEditSalary = false;
+        } else if(currentUserId !== u.userId && currentUserRole === 'Admin'){
+          this.canEditRole = true;
+          this.canEditSalary = true;
+        } else if(currentUserId === u.userId && currentUserRole === 'Admin'){
+          this.canEditRole = true;
+          this.canEditSalary = true;
+        }
+
+        if(currentUserId === u.userId){
+          this.canEditField = true;
+        } else if(currentUserRole !== u.userId && currentUserRole === 'Admin'){
+          this.canEditField = true;
+        } else if(currentUserId !== u.userId && currentUserRole !== 'Admin'){
+          this.canEditField = false;
+        }
+
         this.userUpdate.set({ ...u });
         if (u.userId) {
           this.userService.getAllProjectsByUserId(u.userId).subscribe({

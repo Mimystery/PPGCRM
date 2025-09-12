@@ -11,10 +11,11 @@ import { SelectedProjectService } from '../../services/selected-project/selected
 import { UserService } from '../../auth/data/services/user-service';
 import { User } from '../../auth/data/interfaces/user.interface';
 import { IdentityService } from '../../auth/data/services/identity-service';
+import { TeammateDrawerComponent } from "../../../features/team/teammate-drawer/teammate-drawer";
 
 @Component({
   selector: 'app-main-layout',
-  imports: [NzBreadCrumbModule, NzIconModule, NzMenuModule, NzLayoutModule, NzButtonModule, UserDrawerComponent, RouterOutlet, RouterModule],
+  imports: [NzBreadCrumbModule, NzIconModule, NzMenuModule, NzLayoutModule, NzButtonModule, UserDrawerComponent, RouterOutlet, RouterModule, TeammateDrawerComponent],
   standalone: true,
   templateUrl: './main-layout.html',
   styleUrls: ['./main-layout.css']
@@ -24,7 +25,7 @@ selectedProjectService = inject(SelectedProjectService);
 userService = inject(UserService)
 identityService = inject(IdentityService)
 
-userProfile: User | undefined;
+userProfile: User | null = null;
 
   ngOnInit(){
     this.userService.getUserDetails().subscribe( val => {

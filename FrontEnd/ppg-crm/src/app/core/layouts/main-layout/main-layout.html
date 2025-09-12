@@ -135,4 +135,6 @@
     <!-- USERDRAWER STARTS HERE -->
     <app-user-drawer [visible]="userDrawerVisible()"  (close)="closeDrawer()" ></app-user-drawer>
 
+    <app-teammate-drawer [user]="userProfile!" [isVisible]="userDrawerVisible()" (teamDrawerClosed)="closeDrawer()"></app-teammate-drawer>
+
 </nz-layout>

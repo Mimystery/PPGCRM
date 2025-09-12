@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TeammateDrawer } from './teammate-drawer';
+import { TeammateDrawerComponent } from './teammate-drawer';
 
-describe('TeammateDrawer', () => {
-  let component: TeammateDrawer;
-  let fixture: ComponentFixture<TeammateDrawer>;
+describe('TeammateDrawerComponent', () => {
+  let component: TeammateDrawerComponent;
+  let fixture: ComponentFixture<TeammateDrawerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TeammateDrawer]
+      imports: [TeammateDrawerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TeammateDrawer);
+    fixture = TestBed.createComponent(TeammateDrawerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

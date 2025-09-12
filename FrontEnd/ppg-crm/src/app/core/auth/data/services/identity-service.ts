@@ -47,6 +47,22 @@ export class IdentityService {
     }
   }
 
+  getUserRole(): string | null {
+  if (!this.token) {
+    this.token = this.cookieService.get('token');
+  }
+  if (!this.token) {
+    return null;
+  }
+
+  try {
+    const decoded = jwtDecode<JwtPayload>(this.token);
+    return decoded.Role; // вернём роль
+  } catch (e) {
+    return null;
+  }
+}
+
   checkPendingUser(code: string): Observable<any> {
     return this.http.get(`https://localhost:7189/api/Identity/CheckPendingUser/${code}`);
   }
