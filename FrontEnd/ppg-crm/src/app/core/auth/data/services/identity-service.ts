@@ -87,6 +87,9 @@ export class IdentityService {
   }
 
   logout() {
+    localStorage.removeItem('selectedProjectId');
+    localStorage.removeItem('selectedProjectName');
+    localStorage.removeItem('selectedProjectIsArchived');
     this.cookieService.deleteAll()
     this.token = null
     this.refreshToken = null
