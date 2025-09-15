@@ -7,6 +7,7 @@ import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzTagModule} from 'ng-zorro-antd/tag';
 import { User } from '../../../core/auth/data/interfaces/user.interface';
+import { IdentityService } from '../../../core/auth/data/services/identity-service';
 
 @Component({
   selector: 'app-team-card',
@@ -17,9 +18,10 @@ import { User } from '../../../core/auth/data/interfaces/user.interface';
 export class TeamCardComponent {
   user = input.required<User>();
   userSelected = output<User>();
+  identityService = inject(IdentityService)
+  currentUserRole = this.identityService.getUserRole();
 
   onTeamCardClicked(){
-    console.log('Team card clicked:', this.user());
     this.userSelected.emit(this.user());
   }
 

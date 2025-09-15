@@ -68,7 +68,6 @@ export class CalendarComponent implements AfterViewInit{
       useDetailPopup: false
     });
 
-    // получаем дату и заставляем Angular применить изменения
     this.updateCurrentMonth();
     this.cd.detectChanges();
 
@@ -76,15 +75,8 @@ export class CalendarComponent implements AfterViewInit{
 
     this.calendar.on('afterRenderSchedule', () => {
       this.updateCurrentMonth();
-      // безопасно освежить view
       this.cd.detectChanges();
     });
-
-    // this.calendar.on('clickEvent', (event: any) => {
-    //   const processId = event.schedule.id; // id события в календаре
-    //   console.log(processId)
-    //   this.openProcessDrawer(processId);
-    // });
 
     this.calendar.on('clickEvent', (event: any) => {
       const processId = event.event.id;
@@ -94,20 +86,18 @@ export class CalendarComponent implements AfterViewInit{
   }
 
   private openProcessDrawer(processId: string) {
-  // ищем процесс в stages
   for (const stage of this.stages) {
     const process = stage.processes.find(p => String(p.processId) === processId);
     if (process) {
       this.selectedProcess.set(process);
       this.processDrawerVisible.set(true);
-      this.cd.detectChanges(); // обновляем Angular view
+      this.cd.detectChanges();
       break;
     }
   }
 }
 
 onProcessUpdated(process: ProcessDetails) {
-  // обновляем в локальном массиве stages
   for (const stage of this.stages) {
     const idx = stage.processes.findIndex(p => p.processId === process.processId);
     if (idx !== -1) {
@@ -115,10 +105,9 @@ onProcessUpdated(process: ProcessDetails) {
     }
   }
 
-  // обновляем событие в календаре
   this.calendar.updateEvent(
-    String(process.processId), // id события
-    process.stageId,           // calendarId
+    String(process.processId),
+    process.stageId,
     {
       start: (process.startDate as Date).toISOString(),
       end: (process.planEndDate as Date).toISOString(),
@@ -129,7 +118,6 @@ onProcessUpdated(process: ProcessDetails) {
 }
 
   onProcessDeleted(processId: string) {
-    // удаляем процесс из stages и перерисовываем календарь
     this.stages.forEach(stage => {
       stage.processes = stage.processes.filter(p => p.processId !== processId);
     });
@@ -146,7 +134,6 @@ onProcessUpdated(process: ProcessDetails) {
   private loadCalendarEvents() {
   if (!this.calendar) return;
 
-  // очищаем календарь
   this.calendar.clear();
 
   if (!this.stages || this.stages.length === 0) return;
@@ -166,7 +153,7 @@ onProcessUpdated(process: ProcessDetails) {
         start: (p.startDate as Date).toISOString(),
         end: (p.planEndDate as Date).toISOString(),
         backgroundColor: this.getColor(p.status),
-        color: '#ffffff' // цвет текста на событии
+        color: '#ffffff'
       }))
   );
 

@@ -68,7 +68,7 @@ export class ProcessDrawerComponent {
   confirmDelete(){
     this.processesService.deleteProcess(this.process().processId).subscribe({
       next: () => {
-        this.message.success('ProcessDeleted!');
+        this.message.success('Process Deleted!');
         this.deleted.emit(this.process().processId);
         this.handleClose();
         
@@ -145,7 +145,6 @@ private normalizeDateOnly(value?: Date | string | null): Date | null {
 
     this.usersService.getAllUsers().subscribe(val => {
       this.users = val
-      console.log(this.users)
     })
 
     this.notesUpdate$
@@ -177,24 +176,21 @@ private normalizeDateOnly(value?: Date | string | null): Date | null {
       effect(() => {
         const p = this.process?.();
         if (p) {
-          this.previouseStatus = p.status; // устанавливаем при загрузке процесса
+          this.previouseStatus = p.status;
         }
       });
   }
 
   checkExpired(){
-    const p = this.process?.(); // process — signal (input)
+    const p = this.process?.();
     if (!p) return;
 
-    // не мешаем, если пользователь сейчас редактирует даты вручную
     if (this.isEditingPlanEndDate || this.isEditingFactEndDate) return;
 
     const planDate = this.normalizeDateOnly(p.planEndDate);
     const factDate = this.normalizeDateOnly(p.factEndDate);
     const today = this.normalizeDateOnly(new Date())!;
 
-    // если есть плановая дата, она уже в прошлом (только дата), факт окончания нет,
-    // и статус ещё не Expired/Done/Paused — ставим Expired и сохраняем
     if (
       planDate &&
       planDate.getTime() < today.getTime() &&
@@ -205,7 +201,6 @@ private normalizeDateOnly(value?: Date | string | null): Date | null {
     ) {
       console.log('Auto-set Expired for process', p.processId, planDate, today);
       p.status = 'Expired';
-      // отправляем обновление на сервер
       this.updateProcess(p);
     }
   }
@@ -258,7 +253,7 @@ private normalizeDateOnly(value?: Date | string | null): Date | null {
         const p = this.process();
         if (p && p.processPauses) {
           const newPauses = p.processPauses.filter(x => x.pauseId !== pauseId);
-          p.processPauses = newPauses; // присваиваем новый массив — UI обновится
+          p.processPauses = newPauses;
         }
         this.message.success('Pause removed!');
       },
@@ -289,8 +284,6 @@ private normalizeDateOnly(value?: Date | string | null): Date | null {
   }
 
   onTaskDeleteClick(task: Task){
-    //console.log(task.taskId)
-
     this.process().tasks = this.process().tasks.filter(t => t.taskId !== task.taskId)
 
     this.tasksService.removeTask(task.taskId).subscribe({

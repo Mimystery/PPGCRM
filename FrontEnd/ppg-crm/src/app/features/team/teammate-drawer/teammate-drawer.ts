@@ -116,6 +116,7 @@ export class TeammateDrawerComponent {
 
   canEditRole = false;
   canEditSalary = false
+  canSeeSalary = false;
   canEditField = false;
 
   constructor(){
@@ -126,15 +127,19 @@ export class TeammateDrawerComponent {
         const currentUserRole = this.identityService.getUserRole();
 
         if (currentUserId === u.userId && currentUserRole !== 'Admin') {
+          this.canSeeSalary = true;
           this.canEditRole = false;
           this.canEditSalary = false;
         } else if(currentUserId !== u.userId && currentUserRole !== 'Admin'){
+          this.canSeeSalary = false;
           this.canEditRole = false;
           this.canEditSalary = false;
         } else if(currentUserId !== u.userId && currentUserRole === 'Admin'){
           this.canEditRole = true;
           this.canEditSalary = true;
+          this.canSeeSalary = true;
         } else if(currentUserId === u.userId && currentUserRole === 'Admin'){
+          this.canSeeSalary = true;
           this.canEditRole = true;
           this.canEditSalary = true;
         }

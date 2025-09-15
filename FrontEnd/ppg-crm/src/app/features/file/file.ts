@@ -44,7 +44,6 @@ export class FileComponent {
   constructor(){
     this.stageService.getStages().subscribe( val => {
       this.stages = val
-      console.log(this.stages)
     })
   }
 

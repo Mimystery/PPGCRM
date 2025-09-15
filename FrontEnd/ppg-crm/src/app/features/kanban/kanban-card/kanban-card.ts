@@ -52,7 +52,6 @@ export class KanbanCardComponent {
   @ViewChild('stageInput') stageInput!: ElementRef<HTMLInputElement>;
   @Output() stageDeleted = new EventEmitter<string>();
 
-  // 🔹 New process modal state
   createNewProcessModalVisible = false;
   createNewProcessModalOkDisabled = true;
   createNewProcessName = '';
@@ -144,7 +143,7 @@ export class KanbanCardComponent {
       process.sortOrder = index;
       this.processesService.updateProcess(process.processId, process)
         .subscribe({
-          complete: () => this.message.success('Data updated!'),
+          complete: () => {},
           error: () => this.message.error('Error updating')
         });
     });
@@ -155,7 +154,6 @@ export class KanbanCardComponent {
   }
 
   openProcessDrawer = (process: ProcessDetails) => {
-    //console.log("Drawer click:", process)
     this.selectedProcess.set(process);
     this.processDrawerVisible.set(true) 
   }
@@ -167,7 +165,7 @@ export class KanbanCardComponent {
   confirmDeleteStage(stageId: string){
     this.stagesService.deleteStage(stageId).subscribe({
       next: () => {
-        this.message.success('StageDeleted!');
+        this.message.success('Stage Deleted!');
         this.stageDeleted.emit(stageId);
       },
       error: (err) => {

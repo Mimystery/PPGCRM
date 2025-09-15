@@ -29,7 +29,6 @@ export class ProjectCardComponent {
   projectDetailsService = inject(ProjectDetailsService)
   message = inject(NzMessageService);
   onCardClick = () =>{
-    console.log(this.project())
     this.selectedProjectService.selectedProjectName.set(this.project().projectName);
     this.selectedProjectService.selectedProjectId.set(this.project().projectId);
     this.selectedProjectService.selectedProjectIsArchived.set(this.project().isArchived)

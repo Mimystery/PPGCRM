@@ -9,13 +9,14 @@
   <ng-container *nzDrawerContent>
     <div class="container drawer-teammate">
       <div nz-flex nzJustify="start" nzGap="1vw" style="height: 20vh;">
-        <img
+        <!-- <img
           nz-image
           height="100%"
           style="border-radius: 10px;"
           nzSrc="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
           alt=""
-        />
+        /> -->
+        <img src="user.png"/>
 
         <div nz-flex nzJustify="space-between" [nzVertical]="true" nzAlign="space-between" nzGap="1vh">
           <!-- Editable NAME + USERNAME -->
@@ -116,7 +117,8 @@
               </ng-template>
               <nz-divider nzType="vertical"></nz-divider>
 
-              <span>Salary: </span>
+              @if(canSeeSalary){
+                <span>Salary: </span>
               <span style="color:green;" *ngIf="!isEditingRate">{{user()?.salary}}</span>
               <input
                 nz-input
@@ -128,6 +130,7 @@
                 (keyup.escape)="finishEditingTeammateField('rate')"
                 class="edit-input"
               />
+              }
               @if(canEditSalary){
                 <nz-icon nzType="edit" class="edit-icon" (click)="startEditingTeammateField('rate')"></nz-icon>
               }
@@ -219,6 +222,15 @@
       <!-- Processes -->
       <nz-table #outBordered nzOuterBordered [nzData]="processes">
         <tbody>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Notes</th>
+              <th>End date</th>
+              <th>Status</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
           @if (selectedProjectId==='') {
             @for (process of processes; track process.processId) {
               <tr>
@@ -236,7 +248,6 @@
                 </td>
               </tr>
             } @empty {
-              niema
             }
           } @else if (selectedProjectId!='' && selectedStageId==='') {
             @for (process of filteredProcessesByProjectId; track process.processId) {
@@ -255,7 +266,6 @@
                 </td>
               </tr>
             } @empty {
-              niema
             }
           } @else if (selectedStageId !=''){
             @for (process of filteredProcessesByStageId; track process.processId) {
@@ -274,7 +284,6 @@
                 </td>
               </tr>
             } @empty {
-              niema
             }
           }
 

@@ -40,16 +40,9 @@ message = inject(NzMessageService);
   selectedUser = signal<User | null>(null);
   searchQuery = '';
 
-  // setUser = (user: User) => {
-  //   console.log('Selected user:', user);
-  //   this.selectedUser.set(user);
-  //   this.openTeamDrawer();
-  // };
-
   public teamDrawerVisible = signal(false);
 
   openTeamDrawer(user: User){
-    console.log('Opening team drawer');
     this.selectedUser.set(user);
     this.teamDrawerVisible.set(true)
   };
@@ -100,7 +93,6 @@ private fb = inject(NonNullableFormBuilder);
   }
 
   submitForm(): void {
-    console.log('submit', this.validateForm.value);
   }
 
   resetForm(e: MouseEvent): void {
@@ -127,7 +119,6 @@ private fb = inject(NonNullableFormBuilder);
       this.identityService.registerByAdmin(payload).subscribe({
         next: val => {
           this.router.navigate(['team/create-success'], { state: { regCode: val.registrationCode } });
-          console.log('submit', this.validateForm.value);
           this.isVisible = false;
           this.validateForm.reset();
         },

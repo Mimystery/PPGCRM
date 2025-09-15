@@ -94,28 +94,11 @@
         [nzStrokeWidth]="3"
         [nzShowInfo]="false"
       ></nz-progress>
-      <!-- ***TODO: НЕ РОБИТЬ ХУЙНЯ
-    <nz-progress
-      nz-tooltip
-      nzTooltipTitle="3 done / 3 in progress / 4 to do"
-      [nzPercent]="60"
-      [nzSuccessPercent]="30"
-      nzStrokeColor="#FFA220"
-      [nzStrokeWidth]="3"
-      [nzShowInfo]="false"
-    ></nz-progress> -->
     </ng-template>
   }
     </div>
     <div class="main-content">
         <div class="page-header">
-
-            <!-- <nz-input-group [nzSuffix]="suffixIconSearch" class="page-header-search file">
-                <input type="text" nz-input placeholder="Search Clients" [(ngModel)]="searchQuery"/>
-            </nz-input-group>
-            <ng-template #suffixIconSearch>
-                <nz-icon nzType="search" />
-            </ng-template> -->
 
             @if(selectedProcess()){
                 <span class="selected-process-name">{{ selectedProcess()?.processName }}</span>

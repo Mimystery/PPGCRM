@@ -64,7 +64,7 @@ checkIsInputEmpty(){
       })
       },
       error: (err) => {
-        console.log('Ошибка:', err);
+        console.error('Ошибка:', err);
       }
     });
 

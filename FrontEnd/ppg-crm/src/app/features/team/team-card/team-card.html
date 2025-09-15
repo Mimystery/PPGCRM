@@ -9,7 +9,9 @@
 
       <span>Email: {{ user().email }}</span>
       <span>Phone: {{ user().phone }}</span>
-      <span>Salary: {{ user().salary }}$</span>
+      @if(currentUserRole === 'Admin'){
+        <span>Salary: {{ user().salary }}$</span>
+      }
     </div>
 
     <nz-tag [nzColor]="getColor(user().role)" class="card-tag">{{ user().role }}</nz-tag>

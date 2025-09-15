@@ -47,8 +47,6 @@ export class ProjectDetailsComponent {
   project: ProjectDetails | null = null;
   clients: ClientCardData[] | null = null;
 
-  //*** ЧЧОГО boolean | "submitting"???? БО КОЛИ ВІДПРАВЛЯТИ ДАННІ І ОЧІКУЄМО ОТВЕТ БЕКЕНДА ЩОБ БУЛА АНІМАЦІЯ КРУЖОЧКА ЯК ТІЛЬКИ ЗМІНИТЬСЯ ТО
-  //* МІНЯЄМО З СУБМІТІНГ НА БУЛЛ І ВСЕ
   isEditingProjectName: boolean | "submiting" = false;
   isEditingBudget: boolean | "submiting" = false;
   isEditingExpenses: boolean | "submiting" = false;
@@ -79,8 +77,6 @@ export class ProjectDetailsComponent {
               }
             }
           }
-          console.log(typeof this.projectResponsibleUsers);
-          console.log(this.project)
           this.projectResponsibleUsers = uniqueUsers
 
           this.projectUsersSerivce.setUsers(this.projectResponsibleUsers)
@@ -227,15 +223,12 @@ export class ProjectDetailsComponent {
   finishEditingDetailsField(field: string) {
     if (field === 'budget') {
       this.isEditingBudget = false;
-      console.log('Новое значение:', this.project?.budget);
     }
     if (field === 'expenses') {
       this.isEditingExpenses = false;
-      console.log('Новое значение:', this.project?.expenses);
     }
     if (field === 'projectName') {
       this.isEditingProjectName = false;
-      console.log('Новое значение:', this.project?.projectName);
     }
     if (field === 'startDate') {
       this.isEditingStartDate = false;
@@ -261,16 +254,14 @@ export class ProjectDetailsComponent {
   }
 
   getColor(value: string): string {
-  switch(value) {
-    case 'NotStarted': return '#9E9E9E';
-    case 'InProgress': return '#2679ff';
-    case 'Paused': return '#FF9800';
-    case 'Done': return '#00C040';
-    case 'Expired': return '#F44336';
-    case 'Cancelled': return '#fadd05';
-    default: return '#000';
+    switch(value) {
+      case 'NotStarted': return '#9E9E9E';
+      case 'InProgress': return '#2679ff';
+      case 'Paused': return '#FF9800';
+      case 'Done': return '#00C040';
+      case 'Expired': return '#F44336';
+      case 'Cancelled': return '#fadd05';
+      default: return '#000';
+    }
   }
-}
-
-  //protected readonly ProjectDetails = ProjectDetails;
 }
