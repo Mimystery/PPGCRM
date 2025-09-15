@@ -1,4 +1,4 @@
-﻿version: "3.9"
+version: "3.9"
 
 services:
   postgres:
@@ -16,8 +16,8 @@ services:
   backend:
     container_name: ppgcrm_api
     build:
-      context: ./PPGCRM.API
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: PPGCRM.API/Dockerfile
     environment:
      - JwtOptions__ExpiresInMinutes=5
      - JwtOptions__SecretKey=5i936cf0vfb6vcjzyucdpxyrh5es6oj8
@@ -30,7 +30,7 @@ services:
   frontend:
     container_name: ppgcrm_frontend
     build:
-      context: ./Frontend/ppg-crm
+      context: .Frontend/ppg-crm
       dockerfile: Dockerfile
     ports:
       - "4200:80"
