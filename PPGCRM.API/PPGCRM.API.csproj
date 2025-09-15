@@ -30,4 +30,8 @@
     <Folder Include="wwwroot\uploads\processes\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Dockerfile" />
+  </ItemGroup>
+
 </Project>
