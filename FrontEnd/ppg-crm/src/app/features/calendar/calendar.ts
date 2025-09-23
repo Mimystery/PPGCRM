@@ -16,6 +16,7 @@ import { ProcessDrawerComponent } from "../project-details/stages-list/process-d
   templateUrl: './calendar.html',
   styleUrls: ['./calendar.less']
 })
+
 export class CalendarComponent implements AfterViewInit{
   private cd = inject(ChangeDetectorRef);
   stagesService = inject(StagesService);
